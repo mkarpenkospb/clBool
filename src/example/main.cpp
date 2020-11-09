@@ -26,17 +26,17 @@ void test_convolution() {
 
 
 int main() {
-//    test_convolution();
-    int n = 0;
-    int m = 0;
-    std::vector<value_type> a;
-    std::vector<value_type> b;
-    std::vector<value_type> c;
-    parse_input("../resources/input2.txt", a, b, n, m);
-    c.resize(n * n);
-    convoluion(a, b, c, n, m);
-    check_correctness(a, b, c, n, m);
-//    print_matrix(c, n);
-    write_result("../resources/output2.txt", c, n);
+    test_convolution();
+//    int n = 0;
+//    int m = 0;
+//    std::vector<value_type> a;
+//    std::vector<value_type> b;
+//    std::vector<value_type> c;
+//    parse_input("../resources/input2.txt", a, b, n, m);
+//    c.resize(n * n);
+//    convoluion(a, b, c, n, m);
+//    check_correctness(a, b, c, n, m);
+////    print_matrix(c, n);
+//    write_result("../resources/output2.txt", c, n);
     return 0;
 }
