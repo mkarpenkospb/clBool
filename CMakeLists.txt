@@ -13,6 +13,10 @@ add_executable (sparse-boolean-matrix-operations src/example/main.cpp src/exampl
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})
 
 
+add_executable(coo src/COO/main_coo.cpp src/COO/cl/clion_defines.cl src/COO/coo_initialization.cpp src/COO/cl/coo_bitonic_sort.cl)
+target_link_libraries (coo ${OpenCL_LIBRARY})
+
+
 # у меня этот макрос через раз отрабатывает, вроде файл поменяла, а он не скопировался
 # copy cl files to binary folder
 FILE(GLOB CL_FILES src/example/cl/*.cl)
