@@ -13,7 +13,7 @@ add_executable (sparse-boolean-matrix-operations src/example/main.cpp src/exampl
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})
 
 
-add_executable(coo src/COO/main_coo.cpp src/COO/cl/clion_defines.cl src/COO/coo_initialization.cpp src/COO/cl/coo_bitonic_sort.cl)
+add_executable(coo src/COO/main_coo.cpp src/COO/cl/clion_defines.cl src/COO/coo_initialization.cpp src/COO/cl/coo_bitonic_sort.cl src/utils.cpp)
 target_link_libraries (coo ${OpenCL_LIBRARY})
 
 
