@@ -5,4 +5,4 @@
 #define CL_HPP_TARGET_OPENCL_VERSION 110
 
 #include "../libs/clew/CL/cl.h"
-#include "../libs/clew/CL/cl2.hpp"
+#include "../libs/clew/CL/opencl.hpp"
