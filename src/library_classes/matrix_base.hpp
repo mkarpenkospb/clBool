@@ -35,15 +35,15 @@ namespace details {
             return sparse_format;
         };
 
-        virtual uint32_t get_n_rows() const {
+        uint32_t get_n_rows() const {
             return n_rows;
         };
 
-        virtual uint32_t get_n_cols() const {
+        uint32_t get_n_cols() const {
             return n_cols;
         };
 
-        virtual uint32_t get_n_entities() const {
+        uint32_t get_n_entities() const {
             return n_entities;
         };
 
