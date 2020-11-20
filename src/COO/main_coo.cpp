@@ -3,6 +3,7 @@
 #include "../utils.hpp"
 #include "../fast_random.h"
 #include "../library_classes/matrix_coo.hpp"
+#include "../library_classes/matrix_csr.hpp"
 #include "../library_classes/controls.hpp"
 
 #include <vector>

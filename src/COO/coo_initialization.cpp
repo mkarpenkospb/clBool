@@ -106,7 +106,8 @@ void fill_random_matrix(std::vector<uint32_t>& rows, std::vector<uint32_t>& cols
     uint32_t n = rows.size();
     FastRandom r(n);
     for (uint32_t i = 0 ; i < n; ++i) {
-        rows[i] = r.next() % 1024;
-        cols[i] = r.next() % 1024;
+        // чтобы нулей не было
+        rows[i] = r.next() % 1024 + 1;
+        cols[i] = r.next() % 1024 + 1;
     }
 }
