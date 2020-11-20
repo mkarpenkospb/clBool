@@ -1,20 +1,21 @@
-#include <cstddef>
-#include <iostream>
-#include <vector>
+//#include "../cl_defines.hpp"
 
-#define CL_HPP_ENABLE_EXCEPTIONS
-#define CL_HPP_MINIMUM_OPENCL_VERSION 110
-#define CL_HPP_TARGET_OPENCL_VERSION 110
-
-#include "coo_initialization.hpp"
+#include "../utils.hpp"
 #include "../fast_random.h"
+#include "../library_classes/matrix_coo.hpp"
+#include "../library_classes/controls.hpp"
+
+#include <vector>
+#include <iomanip>
+#include <algorithm>
+#include <iostream>
 
 
 int main() {
     // check on different ns
 
     uint32_t max_size = 32 * 1024 * 1024;
-    uint32_t test_num = 6;
+    uint32_t test_num = 1;
 
     uint32_t n = 0;
     std::vector<uint32_t> rows;
@@ -22,16 +23,21 @@ int main() {
 
     FastRandom r(42);
 
+    Controls controls = create_controls();
+
     for (uint32_t test_iter = 0; test_iter < test_num; ++ test_iter) {
         n = std::abs(r.next()) % max_size;
         std::cout << "for n=" << n << std::endl;
         rows.resize(n);
         cols.resize(n);
         fill_random_matrix(rows, cols);
-        sort_arrays(rows, cols);
-        check_correctness(rows, cols);
-    }
+        uint32_t n_rows = *std::max_element(rows.begin(), rows.end());
+        uint32_t n_cols = *std::max_element(cols.begin(), cols.end());
 
+        auto matrix = matrix_coo(controls, n_rows, n_cols, n, rows, cols);
+//        sort_arrays(rows, cols);
+        check_correctness(matrix.get_rows_indexes_cpu(), matrix.get_column_indexes_cpu());
+    }
 }
 
 
