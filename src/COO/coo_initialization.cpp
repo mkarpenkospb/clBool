@@ -36,7 +36,7 @@ void sort_arrays(Controls& controls, cl::Buffer &rows_gpu, cl::Buffer &cols_gpu,
 
         uint32_t work_group_size = block_size;
         // a bitonic sort needs 2 time less threads than values in array to sort
-        uint32_t global_work_size = calculate_global_size(work_group_size, round_to_power2(n));
+        uint32_t global_work_size = utils::calculate_global_size(work_group_size, utils::round_to_power2(n));
 
         cl::Kernel coo_bitonic_begin_kernel(program, "local_bitonic_begin");
         cl::Kernel coo_bitonic_global_step_kernel(program, "bitonic_global_step");
@@ -56,7 +56,7 @@ void sort_arrays(Controls& controls, cl::Buffer &rows_gpu, cl::Buffer &cols_gpu,
         uint32_t segment_length = work_group_size * 2 * 2;
 
 //        // TODO : power function for unsigned?
-        uint32_t outer = ceil_to_power2(ceil(n * 1.0 / (work_group_size * 2)));
+        uint32_t outer = utils::ceil_to_power2(ceil(n * 1.0 / (work_group_size * 2)));
 
         while (outer != 1) {
             coo_bitonic_global_step(eargs, rows_gpu, cols_gpu, segment_length, 1, n);
@@ -70,7 +70,7 @@ void sort_arrays(Controls& controls, cl::Buffer &rows_gpu, cl::Buffer &cols_gpu,
         std::cout << "\nfinished" << std::endl;
     } catch (const cl::Error& e) {
         std::stringstream exception;
-        exception << "\n" << e.what() << " : " << e.err() << "\n";
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
         if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
             exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device);
         }
