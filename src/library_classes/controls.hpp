@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 
 // TODO: in opencl 2.0 we have DeviceCommandQueue class so what about opencl 2.0?
 
@@ -18,6 +19,16 @@ struct Controls {
     , context(cl::Context(device))
     , queue(cl::CommandQueue(context))
     {}
+
+    // TODO: do we really need methods?
+    cl::Program create_program_from_file(std::string filename) const {
+        // TODO: ADD FILE NAME IN BINARY WITH CMAKE TASK
+        std::ifstream cl_file(filename);
+        std::string cl_string(std::istreambuf_iterator<char>(cl_file), (std::istreambuf_iterator<char>()));
+        cl::Program::Sources source(1, cl_string);
+        return cl::Program(context, source);
+    }
+
 };
 
 
