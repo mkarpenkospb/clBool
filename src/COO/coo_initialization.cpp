@@ -16,7 +16,6 @@
 
 void sort_arrays(Controls& controls, cl::Buffer &rows_gpu, cl::Buffer &cols_gpu, uint32_t n) {
 
-    std::vector<cl::Kernel> kernels;
     cl::Program program;
 
     try {
@@ -68,13 +67,6 @@ void sort_arrays(Controls& controls, cl::Buffer &rows_gpu, cl::Buffer &cols_gpu,
             outer >>= 1;
             segment_length <<= 1;
         }
-//        cl::Event waitRead1;
-//        cl::Event waitRead2;
-//        controls.queue.enqueueReadBuffer(rows_gpu, CL_TRUE, 0, sizeof(uint32_t) * n, rows.data());
-//        controls.queue.enqueueReadBuffer(cols_gpu, CL_TRUE, 0, sizeof(uint32_t) * n, cols.data());
-//        waitRead1.wait();
-//        waitRead2.wait();
-//        check_correctness(rows, cols);
         std::cout << "\nfinished" << std::endl;
     } catch (const cl::Error& e) {
         std::stringstream exception;
@@ -84,22 +76,6 @@ void sort_arrays(Controls& controls, cl::Buffer &rows_gpu, cl::Buffer &cols_gpu,
         }
         throw std::runtime_error(exception.str());
     }
-}
-
-void check_correctness(const std::vector<uint32_t>& rows, const std::vector<uint32_t>& cols) {
-    uint32_t n = rows.size();
-    for (uint32_t i = 1; i < n; ++i) {
-        if (rows[i] < rows[i - 1] || (rows[i] == rows[i - 1] && cols[i] < cols[i-1])) {
-            uint32_t start = i < 10 ? 0 : i - 10;
-            uint32_t stop = i >=  n  - 10 ? n : i + 10;
-            for (uint32_t k = start; k < stop; ++k) {
-                std::cout << k  << ": (" << rows[k] << ", " << cols[k] << "), ";
-            }
-            std::cout << std::endl;
-            throw std::runtime_error("incorrect result!");
-        }
-    }
-    std::cout << "check finished, probably correct\n";
 }
 
 void fill_random_matrix(std::vector<uint32_t>& rows, std::vector<uint32_t>& cols) {

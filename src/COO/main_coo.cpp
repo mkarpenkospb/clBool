@@ -12,7 +12,8 @@
 #include <iostream>
 
 
-int main() {
+
+void testBitonicSort() {
     // check on different ns
 
     uint32_t max_size = 32 * 1024 * 1024;
@@ -37,8 +38,27 @@ int main() {
 
         auto matrix = matrix_coo(controls, n_rows, n_cols, n, rows, cols);
 //        sort_arrays(rows, cols);
-        check_correctness(matrix.get_rows_indexes_cpu(), matrix.get_column_indexes_cpu());
+        check_correctness(matrix.get_rows_indexes_cpu(), matrix.get_cols_indexes_cpu());
     }
+}
+
+
+void testAddition() {
+
+
+
+
+}
+
+
+
+
+
+int main() {
+    testBitonicSort();
+
+
+
 }
 
 

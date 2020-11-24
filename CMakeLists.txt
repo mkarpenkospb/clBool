@@ -19,7 +19,11 @@ add_executable(sparse-boolean-matrix-operations
         src/COO/coo_initialization.cpp
         src/utils.cpp
         src/COO/cl/coo_bitonic_sort.cl
-        src/COO/cl/coo_kronecker.cl )
+        src/COO/cl/coo_kronecker.cl
+        src/COO/cl/merge_path.cl
+        src/COO/coo_matrix_addition.cpp
+        src/COO/coo_utils.cpp
+        )
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})
 
 
