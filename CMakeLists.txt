@@ -23,6 +23,7 @@ add_executable(sparse-boolean-matrix-operations
         src/COO/cl/merge_path.cl
         src/COO/coo_matrix_addition.cpp
         src/COO/coo_utils.cpp
+        src/COO/cl/prepare_rositions.cl
         )
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})
 

@@ -17,10 +17,10 @@ bool is_greater_global(__global const unsigned int *rowsA,
 
 __kernel void merge(__global unsigned int *rowsC,
                     __global unsigned int *colsC,
-                    __global unsigned int *rowsA,
-                    __global unsigned int *colsA,
-                    __global unsigned int *rowsB,
-                    __global unsigned int *colsB,
+                    __global const unsigned int *rowsA,
+                    __global const unsigned int *colsA,
+                    __global const unsigned int *rowsB,
+                    __global const unsigned int *colsB,
                     unsigned int sizeA,
                     unsigned int sizeB) {
 
