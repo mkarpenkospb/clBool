@@ -22,7 +22,7 @@ void addition(Controls& controls, matrix_coo& c, const matrix_coo& a, const matr
         program.build(options.str().c_str());
 
         uint32_t work_group_size = block_size;
-        uint32_t global_work_size = calculate_global_size(work_group_size, a.get_n_entities() + b.get_n_entities());
+        uint32_t global_work_size = utils::calculate_global_size(work_group_size, a.get_n_entities() + b.get_n_entities());
 
 
         cl::Kernel coo_merge(program, "merge");
@@ -42,7 +42,7 @@ void addition(Controls& controls, matrix_coo& c, const matrix_coo& a, const matr
 
     } catch (const cl::Error& e) {
         std::stringstream exception;
-        exception << "\n" << e.what() << " : " << e.err() << "\n";
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
         if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
             exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device);
         }
@@ -55,8 +55,8 @@ void check_merge_correctness(Controls& controls, const matrix_coo& c) {
     std::vector<uint32_t> rowsC(c.get_n_entities());
     std::vector<uint32_t> colsC(c.get_n_entities());
 
-    cl::enqueueReadBuffer(c.get_rows_indexes_gpu(), CL_TRUE, 0, sizeof(uint32_t) * c.get_n_entities(), rowsC.data());
-    cl::enqueueReadBuffer(c.get_cols_indexes_gpu(), CL_TRUE, 0, sizeof(uint32_t) * c.get_n_entities(), colsC.data());
+    controls.queue.enqueueReadBuffer(c.get_rows_indexes_gpu(), CL_TRUE, 0, sizeof(uint32_t) * c.get_n_entities(), rowsC.data());
+    controls.queue.enqueueReadBuffer(c.get_cols_indexes_gpu(), CL_TRUE, 0, sizeof(uint32_t) * c.get_n_entities(), colsC.data());
 
     coo_utils::check_correctness(rowsC, colsC);
 }

@@ -4,6 +4,7 @@
 #include "matrix_base.hpp"
 #include "controls.hpp"
 #include "../COO/coo_initialization.hpp"
+#include "../utils.hpp"
 
 
 #include <vector>
@@ -62,7 +63,7 @@ public:
 
         } catch (const cl::Error& e) {
         std::stringstream exception;
-        exception << "\n" << e.what() << " : " << e.err() << "\n";
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
         throw std::runtime_error(exception.str());
         }
     }

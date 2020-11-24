@@ -1,12 +1,11 @@
-#include "clion_defines.cl"
+//#include "clion_defines.cl"
+//#define GROUP_SIZE 256
 
-#define GROUP_SIZE 256
 
-
-bool is_greater_global(__global const unsigned int* rowsA,
-                       __global const unsigned int* colsA,
-                       __global const unsigned int* rowsB,
-                       __global const unsigned int* colsB,
+bool is_greater_global(__global const unsigned int *rowsA,
+                       __global const unsigned int *colsA,
+                       __global const unsigned int *rowsB,
+                       __global const unsigned int *colsB,
                        unsigned int indexA,
                        unsigned int indexB) {
 
@@ -60,7 +59,8 @@ __kernel void merge(__global unsigned int *rowsC,
         above_idx_a = below_idx_a - 1;
         above_idx_b = below_idx_b + 1;
 
-        below = m == 0 ? 1 : is_greater_global(rowsA, colsA, rowsB, colsB, below_idx_a, below_idx_b); //a[below_idx_a] > b[below_idx_b];
+        below = m == 0 ? 1 : is_greater_global(rowsA, colsA, rowsB, colsB, below_idx_a,
+                                               below_idx_b); //a[below_idx_a] > b[below_idx_b];
         above = m == diag_length - 1 ? 0 : is_greater_global(rowsA, colsA, rowsB, colsB, above_idx_a, above_idx_b);
 
         // success
