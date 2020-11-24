@@ -29,6 +29,8 @@ __kernel void merge(__global unsigned int *rowsC,
     unsigned int min_side = sizeA < sizeB ? sizeA : sizeB;
     unsigned int max_side = res_size - min_side;
 
+
+
     // we can allow it because there are no barriers in the code below
     if (diag_index >= res_size) {
         return;
@@ -36,7 +38,14 @@ __kernel void merge(__global unsigned int *rowsC,
 
     unsigned int diag_length = diag_index < (min_side - 1) ? diag_index + 2 :
                                diag_index < max_side ? min_side + 2 :
-                               min_side - (diag_index % max_side);
+                               res_size - diag_index;
+//
+//    if (diag_index == 43008) {
+//        printf("I am here, i am working\n");
+//        printf("min_side: %d\n",  min_side);
+//        printf("diag_length: %d\n",  diag_length);
+//        printf("res_size: %d\n",  res_size);
+//    }
 
     unsigned r = diag_length;
     unsigned l = 0;
@@ -53,7 +62,7 @@ __kernel void merge(__global unsigned int *rowsC,
 
     while (true) {
         m = (l + r) / 2;
-        below_idx_a = diag_index < sizeA ? diag_length - m - 1 : m - 1;
+        below_idx_a = diag_index < sizeA ? diag_length - m - 1 : sizeA - m;
         below_idx_b = diag_index < sizeA ? m - 1 : (diag_index % min_side) + m;
 
         above_idx_a = below_idx_a - 1;
@@ -63,6 +72,12 @@ __kernel void merge(__global unsigned int *rowsC,
                                                below_idx_b); //a[below_idx_a] > b[below_idx_b];
         above = m == diag_length - 1 ? 0 : is_greater_global(rowsA, colsA, rowsB, colsB, above_idx_a, above_idx_b);
 
+//        if (diag_index == 43008) {
+//            printf("l: %d, r: %d, m: %d\n", l, r, m);
+//            printf("below_idx_a: %d, below_idx_b: %d, above_idx_a: %d, above_idx_b: %d\n",
+//                   below_idx_a, below_idx_b, above_idx_a, above_idx_b);
+//        }
+
         // success
         if (below != above) {
             if ((diag_index < sizeA) && m == 0) {
@@ -71,13 +86,15 @@ __kernel void merge(__global unsigned int *rowsC,
                 return;
             }
             if ((diag_index < sizeB) && m == diag_length - 1) {
-                rowsC[diag_index] = rowsB[above_idx_a];
-                colsC[diag_index] = colsB[above_idx_a];
+                rowsC[diag_index] = rowsB[below_idx_b];
+                colsC[diag_index] = colsB[below_idx_b];
                 return;
             }
             // в случаях выше эти индексы лучше вообще не трогать, поэтому не объединяю
             bool is_greater = is_greater_global(rowsA, colsA, rowsB, colsB, above_idx_a, below_idx_b);
-
+//            if (!is_greater) {
+//                printf("not greater!\n");
+//            }
             rowsC[diag_index] = is_greater ? rowsA[above_idx_a] : rowsB[below_idx_b];
             colsC[diag_index] = is_greater ? colsA[above_idx_a] : colsB[below_idx_b];
 
