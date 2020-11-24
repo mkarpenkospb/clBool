@@ -2,6 +2,7 @@
 
 #include "../cl_defines.hpp"
 #include "../library_classes/controls.hpp"
+
 void check_correctness(const std::vector<uint32_t>& rows,
                        const std::vector<uint32_t>& cols);
 
