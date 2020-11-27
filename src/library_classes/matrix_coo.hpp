@@ -105,6 +105,7 @@ public:
         _cols_indexes_gpu = std::move(other._cols_indexes_gpu);
         _rows_indexes_cpu = std::move(other._rows_indexes_cpu);
         _rows_indexes_cpu = std::move(other._rows_indexes_cpu);
+        return *this;
     }
 
     const auto& rows_indexes_cpu() const {

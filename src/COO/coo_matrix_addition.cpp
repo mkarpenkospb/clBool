@@ -95,8 +95,8 @@ void merge(Controls& controls,
         uint32_t work_group_size = block_size;
         uint32_t global_work_size = utils::calculate_global_size(work_group_size, merged_size);
 
-        cl::Buffer merged_rows(controls.context, CL_TRUE, 0, sizeof(uint32_t) * merged_size);
-        cl::Buffer merged_cols(controls.context, CL_TRUE, 0, sizeof(uint32_t) * merged_size);
+        cl::Buffer merged_rows(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * merged_size);
+        cl::Buffer merged_cols(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * merged_size);
 
         cl::Kernel coo_merge(program, "merge");
         cl::KernelFunctor</*c: */ cl::Buffer, cl::Buffer, /*a: */ cl::Buffer, cl::Buffer, /*b: */ cl::Buffer, cl::Buffer,
@@ -142,8 +142,8 @@ void reduce_duplicates(Controls& controls,
 
     prefix_sum(controls, positions, new_size, merged_size);
 
-    cl::Buffer new_rows(controls.context, CL_TRUE, 0, sizeof(uint32_t) * new_size);
-    cl::Buffer new_cols(controls.context, CL_TRUE, 0, sizeof(uint32_t) * new_size);
+    cl::Buffer new_rows(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * new_size);
+    cl::Buffer new_cols(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * new_size);
 
     set_positions(controls, new_rows, new_cols, merged_rows, merged_cols, positions, merged_size);
 

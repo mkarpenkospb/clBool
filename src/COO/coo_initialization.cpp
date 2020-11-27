@@ -77,13 +77,3 @@ void sort_arrays(Controls& controls, cl::Buffer &rows_gpu, cl::Buffer &cols_gpu,
         throw std::runtime_error(exception.str());
     }
 }
-
-void fill_random_matrix(std::vector<uint32_t>& rows, std::vector<uint32_t>& cols) {
-    uint32_t n = rows.size();
-    FastRandom r(n);
-    for (uint32_t i = 0 ; i < n; ++i) {
-        // чтобы нулей не было
-        rows[i] = r.next() % 1024 + 1;
-        cols[i] = r.next() % 1024 + 1;
-    }
-}
