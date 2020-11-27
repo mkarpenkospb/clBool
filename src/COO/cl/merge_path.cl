@@ -110,10 +110,10 @@ __kernel void merge(__global unsigned int *rowsC,
             rowsC[diag_index] = is_greater ? rowsA[above_idx_a] : rowsB[below_idx_b];
             colsC[diag_index] = is_greater ? colsA[above_idx_a] : colsB[below_idx_b];
 
-            if (diag_index == 1676) {
-                printf("rowsC[diag_index] : %d, colsC[diag_index] : %d\n", rowsC[diag_index], colsC[diag_index]);
-
-            }
+//            if (diag_index == 1676) {
+//                printf("rowsC[diag_index] : %d, colsC[diag_index] : %d\n", rowsC[diag_index], colsC[diag_index]);
+//
+//            }
 
             return;
         }

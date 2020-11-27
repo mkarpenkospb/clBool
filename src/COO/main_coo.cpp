@@ -47,9 +47,9 @@ void testBitonicSort() {
     controls.queue.enqueueReadBuffer(cols_gpu, CL_TRUE, 0, sizeof(uint32_t) * size, cols_from_gpu.data());
 
     if (rows_from_gpu == rows_cpu && cols_from_gpu == cols_cpu) {
-        std::cout << "correct" << std::endl;
+        std::cout << "correct sort" << std::endl;
     } else {
-        std::cerr << "incorrect" << std::endl;
+        std::cerr << "incorrect sort" << std::endl;
     }
 }
 
@@ -114,8 +114,10 @@ void testMatrixAddition() {
     Controls controls = utils::create_controls();
 
     matrix_cpp_cpu matrix_res_cpu;
-    matrix_cpp_cpu matrix_a_cpu = coo_utils::generate_random_matrix_cpu(1036, 456);
-    matrix_cpp_cpu matrix_b_cpu = coo_utils::generate_random_matrix_cpu(1033, 294);
+    // first argument is pseudo size (size before reducing duplicates after random)
+    // second is the maximum possible matrix size
+    matrix_cpp_cpu matrix_a_cpu = coo_utils::generate_random_matrix_cpu(45726, 1056);
+    matrix_cpp_cpu matrix_b_cpu = coo_utils::generate_random_matrix_cpu(667312, 3526);
 
     matrix_coo matrix_res_gpu;
     matrix_coo matrix_a_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_a_cpu);
@@ -130,7 +132,6 @@ void testMatrixAddition() {
 
     coo_utils::get_vectors_from_cpu_matrix(rows_cpu, cols_cpu, matrix_res_cpu);
 
-
     if (matrix_res_gpu.rows_indices_cpu() == rows_cpu && matrix_res_gpu.cols_indices_cpu() == cols_cpu) {
         std::cout << "correct addition" << std::endl;
     } else {
@@ -142,12 +143,7 @@ void testMatrixAddition() {
 
 int main() {
 //    testBitonicSort();
-//    testMatrixInitialisation();
 //    testReduceDuplicates();
-//----------------- test merge path -----------------------------------------
-
-
-
     testMatrixAddition();
 }
 
