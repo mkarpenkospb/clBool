@@ -12,6 +12,7 @@
 #define __private
 
 #define half float
+#define uint unsigned int
 
 struct float2 { float x;          };
 struct float3 { float x, y, z;    };
