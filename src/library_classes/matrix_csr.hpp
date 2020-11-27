@@ -49,11 +49,11 @@ public:
         }
     }
 
-    const auto& get_rows_pointers_cpu() const {
+    const auto& rows_pointers_cpu() const {
         return _rows_pointers_cpu;
     }
 
-    const auto& get_cols_indexes_cpu() const {
+    const auto& cols_indexes_cpu() const {
         return _cols_indexes_cpu;
     }
 

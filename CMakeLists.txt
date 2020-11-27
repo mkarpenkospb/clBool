@@ -25,6 +25,8 @@ add_executable(sparse-boolean-matrix-operations
         src/COO/coo_utils.cpp
         src/COO/cl/prepare_positions.cl
         src/COO/cl/prefix_sum.cl
+        src/COO/pref_sum.cpp
+        src/COO/cl/set_positions.cl
         )
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})
 

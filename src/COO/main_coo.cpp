@@ -40,7 +40,7 @@ void testBitonicSort() {
 
         auto matrix = matrix_coo(controls, n_rows, n_cols, n, rows, cols);
 //        sort_arrays(rows, cols);
-        coo_utils::check_correctness(matrix.get_rows_indexes_cpu(), matrix.get_cols_indexes_cpu());
+        coo_utils::check_correctness(matrix.rows_indexes_cpu(), matrix.cols_indexes_cpu());
     }
 }
 
