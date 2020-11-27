@@ -2,7 +2,6 @@ cmake_minimum_required (VERSION 3.1)
 project(sparse-boolean-matrix-operations)
 
 # у меня не работает юбез явного указания путей
-
 set(OpenCL_LIBRARY "C:/Windows/System32/OpenCL.dll")
 set(OpenCL_INCLUDE_DIR_LIBRARY "C:/Windows/System32/")
 set(OpenCL_INCLUDE_DIR "libs/clew")

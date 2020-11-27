@@ -51,7 +51,7 @@ void merge(Controls &controls,
         cl::Buffer merged_cols(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * merged_size);
 
         cl::Kernel coo_merge(program, "merge");
-        cl::KernelFunctor</*c: */ cl::Buffer, cl::Buffer, /*a: */ cl::Buffer, cl::Buffer, /*b: */ cl::Buffer, cl::Buffer,
+        cl::KernelFunctor<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
                 uint32_t, uint32_t> coo_merge_kernel(coo_merge);
 
         cl::EnqueueArgs eargs(controls.queue, cl::NDRange(global_work_size), cl::NDRange(work_group_size));
@@ -128,10 +128,8 @@ void prepare_positions(Controls &controls,
 
 
         cl::Kernel coo_prepare_positions_kernel(program, "prepare_array_for_positions");
-        cl::KernelFunctor<
-                /*result: */ cl::Buffer,
-                /*rows: */ cl::Buffer,
-                /*cols: */ cl::Buffer, uint32_t> coo_prepare_positions(coo_prepare_positions_kernel);
+        cl::KernelFunctor<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t> coo_prepare_positions(
+                coo_prepare_positions_kernel);
         cl::EnqueueArgs eargs(controls.queue, cl::NDRange(global_work_size), cl::NDRange(work_group_size));
 
         coo_prepare_positions(eargs, positions, merged_rows, merged_cols, merged_size);
@@ -221,9 +219,11 @@ void prefix_sum(Controls &controls,
         }
 
         controls.queue.enqueueReadBuffer(positions, CL_TRUE, 0, sizeof(uint32_t) * merged_size, result.data());
-        // the last element of positions is the mew matrix size
+
+        // the last element of positions is the new matrix size - 1
         controls.queue.enqueueReadBuffer(positions, CL_TRUE, (merged_size - 1) * sizeof(uint32_t),
-                                         sizeof(uint32_t), &new_size); new_size++;
+                                         sizeof(uint32_t), &new_size);
+        new_size++;
         check_pref_correctness(result, before);
         std::cout << "\nprefix sum finished\n";
     } catch (const cl::Error &e) {
@@ -255,13 +255,8 @@ void set_positions(Controls &controls,
         program.build(options.str().c_str());
 
         cl::Kernel set_positions_kernel(program, "set_positions");
-        cl::KernelFunctor<
-                /* newRows: */ cl::Buffer,
-                /* newCols: */ cl::Buffer,
-                /* rows: */ cl::Buffer,
-                /* cols: */ cl::Buffer,
-                /* positions: */ cl::Buffer,
-                /* n: */ unsigned int> set_positions(set_positions_kernel);
+        cl::KernelFunctor<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, unsigned int> set_positions(
+                set_positions_kernel);
 
         uint32_t work_group_size = block_size;
         uint32_t global_work_size = utils::calculate_global_size(work_group_size, merged_size);
@@ -294,7 +289,7 @@ void check_pref_correctness(const std::vector<uint32_t> &result,
             throw std::runtime_error("incorrect result");
         }
     }
-    std::cout << "correct pref sum, the last value is " << result[n-1]  << std::endl;
+    std::cout << "correct pref sum, the last value is " << result[n - 1] << std::endl;
 }
 
 
