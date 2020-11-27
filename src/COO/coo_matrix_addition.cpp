@@ -16,7 +16,7 @@ void matrix_addition(Controls &controls,
 
     merge(controls, merged_rows, merged_cols, a, b);
 
-    reduce_duplicates(controls, merged_rows, merged_cols, reinterpret_cast<uint32_t &>(new_size), a.nnz() + b.nnz());
+    reduce_duplicates(controls, merged_rows, merged_cols, new_size, a.nnz() + b.nnz());
 
     matrix_out = matrix_coo(controls, std::max(a.nRows(), b.nRows()), std::max(a.nCols(), b.nCols()), new_size,
                             std::move(merged_rows), std::move(merged_cols));

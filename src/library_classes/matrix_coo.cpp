@@ -50,11 +50,11 @@ matrix_coo::matrix_coo(Controls &controls,
 
 
 matrix_coo::matrix_coo(Controls &controls,
-                              uint32_t nRows,
-                              uint32_t nCols,
-                              uint32_t nEntities,
-                              cl::Buffer rows,
-                              cl::Buffer cols)
+                       uint32_t nRows,
+                       uint32_t nCols,
+                       uint32_t nEntities,
+                       cl::Buffer rows,
+                       cl::Buffer cols)
         : matrix_base(nRows, nCols, nEntities),
           _rows_indices_gpu(std::move(rows)),
           _cols_indices_gpu(std::move(cols)),
