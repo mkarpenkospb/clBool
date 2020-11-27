@@ -5,49 +5,11 @@
 #include "coo_utils.hpp"
 #include "coo_matrix_addition.hpp"
 
-// ---------------------- pre-declarations --------------------------------
-void check_merge_correctness(Controls& controls,
-                             cl::Buffer& rows,
-                             cl::Buffer& cols,
-                             size_t merged_size);
 
-void merge(Controls& controls,
-           cl::Buffer& merged_rows,
-           cl::Buffer& merged_cols,
-           const matrix_coo& a,
-           const matrix_coo& b);
-
-void prepare_positions(Controls& controls,
-                       cl::Buffer& positions,
-                       cl::Buffer& merged_rows,
-                       cl::Buffer& merged_cols,
-                       uint32_t merged_size);
-
-void prefix_sum(Controls& controls,
-                cl::Buffer& positions,
-                uint32_t& new_size,
-                uint32_t merged_size);
-
-
-void set_positions(Controls& controls,
-                   cl::Buffer& new_rows,
-                   cl::Buffer& new_cols,
-                   cl::Buffer& merged_rows,
-                   cl::Buffer& merged_cols,
-                   cl::Buffer& positions,
-                   uint32_t merged_size);
-
-void reduce_duplicates(Controls& controls,
-                       cl::Buffer& merged_rows,
-                       cl::Buffer& merged_cols,
-                       uint32_t& new_size,
-                       uint32_t merged_size);
-
-
-void addition(Controls& controls,
-              matrix_coo& matrix_out,
-              const matrix_coo& a,
-              const matrix_coo& b) {
+void addition(Controls &controls,
+              matrix_coo &matrix_out,
+              const matrix_coo &a,
+              const matrix_coo &b) {
     cl::Program program;
 
     try {
@@ -59,9 +21,10 @@ void addition(Controls& controls,
 
         reduce_duplicates(controls, merged_rows, merged_cols, new_size, a.nnz() + b.nnz());
 
-        matrix_out = matrix_coo(controls, std::max(a.nRows(), b.nRows()), std::max(a.nCols(), b.nCols()), new_size, merged_rows, merged_cols);
+        matrix_out = matrix_coo(controls, std::max(a.nRows(), b.nRows()), std::max(a.nCols(), b.nCols()), new_size,
+                                merged_rows, merged_cols);
 
-    } catch (const cl::Error& e) {
+    } catch (const cl::Error &e) {
         std::stringstream exception;
         exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
         if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
@@ -72,11 +35,11 @@ void addition(Controls& controls,
 }
 
 
-void merge(Controls& controls,
-           cl::Buffer& merged_rows_out,
-           cl::Buffer& merged_cols_out,
-           const matrix_coo& a,
-           const matrix_coo& b) {
+void merge(Controls &controls,
+           cl::Buffer &merged_rows_out,
+           cl::Buffer &merged_cols_out,
+           const matrix_coo &a,
+           const matrix_coo &b) {
 
     cl::Program program;
 
@@ -115,8 +78,8 @@ void merge(Controls& controls,
 
         merged_rows_out = std::move(merged_rows);
         merged_cols_out = std::move(merged_cols);
-
-    } catch (const cl::Error& e) {
+        std::cout << "\nmerge finished\n";
+    } catch (const cl::Error &e) {
         std::stringstream exception;
         exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
         if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
@@ -126,12 +89,12 @@ void merge(Controls& controls,
     }
 }
 
-void reduce_duplicates(Controls& controls,
-                       cl::Buffer& merged_rows,
-                       cl::Buffer& merged_cols,
-                       uint32_t& new_size,
+void reduce_duplicates(Controls &controls,
+                       cl::Buffer &merged_rows,
+                       cl::Buffer &merged_cols,
+                       uint32_t &new_size,
                        uint32_t merged_size
-                       ) {
+) {
     // ------------------------------------ prepare array to count positions ----------------------
 
     cl::Buffer positions(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * merged_size);
@@ -149,15 +112,17 @@ void reduce_duplicates(Controls& controls,
 
     merged_rows = std::move(new_rows);
     merged_cols = std::move(new_cols);
+
+    std::cout << "\nreduce finished\n";
 }
 
 
-void prepare_positions(Controls& controls,
-                       cl::Buffer& positions,
-                       cl::Buffer& merged_rows,
-                       cl::Buffer& merged_cols,
+void prepare_positions(Controls &controls,
+                       cl::Buffer &positions,
+                       cl::Buffer &merged_rows,
+                       cl::Buffer &merged_cols,
                        uint32_t merged_size
-                       ) {
+) {
     cl::Program program;
     try {
         program = controls.create_program_from_file("../src/COO/cl/prepare_positions.cl");
@@ -167,6 +132,7 @@ void prepare_positions(Controls& controls,
         options << "-D GROUP_SIZE=" << block_size;
         program.build(options.str().c_str());
 
+        std::vector<uint32_t> look_positions(merged_size);
 
         uint32_t work_group_size = block_size;
         uint32_t global_work_size = utils::calculate_global_size(work_group_size, merged_size);
@@ -176,12 +142,16 @@ void prepare_positions(Controls& controls,
         cl::KernelFunctor<
                 /*result: */ cl::Buffer,
                 /*rows: */ cl::Buffer,
-                /*cols: */ cl::Buffer, uint32_t> coo_prepare_positions(coo_prepare_positions);
+                /*cols: */ cl::Buffer, uint32_t> coo_prepare_positions(coo_prepare_positions_kernel);
         cl::EnqueueArgs eargs(controls.queue, cl::NDRange(global_work_size), cl::NDRange(work_group_size));
 
         coo_prepare_positions(eargs, positions, merged_rows, merged_cols, merged_size);
 
-    } catch (const cl::Error& e) {
+        controls.queue.enqueueReadBuffer(positions, CL_TRUE, 0, sizeof(uint32_t) * merged_size, look_positions.data());
+
+        std::cout << "\nprepare positions finished\n";
+
+    } catch (const cl::Error &e) {
         std::stringstream exception;
         exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
         if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
@@ -192,9 +162,9 @@ void prepare_positions(Controls& controls,
 
 }
 
-void prefix_sum(Controls& controls,
-                cl::Buffer& positions,
-                uint32_t& new_size,
+void prefix_sum(Controls &controls,
+                cl::Buffer &positions,
+                uint32_t &new_size,
                 uint32_t merged_size) {
     cl::Program program;
     try {
@@ -209,14 +179,14 @@ void prefix_sum(Controls& controls,
         uint32_t global_work_size = utils::calculate_global_size(work_group_size, merged_size);
 
         uint32_t a_size = (merged_size + block_size - 1) / block_size; // max to save first roots
-        uint32_t b_size = (a_size + block_size  - 1) / block_size; // max to save second roots
+        uint32_t b_size = (a_size + block_size - 1) / block_size; // max to save second roots
 
         cl::Buffer a_gpu(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a_size);
         cl::Buffer b_gpu(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * b_size);
         cl::LocalSpaceArg local_array = cl::Local(sizeof(uint32_t) * block_size);
 
         // prefix sum step kernel
-        cl::Kernel scan_kernel(program, "prepare_array_for_positions");
+        cl::Kernel scan_kernel(program, "scan_blelloch");
         cl::KernelFunctor<cl::Buffer, cl::Buffer, cl::LocalSpaceArg, unsigned int> scan(scan_kernel);
 
         cl::Kernel update_kernel(program, "update_pref_sum");
@@ -237,16 +207,17 @@ void prefix_sum(Controls& controls,
 
         uint32_t outer = (merged_size + block_size - 1) / block_size;
 
-        cl::Buffer* a_gpu_ptr = &a_gpu;
-        cl::Buffer* b_gpu_ptr = &b_gpu;
+        cl::Buffer *a_gpu_ptr = &a_gpu;
+        cl::Buffer *b_gpu_ptr = &b_gpu;
 
-        unsigned int* a_size_ptr = &a_size;
-        unsigned int* b_size_ptr = &b_size;
+        unsigned int *a_size_ptr = &a_size;
+        unsigned int *b_size_ptr = &b_size;
 
         while (outer > 1) {
             leaf_size *= block_size;
             cl::EnqueueArgs eargs_in_recursion(controls.queue,
-                                               cl::NDRange((outer + work_group_size - 1) / work_group_size * work_group_size),
+                                               cl::NDRange((outer + work_group_size - 1) / work_group_size *
+                                                           work_group_size),
                                                cl::NDRange(work_group_size));
 
             cl::Event event_in_recursion = scan(eargs_in_recursion, *b_gpu_ptr, *a_gpu_ptr, local_array, outer);
@@ -263,10 +234,10 @@ void prefix_sum(Controls& controls,
         controls.queue.enqueueReadBuffer(positions, CL_TRUE, 0, sizeof(uint32_t) * merged_size, result.data());
         // the last element of positions is the mew matrix size
         controls.queue.enqueueReadBuffer(positions, CL_TRUE, (merged_size - 1) * sizeof(uint32_t),
-                                         sizeof(uint32_t), &new_size);
+                                         sizeof(uint32_t), &new_size); new_size++;
         check_pref_correctness(result, before);
-
-    } catch (const cl::Error& e) {
+        std::cout << "\nprefix sum finished\n";
+    } catch (const cl::Error &e) {
         std::stringstream exception;
         exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
         if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
@@ -277,12 +248,12 @@ void prefix_sum(Controls& controls,
 }
 
 
-void set_positions(Controls& controls,
-                   cl::Buffer& new_rows,
-                   cl::Buffer& new_cols,
-                   cl::Buffer& merged_rows,
-                   cl::Buffer& merged_cols,
-                   cl::Buffer& positions,
+void set_positions(Controls &controls,
+                   cl::Buffer &new_rows,
+                   cl::Buffer &new_cols,
+                   cl::Buffer &merged_rows,
+                   cl::Buffer &merged_cols,
+                   cl::Buffer &positions,
                    uint32_t merged_size) {
 
     cl::Program program;
@@ -310,7 +281,8 @@ void set_positions(Controls& controls,
 
         set_positions(eargs, new_rows, new_cols, merged_rows, merged_cols, positions, merged_size);
 
-    } catch (const cl::Error& e) {
+        std::cout << "\nset_positions finished\n";
+    } catch (const cl::Error &e) {
         std::stringstream exception;
         exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
         if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
@@ -321,8 +293,8 @@ void set_positions(Controls& controls,
 }
 
 
-void check_pref_correctness(const std::vector<uint32_t>& result,
-                            const std::vector<uint32_t>& before) {
+void check_pref_correctness(const std::vector<uint32_t> &result,
+                            const std::vector<uint32_t> &before) {
     uint32_t n = before.size();
     uint32_t acc = 0;
 
@@ -333,12 +305,12 @@ void check_pref_correctness(const std::vector<uint32_t>& result,
             throw std::runtime_error("incorrect result");
         }
     }
-    std::cout << "correct" << std::endl;
+    std::cout << "correct pref sum, the last value is " << result[n-1]  << std::endl;
 }
 
 
 // check weak correctness
-void check_merge_correctness(Controls& controls, cl::Buffer& rows, cl::Buffer& cols, size_t merged_size) {
+void check_merge_correctness(Controls &controls, cl::Buffer &rows, cl::Buffer &cols, size_t merged_size) {
     std::vector<uint32_t> rowsC(merged_size);
     std::vector<uint32_t> colsC(merged_size);
 

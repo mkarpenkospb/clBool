@@ -12,11 +12,6 @@
 class matrix_coo : public details::matrix_base<COO> {
 private:
     // buffers for uint32only;
-
-    bool abstract() override {
-        return false;
-    };
-
     cl::Buffer _rows_indexes_gpu;
     cl::Buffer _cols_indexes_gpu;
 

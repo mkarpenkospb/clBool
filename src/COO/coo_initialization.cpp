@@ -14,7 +14,7 @@
 #include <cmath>
 
 
-void sort_arrays(Controls& controls, cl::Buffer &rows_gpu, cl::Buffer &cols_gpu, uint32_t n) {
+void sort_arrays(Controls &controls, cl::Buffer &rows_gpu, cl::Buffer &cols_gpu, uint32_t n) {
 
     cl::Program program;
 
@@ -60,15 +60,15 @@ void sort_arrays(Controls& controls, cl::Buffer &rows_gpu, cl::Buffer &cols_gpu,
 
         while (outer != 1) {
             coo_bitonic_global_step(eargs, rows_gpu, cols_gpu, segment_length, 1, n);
-            for (unsigned int i = segment_length / 2; i > work_group_size * 2;  i >>= 1) {
+            for (unsigned int i = segment_length / 2; i > work_group_size * 2; i >>= 1) {
                 coo_bitonic_global_step(eargs, rows_gpu, cols_gpu, i, 0, n);
             }
             coo_bitonic_end(eargs, rows_gpu, cols_gpu, n);
             outer >>= 1;
             segment_length <<= 1;
         }
-        std::cout << "\nfinished" << std::endl;
-    } catch (const cl::Error& e) {
+        std::cout << "\nbitonic sort finished" << std::endl;
+    } catch (const cl::Error &e) {
         std::stringstream exception;
         exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
         if (e.err() == CL_BUILD_PROGRAM_FAILURE) {

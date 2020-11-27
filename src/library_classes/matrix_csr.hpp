@@ -5,10 +5,6 @@
 
 class matrix_csr : public details::matrix_base<CSR> {
 private:
-    bool abstract() override {
-        return false;
-    };
-
     cl::Buffer _rows_pointers_gpu;
     cl::Buffer _cols_indexes_gpu;
 

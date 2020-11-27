@@ -15,8 +15,6 @@ namespace details {
     class matrix_base {
     protected:
 
-        virtual bool abstract() = 0;
-
         Format sparse_format = format;
 
         uint32_t n_rows;

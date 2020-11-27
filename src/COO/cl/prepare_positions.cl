@@ -1,5 +1,5 @@
-#include "clion_defines.cl"
-#define GROUP_SIZE 256
+//#include "clion_defines.cl"
+//#define GROUP_SIZE 256
 
 
 /*

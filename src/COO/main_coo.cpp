@@ -14,7 +14,6 @@
 #include <iostream>
 
 
-
 void testMatrixInitialisation() {
     // check on different ns
 
@@ -29,7 +28,7 @@ void testMatrixInitialisation() {
 
     Controls controls = utils::create_controls();
 
-    for (uint32_t test_iter = 0; test_iter < test_num; ++ test_iter) {
+    for (uint32_t test_iter = 0; test_iter < test_num; ++test_iter) {
         n = std::abs(r.next()) % max_size;
         std::cout << "for n=" << n << std::endl;
         rows.resize(n);
@@ -43,12 +42,13 @@ void testMatrixInitialisation() {
         coo_utils::check_correctness(matrix.rows_indexes_cpu(), matrix.cols_indexes_cpu());
     }
 }
+
 using coo_utils::matrix_cpp_cpu;
 
 void testBitonicSort() {
     Controls controls = utils::create_controls();
 
-    uint32_t size = 42 * 1024;
+    uint32_t size = 15;
     std::vector<uint32_t> rows_cpu(size);
     std::vector<uint32_t> cols_cpu(size);
 
@@ -84,36 +84,93 @@ void testBitonicSort() {
 }
 
 
-//void testAddition() {
-//    Controls controls = utils::create_controls();
-//
-//    uint32_t test_size = 42 * 1024;
-//    std::vector<uint32_t> rowsA(test_size);
-//    std::vector<uint32_t> colsA(test_size);
-//
-//    std::vector<uint32_t> rowsB(test_size);
-//    std::vector<uint32_t> colsB(test_size);
-//
-//    fill_random_matrix(rowsA, colsA);
-//    fill_random_matrix(rowsB, colsB);
-//
-//    uint32_t n_rowsA = *std::max_element(rowsA.begin(), rowsA.end());
-//    uint32_t n_colsA = *std::max_element(colsA.begin(), colsA.end());
-//
-//    uint32_t n_rowsB = *std::max_element(rowsB.begin(), rowsB.end());
-//    uint32_t n_colsB = *std::max_element(colsB.begin(), colsB.end());
-//
-//    auto matrixA = matrix_coo(controls, n_rowsA, n_colsA, test_size, rowsA, colsA);
-//    auto matrixB = matrix_coo(controls, n_rowsB, n_colsB, test_size, rowsB, colsB);
-//
-//    auto matrixC = matrix_coo(controls, std::max(n_rowsA, n_rowsB), std::max(n_colsA, n_colsB), 2 * test_size);
-//    addition(controls, matrixC, matrixA, matrixB);
-//}
+void testAddition() {
+    Controls controls = utils::create_controls();
 
+    uint32_t test_size = 42 * 1024;
+    std::vector<uint32_t> rowsA(test_size);
+    std::vector<uint32_t> colsA(test_size);
+
+    std::vector<uint32_t> rowsB(test_size);
+    std::vector<uint32_t> colsB(test_size);
+
+    coo_utils::fill_random_matrix(rowsA, colsA);
+    coo_utils::fill_random_matrix(rowsB, colsB);
+
+    uint32_t n_rowsA = *std::max_element(rowsA.begin(), rowsA.end());
+    uint32_t n_colsA = *std::max_element(colsA.begin(), colsA.end());
+
+    uint32_t n_rowsB = *std::max_element(rowsB.begin(), rowsB.end());
+    uint32_t n_colsB = *std::max_element(colsB.begin(), colsB.end());
+
+    auto matrixA = matrix_coo(controls, n_rowsA, n_colsA, test_size, rowsA, colsA);
+    auto matrixB = matrix_coo(controls, n_rowsB, n_colsB, test_size, rowsB, colsB);
+
+    auto matrixC = matrix_coo(controls, std::max(n_rowsA, n_rowsB), std::max(n_colsA, n_colsB), 2 * test_size);
+    addition(controls, matrixC, matrixA, matrixB);
+}
+
+
+void testReduceDuplicates() {
+
+    Controls controls = utils::create_controls();
+
+    // sorting, copied from testBitonicSort
+    uint32_t size = 10374663;
+
+    // -------------------- create indices ----------------------------
+
+    std::vector<uint32_t> rows_cpu(size);
+    std::vector<uint32_t> cols_cpu(size);
+
+    std::vector<uint32_t> rows_from_gpu(size);
+    std::vector<uint32_t> cols_from_gpu(size);
+
+    coo_utils::fill_random_matrix(rows_cpu, cols_cpu, 1043);
+
+    // -------------------- create and sort cpu matrix ----------------------------
+    matrix_cpp_cpu m_cpu;
+    coo_utils::form_cpu_matrix(m_cpu, rows_cpu, cols_cpu);
+    std::sort(m_cpu.begin(), m_cpu.end());
+
+    // -------------------- create and sort gpu buffers ----------------------------
+
+    cl::Buffer rows_gpu(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * size);
+    cl::Buffer cols_gpu(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * size);
+
+    controls.queue.enqueueWriteBuffer(rows_gpu, CL_TRUE, 0, sizeof(uint32_t) * size, rows_cpu.data());
+    controls.queue.enqueueWriteBuffer(cols_gpu, CL_TRUE, 0, sizeof(uint32_t) * size, cols_cpu.data());
+
+    sort_arrays(controls, rows_gpu, cols_gpu, size);
+
+    // ------------------ now reduce cpu matrix and read result in vectors ------------------------
+
+    std::cout << "\nmatrix cpu before size: " << m_cpu.size() << std::endl;
+    m_cpu.erase(std::unique(m_cpu.begin(), m_cpu.end()), m_cpu.end());
+    coo_utils::get_vectors_from_cpu_matrix(rows_cpu, cols_cpu, m_cpu);
+    std::cout << "\nmatrix cpu after size: " << m_cpu.size() << std::endl;
+
+    // ------------------ now reduce gpu buffers and read in vectors ------------------------
+    size_t new_size;
+    reduce_duplicates(controls, rows_gpu, cols_gpu, new_size, size);
+    rows_from_gpu.resize(new_size);
+    cols_from_gpu.resize(new_size);
+
+    controls.queue.enqueueReadBuffer(rows_gpu, CL_TRUE, 0, sizeof(uint32_t) * new_size, rows_from_gpu.data());
+    controls.queue.enqueueReadBuffer(cols_gpu, CL_TRUE, 0, sizeof(uint32_t) * new_size, cols_from_gpu.data());
+
+    if (rows_from_gpu == rows_cpu || cols_from_gpu == cols_cpu) {
+        std::cout << "correct reduce" << std::endl;
+    } else {
+        std::cerr << "incorrect reduce" << std::endl;
+    }
+}
 
 
 int main() {
-    testBitonicSort();
+//    testBitonicSort();
+//    testMatrixInitialisation();
+    testReduceDuplicates();
 }
 
 
