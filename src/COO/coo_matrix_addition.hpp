@@ -2,7 +2,7 @@
 
 #include "../cl_defines.hpp"
 
-void addition(
+void matrix_addition(
         Controls &controls,
         matrix_coo &matrix_out,
         const matrix_coo &a,

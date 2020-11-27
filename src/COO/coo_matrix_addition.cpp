@@ -1,37 +1,26 @@
 
 #include "../library_classes/controls.hpp"
-#include "../library_classes/matrix_coo.hpp"
 #include "../utils.hpp"
 #include "coo_utils.hpp"
 #include "coo_matrix_addition.hpp"
 
 
-void addition(Controls &controls,
-              matrix_coo &matrix_out,
-              const matrix_coo &a,
-              const matrix_coo &b) {
-    cl::Program program;
+void matrix_addition(Controls &controls,
+                     matrix_coo &matrix_out,
+                     const matrix_coo &a,
+                     const matrix_coo &b) {
 
-    try {
-        cl::Buffer merged_rows;
-        cl::Buffer merged_cols;
-        size_t new_size;
+    cl::Buffer merged_rows;
+    cl::Buffer merged_cols;
+    size_t new_size;
 
-        merge(controls, merged_rows, merged_cols, a, b);
+    merge(controls, merged_rows, merged_cols, a, b);
 
-        reduce_duplicates(controls, merged_rows, merged_cols, new_size, a.nnz() + b.nnz());
+    reduce_duplicates(controls, merged_rows, merged_cols, reinterpret_cast<uint32_t &>(new_size), a.nnz() + b.nnz());
 
-        matrix_out = matrix_coo(controls, std::max(a.nRows(), b.nRows()), std::max(a.nCols(), b.nCols()), new_size,
-                                merged_rows, merged_cols);
+    matrix_out = matrix_coo(controls, std::max(a.nRows(), b.nRows()), std::max(a.nCols(), b.nCols()), new_size,
+                            std::move(merged_rows), std::move(merged_cols));
 
-    } catch (const cl::Error &e) {
-        std::stringstream exception;
-        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
-        if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
-            exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device);
-        }
-        throw std::runtime_error(exception.str());
-    }
 }
 
 
@@ -69,8 +58,8 @@ void merge(Controls &controls,
 
         coo_merge_kernel(eargs,
                          merged_rows, merged_cols,
-                         a.rows_indexes_gpu(), a.cols_indexes_gpu(),
-                         b.rows_indexes_gpu(), b.cols_indexes_gpu(),
+                         a.rows_indices_gpu(), a.cols_indices_gpu(),
+                         b.rows_indices_gpu(), b.cols_indices_gpu(),
                          a.nnz(), b.nnz());
 
         // TODO: maybe add wait

@@ -8,6 +8,15 @@
 
 namespace coo_utils {
 
+    auto cmp_coordinates = [](const coordinates &a, const coordinates &b) {
+        return a.first < b.first || (a.first == b.first && a.second < b.second);
+    };
+
+    auto cmp_pred = [](const coordinates &a, const coordinates &b) {
+        return a.first == b.first && a.second == b.second;
+    };
+
+
     void fill_random_matrix(std::vector<uint32_t> &rows, std::vector<uint32_t> &cols, uint32_t max_size) {
         uint32_t n = rows.size();
         FastRandom r(n);
@@ -17,7 +26,7 @@ namespace coo_utils {
         }
     }
 
-    void form_cpu_matrix(matrix_cpp_cpu &matrix_out, std::vector<uint32_t> &rows, std::vector<uint32_t> &cols) {
+    void form_cpu_matrix(matrix_cpp_cpu &matrix_out, const std::vector<uint32_t> &rows, const std::vector<uint32_t> &cols) {
         matrix_out.resize(rows.size());
         std::transform(rows.begin(), rows.end(), cols.begin(), matrix_out.begin(),
                        [](uint32_t i, uint32_t j) -> coordinates { return {i, j}; });
@@ -25,17 +34,17 @@ namespace coo_utils {
     }
 
     void get_vectors_from_cpu_matrix(std::vector<uint32_t> &rows_out, std::vector<uint32_t> &cols_out,
-                                     matrix_cpp_cpu &matrix) {
+                                     const matrix_cpp_cpu &matrix) {
+        uint32_t n = matrix.size();
+
         rows_out.resize(matrix.size());
         cols_out.resize(matrix.size());
 
-        std::for_each(matrix.begin(), matrix.end(),
-                      [&rows_out, &cols_out](coordinates &crd) {
-                          static uint32_t i = 0;
-                          rows_out[i] = crd.first;
-                          cols_out[i] = crd.second;
-                          ++i;
-                      });
+        for (uint32_t i = 0; i < n; ++i) {
+            rows_out[i] = matrix[i].first;
+            cols_out[i] = matrix[i].second;
+        }
+
     }
 
 
@@ -56,8 +65,41 @@ namespace coo_utils {
         std::cout << "check finished, probably correct\n";
     }
 
-//    matrix_coo generate_random_matrix() {
-//
-//    }
-//
+    matrix_cpp_cpu generate_random_matrix_cpu(uint32_t pseudo_size, uint32_t max_size) {
+
+        std::vector<uint32_t> rows(pseudo_size);
+        std::vector<uint32_t> cols(pseudo_size);
+
+        fill_random_matrix(rows, cols, max_size);
+
+        matrix_cpp_cpu m_cpu;
+        form_cpu_matrix(m_cpu, rows, cols);
+        std::sort(m_cpu.begin(), m_cpu.end(), cmp_coordinates);
+
+        m_cpu.erase(std::unique(m_cpu.begin(), m_cpu.end(), cmp_pred), m_cpu.end());
+
+        return m_cpu;
+    }
+
+    matrix_coo matrix_coo_from_cpu(Controls& controls, const matrix_cpp_cpu& m_cpu) {
+        std::vector<uint32_t> rows;
+        std::vector<uint32_t> cols;
+
+        get_vectors_from_cpu_matrix(rows, cols, m_cpu);
+
+        uint32_t n_rows = *std::max_element(rows.begin(), rows.end());
+        uint32_t n_cols = *std::max_element(cols.begin(), cols.end());
+        uint32_t nnz = m_cpu.size();
+
+        return matrix_coo(controls, n_rows, n_cols, nnz, std::move(rows), std::move(cols), true);
+    }
+
+    void matrix_addition_cpu(matrix_cpp_cpu& matrix_out, const matrix_cpp_cpu& matrix_a, const matrix_cpp_cpu& matrix_b) {
+
+        std::merge(matrix_a.begin(), matrix_a.end(), matrix_b.begin(), matrix_b.end(),
+                   std::back_inserter(matrix_out), cmp_coordinates);
+
+        matrix_out.erase(std::unique(matrix_out.begin(), matrix_out.end(), cmp_pred), matrix_out.end());
+
+    }
 }

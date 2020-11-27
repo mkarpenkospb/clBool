@@ -1,12 +1,12 @@
 #pragma once
 
+#include <cstdint>
 
 // format could be some global variable,
 enum Format {
     COO,
     CSR
 };
-
 
 
 namespace details {

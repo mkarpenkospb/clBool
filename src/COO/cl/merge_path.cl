@@ -36,12 +36,13 @@ __kernel void merge(__global unsigned int *rowsC,
         return;
     }
 
-    unsigned int diag_length = diag_index < (min_side - 1) ? diag_index + 2 :
+    unsigned int diag_length = diag_index < min_side ? diag_index + 2 :
                                diag_index < max_side ? min_side + 2 :
                                res_size - diag_index;
 //
-//    if (diag_index == 43008) {
-//        printf("I am here, i am working\n");
+//    if (diag_index == 1676) {
+//        printf("sizeA: %d\n",  sizeA);
+//        printf("sizeB: %d\n",  sizeB);
 //        printf("min_side: %d\n",  min_side);
 //        printf("diag_length: %d\n",  diag_length);
 //        printf("res_size: %d\n",  res_size);
@@ -62,8 +63,8 @@ __kernel void merge(__global unsigned int *rowsC,
 
     while (true) {
         m = (l + r) / 2;
-        below_idx_a = diag_index < sizeA ? diag_length - m - 1 : sizeA - m;
-        below_idx_b = diag_index < sizeA ? m - 1 : (diag_index % min_side) + m;
+        below_idx_a = diag_index < sizeA ? diag_index - m + 1 : sizeA - m;
+        below_idx_b = diag_index < sizeA ? m - 1 : (diag_index - sizeA) + m;
 
         above_idx_a = below_idx_a - 1;
         above_idx_b = below_idx_b + 1;
@@ -72,10 +73,21 @@ __kernel void merge(__global unsigned int *rowsC,
                                                below_idx_b); //a[below_idx_a] > b[below_idx_b];
         above = m == diag_length - 1 ? 0 : is_greater_global(rowsA, colsA, rowsB, colsB, above_idx_a, above_idx_b);
 
-//        if (diag_index == 43008) {
+//        if (diag_index == 1676) {
 //            printf("l: %d, r: %d, m: %d\n", l, r, m);
 //            printf("below_idx_a: %d, below_idx_b: %d, above_idx_a: %d, above_idx_b: %d\n",
 //                   below_idx_a, below_idx_b, above_idx_a, above_idx_b);
+//            if (m != 0 ) {
+//                printf("below:     rowsA: %d, colsA: %d, rowsB: %d, colsB: %d\n",
+//                       rowsA[below_idx_a], colsA[below_idx_a],
+//                       rowsB[below_idx_b], colsB[below_idx_b]);
+//            }
+//
+//            if (m != diag_length - 1 ) {
+//                printf("above:     rowsA: %d, colsA: %d, rowsB: %d, colsB: %d\n",
+//                       rowsA[above_idx_a], colsA[above_idx_a],
+//                       rowsB[above_idx_b], colsB[above_idx_b]);
+//            }
 //        }
 
         // success
@@ -98,6 +110,11 @@ __kernel void merge(__global unsigned int *rowsC,
             rowsC[diag_index] = is_greater ? rowsA[above_idx_a] : rowsB[below_idx_b];
             colsC[diag_index] = is_greater ? colsA[above_idx_a] : colsB[below_idx_b];
 
+            if (diag_index == 1676) {
+                printf("rowsC[diag_index] : %d, colsC[diag_index] : %d\n", rowsC[diag_index], colsC[diag_index]);
+
+            }
+
             return;
         }
 
@@ -106,10 +123,7 @@ __kernel void merge(__global unsigned int *rowsC,
         } else {
             r = m;
         }
-
     }
-
-
 }
 
 
