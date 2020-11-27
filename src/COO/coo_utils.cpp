@@ -8,14 +8,6 @@
 
 namespace coo_utils {
 
-    auto cmp_coordinates = [](const coordinates &a, const coordinates &b) {
-        return a.first < b.first || (a.first == b.first && a.second < b.second);
-    };
-
-    auto cmp_pred = [](const coordinates &a, const coordinates &b) {
-        return a.first == b.first && a.second == b.second;
-    };
-
 
     void fill_random_matrix(std::vector<uint32_t> &rows, std::vector<uint32_t> &cols, uint32_t max_size) {
         uint32_t n = rows.size();
@@ -74,9 +66,9 @@ namespace coo_utils {
 
         matrix_cpp_cpu m_cpu;
         form_cpu_matrix(m_cpu, rows, cols);
-        std::sort(m_cpu.begin(), m_cpu.end(), cmp_coordinates);
+        std::sort(m_cpu.begin(), m_cpu.end());
 
-        m_cpu.erase(std::unique(m_cpu.begin(), m_cpu.end(), cmp_pred), m_cpu.end());
+        m_cpu.erase(std::unique(m_cpu.begin(), m_cpu.end()), m_cpu.end());
 
         return m_cpu;
     }
@@ -97,9 +89,9 @@ namespace coo_utils {
     void matrix_addition_cpu(matrix_cpp_cpu& matrix_out, const matrix_cpp_cpu& matrix_a, const matrix_cpp_cpu& matrix_b) {
 
         std::merge(matrix_a.begin(), matrix_a.end(), matrix_b.begin(), matrix_b.end(),
-                   std::back_inserter(matrix_out), cmp_coordinates);
+                   std::back_inserter(matrix_out));
 
-        matrix_out.erase(std::unique(matrix_out.begin(), matrix_out.end(), cmp_pred), matrix_out.end());
+        matrix_out.erase(std::unique(matrix_out.begin(), matrix_out.end()), matrix_out.end());
 
     }
 }
