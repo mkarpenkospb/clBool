@@ -40,7 +40,6 @@ void kronecker_product(Controls &controls,
                          matrix_b.rows_indices_gpu(), matrix_b.cols_indices_gpu(),
                          matrix_b.nnz(), matrix_b.nRows(), matrix_b.nCols());
 
-        sort_arrays(controls, res_rows, res_cols, res_size);
         matrix_out = matrix_coo(controls, matrix_a.nRows() * matrix_b.nRows(), matrix_a.nCols() * matrix_b.nCols(),
                                 res_size, std::move(res_rows), std::move(res_cols));
 

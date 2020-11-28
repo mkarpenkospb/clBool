@@ -54,13 +54,17 @@ matrix_coo::matrix_coo(Controls &controls,
                        uint32_t nCols,
                        uint32_t nEntities,
                        cl::Buffer rows,
-                       cl::Buffer cols)
+                       cl::Buffer cols,
+                       bool sorted)
         : matrix_base(nRows, nCols, nEntities),
           _rows_indices_gpu(std::move(rows)),
           _cols_indices_gpu(std::move(cols)),
           _rows_indices_cpu(std::vector<uint32_t>(nEntities)),
           _cols_indices_cpu(std::vector<uint32_t>(nEntities)) {
     try {
+        if (!sorted) {
+            sort_arrays(controls, _rows_indices_gpu, _cols_indices_gpu, n_entities);
+        }
         controls.queue.enqueueReadBuffer(_rows_indices_gpu, CL_TRUE, 0, sizeof(uint32_t) * n_entities,
                                          _rows_indices_cpu.data());
 

@@ -43,7 +43,8 @@ public:
                uint32_t nCols,
                uint32_t nEntities,
                cl::Buffer rows,
-               cl::Buffer cols);
+               cl::Buffer cols,
+               bool sorted = false);
 
     matrix_coo(matrix_coo const &other) = default;
 
