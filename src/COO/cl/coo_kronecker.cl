@@ -1,22 +1,21 @@
-#include "clion_defines.cl"
+//#include "clion_defines.cl"
 //
-#define GROUP_SIZE 256
+//#define GROUP_SIZE 256
 
-//void swap(unsigned int* a, unsigned int* b) {
-//    unsigned int
-//}
 
-__kernel void kronecker(__global unsigned int* rowsA,
-                        __global unsigned int* colsA,
-                        __global unsigned int* rowsB,
-                        __global unsigned int* colsB,
-                        __global unsigned int* rowsRes,
+
+// TODO: maybe split task to call less threads
+
+__kernel void kronecker(__global unsigned int* rowsRes,
                         __global unsigned int* colsRes,
+                        __global const unsigned int* rowsA,
+                        __global const unsigned int* colsA,
+                        __global const unsigned int* rowsB,
+                        __global const unsigned int* colsB,
 
-                        unsigned int nnzA,
                         unsigned int nnzB,
-                        unsigned int size_A,
-                        unsigned int size_B
+                        unsigned int nRowsB,
+                        unsigned int nColsB
                         ) {
     unsigned int global_id = get_global_id(0);
 
@@ -29,8 +28,8 @@ __kernel void kronecker(__global unsigned int* rowsA,
     unsigned int rowB = rowsB[elem_id];
     unsigned int colB = colsB[elem_id];
 
-    rowsRes[global_id] = size_B * rowA + rowB;
-    colsRes[global_id] = size_B * colA + colB;
+    rowsRes[global_id] = nRowsB * rowA + rowB;
+    colsRes[global_id] = nColsB * colA + colB;
 }
 
 

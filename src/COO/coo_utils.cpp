@@ -13,12 +13,13 @@ namespace coo_utils {
         uint32_t n = rows.size();
         FastRandom r(n);
         for (uint32_t i = 0; i < n; ++i) {
-            rows[i] = r.next() % max_size + 1;
-            cols[i] = r.next() % max_size + 1;
+            rows[i] = r.next() % max_size;
+            cols[i] = r.next() % max_size;
         }
     }
 
-    void form_cpu_matrix(matrix_cpp_cpu &matrix_out, const std::vector<uint32_t> &rows, const std::vector<uint32_t> &cols) {
+    void
+    form_cpu_matrix(matrix_cpp_cpu &matrix_out, const std::vector<uint32_t> &rows, const std::vector<uint32_t> &cols) {
         matrix_out.resize(rows.size());
         std::transform(rows.begin(), rows.end(), cols.begin(), matrix_out.begin(),
                        [](uint32_t i, uint32_t j) -> coordinates { return {i, j}; });
@@ -73,7 +74,7 @@ namespace coo_utils {
         return m_cpu;
     }
 
-    matrix_coo matrix_coo_from_cpu(Controls& controls, const matrix_cpp_cpu& m_cpu) {
+    matrix_coo matrix_coo_from_cpu(Controls &controls, const matrix_cpp_cpu &m_cpu) {
         std::vector<uint32_t> rows;
         std::vector<uint32_t> cols;
 
@@ -86,12 +87,34 @@ namespace coo_utils {
         return matrix_coo(controls, n_rows, n_cols, nnz, std::move(rows), std::move(cols), true);
     }
 
-    void matrix_addition_cpu(matrix_cpp_cpu& matrix_out, const matrix_cpp_cpu& matrix_a, const matrix_cpp_cpu& matrix_b) {
+    void
+    matrix_addition_cpu(matrix_cpp_cpu &matrix_out, const matrix_cpp_cpu &matrix_a, const matrix_cpp_cpu &matrix_b) {
 
         std::merge(matrix_a.begin(), matrix_a.end(), matrix_b.begin(), matrix_b.end(),
                    std::back_inserter(matrix_out));
 
         matrix_out.erase(std::unique(matrix_out.begin(), matrix_out.end()), matrix_out.end());
 
+    }
+
+    void
+    kronecker_product_cpu(matrix_cpp_cpu &matrix_out, const matrix_cpp_cpu &matrix_a, const matrix_cpp_cpu &matrix_b) {
+        auto less_for_rows = [](const coordinates &a, const coordinates &b) -> bool {
+            return a.first < b.first;
+        };
+        auto less_for_cols = [](const coordinates &a, const coordinates &b) -> bool {
+            return a.second < b.second;
+        };
+
+        uint32_t matrix_b_nRows = std::max_element(matrix_b.begin(), matrix_b.end(), less_for_rows)->first;
+        uint32_t matrix_b_nCols = std::max_element(matrix_b.begin(), matrix_b.end(), less_for_cols)->second;
+
+        for (const auto &coord_a: matrix_a) {
+            for (const auto &coord_b: matrix_b) {
+                matrix_out.emplace_back(coord_a.first * matrix_b_nRows + coord_b.first,
+                                     coord_a.second * matrix_b_nCols + coord_b.second);
+            }
+        }
+        std::sort(matrix_out.begin(), matrix_out.end());
     }
 }

@@ -121,7 +121,7 @@ void prepare_positions(Controls &controls,
         options << "-D GROUP_SIZE=" << block_size;
         program.build(options.str().c_str());
 
-        std::vector<uint32_t> look_positions(merged_size);
+//        std::vector<uint32_t> look_positions(merged_size);
 
         uint32_t work_group_size = block_size;
         uint32_t global_work_size = utils::calculate_global_size(work_group_size, merged_size);
@@ -134,7 +134,7 @@ void prepare_positions(Controls &controls,
 
         coo_prepare_positions(eargs, positions, merged_rows, merged_cols, merged_size);
 
-        controls.queue.enqueueReadBuffer(positions, CL_TRUE, 0, sizeof(uint32_t) * merged_size, look_positions.data());
+//        controls.queue.enqueueReadBuffer(positions, CL_TRUE, 0, sizeof(uint32_t) * merged_size, look_positions.data());
 
         std::cout << "\nprepare positions finished\n";
 
