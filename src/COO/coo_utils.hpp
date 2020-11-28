@@ -18,7 +18,7 @@ namespace coo_utils {
     void get_vectors_from_cpu_matrix(std::vector<uint32_t> &rows_out, std::vector<uint32_t> &cols_out,
                                      const matrix_cpp_cpu &matrix);
 
-    matrix_cpp_cpu generate_random_matrix_cpu(uint32_t pseudo_size, uint32_t max_size = 1024);
+    matrix_cpp_cpu generate_random_matrix_cpu(uint32_t pseudo_nnz, uint32_t max_size = 1024);
 
     matrix_coo matrix_coo_from_cpu(Controls &controls, const matrix_cpp_cpu &m_cpu);
 

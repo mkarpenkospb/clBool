@@ -58,10 +58,10 @@ namespace coo_utils {
         std::cout << "check finished, probably correct\n";
     }
 
-    matrix_cpp_cpu generate_random_matrix_cpu(uint32_t pseudo_size, uint32_t max_size) {
+    matrix_cpp_cpu generate_random_matrix_cpu(uint32_t pseudo_nnz, uint32_t max_size) {
 
-        std::vector<uint32_t> rows(pseudo_size);
-        std::vector<uint32_t> cols(pseudo_size);
+        std::vector<uint32_t> rows(pseudo_nnz);
+        std::vector<uint32_t> cols(pseudo_nnz);
 
         fill_random_matrix(rows, cols, max_size);
 
