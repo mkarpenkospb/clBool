@@ -109,10 +109,14 @@ namespace coo_utils {
         uint32_t matrix_b_nRows = std::max_element(matrix_b.begin(), matrix_b.end(), less_for_rows)->first;
         uint32_t matrix_b_nCols = std::max_element(matrix_b.begin(), matrix_b.end(), less_for_cols)->second;
 
+        matrix_out.resize(matrix_a.size() * matrix_b.size());
+
+        uint32_t i = 0;
         for (const auto &coord_a: matrix_a) {
             for (const auto &coord_b: matrix_b) {
-                matrix_out.emplace_back(coord_a.first * matrix_b_nRows + coord_b.first,
-                                     coord_a.second * matrix_b_nCols + coord_b.second);
+                matrix_out[i] = coordinates(coord_a.first * matrix_b_nRows + coord_b.first,
+                                            coord_a.second * matrix_b_nCols + coord_b.second);
+                ++i;
             }
         }
         std::sort(matrix_out.begin(), matrix_out.end());

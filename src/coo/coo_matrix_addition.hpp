@@ -43,7 +43,7 @@ void prefix_sum(
 
 void set_positions(
         Controls &controls,
-        cl::Buffer &new_rows,
+        cl::Buffer &compressed_rows,
         cl::Buffer &new_cols,
         cl::Buffer &merged_rows,
         cl::Buffer &merged_cols,

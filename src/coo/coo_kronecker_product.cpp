@@ -15,7 +15,7 @@ void kronecker_product(Controls &controls,
 
         uint32_t res_size = matrix_a.nnz() * matrix_b.nnz();
 
-        program = controls.create_program_from_file("../src/COO/cl/coo_kronecker.cl");
+        program = controls.create_program_from_file("../src/coo/cl/coo_kronecker.cl");
         uint32_t block_size = controls.block_size;
 
         std::stringstream options;

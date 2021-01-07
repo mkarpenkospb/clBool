@@ -19,25 +19,27 @@ link_directories(${OpenCL_LIBRARY})
 
 add_executable(sparse-boolean-matrix-operations
         src/library_classes/matrix_coo.cpp
-        src/COO/main_coo.cpp
-        src/COO/coo_matrix_addition.cpp
-        src/COO/cl/clion_defines.cl
-        src/COO/coo_initialization.cpp
+        src/coo/main_coo.cpp
+        src/coo/coo_matrix_addition.cpp
+        src/coo/cl/clion_defines.cl
+        src/coo/coo_initialization.cpp
         src/utils.cpp
-        src/COO/cl/coo_bitonic_sort.cl
-        src/COO/cl/coo_kronecker.cl
-        src/COO/cl/merge_path.cl
-        src/COO/coo_utils.cpp
-        src/COO/cl/prepare_positions.cl
-        src/COO/cl/prefix_sum.cl
-        src/COO/cl/set_positions.cl
-        src/COO/coo_kronecker_product.cpp
+        src/coo/cl/coo_bitonic_sort.cl
+        src/coo/cl/coo_kronecker.cl
+        src/coo/cl/merge_path.cl
+        src/coo/coo_utils.cpp
+        src/coo/cl/prepare_positions.cl
+        src/coo/cl/prefix_sum.cl
+        src/coo/cl/set_positions.cl
+        src/coo/cl/count_workload.cl
+        src/coo/coo_kronecker_product.cpp
+        src/coo/coo_matrix_multiplication.cpp
         )
 
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})
 # у меня этот макрос через раз отрабатывает, вроде файл поменяла, а он не скопировался
 # copy cl files to binary folder
-FILE(GLOB CL_FILES src/COO/cl/*.cl)
+FILE(GLOB CL_FILES src/coo/cl/*.cl)
 foreach(cl_file ${CL_FILES})
     add_custom_command(
     TARGET sparse-boolean-matrix-operations

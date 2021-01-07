@@ -36,7 +36,7 @@ void merge(Controls &controls,
 
         uint32_t merged_size = a.nnz() + b.nnz();
 
-        program = controls.create_program_from_file("../src/COO/cl/merge_path.cl");
+        program = controls.create_program_from_file("../src/coo/cl/merge_path.cl");
 
         uint32_t block_size = controls.block_size;
 
@@ -78,6 +78,7 @@ void merge(Controls &controls,
     }
 }
 
+
 void reduce_duplicates(Controls &controls,
                        cl::Buffer &merged_rows,
                        cl::Buffer &merged_cols,
@@ -114,7 +115,7 @@ void prepare_positions(Controls &controls,
 ) {
     cl::Program program;
     try {
-        program = controls.create_program_from_file("../src/COO/cl/prepare_positions.cl");
+        program = controls.create_program_from_file("../src/coo/cl/prepare_positions.cl");
         uint32_t block_size = controls.block_size;
 
         std::stringstream options;
@@ -125,7 +126,6 @@ void prepare_positions(Controls &controls,
 
         uint32_t work_group_size = block_size;
         uint32_t global_work_size = utils::calculate_global_size(work_group_size, merged_size);
-
 
         cl::Kernel coo_prepare_positions_kernel(program, "prepare_array_for_positions");
         cl::KernelFunctor<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t> coo_prepare_positions(
@@ -155,7 +155,7 @@ void prefix_sum(Controls &controls,
                 uint32_t merged_size) {
     cl::Program program;
     try {
-        program = controls.create_program_from_file("../src/COO/cl/prefix_sum.cl");
+        program = controls.create_program_from_file("../src/coo/cl/prefix_sum.cl");
         uint32_t block_size = controls.block_size;
 
         std::stringstream options;
@@ -247,7 +247,7 @@ void set_positions(Controls &controls,
 
     cl::Program program;
     try {
-        program = controls.create_program_from_file("../src/COO/cl/set_positions.cl");
+        program = controls.create_program_from_file("../src/coo/cl/set_positions.cl");
         uint32_t block_size = controls.block_size;
 
         std::stringstream options;

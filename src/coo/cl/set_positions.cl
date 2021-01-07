@@ -36,3 +36,26 @@ __kernel void set_positions(__global unsigned int* newRows,
         newCols[positions[global_id]] = cols[global_id];
     }
 }
+
+
+__kernel void set_positions_rows(__global unsigned int* newRows,
+                            __global const unsigned int* rows,
+                            __global const unsigned int* positions,
+                            unsigned int n
+) {
+
+    unsigned int local_id = get_local_id(0);
+    unsigned int group_id = get_group_id(0);
+    unsigned int global_id = get_global_id(0);
+
+    if (global_id == 0) {
+        newRows[global_id] = rows[global_id];
+        return;
+    }
+
+    if (global_id >= n) return;
+
+    if (positions[global_id] != positions[global_id - 1]) {
+        newRows[positions[global_id]] = rows[global_id];
+    }
+}

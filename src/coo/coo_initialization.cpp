@@ -20,7 +20,7 @@ void sort_arrays(Controls &controls, cl::Buffer &rows_gpu, cl::Buffer &cols_gpu,
 
     try {
 
-        std::ifstream cl_file("../src/COO/cl/coo_bitonic_sort.cl");
+        std::ifstream cl_file("../src/coo/cl/coo_bitonic_sort.cl");
 //        std::ifstream cl_file("coo_bitonic_sort.cl");
         std::string cl_string(std::istreambuf_iterator<char>(cl_file), (std::istreambuf_iterator<char>()));
         cl::Program::Sources source(1, cl_string);
