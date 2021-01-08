@@ -1,5 +1,5 @@
-//#include "clion_defines.cl"
-//#define GROUP_SIZE 256
+#include "clion_defines.cl"
+#define GROUP_SIZE 256
 
 
 /*
@@ -38,24 +38,23 @@ __kernel void set_positions(__global unsigned int* newRows,
 }
 
 
-__kernel void set_positions_rows(__global unsigned int* newRows,
-                            __global const unsigned int* rows,
-                            __global const unsigned int* positions,
-                            unsigned int n
+__kernel void set_positions_rows(__global unsigned int* rows_pointers,
+                                 __global unsigned int* rows_compressed,
+                                 __global const unsigned int* rows,
+                                 __global const unsigned int* positions,
+                                 unsigned int n
 ) {
-
-    unsigned int local_id = get_local_id(0);
-    unsigned int group_id = get_group_id(0);
     unsigned int global_id = get_global_id(0);
 
     if (global_id == 0) {
-        newRows[global_id] = rows[global_id];
+        rows_pointers[global_id] = rows[global_id];
         return;
     }
 
     if (global_id >= n) return;
 
     if (positions[global_id] != positions[global_id - 1]) {
-        newRows[positions[global_id]] = rows[global_id];
+        rows_pointers[positions[global_id]] = global_id;
+        rows_compressed[positions[global_id]] = rows[global_id];
     }
 }

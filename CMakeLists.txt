@@ -32,6 +32,7 @@ add_executable(sparse-boolean-matrix-operations
         src/coo/cl/prefix_sum.cl
         src/coo/cl/set_positions.cl
         src/coo/cl/count_workload.cl
+        src/coo/cl/heap_merge.cl
         src/coo/coo_kronecker_product.cpp
         src/coo/coo_matrix_multiplication.cpp
         )
