@@ -41,14 +41,17 @@ void matrix_multiplication(Controls &controls,
 
     std::vector<cpu_buffer> cpu_workload_groups(a_nzr, cpu_buffer());
     cpu_buffer groups_pointers(BINS_NUM);
-    uint32_t indices_size;
-    build_groups(cpu_workload_groups, cpu_workload, indices_size);
-    cl::Buffer gpu_workload_groups(controls.context, CL_TRUE, 0, )
+    build_groups(cpu_workload_groups, cpu_workload);
+    cl::Buffer gpu_workload_groups(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a_nzr);
     unsigned int offset = 0;
-    for (const auto &group: cpu_workload_groups) {
 
+
+    for (const auto &group: cpu_workload_groups) {
+        controls.queue.enqueueWriteBuffer(gpu_workload_groups, CL_TRUE, offset, group.size(), group.data());
+        offset += group.size();
     }
-    cl::Buffer workload_groups_indices(controls.context, CL_TRUE, );
+
+
 
 }
 

@@ -5,7 +5,7 @@
 #define GROUP_SIZE 256
 // we want to generate code for 31 different heap sizes, and we'll send this
 // constant as a compilation parameter
-#define START_HEAP_SIZE 32
+#define NNZ_ESTIMATION 32
 
 uint search(__global const unsigned int *array, uint value, uint size) {
     uint l = 0;
@@ -60,7 +60,7 @@ void heapify(__local uint *heap, uint i, uint heap_size) {
 
 /*
  * indices -- array of indices to work with
- * group_start, group_length - start and length of the group with nnz-estimation of START_HEAP_SIZE
+ * group_start, group_length - start and length of the group with nnz-estimation of NNZ_ESTIMATION
  *
  */
 __kernel void heap_merge(__global const unsigned int *indices,
@@ -68,7 +68,6 @@ __kernel void heap_merge(__global const unsigned int *indices,
                          unsigned int group_length,
 
                          __global const unsigned int *a_rows_pointers,
-                         __global const unsigned int *a_rows_compressed,
                          __global const unsigned int *a_cols,
 
                          __global const unsigned int *b_rows_pointers,
@@ -79,15 +78,15 @@ __kernel void heap_merge(__global const unsigned int *indices,
     uint global_id = get_global_id(0);
 
     uint row_pos = group_start + global_id;
-    uint rows_end = group_start + group_length;
-    if (row_pos > rows_end) return;
+    uint group_end = group_start + group_length;
+    if (row_pos > group_end) return;
 
     /*
      * row_index is not the row pointer itself, but a position where we can find our row pointer in a_rows_pointers
      */
     uint row_index = indices[row_pos];
 
-    __local uint heap[START_HEAP_SIZE];
+    __local uint heap[NNZ_ESTIMATION];
 
 
     // ------------------ fill heap -------------------
@@ -112,23 +111,21 @@ __kernel void heap_merge(__global const unsigned int *indices,
 
     // ---------------------- heapsort -------------------
 
-    uint heap_pointer_unique = START_HEAP_SIZE;
-    uint heap_size = START_HEAP_SIZE;
+    uint heap_pointer_unique = NNZ_ESTIMATION;
+    uint heap_size = NNZ_ESTIMATION;
 
     // build heap
-    for (uint i = (START_HEAP_SIZE / 2); i > 0; --i) {
+    for (uint i = (NNZ_ESTIMATION / 2); i > 0; --i) {
         heapify(heap, i - 1, heap_size);
     }
 
-    //heapsort
-
     // first step separately
     swap(heap, 0, heap_pointer_unique - 1);
-    heapify(heap, 0, heap_size);
     --heap_pointer_unique;
     --heap_size;
+    heapify(heap, 0, heap_size);
 
-    for(uint i = 0; i < START_HEAP_SIZE - 1; ++i) {
+    for(uint i = 0; i < NNZ_ESTIMATION - 1; ++i) {
         if (heap[0] != heap[heap_pointer_unique]) {
             swap_unique(heap, 0, heap_size - 1, heap_pointer_unique - 1);
             --heap_pointer_unique;
