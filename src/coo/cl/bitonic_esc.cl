@@ -5,7 +5,7 @@
 #define GROUP_SIZE 256
 #define NNZ_ESTIMATION 32
 
-uint search(__global const unsigned int *array, uint value, uint size) {
+uint search_global(__global const unsigned int *array, uint value, uint size) {
     uint l = 0;
     uint r = size;
     uint m = l + ((r - l) / 2);
@@ -47,8 +47,11 @@ __kernel void bitonic_esc(__global const unsigned int *indices,
 
     uint local_id = get_local_id(0);
     uint group_id = get_group_id(0);
-    uint row_index = group_start + group_id;
+    uint row_pos = group_start + group_id;
     uint group_size = get_local_size(0);
+
+
+    if (row_pos >= group_start + group_length) return;
 
     __local uint cols[NNZ_ESTIMATION];
     // ------------------ fill cols  -------------------
@@ -56,13 +59,16 @@ __kernel void bitonic_esc(__global const unsigned int *indices,
     /*
      * fill each row in parallel
      */
+
+    uint row_index = indices[row_pos];
+
     uint a_start = a_rows_pointers[row_index];
     uint a_end = a_rows_pointers[row_index + 1];
     uint heap_fill_pointer = 0;
 
     for (uint a_pointer = a_start; a_pointer < a_end; ++a_pointer) {
         uint col_index = a_cols[a_pointer];
-        uint b_row_pointer = search(b_rows_compressed, col_index, b_nzr);
+        uint b_row_pointer = search_global(b_rows_compressed, col_index, b_nzr);
         if (b_row_pointer == b_nzr) continue;
 
         uint b_start = b_rows_pointers[b_row_pointer];
@@ -131,7 +137,7 @@ __kernel void bitonic_esc(__global const unsigned int *indices,
     __local uint positions[NNZ_ESTIMATION];
 
     if (local_id < NNZ_ESTIMATION) {
-        positions[local_id] = local_id == 0 ? local_id :
+        positions[local_id] = local_id == 0 ? 1 :
                               (cols[local_id] == cols[local_id - 1])  ? 0 : 1;
     }
 

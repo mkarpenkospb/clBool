@@ -34,6 +34,7 @@ add_executable(sparse-boolean-matrix-operations
         src/coo/cl/count_workload.cl
         src/coo/cl/heap_merge.cl
         src/coo/cl/bitonic_esc.cl
+        src/coo/cl/merge_rows.cl
         src/coo/coo_kronecker_product.cpp
         src/coo/coo_matrix_multiplication.cpp
         )

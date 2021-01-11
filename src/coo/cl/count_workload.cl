@@ -2,7 +2,7 @@
 //
 #define GROUP_SIZE 256
 
-uint search(__global const unsigned int* array, uint value, uint size) {
+uint search_global(__global const unsigned int* array, uint value, uint size) {
     uint l = 0;
     uint r = size;
     uint m =  l + ((r - l) / 2);
@@ -45,7 +45,7 @@ __kernel void count_workload(__global unsigned int* workload,
 
     for (uint col_idx = start; col_idx < end; col_idx ++) {
         uint col_ptr = a_cols[col_idx];
-        uint col_ptr_position = search(b_rows_compressed, col_ptr, b_nzr);
+        uint col_ptr_position = search_global(b_rows_compressed, col_ptr, b_nzr);
         workload[global_id] +=   col_ptr_position == b_nzr ? 0 :
                 b_rows_pointers[col_ptr_position + 1] - b_rows_pointers[col_ptr_position];
     }

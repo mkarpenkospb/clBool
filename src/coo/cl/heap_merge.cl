@@ -7,7 +7,7 @@
 // constant as a compilation parameter
 #define NNZ_ESTIMATION 32
 
-uint search(__global const unsigned int *array, uint value, uint size) {
+uint search_global(__global const unsigned int *array, uint value, uint size) {
     uint l = 0;
     uint r = size;
     uint m = l + ((r - l) / 2);
@@ -79,7 +79,11 @@ __kernel void heap_merge(__global const unsigned int *indices,
 
     uint row_pos = group_start + global_id;
     uint group_end = group_start + group_length;
-    if (row_pos > group_end) return;
+    /*
+     * БАРЬЕРЫ???????????
+     *
+     */
+//    if (row_pos >= group_end) return;
 
     /*
      * row_index is not the row pointer itself, but a position where we can find our row pointer in a_rows_pointers
@@ -96,7 +100,7 @@ __kernel void heap_merge(__global const unsigned int *indices,
 
     for (uint a_pointer = a_start; a_pointer < a_end; ++a_pointer) {
         uint col_index = a_cols[a_pointer];
-        uint b_row_pointer = search(b_rows_compressed, col_index, b_nzr);
+        uint b_row_pointer = search_global(b_rows_compressed, col_index, b_nzr);
         if (b_row_pointer == b_nzr) continue;
 
         uint b_start = b_rows_pointers[b_row_pointer];
