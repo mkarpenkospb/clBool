@@ -31,7 +31,7 @@ void create_rows_pointers(Controls &controls,
                           uint32_t &nzr);
 
 void count_workload(Controls &controls,
-                    cl::Buffer workload_out,
+                    cl::Buffer &workload_out,
                     cl::Buffer &a_rows_pointers,
                     const cl::Buffer &a_cols,
                     cl::Buffer &b_rows_compressed,

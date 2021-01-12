@@ -48,7 +48,8 @@ __kernel void set_positions_rows(__global unsigned int* rows_pointers,
     unsigned int global_id = get_global_id(0);
 
     if (global_id == 0) {
-        rows_pointers[global_id] = rows[global_id];
+        rows_pointers[global_id] = 0;
+        rows_compressed[global_id] = 0;
         rows_pointers[nzr] = size;
         return;
     }

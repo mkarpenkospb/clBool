@@ -43,7 +43,7 @@ add_executable(sparse-boolean-matrix-operations
         src/coo/test/coo_reduce_duplicates_test.cpp
         src/coo/test/coo_kronecker_test.cpp
         src/coo/test/coo_to_dcsr_test.cpp
-
+        src/coo/test/count_workload_test.cpp
         )
 
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})

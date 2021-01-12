@@ -94,11 +94,11 @@ void create_rows_pointers(Controls &controls,
     cl::Buffer positions(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * size);
     prepare_positions(controls, positions, rows, size);
 
-    utils::print_gpu_buffer(controls, positions, size);
+//    utils::print_gpu_buffer(controls, positions, size);
 
     prefix_sum(controls, positions, nzr, size);
 
-    utils::print_gpu_buffer(controls, positions, size);
+//    utils::print_gpu_buffer(controls, positions, size);
 
     cl::Buffer rows_pointers(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (nzr + 1));
     cl::Buffer rows_compressed(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * nzr);
@@ -112,7 +112,7 @@ void create_rows_pointers(Controls &controls,
 
 
 void count_workload(Controls &controls,
-                    cl::Buffer workload_out,
+                    cl::Buffer &workload_out,
                     cl::Buffer &a_rows_pointers,
                     const cl::Buffer &a_cols,
                     cl::Buffer &b_rows_compressed,
@@ -145,6 +145,7 @@ void count_workload(Controls &controls,
 
         coo_count_workload(eargs, workload, a_rows_pointers, a_cols, b_rows_compressed, b_rows_pointers, a_nzr, b_nzr);
 
+//        utils::print_gpu_buffer(controls, workload, 10);
         workload_out = std::move(workload);
 
     } catch (const cl::Error &e) {
@@ -155,8 +156,6 @@ void count_workload(Controls &controls,
         }
         throw std::runtime_error(exception.str());
     }
-
-
 }
 
 
@@ -229,7 +228,7 @@ void set_positions(Controls &controls,
         cl::EnqueueArgs eargs(controls.queue, cl::NDRange(global_work_size), cl::NDRange(work_group_size));
 
         set_positions(eargs, rows_pointers, rows_compressed, rows, positions, size, nzr);
-
+        utils::print_gpu_buffer(controls, rows_pointers, 10);
         std::cout << "\nset_positions finished\n";
 
     } catch (const cl::Error &e) {

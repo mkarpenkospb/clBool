@@ -191,7 +191,9 @@ namespace utils {
         for (uint32_t i = 0; i < size; ++i) {
             if (cpu_copy[i] != buffer_c[i]) {
                 std::cerr << "buffers are different" << std::endl;
+                return;
             }
         }
+        std::cout << "buffers are equal" << std::endl;
     }
 }

@@ -5,7 +5,8 @@ int main() {
 //    testReduceDuplicates();
 //    testMatrixAddition();
 //    testKronecker();
-    testCOOtoDCSR();
+//    testCOOtoDCSR();
+    testCountWorkload();
 }
 
 
