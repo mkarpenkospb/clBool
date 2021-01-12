@@ -1,4 +1,3 @@
-
 #include "coo_kronecker_product.hpp"
 
 #include "../library_classes/controls.hpp"

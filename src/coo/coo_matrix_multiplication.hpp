@@ -18,7 +18,9 @@ void set_positions(Controls &controls,
                    cl::Buffer &rows_compressed,
                    const cl::Buffer &rows,
                    const cl::Buffer &positions,
-                   uint32_t size);
+                   uint32_t size,
+                   uint32_t nzr
+);
 
 
 void create_rows_pointers(Controls &controls,
@@ -26,7 +28,7 @@ void create_rows_pointers(Controls &controls,
                           cl::Buffer &rows_compressed_out,
                           const cl::Buffer &rows,
                           uint32_t size,
-                          uint32_t new_size);
+                          uint32_t &nzr);
 
 void count_workload(Controls &controls,
                     cl::Buffer workload_out,

@@ -1,6 +1,9 @@
 #pragma once
 
-#include "../cl_defines.hpp"
+#include "../library_classes/controls.hpp"
+#include "../cl_includes.hpp"
+#include "../utils.hpp"
+#include "../library_classes/matrix_coo.hpp"
 
 void matrix_addition(
         Controls &controls,

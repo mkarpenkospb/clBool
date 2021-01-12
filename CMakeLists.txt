@@ -37,6 +37,13 @@ add_executable(sparse-boolean-matrix-operations
         src/coo/cl/merge_rows.cl
         src/coo/coo_kronecker_product.cpp
         src/coo/coo_matrix_multiplication.cpp
+
+        src/coo/test/coo_addition_test.cpp
+        src/coo/test/coo_bitonic_test.cpp
+        src/coo/test/coo_reduce_duplicates_test.cpp
+        src/coo/test/coo_kronecker_test.cpp
+        src/coo/test/coo_to_dcsr_test.cpp
+
         )
 
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})

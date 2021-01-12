@@ -7,17 +7,20 @@
 const uint32_t BINS_NUM = 38;
 typedef std::vector<uint32_t> cpu_buffer;
 
+
+
+
 void matrix_multiplication(Controls &controls,
                            matrix_coo &matrix_out,
                            const matrix_coo &a,
                            const matrix_coo &b) {
-
 
     cl::Buffer a_rows_pointers;
     cl::Buffer b_rows_pointers;
 
     /*
      * rows_compressed -- rows array with no duplicates
+     * probably we don't need it
      */
     cl::Buffer a_rows_compressed;
     cl::Buffer b_rows_compressed;
@@ -50,8 +53,6 @@ void matrix_multiplication(Controls &controls,
         controls.queue.enqueueWriteBuffer(gpu_workload_groups, CL_TRUE, offset, group.size(), group.data());
         offset += group.size();
     }
-
-
 
 }
 
@@ -87,18 +88,23 @@ void create_rows_pointers(Controls &controls,
                           cl::Buffer &rows_compressed_out,
                           const cl::Buffer &rows,
                           uint32_t size,
-                          uint32_t new_size
+                          uint32_t &nzr // non zero rows
                           ) {
 
     cl::Buffer positions(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * size);
     prepare_positions(controls, positions, rows, size);
 
-    prefix_sum(controls, positions, new_size, size);
+    utils::print_gpu_buffer(controls, positions, size);
 
-    cl::Buffer rows_pointers(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * new_size);
-    cl::Buffer rows_compressed(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * new_size);
+    prefix_sum(controls, positions, nzr, size);
 
-    set_positions(controls, rows_pointers, rows_compressed, rows, positions, size);
+    utils::print_gpu_buffer(controls, positions, size);
+
+    cl::Buffer rows_pointers(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (nzr + 1));
+    cl::Buffer rows_compressed(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * nzr);
+
+    set_positions(controls, rows_pointers, rows_compressed, rows, positions, size, nzr);
+
 
     rows_pointers_out = std::move(rows_pointers);
     rows_compressed_out = std::move(rows_compressed);
@@ -154,8 +160,6 @@ void count_workload(Controls &controls,
 }
 
 
-
-
 void prepare_positions(Controls &controls,
                        cl::Buffer &positions,
                        const cl::Buffer &rows,
@@ -202,7 +206,9 @@ void set_positions(Controls &controls,
                    cl::Buffer &rows_compressed,
                    const cl::Buffer &rows,
                    const cl::Buffer &positions,
-                   uint32_t size) {
+                   uint32_t size,
+                   uint32_t nzr
+                   ) {
 
     cl::Program program;
     try {
@@ -214,7 +220,7 @@ void set_positions(Controls &controls,
         program.build(options.str().c_str());
 
         cl::Kernel set_positions_kernel(program, "set_positions_rows");
-        cl::KernelFunctor<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, unsigned int> set_positions(
+        cl::KernelFunctor<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, unsigned int, unsigned int> set_positions(
                 set_positions_kernel);
 
         uint32_t work_group_size = block_size;
@@ -222,7 +228,7 @@ void set_positions(Controls &controls,
 
         cl::EnqueueArgs eargs(controls.queue, cl::NDRange(global_work_size), cl::NDRange(work_group_size));
 
-        set_positions(eargs, rows_pointers, rows_compressed, rows, positions, size);
+        set_positions(eargs, rows_pointers, rows_compressed, rows, positions, size, nzr);
 
         std::cout << "\nset_positions finished\n";
 

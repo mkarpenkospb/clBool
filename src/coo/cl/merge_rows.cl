@@ -1,8 +1,8 @@
-#include "clion_defines.cl"
-
-#define GROUP_SIZE 256
-#define NNZ_ESTIMATION 32
-#define LOCAL_ARRAY_SIZE 256
+//#include "clion_defines.cl"
+//
+//#define GROUP_SIZE 256
+//#define NNZ_ESTIMATION 32
+//#define LOCAL_ARRAY_SIZE 256
 
 uint search_global(__global const unsigned int *array, uint value, uint size) {
     uint l = 0;
@@ -48,7 +48,7 @@ uint search_local(__local const unsigned int *array, uint value, uint size) {
 }
 
 
-void scan(__local uint *positions, uint size) {
+void scan(__local uint *positions, uint size, uint *total_sum) {
     // -------------------------------------- scan -----------------------------------------------------
 
 
@@ -75,6 +75,7 @@ void scan(__local uint *positions, uint size) {
 
     if (local_id == size - 1) {
         /* !!!!!!!!!!!! В ЭТОМ МЕСТЕ РАЗМЕР МАССИВА */
+        *total_sum = positions[local_id];
         positions[local_id] = 0;
     }
 
@@ -181,18 +182,17 @@ __kernel void merge_local(__global const unsigned int *indices,
         for (uint group_step = 0; group_step < steps; ++group_step) {
             uint elem_id = group_step * group_size + local_id;
             uint current_length = min(b_row_length & (group_size - 1),  group_size);
-            fill_pointer += current_length;
-            if (elem_id < b_row_length) {
+
+            if (first_pass && elem_id < b_row_length) {
                 /*
                  * В первом проходе не будет дубликатов, поэтому
                  * сразу записываем в финальный массив
                  */
-                if (first_pass) {
-                    final_cols[local_id] = b_cols[elem_id];
-                    first_pass = false;
-                    continue;
-                }
 
+                final_cols[local_id] = b_cols[elem_id];
+                first_pass = false;
+                fill_pointer += current_length;
+                continue;
             }
 
             current_cols[local_id] = elem_id < b_row_length ? b_cols[elem_id] : 0;
@@ -210,17 +210,35 @@ __kernel void merge_local(__global const unsigned int *indices,
              */
 
             if (elem_id < b_row_length) {
-                positions[local_id] = local_id == 0 ? 1 :
-                                      search_local(final_cols, current_cols[local_id], fill_pointer) == fill_pointer ?
+                positions[local_id] = search_local(final_cols, current_cols[local_id], fill_pointer) == fill_pointer ?
                                       1 : 0;
-                scan(positions, current_length);
+                uint total_sum;
+                scan(positions, current_length, &total_sum);
+
+                /*
+                 * если не хватает места в локальном массиве, то нужно скопировать всё
+                 * в подготовленную матрицу и выставить флаг.
+                 * На стороне CPU пойтись по массиву предназначенному для флагов, скопировать
+                 * элементы в перевыделенную память. Придумать быстрое копирование.
+                 */
+
+                /*
+                 * если слева значение такое же, то так как скан был inclusive, наш вклад переносится на следующее
+                 * значение. Можно сравнивать себя и соседа справа. Для финального
+                 */
+
+
+                if (positions[local_id] != local_id == group_size - 1 ? total_sum : positions[local_id + 1]) {
+                        final_cols[fill_pointer + local_id] = current_cols[positions[local_id]];
+                }
+
+
+                // total_sum после префиксных сумм содержит число уникальных элементов
+                fill_pointer += total_sum;
             }
         }
-
         fill_pointer += b_row_length;
     }
-
-
 }
 
 __kernel void merge_global() {

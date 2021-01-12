@@ -218,13 +218,13 @@ void prefix_sum(Controls &controls,
             std::swap(a_size_ptr, b_size_ptr);
         }
 
-        controls.queue.enqueueReadBuffer(positions, CL_TRUE, 0, sizeof(uint32_t) * merged_size, result.data());
+//        controls.queue.enqueueReadBuffer(positions, CL_TRUE, 0, sizeof(uint32_t) * merged_size, result.data());
 
         // the last element of positions is the new matrix size - 1
         controls.queue.enqueueReadBuffer(positions, CL_TRUE, (merged_size - 1) * sizeof(uint32_t),
                                          sizeof(uint32_t), &new_size);
         new_size++;
-        check_pref_correctness(result, before);
+//        check_pref_correctness(result, before);
         std::cout << "\nprefix sum finished\n";
     } catch (const cl::Error &e) {
         std::stringstream exception;

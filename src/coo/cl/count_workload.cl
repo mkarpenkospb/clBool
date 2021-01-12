@@ -1,6 +1,6 @@
-#include "clion_defines.cl"
+//#include "clion_defines.cl"
 //
-#define GROUP_SIZE 256
+//#define GROUP_SIZE 256
 
 uint search_global(__global const unsigned int* array, uint value, uint size) {
     uint l = 0;

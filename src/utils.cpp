@@ -6,6 +6,7 @@
 #include <sstream>
 #include <iostream>
 
+
 namespace utils {
 // https://stackoverflow.com/a/466242
     unsigned int ceil_to_power2(uint32_t v) {
@@ -165,6 +166,32 @@ namespace utils {
                 return "CL_INVALID_PROPERTY";
             default:
                 return "unknown error code: " + std::to_string(error);
+        }
+    }
+
+    void print_gpu_buffer(Controls &controls, const cl::Buffer &buffer, uint32_t size) {
+        cpu_buffer cpu_copy(size);
+        controls.queue.enqueueReadBuffer(buffer, CL_TRUE, 0, sizeof(uint32_t) * cpu_copy.size(), cpu_copy.data());
+        for (auto const &item: cpu_copy) {
+            std::cout << item << ", ";
+        }
+        std::cout << std::endl;
+    }
+
+    void print_cpu_buffer(const cpu_buffer& buffer) {
+        for (auto const &item: buffer) {
+            std::cout << item << ", ";
+        }
+        std::cout << std::endl;
+    }
+
+    void compare_buffers(Controls &controls, const cl::Buffer &buffer_g, const cpu_buffer& buffer_c, uint32_t size) {
+        cpu_buffer cpu_copy(size);
+        controls.queue.enqueueReadBuffer(buffer_g, CL_TRUE, 0, sizeof(uint32_t) * cpu_copy.size(), cpu_copy.data());
+        for (uint32_t i = 0; i < size; ++i) {
+            if (cpu_copy[i] != buffer_c[i]) {
+                std::cerr << "buffers are different" << std::endl;
+            }
         }
     }
 }

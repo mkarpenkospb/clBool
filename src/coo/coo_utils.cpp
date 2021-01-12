@@ -19,7 +19,7 @@ namespace coo_utils {
     }
 
     void
-    form_cpu_matrix(matrix_cpp_cpu &matrix_out, const std::vector<uint32_t> &rows, const std::vector<uint32_t> &cols) {
+    form_cpu_matrix(matrix_coo_cpu &matrix_out, const std::vector<uint32_t> &rows, const std::vector<uint32_t> &cols) {
         matrix_out.resize(rows.size());
         std::transform(rows.begin(), rows.end(), cols.begin(), matrix_out.begin(),
                        [](uint32_t i, uint32_t j) -> coordinates { return {i, j}; });
@@ -27,7 +27,7 @@ namespace coo_utils {
     }
 
     void get_vectors_from_cpu_matrix(std::vector<uint32_t> &rows_out, std::vector<uint32_t> &cols_out,
-                                     const matrix_cpp_cpu &matrix) {
+                                     const matrix_coo_cpu &matrix) {
         uint32_t n = matrix.size();
 
         rows_out.resize(matrix.size());
@@ -58,14 +58,14 @@ namespace coo_utils {
         std::cout << "check finished, probably correct\n";
     }
 
-    matrix_cpp_cpu generate_random_matrix_cpu(uint32_t pseudo_nnz, uint32_t max_size) {
+    matrix_coo_cpu generate_random_matrix_cpu(uint32_t pseudo_nnz, uint32_t max_size) {
 
         std::vector<uint32_t> rows(pseudo_nnz);
         std::vector<uint32_t> cols(pseudo_nnz);
 
         fill_random_matrix(rows, cols, max_size);
 
-        matrix_cpp_cpu m_cpu;
+        matrix_coo_cpu m_cpu;
         form_cpu_matrix(m_cpu, rows, cols);
         std::sort(m_cpu.begin(), m_cpu.end());
 
@@ -74,7 +74,7 @@ namespace coo_utils {
         return m_cpu;
     }
 
-    matrix_coo matrix_coo_from_cpu(Controls &controls, const matrix_cpp_cpu &m_cpu) {
+    matrix_coo matrix_coo_from_cpu(Controls &controls, const matrix_coo_cpu &m_cpu) {
         std::vector<uint32_t> rows;
         std::vector<uint32_t> cols;
 
@@ -88,7 +88,7 @@ namespace coo_utils {
     }
 
     void
-    matrix_addition_cpu(matrix_cpp_cpu &matrix_out, const matrix_cpp_cpu &matrix_a, const matrix_cpp_cpu &matrix_b) {
+    matrix_addition_cpu(matrix_coo_cpu &matrix_out, const matrix_coo_cpu &matrix_a, const matrix_coo_cpu &matrix_b) {
 
         std::merge(matrix_a.begin(), matrix_a.end(), matrix_b.begin(), matrix_b.end(),
                    std::back_inserter(matrix_out));
@@ -98,7 +98,7 @@ namespace coo_utils {
     }
 
     void
-    kronecker_product_cpu(matrix_cpp_cpu &matrix_out, const matrix_cpp_cpu &matrix_a, const matrix_cpp_cpu &matrix_b) {
+    kronecker_product_cpu(matrix_coo_cpu &matrix_out, const matrix_coo_cpu &matrix_a, const matrix_coo_cpu &matrix_b) {
         auto less_for_rows = [](const coordinates &a, const coordinates &b) -> bool {
             return a.first < b.first;
         };

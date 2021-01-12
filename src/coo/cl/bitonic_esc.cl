@@ -1,9 +1,7 @@
-#include "clion_defines.cl"
-
-
-
-#define GROUP_SIZE 256
-#define NNZ_ESTIMATION 32
+//#include "clion_defines.cl"
+//
+//#define GROUP_SIZE 256
+//#define NNZ_ESTIMATION 32
 
 uint search_global(__global const unsigned int *array, uint value, uint size) {
     uint l = 0;
