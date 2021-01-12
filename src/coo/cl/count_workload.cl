@@ -6,19 +6,13 @@ uint search_global(__global const unsigned int* array, uint value, uint size) {
     uint l = 0;
     uint r = size;
     uint m =  l + ((r - l) / 2);
-    while (true) {
-        if (r - l == 1) {
-            if (array[l] == value) return l;
-            if (r != size && array[r] == value) return r;
-            return size;
-        }
-
+    while (l < r) {
         if (array[m] == value) {
             return m;
         }
 
         if (array[m] < value) {
-            l = m;
+            l = m + 1;
         } else {
             r = m;
         }
