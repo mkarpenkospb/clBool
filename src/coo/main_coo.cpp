@@ -6,7 +6,8 @@ int main() {
 //    testMatrixAddition();
 //    testKronecker();
 //    testCOOtoDCSR();
-    testCountWorkload();
+//    testCountWorkload();
+    testCountWorkloadAndAllocation();
 }
 
 

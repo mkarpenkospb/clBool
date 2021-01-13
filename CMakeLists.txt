@@ -19,24 +19,26 @@ link_directories(${OpenCL_LIBRARY})
 
 add_executable(sparse-boolean-matrix-operations
         src/library_classes/matrix_coo.cpp
+        src/utils.cpp
         src/coo/main_coo.cpp
         src/coo/coo_matrix_addition.cpp
-        src/coo/cl/clion_defines.cl
         src/coo/coo_initialization.cpp
-        src/utils.cpp
-        src/coo/cl/coo_bitonic_sort.cl
-        src/coo/cl/coo_kronecker.cl
-        src/coo/cl/merge_path.cl
         src/coo/coo_utils.cpp
+        src/coo/coo_kronecker_product.cpp
+        src/coo/coo_matrix_multiplication.cpp
+
         src/coo/cl/prepare_positions.cl
+        src/coo/cl/merge_path.cl
+        src/coo/cl/coo_kronecker.cl
         src/coo/cl/prefix_sum.cl
+        src/coo/cl/clion_defines.cl
         src/coo/cl/set_positions.cl
+        src/coo/cl/coo_bitonic_sort.cl
         src/coo/cl/count_workload.cl
         src/coo/cl/heap_merge.cl
         src/coo/cl/bitonic_esc.cl
         src/coo/cl/merge_rows.cl
-        src/coo/coo_kronecker_product.cpp
-        src/coo/coo_matrix_multiplication.cpp
+        src/coo/cl/copy_one_value.cl
 
         src/coo/test/coo_addition_test.cpp
         src/coo/test/coo_bitonic_test.cpp
@@ -44,6 +46,7 @@ add_executable(sparse-boolean-matrix-operations
         src/coo/test/coo_kronecker_test.cpp
         src/coo/test/coo_to_dcsr_test.cpp
         src/coo/test/count_workload_test.cpp
+        src/coo/test/count_workload_and_allocation_test.cpp
         )
 
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})

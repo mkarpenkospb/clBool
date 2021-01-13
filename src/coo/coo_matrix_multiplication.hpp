@@ -40,7 +40,22 @@ void count_workload(Controls &controls,
                     uint32_t a_nzr,
                     uint32_t b_nzr);
 
-void build_groups(std::vector<cpu_buffer>& workload_groups,
-                  const cpu_buffer& cpu_workload);
+void build_groups_and_allocate_new_matrix(Controls& controls,
+                                          cl::Buffer& pre_rows_pointers,
+                                          cl::Buffer& pre_cols_indices_gpu,
+                                          uint32_t &pre_nnz,
+                                          std::vector<cpu_buffer>& workload_groups,
+                                          const cpu_buffer& cpu_workload,
+                                          uint32_t a_nzr
+);
 
 uint32_t get_group(uint32_t size);
+
+auto get_heap_kernel(Controls &controls,
+                     uint32_t group_length,
+                     unsigned int nnz_estimation
+);
+
+auto get_copy_one_value_kernel(Controls &controls,
+                               uint32_t group_length
+);

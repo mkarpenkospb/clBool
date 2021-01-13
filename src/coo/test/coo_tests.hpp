@@ -6,3 +6,4 @@ void testKronecker();
 void testReduceDuplicates();
 void testCOOtoDCSR();
 void testCountWorkload();
+void testCountWorkloadAndAllocation();

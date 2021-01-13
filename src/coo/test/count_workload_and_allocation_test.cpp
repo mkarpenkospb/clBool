@@ -9,12 +9,13 @@
 #include "../coo_matrix_multiplication.hpp"
 
 using coo_utils::matrix_coo_cpu;
+const uint32_t BINS_NUM = 38;
 
-void testCountWorkload() {
+void testCountWorkloadAndAllocation() {
     Controls controls = utils::create_controls();
 
-    uint32_t nnz_limit = 1'000'000;
-    uint32_t max_size = 1'024;
+    uint32_t nnz_limit = 15;
+    uint32_t max_size = 10;
     matrix_coo_cpu matrix_a_cpu = coo_utils::generate_random_matrix_cpu(nnz_limit, max_size);
     matrix_coo_cpu matrix_b_cpu = coo_utils::generate_random_matrix_cpu(nnz_limit + 1, max_size + 1);
 
@@ -28,8 +29,8 @@ void testCountWorkload() {
     cpu_buffer b_rows_compressed_cpu;
     coo_utils::get_rows_pointers_and_compressed(b_rows_pointers_cpu, b_rows_compressed_cpu, matrix_b_cpu);
 
-//    coo_utils::print_matrix(matrix_a_cpu);
-//    coo_utils::print_matrix(matrix_b_cpu);
+    coo_utils::print_matrix(matrix_a_cpu);
+    coo_utils::print_matrix(matrix_b_cpu);
 
     matrix_coo matrix_a_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_a_cpu);
     matrix_coo matrix_b_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_b_cpu);
@@ -78,5 +79,55 @@ void testCountWorkload() {
     std::cout << "finish cpu counting" << std::endl;
 
     utils::compare_buffers(controls, workload, workload_cpu, a_nzr);
+
+    /* --------------------------------------------------------------------------------------------------------
+     *
+     *
+     *
+     *
+     *
+     *
+     * --------------------------------------------------------------------------------------------------------
+     */
+
+    // --------------------------------- copy from main code ---------------------------------------
+
+    cpu_buffer cpu_workload(a_nzr);
+    controls.queue.enqueueReadBuffer(workload, CL_TRUE, 0, sizeof(uint32_t) * a_nzr, cpu_workload.data());
+
+    std::vector<cpu_buffer> cpu_workload_groups(BINS_NUM, cpu_buffer());
+    cpu_buffer groups_pointers(BINS_NUM);
+
+
+    uint32_t pre_nnz;
+    cl::Buffer pre_rows_pointers;
+    cl::Buffer pre_cols_indices_gpu;
+    build_groups_and_allocate_new_matrix(controls,
+                                         pre_rows_pointers, pre_cols_indices_gpu, pre_nnz,
+                                         cpu_workload_groups, cpu_workload, a_nzr);
+
+    cl::Buffer gpu_workload_groups(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a_nzr);
+    unsigned int offset = 0;
+
+    for (const auto &group: cpu_workload_groups) {
+        if (group.empty()) continue;
+        controls.queue.enqueueWriteBuffer(gpu_workload_groups, CL_TRUE, sizeof(uint32_t) * offset, sizeof(uint32_t) * group.size(), group.data());
+        offset += group.size();
+    }
+
+    std::cout << "cpu vectors: \n";
+    uint32_t nnz_estimation = 0;
+    for (auto const& item: cpu_workload_groups) {
+        std::cout << "group " << nnz_estimation << ": ";
+        utils::print_cpu_buffer(item);
+        ++nnz_estimation;
+    }
+
+    std::cout << "gpu workload: \n";
+    utils::print_gpu_buffer(controls, gpu_workload_groups, offset);
+
+    std::cout << "pre_rows_pointers: \n";
+    utils::print_gpu_buffer(controls, pre_rows_pointers, a_nzr + 1);
+
 }
 

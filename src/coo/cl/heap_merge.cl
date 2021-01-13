@@ -1,23 +1,23 @@
-//#include "clion_defines.cl"
+#include "clion_defines.cl"
 
-//#define SWAP(a,b) {__local uint * tmp=a; a=b; b=tmp;}
+#define SWAP(a,b) {__local uint * tmp=a; a=b; b=tmp;}
 
-//#define GROUP_SIZE 256
+#define GROUP_SIZE 256
 // we want to generate code for 31 different heap sizes, and we'll send this
 // constant as a compilation parameter
-//#define NNZ_ESTIMATION 32
+#define NNZ_ESTIMATION 32
 
 uint search_global(__global const unsigned int *array, uint value, uint size) {
     uint l = 0;
     uint r = size;
     uint m = l + ((r - l) / 2);
-    while (l + 1 < r) {
+    while (l < r) {
         if (array[m] == value) {
             return m;
         }
 
         if (array[m] < value) {
-            l = m;
+            l = m + 1;
         } else {
             r = m;
         }
@@ -75,8 +75,13 @@ void heapify(__local uint *heap, uint i, uint heap_size) {
  */
 
 __kernel void heap_merge(__global const unsigned int *indices,
-                         unsigned int group_start,
+                         unsigned int group_start, // indices_pointers[workload_group_id]
                          unsigned int group_length,
+
+                         __global const unsigned int *pre_matrix_rows_pointers,
+                         __global const unsigned int *pre_matrix_cols_indices,
+
+                         __global const unsigned int *nnz_estimation,
 
                          __global const unsigned int *a_rows_pointers,
                          __global const unsigned int *a_cols,
