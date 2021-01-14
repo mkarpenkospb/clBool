@@ -7,7 +7,8 @@ int main() {
 //    testKronecker();
 //    testCOOtoDCSR();
 //    testCountWorkload();
-    testCountWorkloadAndAllocation();
+//    testCountWorkloadAndAllocation();
+    testHeapAndCopyKernels();
 }
 
 

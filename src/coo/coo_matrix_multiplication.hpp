@@ -59,3 +59,33 @@ auto get_heap_kernel(Controls &controls,
 auto get_copy_one_value_kernel(Controls &controls,
                                uint32_t group_length
 );
+
+
+void run_kernels(Controls &controls,
+                 const std::vector<cpu_buffer> &cpu_workload_groups,
+                 const cpu_buffer &groups_length,
+                 const cpu_buffer &groups_pointers,
+
+                 const cl::Buffer &gpu_workload_groups,
+                 cl::Buffer &nnz_estimation,
+
+                 const cl::Buffer &pre_rows_pointers,
+                 cl::Buffer &pre_cols_indices_gpu,
+
+                 const cl::Buffer &a_rows_pointers,
+                 const cl::Buffer &a_cols,
+
+                 const cl::Buffer &b_rows_pointers,
+                 const cl::Buffer &b_rows_compressed,
+                 const cl::Buffer &b_cols,
+
+                 uint32_t b_nzr
+
+);
+
+void write_bins_info(Controls &controls,
+                     cl::Buffer &gpu_workload_groups,
+                     const std::vector<cpu_buffer> &cpu_workload_groups,
+                     cpu_buffer &groups_pointers,
+                     cpu_buffer &groups_length
+);

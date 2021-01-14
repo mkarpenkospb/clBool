@@ -8,8 +8,6 @@ const uint32_t BINS_NUM = 38;
 const uint32_t HEAP_MERGE_BLOCK_SIZE = 32;
 typedef std::vector<uint32_t> cpu_buffer;
 
-
-
 /*
  * group_length - сколько выделить потоков всего
  * nnz_estimation - размер пирамиды в кернеле
@@ -59,17 +57,23 @@ auto get_heap_kernel(Controls &controls,
 
 
 auto get_copy_one_value_kernel(Controls &controls,
-                      uint32_t group_length
-                      ) {
+                               uint32_t group_length) {
     cl::Program program;
     try {
 
         program = controls.create_program_from_file("../src/coo/cl/copy_one_value.cl");
-        uint32_t block_size = std::min(controls.block_size, group_length);
+        uint32_t block_size = std::min(controls.block_size, utils::ceil_to_power2(group_length));
 
         std::stringstream options;
         options << "-D GROUP_SIZE=" << block_size;
         program.build(options.str().c_str());
+
+//        program = controls.create_program_from_file("../src/coo/cl/prepare_positions.cl");
+//        uint32_t block_size = controls.block_size;
+//
+//        std::stringstream options;
+//        options << "-D GROUP_SIZE=" << block_size;
+//        program.build(options.str().c_str());
 
 
         uint32_t work_group_size = block_size;
@@ -97,7 +101,6 @@ auto get_copy_one_value_kernel(Controls &controls,
         throw std::runtime_error(exception.str());
     }
 }
-
 
 
 void matrix_multiplication(Controls &controls,
@@ -130,12 +133,11 @@ void matrix_multiplication(Controls &controls,
 
  // ----------------------------------------------- точка тестирования ----------------------------------------
 
- // Распределять кернелы будем на CPU
     cpu_buffer cpu_workload(a_nzr);
     controls.queue.enqueueReadBuffer(workload, CL_TRUE, 0, sizeof(uint32_t) * a_nzr, cpu_workload.data());
 
     std::vector<cpu_buffer> cpu_workload_groups(BINS_NUM, cpu_buffer());
-    cpu_buffer groups_pointers(BINS_NUM);
+    cpu_buffer groups_pointers(BINS_NUM + 1);
     cpu_buffer groups_length(BINS_NUM);
 
     /*
@@ -162,20 +164,63 @@ void matrix_multiplication(Controls &controls,
      */
 
     cl::Buffer gpu_workload_groups(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a_nzr);
-    unsigned int offset = 0;
 
+    write_bins_info(controls, gpu_workload_groups, cpu_workload_groups, groups_pointers, groups_length);
+
+    run_kernels(controls, cpu_workload_groups, groups_length, groups_pointers,
+                gpu_workload_groups, workload,
+                pre_rows_pointers, pre_cols_indices_gpu,
+                a_rows_pointers, a.cols_indices_gpu(),
+                b_rows_pointers, b_rows_compressed, b.cols_indices_gpu(),
+                b_nzr
+                );
+
+}
+
+void write_bins_info(Controls &controls,
+                     cl::Buffer &gpu_workload_groups,
+                     const std::vector<cpu_buffer> &cpu_workload_groups,
+                     cpu_buffer &groups_pointers,
+                     cpu_buffer &groups_length
+                     ) {
+
+    unsigned int offset = 0;
+//    cl::Event end_write_buffer;
     for (uint32_t workload_group_id = 0; workload_group_id < BINS_NUM; ++workload_group_id) {
         const auto group = cpu_workload_groups[workload_group_id];
         if (group.empty()) continue;
         groups_pointers[workload_group_id] = offset;
         groups_length[workload_group_id] = group.size();
-        controls.queue.enqueueWriteBuffer(gpu_workload_groups, CL_TRUE, sizeof(uint32_t) * offset, sizeof(uint32_t) * group.size(), group.data());
+        controls.queue.enqueueWriteBuffer(gpu_workload_groups, CL_TRUE, sizeof(uint32_t) * offset, sizeof(uint32_t) * group.size(), group.data()
+                                          /*, nullptr, &end_write_buffer*/);
         offset += group.size();
     }
+
     groups_pointers[BINS_NUM] = offset;
+//    end_write_buffer.wait();
+}
 
+void run_kernels(Controls &controls,
+                 const std::vector<cpu_buffer> &cpu_workload_groups,
+                 const cpu_buffer &groups_length,
+                 const cpu_buffer &groups_pointers,
 
-    for (uint32_t workload_group_id = 0; workload_group_id < BINS_NUM; ++workload_group_id) {
+                 const cl::Buffer &gpu_workload_groups,
+                 cl::Buffer &nnz_estimation,
+
+                 const cl::Buffer &pre_rows_pointers,
+                 cl::Buffer &pre_cols_indices_gpu,
+
+                 const cl::Buffer &a_rows_pointers,
+                 const cl::Buffer &a_cols,
+
+                 const cl::Buffer &b_rows_pointers,
+                 const cl::Buffer &b_rows_compressed,
+                 const cl::Buffer &b_cols,
+
+                 uint32_t b_nzr
+) {
+    for (uint32_t workload_group_id = 1; workload_group_id < BINS_NUM; ++workload_group_id) {
         const auto group = cpu_workload_groups[workload_group_id];
         if (group.empty()) continue;
 
@@ -184,10 +229,10 @@ void matrix_multiplication(Controls &controls,
             kernelAndArgs.first(kernelAndArgs.second,
                                 gpu_workload_groups, groups_pointers[workload_group_id], groups_length[workload_group_id],
                                 pre_rows_pointers, pre_cols_indices_gpu,
-                                a_rows_pointers, a.cols_indices_gpu(),
-                                b_rows_pointers, b_rows_compressed, b.cols_indices_gpu(),
+                                a_rows_pointers, a_cols,
+                                b_rows_pointers, b_rows_compressed, b_cols,
                                 b_nzr
-                                );
+            );
             continue;
         }
 
@@ -196,16 +241,15 @@ void matrix_multiplication(Controls &controls,
             kernelAndArgs.first(kernelAndArgs.second,
                                 gpu_workload_groups, groups_pointers[workload_group_id], groups_length[workload_group_id],
                                 pre_rows_pointers, pre_cols_indices_gpu,
-                                workload,
-                                a_rows_pointers, a.cols_indices_gpu(),
-                                b_rows_pointers, b_rows_compressed, b.cols_indices_gpu(),
+                                nnz_estimation,
+                                a_rows_pointers, a_cols,
+                                b_rows_pointers, b_rows_compressed, b_cols,
                                 b_nzr
-                                );
+            );
             continue;
         }
     }
 }
-
 
 /*
  * workload_groups - indices of the rows, grouped in workload groups
@@ -404,7 +448,7 @@ void set_positions(Controls &controls,
         cl::EnqueueArgs eargs(controls.queue, cl::NDRange(global_work_size), cl::NDRange(work_group_size));
 
         set_positions(eargs, rows_pointers, rows_compressed, rows, positions, size, nzr);
-        utils::print_gpu_buffer(controls, rows_pointers, 10);
+//        utils::print_gpu_buffer(controls, rows_compressed, std::min(nzr, 10U));
         std::cout << "\nset_positions finished\n";
 
     } catch (const cl::Error &e) {

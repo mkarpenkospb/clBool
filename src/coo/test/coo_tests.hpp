@@ -7,3 +7,4 @@ void testReduceDuplicates();
 void testCOOtoDCSR();
 void testCountWorkload();
 void testCountWorkloadAndAllocation();
+void testHeapAndCopyKernels();

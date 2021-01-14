@@ -20,6 +20,7 @@ link_directories(${OpenCL_LIBRARY})
 add_executable(sparse-boolean-matrix-operations
         src/library_classes/matrix_coo.cpp
         src/utils.cpp
+
         src/coo/main_coo.cpp
         src/coo/coo_matrix_addition.cpp
         src/coo/coo_initialization.cpp
@@ -47,6 +48,7 @@ add_executable(sparse-boolean-matrix-operations
         src/coo/test/coo_to_dcsr_test.cpp
         src/coo/test/count_workload_test.cpp
         src/coo/test/count_workload_and_allocation_test.cpp
+        src/coo/test/heap_and_copy_kernels_test.cpp
         )
 
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})

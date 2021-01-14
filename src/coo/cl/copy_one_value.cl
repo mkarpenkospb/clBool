@@ -1,6 +1,6 @@
-#include "clion_defines.cl"
-
-#define GROUP_SIZE 256
+//#include "clion_defines.cl"
+//
+//#define GROUP_SIZE 256
 
 uint search_global(__global const unsigned int *array,
                    uint value, uint size) {
@@ -34,8 +34,8 @@ __kernel void copy_one_value(__global const unsigned int *indices,
                              __global const unsigned int *a_rows_pointers,
                              __global const unsigned int *a_cols,
 
-                             __global const unsigned int *b_rows_compressed,
                              __global const unsigned int *b_rows_pointers,
+                             __global const unsigned int *b_rows_compressed,
                              __global const unsigned int *b_cols,
 
                              unsigned int b_nzr
@@ -52,6 +52,8 @@ __kernel void copy_one_value(__global const unsigned int *indices,
     uint start = a_rows_pointers[a_row_index];
     uint end = a_rows_pointers[a_row_index + 1];
 
+//    printf("here!!!\n");
+
     /*
      * Это обработка рядов, в которых возможно максимум одно значение.
      * Значит, при подсчете workload ровно один раз мы нашли нужный нам ряд.
@@ -62,7 +64,12 @@ __kernel void copy_one_value(__global const unsigned int *indices,
         uint col_ptr = a_cols[col_idx];
         uint col_ptr_position = search_global(b_rows_compressed, col_ptr, b_nzr);
         if (col_ptr_position != b_nzr) {
+            printf("here!!!\n");
+            printf("group_start: %d\n", group_start);
+            printf("group_length: %d\n", group_length);
             uint value_pointer = b_rows_pointers[col_ptr_position];
+            printf("value_pointer: %d\n", value_pointer);
+
             pre_matrix_cols_indices[pre_matrix_rows_pointers[a_row_index]] = b_cols[value_pointer];
             return;
         }

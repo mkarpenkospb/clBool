@@ -150,7 +150,7 @@ namespace coo_utils {
 
         size_t position = 0;
         uint32_t curr_row = matrix_cpu.front().first;
-        rows_compressed.push_back(position);
+        rows_compressed.push_back(curr_row);
         rows_pointers.push_back(position);
         for (const auto &item: matrix_cpu) {
             if (item.first != curr_row) {

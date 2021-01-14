@@ -1,11 +1,11 @@
-#include "clion_defines.cl"
-
-#define SWAP(a,b) {__local uint * tmp=a; a=b; b=tmp;}
-
-#define GROUP_SIZE 256
-// we want to generate code for 31 different heap sizes, and we'll send this
-// constant as a compilation parameter
-#define NNZ_ESTIMATION 32
+//#include "clion_defines.cl"
+//
+//#define SWAP(a,b) {__local uint * tmp=a; a=b; b=tmp;}
+//
+//#define GROUP_SIZE 256
+//// we want to generate code for 31 different heap sizes, and we'll send this
+//// constant as a compilation parameter
+//#define NNZ_ESTIMATION 32
 
 uint search_global(__global const unsigned int *array, uint value, uint size) {
     uint l = 0;
@@ -35,28 +35,30 @@ void swap(__local uint *array, uint i, uint j) {
     array[j] = tmp;
 }
 
-void swap_unique(__local uint *array, uint i, uint j, uint k) {
+void swap_unique(__local uint *array, __global uint *result, uint i, uint j, uint k) {
     uint tmp = array[i];
     array[i] = array[j];
-    array[k] = tmp;
+    result[k] = tmp;
 }
 
 void heapify(__local uint *heap, uint i, uint heap_size) {
-    uint largest = i;
+    uint current = i;
+    uint smallest = current;
     while (true) {
-        uint left = 2 * largest + 1;
-        uint right = 2 * largest + 2;
+        uint left = 2 * smallest + 1;
+        uint right = 2 * smallest + 2;
 
-        if (left < heap_size && heap[i] < heap[left]) {
-            largest = left;
+        if (left < heap_size && heap[smallest] > heap[left]) {
+            smallest = left;
         }
 
-        if (right < heap_size && heap[i] < heap[right]) {
-            largest = right;
+        if (right < heap_size && heap[smallest] > heap[right]) {
+            smallest = right;
         }
 
-        if (largest != i) {
-            swap(heap, i, largest);
+        if (smallest != current) {
+            swap(heap, current, smallest);
+            current = smallest;
         } else {
             return;
         }
@@ -79,7 +81,7 @@ __kernel void heap_merge(__global const unsigned int *indices,
                          unsigned int group_length,
 
                          __global const unsigned int *pre_matrix_rows_pointers,
-                         __global const unsigned int *pre_matrix_cols_indices,
+                         __global unsigned int *pre_matrix_cols_indices,
 
                          __global const unsigned int *nnz_estimation,
 
@@ -104,12 +106,17 @@ __kernel void heap_merge(__global const unsigned int *indices,
 
     /*
      * a_row_index is not the row pointer itself, but a position where we can find our row pointer in a_rows_pointers
+     * тот же самый индекс для результата
      */
 
     uint a_row_index = indices[row_pos];
 
     __local uint heap_storage[GROUP_SIZE][NNZ_ESTIMATION];
     __local uint *heap = heap_storage[local_id];
+    /*
+     * да, там будут нулевые ряды, но тут мы не встанем на такие указатели
+     */
+    __global uint *result = pre_matrix_cols_indices + pre_matrix_rows_pointers[a_row_index];
 
     // ------------------ fill heap -------------------
 
@@ -132,9 +139,14 @@ __kernel void heap_merge(__global const unsigned int *indices,
     }
 
 
-    // ---------------------- heapsort ------------------------------
+    // ---------------------- heapsort (Min Heap)------------------------------
 
-    uint heap_pointer_unique = NNZ_ESTIMATION;
+    /*
+     * сделаем min heap, чтобы можно было выложить её в возрастающем порядке сразу в глобальную память,
+     * отрывая корни
+     */
+
+    uint heap_pointer_unique = 0;
     uint heap_size = NNZ_ESTIMATION;
 
     // build heap
@@ -143,19 +155,22 @@ __kernel void heap_merge(__global const unsigned int *indices,
     }
 
     // first step separately
-    swap(heap, 0, heap_pointer_unique - 1);
-    --heap_pointer_unique;
+    uint last = heap[0];
+    swap_unique(heap, result, 0, heap_size - 1, heap_pointer_unique);
+
+    ++heap_pointer_unique;
     --heap_size;
     heapify(heap, 0, heap_size);
     // sorting
     for(uint i = 0; i < NNZ_ESTIMATION - 1; ++i) {
-        if (heap[0] != heap[heap_pointer_unique]) {
+        if (heap[0] != last) {
             /*
-             * положить в голову следующй элемент из кучи, то есть heap_size - 1,
-             * но саму голову на место следующего уникального элемента, то есть heap_pointer_unique - 1
+             * записываем в result следующий корень из кучи только если он не равен тому,
+             * что мы туда записали в предыдущий раз
              */
-            swap_unique(heap, 0, heap_size - 1, heap_pointer_unique - 1);
-            --heap_pointer_unique;
+            last = heap[0];
+            swap_unique(heap, result, 0, heap_size - 1, heap_pointer_unique);
+            ++heap_pointer_unique;
         } else {
             swap(heap, 0, heap_size - 1);
         }
