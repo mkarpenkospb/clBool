@@ -44,4 +44,49 @@ namespace coo_utils {
     );
 
 
+    // cpu class for double compressed matrix
+
+    class matrix_dcsr_cpu {
+        cpu_buffer rows_pointers;
+        cpu_buffer rows_compressed;
+        cpu_buffer cols_indices;
+
+    public:
+        matrix_dcsr_cpu(cpu_buffer rows_pointers, cpu_buffer rows_compressed, cpu_buffer cpu_indices)
+        : rows_pointers(std::move(rows_pointers))
+        , rows_compressed(std::move(rows_compressed))
+        , cols_indices(std::move(cpu_indices))
+        {}
+
+        matrix_dcsr_cpu() = default;
+
+        matrix_dcsr_cpu& operator=(matrix_dcsr_cpu other) {
+            rows_pointers = std::move(other.rows_pointers);
+            rows_compressed = std::move(other.rows_compressed);
+            cols_indices = std::move(other.cols_indices);
+        }
+
+        cpu_buffer& get_rows_pointers() {
+            return rows_pointers;
+        }
+        cpu_buffer& get_rows_compressed() {
+            return rows_compressed;
+        }
+        cpu_buffer& get_cols_indices() {
+            return cols_indices;
+        }
+
+        const cpu_buffer& get_rows_pointers() const {
+            return rows_pointers;
+        }
+        const cpu_buffer& get_rows_compressed() const {
+            return rows_compressed;
+        }
+        const cpu_buffer& get_cols_indices() const {
+            return cols_indices;
+        }
+
+    };
+
+    void matrix_multiplication_cpu(matrix_dcsr_cpu &c, const matrix_coo_cpu &a, const matrix_coo_cpu &b);
 }
