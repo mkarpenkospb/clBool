@@ -40,6 +40,8 @@ add_executable(sparse-boolean-matrix-operations
         src/coo/cl/bitonic_esc.cl
         src/coo/cl/merge_rows.cl
         src/coo/cl/copy_one_value.cl
+        src/coo/cl/to_result_matrix_work_group.cl
+        src/coo/cl/to_result_matrix_single_thread.cl
 
         src/coo/test/coo_addition_test.cpp
         src/coo/test/coo_bitonic_test.cpp

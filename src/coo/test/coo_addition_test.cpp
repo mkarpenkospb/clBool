@@ -11,7 +11,7 @@ void testMatrixAddition() {
     matrix_coo_cpu matrix_res_cpu;
     // first argument is pseudo size (size before reducing duplicates after random)
     // second is the maximum possible matrix size
-    matrix_coo_cpu matrix_a_cpu = coo_utils::generate_random_matrix_cpu(45726, 1056);
+    matrix_coo_cpu matrix_a_cpu = coo_utils::generate_random_matrix_cpu(475726, 10756);
     matrix_coo_cpu matrix_b_cpu = coo_utils::generate_random_matrix_cpu(667312, 3526);
 
     matrix_coo matrix_res_gpu;

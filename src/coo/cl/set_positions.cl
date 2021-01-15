@@ -23,15 +23,15 @@ __kernel void set_positions(__global unsigned int* newRows,
     unsigned int group_id = get_group_id(0);
     unsigned int global_id = get_global_id(0);
 
-    if (global_id == 0) {
-        newRows[global_id] = rows[global_id];
-        newCols[global_id] = cols[global_id];
+    if (global_id == size - 1 && positions[global_id] != size) {
+        newRows[positions[global_id]] = rows[global_id];
+        newCols[positions[global_id]] = cols[global_id];
         return;
     }
 
     if (global_id >= size) return;
 
-    if (positions[global_id] != positions[global_id - 1]) {
+    if (positions[global_id] != positions[global_id + 1]) {
         newRows[positions[global_id]] = rows[global_id];
         newCols[positions[global_id]] = cols[global_id];
     }
@@ -47,16 +47,18 @@ __kernel void set_positions_rows(__global unsigned int* rows_pointers,
 ) {
     unsigned int global_id = get_global_id(0);
 
-    if (global_id == 0) {
-        rows_pointers[global_id] = 0;
-        rows_compressed[global_id] = rows[global_id];
+    if (global_id == size - 1) {
+        if (positions[global_id] != size) {
+            rows_pointers[positions[global_id]] = global_id;
+            rows_compressed[positions[global_id]] = rows[global_id];
+        }
         rows_pointers[nzr] = size;
         return;
     }
 
     if (global_id >= size) return;
 
-    if (positions[global_id] != positions[global_id - 1]) {
+    if (positions[global_id] != positions[global_id + 1]) {
         rows_pointers[positions[global_id]] = global_id;
         rows_compressed[positions[global_id]] = rows[global_id];
     }

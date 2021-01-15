@@ -5,12 +5,13 @@
 // count prefixes itself on input array
 // and vertices as thr output
 
-// TODO: optimise bank conflicts and num of threads, we need two times less
+// TODO: optimise bank conflicts
 // https://developer.nvidia.com/gpugems/gpugems3/part-vi-gpu-computing/chapter-39-parallel-prefix-sum-scan-cuda
 __kernel void scan_blelloch(
         __global unsigned int * vertices,
         __global unsigned int * pref_sum,
         __local unsigned int * tmp,
+        __global unsigned int * total_sum,
         unsigned int n)
 {
     uint global_id = get_global_id(0);
@@ -41,6 +42,10 @@ __kernel void scan_blelloch(
             pref_sum[global_id] = tmp[local_id];
         }
         vertices[group_id] = tmp[local_id];
+//        if (group_id == 0) {
+//            printf("tmp[local_id]: %d\n", tmp[local_id]);
+//        }
+        if (get_local_size(0) == get_global_size(0)) *total_sum = tmp[local_id];
         tmp[local_id] = 0;
     }
 
@@ -62,8 +67,8 @@ __kernel void scan_blelloch(
 
     barrier(CLK_LOCAL_MEM_FENCE);
 
-    if (local_id != 0 && (global_id - 1) <= n) {
-        pref_sum[global_id - 1] = tmp[local_id];
+    if (global_id < n) {
+        pref_sum[global_id] = tmp[local_id];
     }
 }
 
@@ -83,7 +88,8 @@ __kernel void update_pref_sum(__global unsigned int * pref_sum,
 
 
     if (local_leaf_id == 0 || global_id >= n) return;
-
-    pref_sum[global_id] += vertices[global_leaf_id - 1];
-
+//    if (leaf_size == 256 && global_leaf_id == 1 && get_local_id(0) == 0) {
+//        printf("vertices[global_leaf_id - 1]: %d\n", vertices[global_leaf_id - 1]);
+//    }
+    pref_sum[global_id] += vertices[global_leaf_id];
 }

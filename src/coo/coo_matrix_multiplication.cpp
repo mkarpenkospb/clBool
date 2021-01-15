@@ -55,7 +55,6 @@ auto get_heap_kernel(Controls &controls,
 
 }
 
-
 auto get_copy_one_value_kernel(Controls &controls,
                                uint32_t group_length) {
     cl::Program program;
@@ -177,6 +176,33 @@ void matrix_multiplication(Controls &controls,
 
 }
 
+
+void create_final_matrix(Controls &controls,
+
+                         cl::Buffer &c_rows_pointers,
+                         cl::Buffer &c_rows_compressed,
+                         cl::Buffer &c_cols_indices_gpu,
+
+                         cl::Buffer &nnz_estimation,
+                         cl::Buffer &a_rows_pointers,
+                         cl::Buffer &pre_rows_pointers,
+                         cl::Buffer &pre_cols_indices_gpu,
+
+                         uint32_t a_nzr,
+                         uint32_t& c_nzr
+                         ) {
+
+    /*
+     * посчитать новые указатели, размер массива будет такой же,
+     * как у предыдущих указателей
+     * массив nnz_estimation подпортим
+     * Но нужна exclusive prefix sum конечно.
+     */
+
+    prefix_sum(controls, nnz_estimation, c_nzr, a_nzr);
+
+}
+
 void write_bins_info(Controls &controls,
                      cl::Buffer &gpu_workload_groups,
                      const std::vector<cpu_buffer> &cpu_workload_groups,
@@ -265,6 +291,10 @@ void build_groups_and_allocate_new_matrix(Controls& controls,
                                           const cpu_buffer& cpu_workload,
                                           uint32_t a_nzr
                                           ) {
+    /*
+     * не вызываем преф сумму для подсчета этих указателей, так
+     * как все равно проходиться на CPU по workload.
+     */
     cpu_buffer rows_pointers_cpu(a_nzr + 1);
     pre_nnz = 0;
     for (uint32_t i = 0; i < a_nzr; ++i) {
