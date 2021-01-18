@@ -8,3 +8,6 @@ void testCOOtoDCSR();
 void testCountWorkload();
 void testCountWorkloadAndAllocation();
 void testHeapAndCopyKernels();
+void multiplicationTest();
+void checkCopying();
+void simpleTestCopy();

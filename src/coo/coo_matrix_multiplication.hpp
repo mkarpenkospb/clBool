@@ -2,14 +2,17 @@
 
 
 #include "../library_classes/controls.hpp"
+#include "../library_classes/matrix_coo.hpp"
+#include "../library_classes/matrix_dcsr.hpp"
 
 typedef std::vector<uint32_t> cpu_buffer;
 
 
 void prepare_positions(Controls &controls,
                        cl::Buffer &positions,
-                       const cl::Buffer &rows,
-                       uint32_t size
+                       const cl::Buffer &array,
+                       uint32_t size,
+                       const std::string &program_name
 );
 
 
@@ -31,22 +34,16 @@ void create_rows_pointers(Controls &controls,
                           uint32_t &nzr);
 
 void count_workload(Controls &controls,
-                    cl::Buffer &workload_out,
-                    cl::Buffer &a_rows_pointers,
-                    const cl::Buffer &a_cols,
-                    cl::Buffer &b_rows_compressed,
-                    cl::Buffer &b_rows_pointers,
-                    const cl::Buffer &b_cols,
-                    uint32_t a_nzr,
-                    uint32_t b_nzr);
+                    cl::Buffer &nnz_estimation_out,
+                    const matrix_dcsr &a,
+                    const matrix_dcsr &b);
 
 void build_groups_and_allocate_new_matrix(Controls& controls,
-                                          cl::Buffer& pre_rows_pointers,
-                                          cl::Buffer& pre_cols_indices_gpu,
-                                          uint32_t &pre_nnz,
-                                          std::vector<cpu_buffer>& workload_groups,
-                                          const cpu_buffer& cpu_workload,
-                                          uint32_t a_nzr
+                                          matrix_dcsr &pre,
+                                          std::vector<cpu_buffer>& cpu_workload_groups,
+                                          cl::Buffer &nnz_estimation,
+                                          const matrix_dcsr &a,
+                                          uint32_t b_cols
 );
 
 uint32_t get_group(uint32_t size);
@@ -69,18 +66,9 @@ void run_kernels(Controls &controls,
                  const cl::Buffer &gpu_workload_groups,
                  cl::Buffer &nnz_estimation,
 
-                 const cl::Buffer &pre_rows_pointers,
-                 cl::Buffer &pre_cols_indices_gpu,
-
-                 const cl::Buffer &a_rows_pointers,
-                 const cl::Buffer &a_cols,
-
-                 const cl::Buffer &b_rows_pointers,
-                 const cl::Buffer &b_rows_compressed,
-                 const cl::Buffer &b_cols,
-
-                 uint32_t b_nzr
-
+                 const matrix_dcsr &pre,
+                 const matrix_dcsr &a,
+                 const matrix_dcsr &b
 );
 
 void write_bins_info(Controls &controls,
@@ -89,3 +77,25 @@ void write_bins_info(Controls &controls,
                      cpu_buffer &groups_pointers,
                      cpu_buffer &groups_length
 );
+
+void create_final_matrix(Controls &controls,
+                         matrix_dcsr &c,
+                         cl::Buffer &nnz_estimation,
+                         const matrix_dcsr &pre,
+
+                         const cl::Buffer &gpu_workload_groups,
+                         const cpu_buffer &groups_pointers,
+                         const cpu_buffer &groups_length,
+
+                         const matrix_dcsr &a
+);
+
+void matrix_multiplication(Controls &controls,
+                           matrix_dcsr &matrix_out,
+                           const matrix_coo &a,
+                           const matrix_coo &b);
+
+void matrix_multiplication(Controls &controls,
+                           matrix_dcsr &matrix_out,
+                           const matrix_dcsr &a,
+                           const matrix_dcsr &b);

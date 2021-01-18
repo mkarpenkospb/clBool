@@ -1,4 +1,8 @@
 #include "utils.hpp"
+#include "library_classes/matrix_dcsr.hpp"
+#include "library_classes/matrix_coo.hpp"
+#include "coo/coo_matrix_multiplication.hpp"
+//#include "coo/coo_utils.hpp"
 
 #include <cstdint>
 #include <vector>
@@ -196,4 +200,5 @@ namespace utils {
         }
         std::cout << "buffers are equal" << std::endl;
     }
+
 }

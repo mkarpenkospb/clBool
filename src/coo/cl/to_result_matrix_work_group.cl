@@ -4,18 +4,13 @@
 
 __kernel void to_result(__global const unsigned int *indices,
                         unsigned int group_start, // indices_pointers[workload_group_id], workload_group_id = 1
-        /*
-         * там всё ещё будут дубликаты по рядам, но чтобы от них избавиться,
-         * нужно изменить и массив.
-         * просто пройдемся сканом в конце. !Для скана можно пожертвовать
-         * временем и ещё уменьшить объем потребляемой пямяти.... в workgroup_size раз
-         */
+
                         __global const unsigned int *c_rows_pointers,
                         __global unsigned int *c_cols_indices,
 
-                        __global const unsigned int *nnz_estimation,
                         __global const unsigned int *pre_matrix_rows_pointers,
                         __global const unsigned int *pre_matrix_cols_indices
+
 ) {
     uint local_id = get_local_id(0);
     uint group_id = get_group_id(0);
@@ -25,7 +20,7 @@ __kernel void to_result(__global const unsigned int *indices,
     uint row_index = indices[row_pos];
     uint prev_row_start = pre_matrix_rows_pointers[row_index];
     uint new_row_start = c_rows_pointers[row_index];
-    uint row_length = nnz_estimation[row_index];
+    uint row_length = c_rows_pointers[row_index + 1] - c_rows_pointers[row_index];
 
     uint steps = (row_length + GROUP_SIZE - 1) / GROUP_SIZE;
 

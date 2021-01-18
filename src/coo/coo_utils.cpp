@@ -2,6 +2,7 @@
 #include "coo_utils.hpp"
 #include "../library_classes/matrix_coo.hpp"
 #include "../fast_random.h"
+#include "../library_classes/matrix_dcsr.hpp"
 #include <vector>
 #include <iostream>
 #include <algorithm>
@@ -58,10 +59,10 @@ namespace coo_utils {
         std::cout << "check finished, probably correct\n";
     }
 
-    matrix_coo_cpu generate_random_matrix_cpu(uint32_t pseudo_nnz, uint32_t max_size) {
+    matrix_coo_cpu generate_random_matrix_coo_cpu(uint32_t pseudo_nnz, uint32_t max_size) {
 
-        std::vector<uint32_t> rows(pseudo_nnz);
-        std::vector<uint32_t> cols(pseudo_nnz);
+        cpu_buffer rows(pseudo_nnz);
+        cpu_buffer cols(pseudo_nnz);
 
         fill_random_matrix(rows, cols, max_size);
 
@@ -73,6 +74,34 @@ namespace coo_utils {
 
         return m_cpu;
     }
+
+    matrix_dcsr_cpu coo_to_dcsr_cpu(const matrix_coo_cpu &matrix_coo) {
+
+
+        cpu_buffer rows_pointers;
+        cpu_buffer rows_compressed;
+        cpu_buffer cols_indices;
+
+
+        size_t position = 0;
+        uint32_t curr_row = matrix_coo.front().first;
+        rows_compressed.push_back(curr_row);
+        rows_pointers.push_back(position);
+
+        for (const auto &item: matrix_coo) {
+            cols_indices.push_back(item.second);
+            if (item.first != curr_row) {
+                curr_row = item.first;
+                rows_compressed.push_back(curr_row);
+                rows_pointers.push_back(position);
+            }
+            position ++;
+        }
+        rows_pointers.push_back(position);
+
+        return matrix_dcsr_cpu(rows_pointers, rows_compressed, cols_indices);
+    }
+
 
     matrix_coo matrix_coo_from_cpu(Controls &controls, const matrix_coo_cpu &m_cpu) {
         cpu_buffer rows;
@@ -144,24 +173,50 @@ namespace coo_utils {
 
 
     void print_matrix(const matrix_dcsr_cpu& m_cpu) {
-        std::cout << std::endl;
 
-        if (m_cpu.get_cols_indices().empty()) {
+        if (m_cpu.cols_indices().empty()) {
             std::cout << "empty matrix" << std::endl;
             return;
         }
 
-        uint32_t m_cpu_nzr = m_cpu.get_rows_compressed().size();
+        uint32_t m_cpu_nzr = m_cpu.rows_compressed().size();
         for (uint32_t i = 0; i < m_cpu_nzr; ++i) {
-            std::cout << "row " << m_cpu.get_rows_compressed()[i] << ": ";
-            uint32_t start = m_cpu.get_rows_pointers()[i];
-            uint32_t end = m_cpu.get_rows_pointers()[i + 1];
+            std::cout << "row " << m_cpu.rows_compressed()[i] << ": ";
+            uint32_t start = m_cpu.rows_pointers()[i];
+            uint32_t end = m_cpu.rows_pointers()[i + 1];
 
             for (uint32_t j = start; j < end; ++j) {
-                std::cout << m_cpu.get_cols_indices()[j] << ", ";
+                std::cout << m_cpu.cols_indices()[j] << ", ";
             }
+            std::cout << std::endl;
         }
         std::cout << std::endl;
+    }
+
+    void print_matrix(const matrix_dcsr& m_cpu) {
+////        cpu_buffer
+//
+//
+//
+//
+//
+//        if (m_cpu.cols_indices().empty()) {
+//            std::cout << "empty matrix" << std::endl;
+//            return;
+//        }
+//
+//        uint32_t m_cpu_nzr = m_cpu.rows_compressed().size();
+//        for (uint32_t i = 0; i < m_cpu_nzr; ++i) {
+//            std::cout << "row " << m_cpu.rows_compressed()[i] << ": ";
+//            uint32_t start = m_cpu.rows_pointers()[i];
+//            uint32_t end = m_cpu.rows_pointers()[i + 1];
+//
+//            for (uint32_t j = start; j < end; ++j) {
+//                std::cout << m_cpu.cols_indices()[j] << ", ";
+//            }
+//            std::cout << std::endl;
+//        }
+//        std::cout << std::endl;
     }
 
     void get_rows_pointers_and_compressed(cpu_buffer &rows_pointers,
@@ -187,22 +242,19 @@ namespace coo_utils {
     }
 
     void get_workload (cpu_buffer &workload,
-                      const matrix_coo_cpu &matrix_a_cpu,
-                      const cpu_buffer &a_rows_pointers,
-                      const cpu_buffer &b_rows_pointers,
-                      const cpu_buffer &b_rows_compressed,
-                      uint32_t a_nzr
+                      const matrix_dcsr_cpu &a,
+                      const matrix_dcsr_cpu &b
                       ) {
 
-        for (uint32_t i = 0; i < a_nzr; ++i) {
+        for (uint32_t i = 0; i < a.rows_compressed().size(); ++i) {
             workload[i] = 0;
-            uint32_t start = a_rows_pointers[i];
-            uint32_t end = a_rows_pointers[i + 1];
+            uint32_t start = a.rows_pointers()[i];
+            uint32_t end = a.rows_pointers()[i + 1];
             for (uint32_t j = start; j < end; ++j) {
-                auto it = std::find(b_rows_compressed.begin(), b_rows_compressed.end(), matrix_a_cpu[j].second);
-                if (it != b_rows_compressed.end()) {
-                    uint32_t pos = it - b_rows_compressed.begin();
-                    workload[i] += b_rows_pointers[pos + 1] - b_rows_pointers[pos];
+                auto it = std::find(b.rows_compressed().begin(), b.rows_compressed().end(), a.cols_indices()[j]);
+                if (it != b.rows_compressed().end()) {
+                    uint32_t pos = it - b.rows_compressed().begin();
+                    workload[i] += b.rows_pointers()[pos + 1] - b.rows_pointers()[pos];
                 }
             }
         }
@@ -220,19 +272,11 @@ namespace coo_utils {
      * штука нужна для сравнения с gpu, поэтому возвращать будем своего рода matrix_dcsr_cpu
      */
 
-    void matrix_multiplication_cpu(matrix_dcsr_cpu &c, const matrix_coo_cpu &a, const matrix_coo_cpu &b) {
-        cpu_buffer a_rows_pointers;
-        cpu_buffer a_rows_compressed;
-        get_rows_pointers_and_compressed(a_rows_pointers, a_rows_compressed, a);
+    void matrix_multiplication_cpu(matrix_dcsr_cpu &c,
+                                   const matrix_dcsr_cpu &a,
+                                   const matrix_dcsr_cpu &b) {
 
-        cpu_buffer b_rows_pointers;
-        cpu_buffer b_rows_compressed;
-        get_rows_pointers_and_compressed(b_rows_pointers, b_rows_compressed, b);
-
-        // практически копируем код get_workload, чтобы создать матрицу.
-        // напихаем ряды в один вектор и потом отсортируем. Или просто merg-ы сделаем.
-        // можно две версии написать
-        uint32_t a_nzr = a_rows_compressed.size();
+        uint32_t a_nzr = a.rows_compressed().size();
         cpu_buffer c_cols_indices;
         cpu_buffer c_rows_pointers;
         cpu_buffer c_rows_compressed;
@@ -240,23 +284,23 @@ namespace coo_utils {
         uint32_t current_pointer = 0;
         cpu_buffer current_row;
         for (uint32_t i = 0; i < a_nzr; ++i) {
-            uint32_t start = a_rows_pointers[i];
-            uint32_t end = a_rows_pointers[i + 1];
+            uint32_t start = a.rows_pointers()[i];
+            uint32_t end = a.rows_pointers()[i + 1];
             bool is_row = false;
 
             for (uint32_t j = start; j < end; ++j) {
-                auto it = std::find(b_rows_compressed.begin(), b_rows_compressed.end(), a_rows_compressed[j]);
-                if (it != b_rows_compressed.end()) {
+                auto it = std::find(b.rows_compressed().begin(), b.rows_compressed().end(), a.cols_indices()[j]);
+                if (it != b.rows_compressed().end()) {
                     if (!is_row) {
                         c_rows_pointers.push_back(current_pointer);
-                        c_rows_compressed.push_back(a_rows_compressed[i]);
+                        c_rows_compressed.push_back(a.rows_compressed()[i]);
+                        is_row = true;
                     }
-                    is_row = true;
-                    uint32_t pos = it - b_rows_compressed.begin();
-                    uint32_t b_start = b_rows_pointers[pos];
-                    uint32_t b_end = b_rows_pointers[pos + 1];
+                    uint32_t pos = it - b.rows_compressed().begin();
+                    uint32_t b_start = b.rows_pointers()[pos];
+                    uint32_t b_end = b.rows_pointers()[pos + 1];
                     for (uint32_t k = b_start; k < b_end; ++k) {
-                        current_row.push_back(b[k].second);
+                        current_row.push_back(b.cols_indices()[k]);
                     }
                 }
             }
@@ -264,7 +308,7 @@ namespace coo_utils {
 
             std::sort(current_row.begin(), current_row.end());
             current_row.erase(std::unique(current_row.begin(), current_row.end()), current_row.end());
-            c_rows_compressed.insert(c_rows_compressed.begin(), current_row.begin(), current_row.end());
+            c_cols_indices.insert(c_cols_indices.end(), current_row.begin(), current_row.end());
 
             current_pointer += current_row.size();
             current_row = cpu_buffer();
@@ -274,4 +318,15 @@ namespace coo_utils {
         c = matrix_dcsr_cpu(std::move(c_rows_pointers), std::move(c_rows_compressed), std::move(c_cols_indices));
     }
 
+
+    matrix_dcsr matrix_dcsr_from_cpu(Controls &controls, coo_utils::matrix_dcsr_cpu &m, uint32_t size) {
+
+        cl::Buffer rows_pointers(controls.context, m.rows_pointers().begin(), m.rows_pointers().end(), false);
+        cl::Buffer rows_compressed(controls.context, m.rows_compressed().begin(), m.rows_compressed().end(), false);
+        cl::Buffer cols_indices(controls.context, m.cols_indices().begin(), m.cols_indices().end(), false);
+
+        return matrix_dcsr(rows_pointers, rows_compressed, cols_indices,
+                           size, size, m.cols_indices().size(), m.rows_compressed().size());
+
+    }
 }

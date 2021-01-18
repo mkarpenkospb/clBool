@@ -1,12 +1,26 @@
+#include <numeric>
 #include "coo_matrix_multiplication.hpp"
 #include "coo_matrix_addition.hpp"
 #include "../library_classes/controls.hpp"
 #include "../utils.hpp"
 #include "../library_classes/matrix_coo.hpp"
+#include "../library_classes/matrix_dcsr.hpp"
 
 const uint32_t BINS_NUM = 38;
 const uint32_t HEAP_MERGE_BLOCK_SIZE = 32;
 typedef std::vector<uint32_t> cpu_buffer;
+
+matrix_dcsr coo_to_dcsr_gpu(Controls &controls, const matrix_coo &m) {
+    cl::Buffer rows_pointers;
+    cl::Buffer rows_compressed;
+    uint32_t nzr;
+    create_rows_pointers(controls, rows_pointers, rows_compressed, m.rows_indices_gpu(), m.nnz(), nzr);
+
+    return matrix_dcsr(rows_pointers, rows_compressed, m.rows_indices_gpu(),
+                       m.nRows(), m.nCols(), m.nnz(), nzr
+    );
+}
+
 
 /*
  * group_length - сколько выделить потоков всего
@@ -61,19 +75,11 @@ auto get_copy_one_value_kernel(Controls &controls,
     try {
 
         program = controls.create_program_from_file("../src/coo/cl/copy_one_value.cl");
-        uint32_t block_size = std::min(controls.block_size, utils::ceil_to_power2(group_length));
+        uint32_t block_size = std::min(controls.block_size, std::min(32u, utils::ceil_to_power2(group_length)));
 
         std::stringstream options;
         options << "-D GROUP_SIZE=" << block_size;
         program.build(options.str().c_str());
-
-//        program = controls.create_program_from_file("../src/coo/cl/prepare_positions.cl");
-//        uint32_t block_size = controls.block_size;
-//
-//        std::stringstream options;
-//        options << "-D GROUP_SIZE=" << block_size;
-//        program.build(options.str().c_str());
-
 
         uint32_t work_group_size = block_size;
         uint32_t global_work_size = utils::calculate_global_size(work_group_size, group_length);
@@ -101,106 +107,184 @@ auto get_copy_one_value_kernel(Controls &controls,
     }
 }
 
+auto get_to_result_matrix_single_thread(Controls &controls,
+                                        uint32_t group_length) {
+    cl::Program program;
+    try {
+        program = controls.create_program_from_file("../src/coo/cl/to_result_matrix_single_thread.cl");
+        uint32_t block_size = std::min(controls.block_size, std::min(32u, utils::ceil_to_power2(group_length)));
+
+        std::stringstream options;
+        options << "-D GROUP_SIZE=" << block_size;
+        program.build(options.str().c_str());
+
+        uint32_t work_group_size = block_size;
+        uint32_t global_work_size = utils::calculate_global_size(work_group_size, group_length);
+
+        cl::Kernel to_result_kernel(program, "to_result");
+
+        using KernelType = cl::KernelFunctor<cl::Buffer, uint32_t, uint32_t,
+                cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer>;
+
+        KernelType to_result(to_result_kernel);
+
+        cl::EnqueueArgs eargs(controls.queue, cl::NDRange(global_work_size), cl::NDRange(work_group_size));
+
+        return std::pair<KernelType, cl::EnqueueArgs>(to_result_kernel, eargs);
+//        heap_merge(eargs, workload, a_rows_pointers, a_cols, b_rows_compressed, b_rows_pointers, a_nzr, b_nzr);
+    } catch (const cl::Error &e) {
+        std::stringstream exception;
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
+        if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
+            exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device);
+        }
+        throw std::runtime_error(exception.str());
+    }
+}
+
+auto get_to_result_matrix_work_group(Controls &controls,
+                                     uint32_t group_length) {
+    cl::Program program;
+    try {
+        program = controls.create_program_from_file("../src/coo/cl/to_result_matrix_work_group.cl");
+        // TODO: этот размер блока можно менять и смотреть, как будет быстрее
+        uint32_t block_size = controls.block_size;
+
+        std::stringstream options;
+        options << "-D GROUP_SIZE=" << block_size;
+        program.build(options.str().c_str());
+
+        uint32_t work_group_size = block_size;
+        uint32_t global_work_size = block_size * group_length;
+
+        cl::Kernel to_result_kernel(program, "to_result");
+
+        using KernelType = cl::KernelFunctor<cl::Buffer, uint32_t,
+                cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer>;
+
+        KernelType to_result(to_result_kernel);
+
+        cl::EnqueueArgs eargs(controls.queue, cl::NDRange(global_work_size), cl::NDRange(work_group_size));
+
+        return std::pair<KernelType, cl::EnqueueArgs>(to_result_kernel, eargs);
+//        heap_merge(eargs, workload, a_rows_pointers, a_cols, b_rows_compressed, b_rows_pointers, a_nzr, b_nzr);
+    } catch (const cl::Error &e) {
+        std::stringstream exception;
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
+        if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
+            exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device);
+        }
+        throw std::runtime_error(exception.str());
+    }
+}
+
+
 
 void matrix_multiplication(Controls &controls,
-                           matrix_coo &matrix_out,
+                           matrix_dcsr &matrix_out,
                            const matrix_coo &a,
                            const matrix_coo &b) {
 
-    cl::Buffer a_rows_pointers;
-    cl::Buffer b_rows_pointers;
+    matrix_multiplication(controls, matrix_out, coo_to_dcsr_gpu(controls, a), coo_to_dcsr_gpu(controls, b)
+    );
+}
 
-    /*
-     * rows_compressed -- rows array with no duplicates
-     * probably we don't need it
-     */
-    cl::Buffer a_rows_compressed;
-    cl::Buffer b_rows_compressed;
 
-    uint32_t a_nzr;
-    uint32_t b_nzr;
+void matrix_multiplication(Controls &controls,
+                           matrix_dcsr &matrix_out,
+                           const matrix_dcsr &a,
+                           const matrix_dcsr &b) {
 
-    create_rows_pointers(controls, a_rows_pointers, a_rows_compressed, a.rows_indices_gpu(), a.nnz(), a_nzr);
-    create_rows_pointers(controls, b_rows_pointers, b_rows_compressed, b.rows_indices_gpu(), b.nnz(), b_nzr);
+    cl::Buffer nnz_estimation;
+    count_workload(controls, nnz_estimation, a, b);
 
-    cl::Buffer workload;
-
-    count_workload(controls, workload,
-                   a_rows_pointers, a.cols_indices_gpu(),
-                   b_rows_compressed, b_rows_pointers, b.cols_indices_gpu(),
-                   a_nzr, b_nzr);
-
- // ----------------------------------------------- точка тестирования ----------------------------------------
-
-    cpu_buffer cpu_workload(a_nzr);
-    controls.queue.enqueueReadBuffer(workload, CL_TRUE, 0, sizeof(uint32_t) * a_nzr, cpu_workload.data());
 
     std::vector<cpu_buffer> cpu_workload_groups(BINS_NUM, cpu_buffer());
     cpu_buffer groups_pointers(BINS_NUM + 1);
     cpu_buffer groups_length(BINS_NUM);
 
-    /*
-     * Промежуточная матрица будет CSR относительно обнулившихся рядов,
-     */
+    matrix_dcsr pre;
+    build_groups_and_allocate_new_matrix(controls, pre, cpu_workload_groups, nnz_estimation, a, b.nCols());
 
-    /*
-     * Создадим новую матрицу pre - промежуточну.
-     * Тут небольшая каша, функция, формирующая группы смешивается с функцией для
-     * аллокации новой матрицы.
-     */
-
-    uint32_t pre_nnz;
-    cl::Buffer pre_rows_pointers;
-    cl::Buffer pre_cols_indices_gpu;
-    build_groups_and_allocate_new_matrix(controls,
-                                         pre_rows_pointers, pre_cols_indices_gpu, pre_nnz,
-                                         cpu_workload_groups, cpu_workload, a_nzr);
-
-    /*
-     * Прямо тут можно независимо вызывать кернелы. Есди можно конечно одновременн писать и читать из буфера.
-     * !! Может, нужно сделать несколько буферов. 38 штук и не париться с ними
-     * Но можно ли вызвать их независимо?
-     */
-
-    cl::Buffer gpu_workload_groups(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a_nzr);
+    cl::Buffer gpu_workload_groups(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a.nzr());
 
     write_bins_info(controls, gpu_workload_groups, cpu_workload_groups, groups_pointers, groups_length);
 
     run_kernels(controls, cpu_workload_groups, groups_length, groups_pointers,
-                gpu_workload_groups, workload,
-                pre_rows_pointers, pre_cols_indices_gpu,
-                a_rows_pointers, a.cols_indices_gpu(),
-                b_rows_pointers, b_rows_compressed, b.cols_indices_gpu(),
-                b_nzr
-                );
+                gpu_workload_groups, nnz_estimation,
+                pre, a, b);
+
+
+    create_final_matrix(controls, matrix_out,
+                        nnz_estimation, pre,
+                        gpu_workload_groups, groups_pointers, groups_length,
+                        a
+                        );
 
 }
 
 
 void create_final_matrix(Controls &controls,
-
-                         cl::Buffer &c_rows_pointers,
-                         cl::Buffer &c_rows_compressed,
-                         cl::Buffer &c_cols_indices_gpu,
-
+                         matrix_dcsr &c,
                          cl::Buffer &nnz_estimation,
-                         cl::Buffer &a_rows_pointers,
-                         cl::Buffer &pre_rows_pointers,
-                         cl::Buffer &pre_cols_indices_gpu,
+                         const matrix_dcsr &pre,
 
-                         uint32_t a_nzr,
-                         uint32_t& c_nzr
+                         const cl::Buffer &gpu_workload_groups,
+                         const cpu_buffer &groups_pointers,
+                         const cpu_buffer &groups_length,
+
+                         const matrix_dcsr &a
                          ) {
+    cl::Buffer c_rows_pointers;
+    cl::Buffer c_rows_compressed;
+    cl::Buffer c_cols_indices;
+
+    uint32_t c_nnz;
+    uint32_t c_nzr;
 
     /*
-     * посчитать новые указатели, размер массива будет такой же,
-     * как у предыдущих указателей
-     * массив nnz_estimation подпортим
-     * Но нужна exclusive prefix sum конечно.
+     * превращаем имеющийся массив nnz_estimation в корректные указатели типа csr массива.
      */
 
-    prefix_sum(controls, nnz_estimation, c_nzr, a_nzr);
+    prefix_sum(controls, nnz_estimation, c_nnz, a.nzr());
+    c_cols_indices = cl::Buffer(controls.context, CL_TRUE, sizeof(uint32_t) * c_nnz);
+    /*
+     * заполняем послений элемент для работы как с указателями
+     */
+    controls.queue.enqueueWriteBuffer(nnz_estimation, CL_TRUE, a.nzr(), sizeof(uint32_t), &c_nnz);
 
+
+    if (groups_length[1] != 0) {
+        auto single_value_rows_kernel = get_to_result_matrix_single_thread(controls, groups_length[1]);
+        single_value_rows_kernel.first(single_value_rows_kernel.second,
+                                       gpu_workload_groups, groups_pointers[1], groups_length[1],
+                                       nnz_estimation, c_cols_indices, pre.rows_pointers_gpu(), pre.cols_indices_gpu());
+    }
+
+    uint32_t second_group_length = std::accumulate(groups_length.begin() + 2, groups_length.end(), 0u);
+
+    if (second_group_length != 0) {
+        auto ordinary_rows_kernel = get_to_result_matrix_work_group(controls, second_group_length);
+        ordinary_rows_kernel.first(ordinary_rows_kernel.second,
+                                   gpu_workload_groups, groups_pointers[2],
+                                   nnz_estimation, c_cols_indices, pre.rows_pointers_gpu(), pre.cols_indices_gpu());
+    }
+
+    /*
+ * пока не испортили nnz_estimation, заберем информацию о нулевых рядах
+ */
+    cl::Buffer positions(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a.nzr());
+    // позиции -- 1 если элемент не 0
+    prepare_positions(controls, positions, nnz_estimation, a.nzr(), "prepare_for_shift_empty_rows");
+    // как нужно сдвинуть позиции, чтобы избавиться от информации о нулевых рядах.
+
+    // ------------------------------------  get rid of empty rows -------------------------------
+    prefix_sum(controls, positions, c_nzr, a.nzr());
+    c_rows_pointers = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * c_nzr);
+    c_rows_compressed = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * c_nzr);
+    set_positions(controls, c_rows_pointers, c_rows_compressed, a.rows_compressed_gpu(), positions, a.nzr(), c_nzr);
+
+    c = matrix_dcsr(c_rows_pointers, c_rows_compressed, c_cols_indices, pre.nCols(), pre.nRows(), c_nnz, c_nzr);
 }
 
 void write_bins_info(Controls &controls,
@@ -234,17 +318,11 @@ void run_kernels(Controls &controls,
                  const cl::Buffer &gpu_workload_groups,
                  cl::Buffer &nnz_estimation,
 
-                 const cl::Buffer &pre_rows_pointers,
-                 cl::Buffer &pre_cols_indices_gpu,
+                 const matrix_dcsr &pre,
+                 const matrix_dcsr &a,
+                 const matrix_dcsr &b
 
-                 const cl::Buffer &a_rows_pointers,
-                 const cl::Buffer &a_cols,
 
-                 const cl::Buffer &b_rows_pointers,
-                 const cl::Buffer &b_rows_compressed,
-                 const cl::Buffer &b_cols,
-
-                 uint32_t b_nzr
 ) {
     for (uint32_t workload_group_id = 1; workload_group_id < BINS_NUM; ++workload_group_id) {
         const auto group = cpu_workload_groups[workload_group_id];
@@ -254,10 +332,10 @@ void run_kernels(Controls &controls,
             auto kernelAndArgs = get_copy_one_value_kernel(controls, groups_length[workload_group_id]);
             kernelAndArgs.first(kernelAndArgs.second,
                                 gpu_workload_groups, groups_pointers[workload_group_id], groups_length[workload_group_id],
-                                pre_rows_pointers, pre_cols_indices_gpu,
-                                a_rows_pointers, a_cols,
-                                b_rows_pointers, b_rows_compressed, b_cols,
-                                b_nzr
+                                pre.rows_pointers_gpu(), pre.cols_indices_gpu(),
+                                a.rows_pointers_gpu(), a.cols_indices_gpu(),
+                                b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+                                b.nzr()
             );
             continue;
         }
@@ -266,11 +344,11 @@ void run_kernels(Controls &controls,
             auto kernelAndArgs = get_heap_kernel(controls, groups_length[workload_group_id],  workload_group_id);
             kernelAndArgs.first(kernelAndArgs.second,
                                 gpu_workload_groups, groups_pointers[workload_group_id], groups_length[workload_group_id],
-                                pre_rows_pointers, pre_cols_indices_gpu,
+                                pre.rows_pointers_gpu(), pre.cols_indices_gpu(),
                                 nnz_estimation,
-                                a_rows_pointers, a_cols,
-                                b_rows_pointers, b_rows_compressed, b_cols,
-                                b_nzr
+                                a.rows_pointers_gpu(), a.cols_indices_gpu(),
+                                b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+                                b.nzr()
             );
             continue;
         }
@@ -278,39 +356,42 @@ void run_kernels(Controls &controls,
 }
 
 /*
- * workload_groups - indices of the rows, grouped in workload groups
+ * cpu_workload_groups - indices of the rows, grouped in workload groups
  * cpu_workload - nnz estimation for each row of the result matrix
  * pre_rows_pointers -- указатели на начало соответствующего ряда новой матрицы.
  */
 
 void build_groups_and_allocate_new_matrix(Controls& controls,
-                                          cl::Buffer& pre_rows_pointers,
-                                          cl::Buffer& pre_cols_indices_gpu,
-                                          uint32_t &pre_nnz,
-                                          std::vector<cpu_buffer>& workload_groups,
-                                          const cpu_buffer& cpu_workload,
-                                          uint32_t a_nzr
+                                          matrix_dcsr &pre,
+                                          std::vector<cpu_buffer>& cpu_workload_groups,
+                                          cl::Buffer& nnz_estimation,
+                                          const matrix_dcsr &a,
+                                          uint32_t b_cols
                                           ) {
-    /*
-     * не вызываем преф сумму для подсчета этих указателей, так
-     * как все равно проходиться на CPU по workload.
-     */
-    cpu_buffer rows_pointers_cpu(a_nzr + 1);
+    cpu_buffer cpu_workload(a.nzr());
+    controls.queue.enqueueReadBuffer(nnz_estimation, CL_TRUE, 0, sizeof(uint32_t) * a.nzr(), cpu_workload.data());
+
+    uint32_t pre_nnz = 0;
+    cpu_buffer rows_pointers_cpu(a.nzr() + 1);
+
     pre_nnz = 0;
-    for (uint32_t i = 0; i < a_nzr; ++i) {
+    for (uint32_t i = 0; i < a.nzr(); ++i) {
 
         uint32_t current_workload = cpu_workload[i];
         uint32_t group = get_group(current_workload);
-        workload_groups[group].push_back(i);
+        cpu_workload_groups[group].push_back(i);
 
         rows_pointers_cpu[i] = pre_nnz;
         pre_nnz += current_workload < 513 ? current_workload : 256;
     }
 
-    rows_pointers_cpu[a_nzr] = pre_nnz;
+    rows_pointers_cpu[a.nzr()] = pre_nnz;
 
-    pre_rows_pointers = cl::Buffer(controls.queue, rows_pointers_cpu.begin(), rows_pointers_cpu.end(), false);
-    pre_cols_indices_gpu = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * pre_nnz);
+    cl::Buffer pre_rows_pointers = cl::Buffer(controls.queue, rows_pointers_cpu.begin(), rows_pointers_cpu.end(), false);
+    cl::Buffer pre_cols_indices_gpu = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * pre_nnz);
+
+    pre = matrix_dcsr(pre_rows_pointers, a.rows_compressed_gpu(), pre_cols_indices_gpu,
+                      a.nRows(), b_cols, pre_nnz, a.nzr());
 }
 
 
@@ -342,12 +423,12 @@ void create_rows_pointers(Controls &controls,
                           ) {
 
     cl::Buffer positions(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * size);
-    prepare_positions(controls, positions, rows, size);
+    prepare_positions(controls, positions, rows, size, "prepare_array_for_rows_positions");
 
 //    utils::print_gpu_buffer(controls, positions, size);
 
     prefix_sum(controls, positions, nzr, size);
-
+//    std::cout << "nzr: " << nzr << std::endl;
 //    utils::print_gpu_buffer(controls, positions, size);
 
     cl::Buffer rows_pointers(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (nzr + 1));
@@ -362,19 +443,15 @@ void create_rows_pointers(Controls &controls,
 
 
 void count_workload(Controls &controls,
-                    cl::Buffer &workload_out,
-                    cl::Buffer &a_rows_pointers,
-                    const cl::Buffer &a_cols,
-                    cl::Buffer &b_rows_compressed,
-                    cl::Buffer &b_rows_pointers,
-                    const cl::Buffer &b_cols,
-                    uint32_t a_nzr,
-                    uint32_t b_nzr) {
+                    cl::Buffer &nnz_estimation_out,
+                    const matrix_dcsr &a,
+                    const matrix_dcsr &b) {
 
     // буффер с распределением рабочей нагрузки, равен числу строк матрицы A
     cl::Program program;
     try {
-        cl::Buffer workload(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a_nzr);
+        // a.nzr() + 1 to use it as pointers array later
+        cl::Buffer nnz_estimation(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (a.nzr() + 1));
         program = controls.create_program_from_file("../src/coo/cl/count_workload.cl");
         uint32_t block_size = controls.block_size;
 
@@ -384,7 +461,7 @@ void count_workload(Controls &controls,
 
 
         uint32_t work_group_size = block_size;
-        uint32_t global_work_size = utils::calculate_global_size(work_group_size, a_nzr);
+        uint32_t global_work_size = utils::calculate_global_size(work_group_size, a.nzr());
 
 
         cl::Kernel coo_count_workload_kernel(program, "count_workload");
@@ -393,10 +470,11 @@ void count_workload(Controls &controls,
 
         cl::EnqueueArgs eargs(controls.queue, cl::NDRange(global_work_size), cl::NDRange(work_group_size));
 
-        coo_count_workload(eargs, workload, a_rows_pointers, a_cols, b_rows_compressed, b_rows_pointers, a_nzr, b_nzr);
+        coo_count_workload(eargs, nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
+                           b.rows_compressed_gpu(), b.rows_pointers_gpu(), a.nzr(), b.nzr());
 
-//        utils::print_gpu_buffer(controls, workload, 10);
-        workload_out = std::move(workload);
+//        utils::print_gpu_buffer(controls, nnz_estimation, 10);
+        nnz_estimation_out = std::move(nnz_estimation);
 
     } catch (const cl::Error &e) {
         std::stringstream exception;
@@ -411,8 +489,9 @@ void count_workload(Controls &controls,
 
 void prepare_positions(Controls &controls,
                        cl::Buffer &positions,
-                       const cl::Buffer &rows,
-                       uint32_t size
+                       const cl::Buffer &array,
+                       uint32_t size,
+                       const std::string &program_name
 ) {
     cl::Program program;
     try {
@@ -429,12 +508,13 @@ void prepare_positions(Controls &controls,
         uint32_t global_work_size = utils::calculate_global_size(work_group_size, size);
 
 
-        cl::Kernel coo_prepare_positions_kernel(program, "prepare_array_for_rows_positions");
+//        cl::Kernel coo_prepare_positions_kernel(program, "prepare_array_for_rows_positions");
+        cl::Kernel coo_prepare_positions_kernel(program, program_name.c_str());
         cl::KernelFunctor<cl::Buffer, cl::Buffer, uint32_t> coo_prepare_positions(
                 coo_prepare_positions_kernel);
         cl::EnqueueArgs eargs(controls.queue, cl::NDRange(global_work_size), cl::NDRange(work_group_size));
 
-        coo_prepare_positions(eargs, positions, rows, size);
+        coo_prepare_positions(eargs, positions, array, size);
 
 //        controls.queue.enqueueReadBuffer(positions, CL_TRUE, 0, sizeof(uint32_t) * merged_size, look_positions.data());
 
@@ -478,7 +558,7 @@ void set_positions(Controls &controls,
         cl::EnqueueArgs eargs(controls.queue, cl::NDRange(global_work_size), cl::NDRange(work_group_size));
 
         set_positions(eargs, rows_pointers, rows_compressed, rows, positions, size, nzr);
-//        utils::print_gpu_buffer(controls, rows_compressed, std::min(nzr, 10U));
+//        utils::print_gpu_buffer(controls, _rows_compressed, std::min(nzr, 10U));
         std::cout << "\nset_positions finished\n";
 
     } catch (const cl::Error &e) {

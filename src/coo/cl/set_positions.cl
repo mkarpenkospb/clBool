@@ -57,6 +57,14 @@ __kernel void set_positions_rows(__global unsigned int* rows_pointers,
     }
 
     if (global_id >= size) return;
+//    if (global_id == 0) {
+//        printf("positions[global_id]: %d\n", positions[global_id] );
+//        printf("rows[global_id]: %d\n", rows[global_id] );
+//    }
+//    if (global_id == 1) {
+//        printf("positions[global_id]: %d\n", positions[global_id] );
+//        printf("rows[global_id]: %d\n", rows[global_id] );
+//    }
 
     if (positions[global_id] != positions[global_id + 1]) {
         rows_pointers[positions[global_id]] = global_id;

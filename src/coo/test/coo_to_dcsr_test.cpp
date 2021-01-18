@@ -17,7 +17,7 @@ void testCOOtoDCSR() {
 
     uint32_t size = 1000463;
     uint32_t max_size = 100024;
-    matrix_coo_cpu m_cpu = coo_utils::generate_random_matrix_cpu(size, max_size);
+    matrix_coo_cpu m_cpu = coo_utils::generate_random_matrix_coo_cpu(size, max_size);
     cpu_buffer rows_pointers_cpu;
     cpu_buffer rows_compressed_cpu;
     coo_utils::get_rows_pointers_and_compressed(rows_pointers_cpu, rows_compressed_cpu, m_cpu);
@@ -32,6 +32,8 @@ void testCOOtoDCSR() {
 
     create_rows_pointers(controls, rows_pointers, rows_compressed, matrix_gpu.rows_indices_gpu(),
                          matrix_gpu.nnz(), a_nzr);
+//    utils::print_gpu_buffer(controls, rows_pointers, 10);
+//    utils::print_gpu_buffer(controls, _rows_compressed, 10);
 
     utils::compare_buffers(controls, rows_pointers, rows_pointers_cpu, rows_pointers_cpu.size());
     utils::compare_buffers(controls, rows_compressed, rows_compressed_cpu, rows_compressed_cpu.size());

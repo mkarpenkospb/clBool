@@ -3,12 +3,16 @@
 int main() {
 //    testBitonicSort();
 //    testReduceDuplicates();
-    testMatrixAddition();
+//    testMatrixAddition();
 //    testKronecker();
 //    testCOOtoDCSR();
 //    testCountWorkload();
 //    testCountWorkloadAndAllocation();
-//    testHeapAndCopyKernels();
+    testHeapAndCopyKernels();
+//    multiplicationTest();
+//    checkCopying();
+//    simpleTestCopy();
 }
+
 
 

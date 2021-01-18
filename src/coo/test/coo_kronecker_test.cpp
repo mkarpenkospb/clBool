@@ -14,8 +14,8 @@ void testKronecker() {
     matrix_coo_cpu matrix_res_cpu;
     // first argument is nnz (nnz before reducing duplicates after random)
     // second is the maximum possible matrix size
-    matrix_coo_cpu matrix_a_cpu = coo_utils::generate_random_matrix_cpu(10000, 3342);
-    matrix_coo_cpu matrix_b_cpu = coo_utils::generate_random_matrix_cpu(10000, 2234);
+    matrix_coo_cpu matrix_a_cpu = coo_utils::generate_random_matrix_coo_cpu(10000, 3342);
+    matrix_coo_cpu matrix_b_cpu = coo_utils::generate_random_matrix_coo_cpu(10000, 2234);
 
     matrix_coo matrix_res_gpu;
     matrix_coo matrix_a_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_a_cpu);

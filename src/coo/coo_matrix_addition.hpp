@@ -12,7 +12,6 @@ void matrix_addition(
         const matrix_coo &b
 );
 
-
 void check_merge_correctness(
         Controls &controls,
         cl::Buffer &rows,
@@ -38,9 +37,9 @@ void prepare_positions(
 
 void prefix_sum(
         Controls &controls,
-        cl::Buffer &positions,
-        uint32_t &new_size,
-        uint32_t merged_size
+        cl::Buffer &array,
+        uint32_t &total_sum,
+        uint32_t array_size
 );
 
 

@@ -24,7 +24,7 @@ uint search_global(__global const unsigned int* array, uint value, uint size) {
 }
 
 
-__kernel void count_workload(__global unsigned int* workload,
+__kernel void count_workload(__global unsigned int* nnz_estimation,
                              __global const unsigned int* a_rows_pointers,
                              __global const unsigned int* a_cols,
                              __global const unsigned int* b_rows_compressed,
@@ -39,7 +39,7 @@ __kernel void count_workload(__global unsigned int* workload,
 //        printf("here!\n");
 //    }
 
-    workload[global_id] = 0;
+    nnz_estimation[global_id] = 0;
 
     uint start = a_rows_pointers[global_id];
     uint end = a_rows_pointers[global_id + 1];
@@ -54,7 +54,7 @@ __kernel void count_workload(__global unsigned int* workload,
 //            printf("b_nzr: %d \n", b_nzr);
 //            printf("\n");
 //        }
-        workload[global_id] += col_ptr_position == b_nzr ? 0 :
+        nnz_estimation[global_id] += col_ptr_position == b_nzr ? 0 :
                 b_rows_pointers[col_ptr_position + 1] - b_rows_pointers[col_ptr_position];
     }
 }

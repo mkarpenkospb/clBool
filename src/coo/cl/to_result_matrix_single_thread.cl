@@ -3,14 +3,9 @@
 #define GROUP_SIZE 256
 
 __kernel void to_result(__global const unsigned int *indices,
-                        unsigned int group_start, // indices_pointers[workload_group_id], workload_group_id = 1
+                        unsigned int group_start,
                         unsigned int group_length,
-                        /*
-                         * там всё ещё будут дубликаты по рядам, но чтобы от них избавиться,
-                         * нужно изменить и массив.
-                         * просто пройдемся сканом в конце. !Для скана можно пожертвовать
-                         * временем и ещё уменьшить объем потребляемой пямяти.... в workgroup_size раз
-                         */
+
                         __global const unsigned int *c_rows_pointers,
                         __global unsigned int *c_cols_indices,
 

@@ -3,10 +3,8 @@
 
 #include "matrix_base.hpp"
 #include "controls.hpp"
-#include "../COO/coo_initialization.hpp"
+#include "../coo/coo_initialization.hpp"
 #include "../utils.hpp"
-
-
 #include <vector>
 
 class matrix_coo : public details::matrix_base<COO> {

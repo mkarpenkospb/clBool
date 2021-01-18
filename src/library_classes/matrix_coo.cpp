@@ -5,10 +5,10 @@ matrix_coo::matrix_coo(Controls &controls,
                        uint32_t nCols,
                        uint32_t nEntities)
         : matrix_base(nRows, nCols, nEntities),
-          _rows_indices_gpu(cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * n_entities)),
-          _cols_indices_gpu(cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * n_entities)),
-          _rows_indices_cpu(std::vector<uint32_t>(0, n_entities)),
-          _cols_indices_cpu(std::vector<uint32_t>(0, n_entities)) {}
+          _rows_indices_gpu(cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * _nnz)),
+          _cols_indices_gpu(cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * _nnz)),
+          _rows_indices_cpu(std::vector<uint32_t>(0, _nnz)),
+          _cols_indices_cpu(std::vector<uint32_t>(0, _nnz)) {}
 
 
 matrix_coo::matrix_coo(Controls &controls,
@@ -19,8 +19,8 @@ matrix_coo::matrix_coo(Controls &controls,
                        std::vector<uint32_t> cols_indices,
                        bool sorted)
         : matrix_base(nRows, nCols, nEntities),
-          _rows_indices_gpu(cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * n_entities)),
-          _cols_indices_gpu(cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * n_entities)),
+          _rows_indices_gpu(cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * _nnz)),
+          _cols_indices_gpu(cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * _nnz)),
           _rows_indices_cpu(std::move(rows_indices)), _cols_indices_cpu(std::move(cols_indices)) {
     try {
 
@@ -31,7 +31,7 @@ matrix_coo::matrix_coo(Controls &controls,
                                           _cols_indices_cpu.data());
 
         if (!sorted) {
-            sort_arrays(controls, _rows_indices_gpu, _cols_indices_gpu, n_entities);
+            sort_arrays(controls, _rows_indices_gpu, _cols_indices_gpu, _nnz);
 
 
             controls.queue.enqueueReadBuffer(_rows_indices_gpu, CL_TRUE, 0, sizeof(uint32_t) * _rows_indices_cpu.size(),
@@ -63,12 +63,12 @@ matrix_coo::matrix_coo(Controls &controls,
           _cols_indices_cpu(std::vector<uint32_t>(nEntities)) {
     try {
         if (!sorted) {
-            sort_arrays(controls, _rows_indices_gpu, _cols_indices_gpu, n_entities);
+            sort_arrays(controls, _rows_indices_gpu, _cols_indices_gpu, _nnz);
         }
-        controls.queue.enqueueReadBuffer(_rows_indices_gpu, CL_TRUE, 0, sizeof(uint32_t) * n_entities,
+        controls.queue.enqueueReadBuffer(_rows_indices_gpu, CL_TRUE, 0, sizeof(uint32_t) * _nnz,
                                          _rows_indices_cpu.data());
 
-        controls.queue.enqueueReadBuffer(_cols_indices_gpu, CL_TRUE, 0, sizeof(uint32_t) * n_entities,
+        controls.queue.enqueueReadBuffer(_cols_indices_gpu, CL_TRUE, 0, sizeof(uint32_t) * _nnz,
                                          _cols_indices_cpu.data());
     } catch (const cl::Error &e) {
         std::stringstream exception;
@@ -80,7 +80,7 @@ matrix_coo::matrix_coo(Controls &controls,
 matrix_coo &matrix_coo::operator=(matrix_coo other) {
     n_cols = other.n_cols;
     n_rows = other.n_rows;
-    n_entities = other.n_entities;
+    _nnz = other._nnz;
     _rows_indices_gpu = std::move(other._rows_indices_gpu);
     _cols_indices_gpu = std::move(other._cols_indices_gpu);
     _rows_indices_cpu = std::move(other._rows_indices_cpu);

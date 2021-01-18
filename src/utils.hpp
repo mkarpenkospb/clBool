@@ -3,6 +3,9 @@
 #include <cstdint>
 #include "cl_includes.hpp"
 #include "library_classes/controls.hpp"
+//#include "library_classes/matrix_dcsr.hpp"
+//#include "library_classes/matrix_coo.hpp"
+//#include "coo/coo_utils.hpp"
 
 namespace utils {
     using cpu_buffer = std::vector<uint32_t>;
@@ -24,4 +27,5 @@ namespace utils {
     void print_cpu_buffer(const cpu_buffer& buffer);
 
     void compare_buffers(Controls &controls, const cl::Buffer &buffer_g, const cpu_buffer& buffer_c, uint32_t size);
+//    matrix_dcsr matrix_dcsr_from_cpu(Controls &controls, const coo_utils::matrix_dcsr_cpu &m, uint32_t size);
 }

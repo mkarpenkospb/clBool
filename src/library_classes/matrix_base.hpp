@@ -5,7 +5,8 @@
 // format could be some global variable,
 enum Format {
     COO,
-    CSR
+    CSR,
+    DCSR
 };
 
 
@@ -19,16 +20,16 @@ namespace details {
 
         uint32_t n_rows;
         uint32_t n_cols;
-        uint32_t n_entities;
+        uint32_t _nnz;
 
     public:
 
         matrix_base()
-        : n_rows(0), n_cols(0), n_entities(0)
+        : n_rows(0), n_cols(0), _nnz(0)
         {}
 
         matrix_base(uint32_t n_rows, uint32_t n_cols, uint32_t n_entities)
-        : n_rows(n_rows), n_cols(n_cols), n_entities(n_entities)
+        : n_rows(n_rows), n_cols(n_cols), _nnz(n_entities)
         {}
 
         Format get_sparse_format() const {
@@ -44,7 +45,7 @@ namespace details {
         };
 
         uint32_t nnz() const {
-            return n_entities;
+            return _nnz;
         };
 
     };

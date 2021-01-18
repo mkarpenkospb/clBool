@@ -51,6 +51,8 @@ add_executable(sparse-boolean-matrix-operations
         src/coo/test/count_workload_test.cpp
         src/coo/test/count_workload_and_allocation_test.cpp
         src/coo/test/heap_and_copy_kernels_test.cpp
+        src/coo/test/multiplication_test.cpp
+        src/coo/test/check_objects_copying.cpp
         )
 
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})
