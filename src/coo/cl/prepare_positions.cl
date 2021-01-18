@@ -1,5 +1,5 @@
-#include "clion_defines.cl"
-#define GROUP_SIZE 256
+//#include "clion_defines.cl"
+//#define GROUP_SIZE 256
 
 
 /*
@@ -32,8 +32,8 @@ __kernel void prepare_array_for_positions(__global unsigned int* result,
 
 
 __kernel void prepare_array_for_rows_positions(__global unsigned int* result,
-                                          __global const unsigned int* rows,
-                                          unsigned int size
+                                               __global const unsigned int* rows,
+                                               unsigned int size
 ) {
 
     unsigned int global_id = get_global_id(0);

@@ -8,10 +8,11 @@ int main() {
 //    testCOOtoDCSR();
 //    testCountWorkload();
 //    testCountWorkloadAndAllocation();
-    testHeapAndCopyKernels();
+//    testHeapAndCopyKernels();
 //    multiplicationTest();
 //    checkCopying();
 //    simpleTestCopy();
+    testMultiplication();
 }
 
 

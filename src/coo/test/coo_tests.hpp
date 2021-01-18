@@ -11,3 +11,4 @@ void testHeapAndCopyKernels();
 void multiplicationTest();
 void checkCopying();
 void simpleTestCopy();
+void testMultiplication();

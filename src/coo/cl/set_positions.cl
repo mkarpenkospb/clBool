@@ -38,6 +38,38 @@ __kernel void set_positions(__global unsigned int* newRows,
 }
 
 
+__kernel void set_positions_pointers_and_rows(__global unsigned int* newRowsPosition,
+                                              __global unsigned int* newRows,
+                                              __global const unsigned int* rowsPositions,
+                                              __global const unsigned int* rows,
+                                              __global const unsigned int* positions,
+                                              unsigned int nnz, // old nzr
+                                              unsigned int old_nzr,
+                                              unsigned int new_nzr
+) {
+
+    unsigned int local_id = get_local_id(0);
+    unsigned int group_id = get_group_id(0);
+    unsigned int global_id = get_global_id(0);
+
+    if (global_id >= old_nzr) return;
+
+    if (global_id == old_nzr - 1) {
+        if (positions[global_id] != old_nzr) {
+            newRowsPosition[positions[global_id]] = rowsPositions[global_id];
+            newRows[positions[global_id]] = rows[global_id];
+        }
+        newRowsPosition[new_nzr] = nnz;
+        return;
+    }
+
+    if (positions[global_id] != positions[global_id + 1]) {
+        newRowsPosition[positions[global_id]] = rowsPositions[global_id];
+        newRows[positions[global_id]] = rows[global_id];
+    }
+}
+
+
 __kernel void set_positions_rows(__global unsigned int* rows_pointers,
                                  __global unsigned int* rows_compressed,
                                  __global const unsigned int* rows,

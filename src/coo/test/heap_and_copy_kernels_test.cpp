@@ -54,11 +54,38 @@ void testHeapAndCopyKernels() {
                 pre, a_gpu, b_gpu
     );
 
-    std::cout << "pre_rows_pointers: \n"; utils::print_gpu_buffer(controls, pre.rows_pointers_gpu(), a_gpu.nzr() + 1);
-    std::cout << "pre_cols_indices_gpu: \n"; utils::print_gpu_buffer(controls, pre.cols_indices_gpu(), pre.nnz());
+
+    std::cout << std::endl;
+    std::cout << "pre: \n"; print_matrix(controls, pre);
+
+}
 
 
+void testMultiplication() {
+    Controls controls = utils::create_controls();
 
+    uint32_t nnz_limit = 25;
+    uint32_t max_size = 10;
+
+    matrix_dcsr_cpu a_cpu = coo_to_dcsr_cpu(generate_random_matrix_coo_cpu(nnz_limit, max_size));
+    matrix_dcsr_cpu b_cpu = coo_to_dcsr_cpu(generate_random_matrix_coo_cpu(nnz_limit + 1, max_size));
+    matrix_dcsr_cpu c_cpu;
+
+    coo_utils::print_matrix(a_cpu);
+    coo_utils::print_matrix(b_cpu);
+
+    matrix_dcsr a_gpu = matrix_dcsr_from_cpu(controls, a_cpu, max_size);
+    matrix_dcsr b_gpu = matrix_dcsr_from_cpu(controls, b_cpu, max_size);
+    matrix_dcsr c_gpu;
+
+    matrix_multiplication_cpu(c_cpu, a_cpu, b_cpu);
+    print_matrix(c_cpu);
+
+    matrix_multiplication(controls, c_gpu, a_gpu, b_gpu);
+//    utils::print_gpu_buffer(controls, c_gpu.rows_pointers_gpu(), c_gpu.nzr());
+//    utils::print_gpu_buffer(controls, c_gpu.rows_compressed_gpu(), c_gpu.nzr());
+//    utils::print_gpu_buffer(controls, c_gpu.cols_indices_gpu(), c_gpu.nnz());
+    print_matrix(controls, c_gpu);
 }
 
 

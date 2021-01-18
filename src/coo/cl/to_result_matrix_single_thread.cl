@@ -1,6 +1,6 @@
-#include "clion_defines.cl"
-
-#define GROUP_SIZE 256
+//#include "clion_defines.cl"
+//
+//#define GROUP_SIZE 256
 
 __kernel void to_result(__global const unsigned int *indices,
                         unsigned int group_start,

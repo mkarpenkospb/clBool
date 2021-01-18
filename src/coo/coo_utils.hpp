@@ -99,4 +99,7 @@ namespace coo_utils {
                       const matrix_dcsr_cpu &a_cpu,
                       const matrix_dcsr_cpu &b_cpu);
 
+
+    void print_matrix(Controls &controls, const matrix_dcsr& m_gpu);
+
 }

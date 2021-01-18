@@ -193,30 +193,18 @@ namespace coo_utils {
         std::cout << std::endl;
     }
 
-    void print_matrix(const matrix_dcsr& m_cpu) {
-////        cpu_buffer
-//
-//
-//
-//
-//
-//        if (m_cpu.cols_indices().empty()) {
-//            std::cout << "empty matrix" << std::endl;
-//            return;
-//        }
-//
-//        uint32_t m_cpu_nzr = m_cpu.rows_compressed().size();
-//        for (uint32_t i = 0; i < m_cpu_nzr; ++i) {
-//            std::cout << "row " << m_cpu.rows_compressed()[i] << ": ";
-//            uint32_t start = m_cpu.rows_pointers()[i];
-//            uint32_t end = m_cpu.rows_pointers()[i + 1];
-//
-//            for (uint32_t j = start; j < end; ++j) {
-//                std::cout << m_cpu.cols_indices()[j] << ", ";
-//            }
-//            std::cout << std::endl;
-//        }
-//        std::cout << std::endl;
+    void print_matrix(Controls &controls, const matrix_dcsr& m_gpu) {
+        cpu_buffer rows_pointers(m_gpu.nzr() + 1);
+        cpu_buffer rows_compressed(m_gpu.nzr());
+        cpu_buffer cols_indices(m_gpu.nnz());
+
+        controls.queue.enqueueReadBuffer(m_gpu.rows_pointers_gpu(), CL_TRUE, 0,
+                                         sizeof(uint32_t) * rows_pointers.size(), rows_pointers.data());
+        controls.queue.enqueueReadBuffer(m_gpu.rows_compressed_gpu(), CL_TRUE, 0,
+                                         sizeof(uint32_t) * rows_compressed.size(), rows_compressed.data());
+        controls.queue.enqueueReadBuffer(m_gpu.cols_indices_gpu(), CL_TRUE, 0,
+                                         sizeof(uint32_t) * cols_indices.size(), cols_indices.data());
+        print_matrix(matrix_dcsr_cpu(rows_pointers, rows_compressed, cols_indices));
     }
 
     void get_rows_pointers_and_compressed(cpu_buffer &rows_pointers,

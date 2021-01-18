@@ -3,6 +3,7 @@
 #include "coo_matrix_addition.hpp"
 #include "../library_classes/controls.hpp"
 #include "../utils.hpp"
+#include "coo_utils.hpp"
 #include "../library_classes/matrix_coo.hpp"
 #include "../library_classes/matrix_dcsr.hpp"
 
@@ -197,7 +198,7 @@ void matrix_multiplication(Controls &controls,
 
     cl::Buffer nnz_estimation;
     count_workload(controls, nnz_estimation, a, b);
-
+//    utils::print_gpu_buffer(controls, nnz_estimation, a.nzr());
 
     std::vector<cpu_buffer> cpu_workload_groups(BINS_NUM, cpu_buffer());
     cpu_buffer groups_pointers(BINS_NUM + 1);
@@ -209,17 +210,22 @@ void matrix_multiplication(Controls &controls,
     cl::Buffer gpu_workload_groups(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a.nzr());
 
     write_bins_info(controls, gpu_workload_groups, cpu_workload_groups, groups_pointers, groups_length);
+//    utils::print_gpu_buffer(controls, gpu_workload_groups,  a.nzr());
 
     run_kernels(controls, cpu_workload_groups, groups_length, groups_pointers,
                 gpu_workload_groups, nnz_estimation,
                 pre, a, b);
 
+//    coo_utils::print_matrix(controls, pre);
 
     create_final_matrix(controls, matrix_out,
                         nnz_estimation, pre,
                         gpu_workload_groups, groups_pointers, groups_length,
                         a
                         );
+
+//    utils::print_gpu_buffer(controls, matrix_out.rows_pointers_gpu(), matrix_out.nzr() + 1);
+//    utils::print_gpu_buffer(controls, matrix_out.rows_compressed_gpu(), matrix_out.nzr());
 
 }
 
@@ -245,14 +251,15 @@ void create_final_matrix(Controls &controls,
     /*
      * превращаем имеющийся массив nnz_estimation в корректные указатели типа csr массива.
      */
-
+//    utils::print_gpu_buffer(controls, nnz_estimation, a.nzr());
     prefix_sum(controls, nnz_estimation, c_nnz, a.nzr());
+//    utils::print_gpu_buffer(controls, nnz_estimation, a.nzr());
     c_cols_indices = cl::Buffer(controls.context, CL_TRUE, sizeof(uint32_t) * c_nnz);
     /*
      * заполняем послений элемент для работы как с указателями
      */
-    controls.queue.enqueueWriteBuffer(nnz_estimation, CL_TRUE, a.nzr(), sizeof(uint32_t), &c_nnz);
-
+    controls.queue.enqueueWriteBuffer(nnz_estimation, CL_TRUE, sizeof(uint32_t) * a.nzr(), sizeof(uint32_t), &c_nnz);
+//    utils::print_gpu_buffer(controls, nnz_estimation, a.nzr() + 1);
 
     if (groups_length[1] != 0) {
         auto single_value_rows_kernel = get_to_result_matrix_single_thread(controls, groups_length[1]);
@@ -269,7 +276,7 @@ void create_final_matrix(Controls &controls,
                                    gpu_workload_groups, groups_pointers[2],
                                    nnz_estimation, c_cols_indices, pre.rows_pointers_gpu(), pre.cols_indices_gpu());
     }
-
+//    utils::print_gpu_buffer(controls, c_cols_indices, c_nnz);
     /*
  * пока не испортили nnz_estimation, заберем информацию о нулевых рядах
  */
@@ -280,10 +287,12 @@ void create_final_matrix(Controls &controls,
 
     // ------------------------------------  get rid of empty rows -------------------------------
     prefix_sum(controls, positions, c_nzr, a.nzr());
-    c_rows_pointers = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * c_nzr);
+    c_rows_pointers = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (c_nzr + 1));
     c_rows_compressed = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * c_nzr);
-    set_positions(controls, c_rows_pointers, c_rows_compressed, a.rows_compressed_gpu(), positions, a.nzr(), c_nzr);
-
+    set_positions(controls, c_rows_pointers, c_rows_compressed, nnz_estimation, a.rows_compressed_gpu(), positions,
+                  c_nnz, a.nzr(), c_nzr);
+//    utils::print_gpu_buffer(controls, c_rows_pointers, c_nzr + 1);
+//    utils::print_gpu_buffer(controls, c_rows_compressed, c_nzr);
     c = matrix_dcsr(c_rows_pointers, c_rows_compressed, c_cols_indices, pre.nCols(), pre.nRows(), c_nnz, c_nzr);
 }
 
@@ -558,6 +567,51 @@ void set_positions(Controls &controls,
         cl::EnqueueArgs eargs(controls.queue, cl::NDRange(global_work_size), cl::NDRange(work_group_size));
 
         set_positions(eargs, rows_pointers, rows_compressed, rows, positions, size, nzr);
+//        utils::print_gpu_buffer(controls, _rows_compressed, std::min(nzr, 10U));
+        std::cout << "\nset_positions finished\n";
+
+    } catch (const cl::Error &e) {
+        std::stringstream exception;
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
+        if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
+            exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device);
+        }
+        throw std::runtime_error(exception.str());
+    }
+}
+
+
+void set_positions(Controls &controls,
+                   cl::Buffer &c_rows_pointers,
+                   cl::Buffer &c_rows_compressed,
+                   const cl::Buffer &nnz_estimation,
+                   const cl::Buffer &a_rows_compressed,
+                   const cl::Buffer &positions,
+                   uint32_t c_nnz,
+                   uint32_t old_nzr,
+                   uint32_t c_nzr
+) {
+
+    cl::Program program;
+    try {
+        program = controls.create_program_from_file("../src/coo/cl/set_positions.cl");
+        uint32_t block_size = controls.block_size;
+
+        std::stringstream options;
+        options << "-D GROUP_SIZE=" << block_size;
+        program.build(options.str().c_str());
+
+        cl::Kernel set_positions_kernel(program, "set_positions_pointers_and_rows");
+        cl::KernelFunctor<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+                            unsigned int, unsigned int, unsigned int> set_positions(
+                set_positions_kernel);
+
+        uint32_t work_group_size = block_size;
+        uint32_t global_work_size = utils::calculate_global_size(work_group_size, old_nzr);
+
+        cl::EnqueueArgs eargs(controls.queue, cl::NDRange(global_work_size), cl::NDRange(work_group_size));
+
+        set_positions(eargs, c_rows_pointers, c_rows_compressed, nnz_estimation, a_rows_compressed, positions, c_nnz, old_nzr, c_nzr  );
 //        utils::print_gpu_buffer(controls, _rows_compressed, std::min(nzr, 10U));
         std::cout << "\nset_positions finished\n";
 
