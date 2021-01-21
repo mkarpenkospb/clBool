@@ -12,7 +12,8 @@ int main() {
 //    multiplicationTest();
 //    checkCopying();
 //    simpleTestCopy();
-    testMultiplication();
+//    testMultiplication();
+    testScan();
 }
 
 

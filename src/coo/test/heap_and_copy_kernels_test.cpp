@@ -60,12 +60,18 @@ void testHeapAndCopyKernels() {
 
 }
 
+void compare_matrices(Controls &controls, matrix_dcsr m_gpu, matrix_dcsr_cpu m_cpu) {
+    compare_buffers(controls, m_gpu.rows_pointers_gpu(), m_cpu.rows_pointers(), m_gpu.nzr() + 1);
+    compare_buffers(controls, m_gpu.rows_compressed_gpu(), m_cpu.rows_compressed(), m_gpu.nzr());
+    compare_buffers(controls, m_gpu.cols_indices_gpu(), m_cpu.cols_indices(), m_gpu.nnz());
+}
+
 
 void testMultiplication() {
     Controls controls = utils::create_controls();
 
-    uint32_t nnz_limit = 25;
-    uint32_t max_size = 10;
+    uint32_t nnz_limit = 15;
+    uint32_t max_size = 30;
 
     matrix_dcsr_cpu a_cpu = coo_to_dcsr_cpu(generate_random_matrix_coo_cpu(nnz_limit, max_size));
     matrix_dcsr_cpu b_cpu = coo_to_dcsr_cpu(generate_random_matrix_coo_cpu(nnz_limit + 1, max_size));
@@ -85,6 +91,7 @@ void testMultiplication() {
 //    utils::print_gpu_buffer(controls, c_gpu.rows_pointers_gpu(), c_gpu.nzr());
 //    utils::print_gpu_buffer(controls, c_gpu.rows_compressed_gpu(), c_gpu.nzr());
 //    utils::print_gpu_buffer(controls, c_gpu.cols_indices_gpu(), c_gpu.nnz());
+    compare_matrices(controls, c_gpu, c_cpu);
     print_matrix(controls, c_gpu);
 }
 

@@ -42,6 +42,8 @@ add_executable(sparse-boolean-matrix-operations
         src/coo/cl/copy_one_value.cl
         src/coo/cl/to_result_matrix_work_group.cl
         src/coo/cl/to_result_matrix_single_thread.cl
+        src/coo/cl/half_sized_scan.cl
+
 
         src/coo/test/coo_addition_test.cpp
         src/coo/test/coo_bitonic_test.cpp
@@ -53,6 +55,7 @@ add_executable(sparse-boolean-matrix-operations
         src/coo/test/heap_and_copy_kernels_test.cpp
         src/coo/test/multiplication_test.cpp
         src/coo/test/check_objects_copying.cpp
+        src/coo/test/test_half_sized_scan.cpp
         )
 
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})

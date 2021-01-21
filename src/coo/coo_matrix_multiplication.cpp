@@ -482,7 +482,8 @@ void count_workload(Controls &controls,
         coo_count_workload(eargs, nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
                            b.rows_compressed_gpu(), b.rows_pointers_gpu(), a.nzr(), b.nzr());
 
-//        utils::print_gpu_buffer(controls, nnz_estimation, 10);
+        utils::print_gpu_buffer(controls, nnz_estimation, std::min(a.nzr(), 10U));
+
         nnz_estimation_out = std::move(nnz_estimation);
 
     } catch (const cl::Error &e) {

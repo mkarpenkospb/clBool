@@ -24,6 +24,9 @@ __kernel void to_result(__global const unsigned int *indices,
 
     uint prev_pos = pre_matrix_rows_pointers[a_row_index];
     uint new_pos = c_rows_pointers[a_row_index];
+    if (global_id == 0) {
+        printf("Here, all fine!\n");
+    }
 
     c_cols_indices[new_pos] = pre_matrix_cols_indices[prev_pos];
 }
