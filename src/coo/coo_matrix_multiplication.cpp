@@ -22,7 +22,20 @@ matrix_dcsr coo_to_dcsr_gpu(Controls &controls, const matrix_coo &m) {
     );
 }
 
-
+uint32_t esc_estimation(uint32_t group) {
+    switch (group) {
+        case 33:
+            return 64;
+        case 34:
+            return 128;
+        case 35:
+            return 256;
+        case 36:
+            return 512;
+        default:
+            throw std::runtime_error("A group should be in range 33-36!");
+    }
+}
 /*
  * group_length - сколько выделить потоков всего
  * nnz_estimation - размер пирамиды в кернеле
@@ -179,7 +192,42 @@ auto get_to_result_matrix_work_group(Controls &controls,
     }
 }
 
+auto get_esc_kernel(Controls &controls,
+                    uint32_t nnz_estimation,
+                    uint32_t group_length) {
+    cl::Program program;
+    try {
 
+        program = controls.create_program_from_file("../src/coo/cl/bitonic_esc.cl");
+        uint32_t block_size = std::min(controls.block_size, std::max(32u, nnz_estimation / 2));
+        std::stringstream options;
+        options << "-D GROUP_SIZE=" << block_size << " -D NNZ_ESTIMATION=" << nnz_estimation;
+        program.build(options.str().c_str());
+
+        uint32_t work_group_size = block_size;
+        uint32_t global_work_size = block_size * group_length;
+
+        cl::Kernel bitonic_esc_kernel(program, "bitonic_esc");
+
+        using KernelType = cl::KernelFunctor<cl::Buffer, uint32_t,
+                cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+                cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+                uint32_t>;
+
+        KernelType bitonic_esc(bitonic_esc_kernel);
+
+        cl::EnqueueArgs eargs(controls.queue, cl::NDRange(global_work_size), cl::NDRange(work_group_size));
+
+        return std::pair<KernelType, cl::EnqueueArgs>(bitonic_esc, eargs);
+    } catch (const cl::Error &e) {
+        std::stringstream exception;
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
+        if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
+            exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device);
+        }
+        throw std::runtime_error(exception.str());
+    }
+}
 
 void matrix_multiplication(Controls &controls,
                            matrix_dcsr &matrix_out,
@@ -252,6 +300,7 @@ void create_final_matrix(Controls &controls,
      * превращаем имеющийся массив nnz_estimation в корректные указатели типа csr массива.
      */
 //    utils::print_gpu_buffer(controls, nnz_estimation, a.nzr());
+//    coo_utils::print_matrix(controls, pre);
     prefix_sum(controls, nnz_estimation, c_nnz, a.nzr());
 //    utils::print_gpu_buffer(controls, nnz_estimation, a.nzr());
     c_cols_indices = cl::Buffer(controls.context, CL_TRUE, sizeof(uint32_t) * c_nnz);
@@ -361,6 +410,19 @@ void run_kernels(Controls &controls,
             );
             continue;
         }
+
+        if (workload_group_id < 37 ) {
+            auto kernelAndArgs = get_esc_kernel(controls, esc_estimation(workload_group_id), groups_length[workload_group_id]);
+            kernelAndArgs.first(kernelAndArgs.second,
+                                gpu_workload_groups, groups_pointers[workload_group_id],
+                                pre.rows_pointers_gpu(), pre.cols_indices_gpu(),
+                                nnz_estimation,
+                                a.rows_pointers_gpu(), a.cols_indices_gpu(),
+                                b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+                                b.nzr()
+            );
+            continue;
+        }
     }
 }
 
@@ -416,11 +478,7 @@ uint32_t get_group(uint32_t size) {
     return 37;
 }
 
-uint32_t get_pre_size(uint32_t size) {
-    if (size < 513) return size;
-    // TODO : !parameter
-    return 256;
-}
+
 
 
 void create_rows_pointers(Controls &controls,
@@ -482,7 +540,7 @@ void count_workload(Controls &controls,
         coo_count_workload(eargs, nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
                            b.rows_compressed_gpu(), b.rows_pointers_gpu(), a.nzr(), b.nzr());
 
-        utils::print_gpu_buffer(controls, nnz_estimation, std::min(a.nzr(), 10U));
+//        utils::print_gpu_buffer(controls, nnz_estimation, std::min(a.nzr(), 10U));
 
         nnz_estimation_out = std::move(nnz_estimation);
 

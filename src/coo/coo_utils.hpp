@@ -101,5 +101,6 @@ namespace coo_utils {
 
 
     void print_matrix(Controls &controls, const matrix_dcsr& m_gpu);
+    std::pair<matrix_dcsr_cpu, matrix_dcsr_cpu> generate_random_matrices_esc(uint32_t max_size, uint32_t seed);
 
 }

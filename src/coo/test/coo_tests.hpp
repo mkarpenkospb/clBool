@@ -13,3 +13,4 @@ void checkCopying();
 void simpleTestCopy();
 void testMultiplication();
 void testScan() ;
+void testESC() ;

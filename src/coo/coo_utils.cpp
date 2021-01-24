@@ -7,8 +7,74 @@
 #include <iostream>
 #include <algorithm>
 
+
 namespace coo_utils {
+
     using cpu_buffer = std::vector<uint32_t>;
+
+
+
+    std::pair<matrix_dcsr_cpu, matrix_dcsr_cpu> generate_random_matrices_esc(uint32_t max_size, uint32_t seed) {
+        // попытаемся нагенерить штук 50 рядов по 32 - 63 элемента
+        // создание второй матрицы
+        matrix_dcsr_cpu a;
+        matrix_dcsr_cpu b;
+        {
+            uint32_t random_to_fit = 64;
+            uint32_t min_row_size = 33;
+            cpu_buffer cols_indices;
+            cpu_buffer rows_pointers;
+            cpu_buffer rows_compressed;
+            uint32_t rows = 50;
+
+            if (max_size < rows) {
+                throw std::runtime_error("too small matrix for generator");
+            }
+
+            FastRandom r(seed);
+            rows_pointers.push_back(0);
+            uint32_t nnz = 0;
+            for (uint32_t i = 0; i < rows; ++i) {
+                rows_compressed.push_back(i); // ох ну и пусть
+                cpu_buffer curr_row(random_to_fit);
+                for (uint32_t j = 0; j < random_to_fit; ++j) {
+                    curr_row[j] = r.next() % max_size;
+                }
+                std::sort(curr_row.begin(), curr_row.end());
+                curr_row.erase(std::unique(curr_row.begin(), curr_row.end()), curr_row.end());
+                uint32_t row_size = curr_row.size();
+                if (row_size < min_row_size) continue;
+                nnz += row_size;
+                rows_pointers.push_back(nnz);
+                cols_indices.insert(cols_indices.end(), curr_row.begin(), curr_row.end());
+            }
+            b = matrix_dcsr_cpu(rows_pointers, rows_compressed, cols_indices);
+        }
+
+        {
+
+            cpu_buffer cols_indices {
+                1,
+                10, 12,
+                10, 15,
+                1, 5, 7, 14,
+                0, 2, 11, 14,
+                22, 24, 28, 30, 31, 32, 33, 34
+            };
+
+            cpu_buffer rows_pointers {
+                0, 1, 3, 5, 9, 13,
+            };
+
+            cpu_buffer rows_compressed {
+                5, 25, 26, 30, 31, 33
+            };
+            a = matrix_dcsr_cpu(rows_pointers, rows_compressed, cols_indices);
+        }
+        return std::make_pair(a, b);
+
+    }
+
 
     void fill_random_matrix(cpu_buffer &rows, cpu_buffer &cols, uint32_t max_size) {
         uint32_t n = rows.size();
@@ -95,7 +161,7 @@ namespace coo_utils {
                 rows_compressed.push_back(curr_row);
                 rows_pointers.push_back(position);
             }
-            position ++;
+            position++;
         }
         rows_pointers.push_back(position);
 
@@ -152,7 +218,7 @@ namespace coo_utils {
     }
 
 
-    void print_matrix(const matrix_coo_cpu& m_cpu) {
+    void print_matrix(const matrix_coo_cpu &m_cpu) {
         if (m_cpu.empty()) {
             std::cout << "empty matrix" << std::endl;
             return;
@@ -172,7 +238,7 @@ namespace coo_utils {
     }
 
 
-    void print_matrix(const matrix_dcsr_cpu& m_cpu) {
+    void print_matrix(const matrix_dcsr_cpu &m_cpu) {
 
         if (m_cpu.cols_indices().empty()) {
             std::cout << "empty matrix" << std::endl;
@@ -193,7 +259,7 @@ namespace coo_utils {
         std::cout << std::endl;
     }
 
-    void print_matrix(Controls &controls, const matrix_dcsr& m_gpu) {
+    void print_matrix(Controls &controls, const matrix_dcsr &m_gpu) {
         cpu_buffer rows_pointers(m_gpu.nzr() + 1);
         cpu_buffer rows_compressed(m_gpu.nzr());
         cpu_buffer cols_indices(m_gpu.nnz());
@@ -222,17 +288,17 @@ namespace coo_utils {
                 rows_compressed.push_back(curr_row);
                 rows_pointers.push_back(position);
             }
-            position ++;
+            position++;
         }
         rows_pointers.push_back(position);
         std::cout << std::endl;
 
     }
 
-    void get_workload (cpu_buffer &workload,
+    void get_workload(cpu_buffer &workload,
                       const matrix_dcsr_cpu &a,
                       const matrix_dcsr_cpu &b
-                      ) {
+    ) {
 
         for (uint32_t i = 0; i < a.rows_compressed().size(); ++i) {
             workload[i] = 0;
@@ -317,4 +383,6 @@ namespace coo_utils {
                            size, size, m.cols_indices().size(), m.rows_compressed().size());
 
     }
+
+
 }

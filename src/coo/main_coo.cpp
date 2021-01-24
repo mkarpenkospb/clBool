@@ -13,7 +13,8 @@ int main() {
 //    checkCopying();
 //    simpleTestCopy();
 //    testMultiplication();
-    testScan();
+//    testScan();
+    testESC();
 }
 
 

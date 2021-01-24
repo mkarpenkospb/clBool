@@ -38,9 +38,9 @@ void count_workload(Controls &controls,
                     const matrix_dcsr &a,
                     const matrix_dcsr &b);
 
-void build_groups_and_allocate_new_matrix(Controls& controls,
+void build_groups_and_allocate_new_matrix(Controls &controls,
                                           matrix_dcsr &pre,
-                                          std::vector<cpu_buffer>& cpu_workload_groups,
+                                          std::vector<cpu_buffer> &cpu_workload_groups,
                                           cl::Buffer &nnz_estimation,
                                           const matrix_dcsr &a,
                                           uint32_t b_cols
@@ -109,4 +109,9 @@ void set_positions(Controls &controls,
                    uint32_t c_nnz,
                    uint32_t old_nzr,
                    uint32_t c_nzr
+);
+
+auto get_esc_kernel(Controls &controls,
+                    uint32_t nnz_estimation,
+                    uint32_t group_length
 );

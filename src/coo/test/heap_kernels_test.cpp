@@ -88,9 +88,6 @@ void testMultiplication() {
     print_matrix(c_cpu);
 
     matrix_multiplication(controls, c_gpu, a_gpu, b_gpu);
-//    utils::print_gpu_buffer(controls, c_gpu.rows_pointers_gpu(), c_gpu.nzr());
-//    utils::print_gpu_buffer(controls, c_gpu.rows_compressed_gpu(), c_gpu.nzr());
-//    utils::print_gpu_buffer(controls, c_gpu.cols_indices_gpu(), c_gpu.nnz());
     compare_matrices(controls, c_gpu, c_cpu);
     print_matrix(controls, c_gpu);
 }

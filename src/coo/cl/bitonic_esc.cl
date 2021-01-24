@@ -1,7 +1,7 @@
-#include "clion_defines.cl"
-
-#define GROUP_SIZE 256
-#define NNZ_ESTIMATION 32
+//#include "clion_defines.cl"
+//
+//#define GROUP_SIZE 256
+//#define NNZ_ESTIMATION 32
 
 uint search_global(__global const unsigned int *array, uint value, uint size) {
     uint l = 0;
@@ -25,10 +25,10 @@ uint search_global(__global const unsigned int *array, uint value, uint size) {
 }
 
 
-void bitonic_sort(__local uint *cols) {
+void bitonic_sort(__local uint *cols, uint fill_pointer) {
     uint local_id = get_local_id(0);
 
-    uint outer = pow(2, ceil(log2((float) NNZ_ESTIMATION)));
+    uint outer = pow(2, ceil(log2((float) fill_pointer)));
     uint segment_length = 2;
     while (outer != 1) {
         uint half_segment_length = segment_length / 2;
@@ -42,7 +42,7 @@ void bitonic_sort(__local uint *cols) {
         uint line_id = segment_length * group_line_id + local_line_id;
         uint twin_id = segment_length * group_line_id + local_twin_id;
 
-        if (line_id < NNZ_ESTIMATION && twin_id < NNZ_ESTIMATION && cols[line_id] > cols[twin_id]) {
+        if (line_id < fill_pointer && twin_id < fill_pointer && cols[line_id] > cols[twin_id]) {
             uint tmp = cols[line_id];
             cols[line_id] = cols[twin_id];
             cols[twin_id] = tmp;
@@ -58,7 +58,7 @@ void bitonic_sort(__local uint *cols) {
             line_id = j * group_line_id + local_line_id;
             twin_id = j * group_line_id + local_twin_id;
 
-            if (line_id < NNZ_ESTIMATION && twin_id < NNZ_ESTIMATION && cols[line_id] > cols[twin_id]) {
+            if (line_id < fill_pointer && twin_id < fill_pointer && cols[line_id] > cols[twin_id]) {
                 uint tmp = cols[line_id];
                 cols[line_id] = cols[twin_id];
                 cols[twin_id] = tmp;
@@ -128,8 +128,7 @@ void scan_half_sized(__local uint *positions, __local const uint *cols, uint fil
                           (local_id >= fill_pointer ) || (cols[local_id] == cols[local_id - 1])
                           ? 0 : 1;
 
-    positions[local_id_second_half] = local_id == 0 ? 1 :
-                          (local_id_second_half >= fill_pointer ) || (cols[local_id_second_half] == cols[local_id_second_half - 1])
+    positions[local_id_second_half] = (local_id_second_half >= fill_pointer ) || (cols[local_id_second_half] == cols[local_id_second_half - 1])
                           ? 0 : 1;
 
 
@@ -247,7 +246,6 @@ void set_positions_half_sized(__local const uint *positions, __local const uint 
 // Выделить половину от грауппы на ряд, но не менее 32, ибо менее 32 не имеет смысла
 __kernel void bitonic_esc(__global const unsigned int *indices,
                          unsigned int group_start,
-                         unsigned int group_length,
 
                           __global const unsigned int *pre_matrix_rows_pointers, // указатели, куда записывать, или преф сумма по nnz_estimation
                           __global unsigned int *pre_matrix_cols_indices, // указатели сюда, записываем сюда
@@ -267,13 +265,17 @@ __kernel void bitonic_esc(__global const unsigned int *indices,
     uint group_id = get_group_id(0); // главный за индекс ряда
     uint row_pos = group_start + group_id; // какой ряд обрабатывать будем
     uint group_size = get_local_size(0);
-
+//    if (local_id == 0) {
+//        printf("bitonic esc!\n");
+//        printf("local_id: %d\n", local_id);
+//        printf("local_size: %d\n", group_size);
+////        printf("local_size: %d\n", group_size);
+//    }
     // не можем себе такого позволить так как борьеры, да и так как по группе на ряд, будет
     // странно, если ограничение выполнится
 //    if (row_pos >= group_start + group_length) return;
 
     __local uint cols[NNZ_ESTIMATION]; //
-
 
     // ------------------ fill cols  -------------------
     // скиываем всё в локальную память
@@ -290,23 +292,27 @@ __kernel void bitonic_esc(__global const unsigned int *indices,
         uint col_index = a_cols[a_pointer]; // позицию этого будем искать в матрице B
         uint b_row_pointer = search_global(b_rows_compressed, col_index, b_nzr);
 
-        if (b_row_pointer == b_nzr) continue; // не нашли((
+        if (b_row_pointer == b_nzr) {
+            continue; // не нашли((
+        }
 
         uint b_start = b_rows_pointers[b_row_pointer];
         uint b_end = b_rows_pointers[b_row_pointer + 1];
-
         uint b_row_length = b_end - b_start;
         // сколько понадобится шагов со страйдом в group_size, их будет не более двух! Так как выделим половину
+
         uint steps = (b_row_length + group_size - 1) / group_size;
+
 
         for (uint group_step = 0; group_step < steps; ++group_step) {
             // b_start --  где насинается рад
             // group_step -- какой шаг относительно разбиения задачи по размеру группы
             // group_size -- stride размером с группу
             // local_id -- индивидуальный сдвиг потока
-            uint elem_id = b_start + group_step * group_size + local_id;
-            if (elem_id < b_row_length) {
-                cols[fill_pointer + elem_id] = b_cols[elem_id];
+            uint elem_id_local = group_step * group_size + local_id;
+            uint elem_id = b_start + elem_id_local;
+            if (elem_id < b_end) {
+                cols[fill_pointer + elem_id_local] = b_cols[elem_id];
             }
         }
         fill_pointer += b_row_length;
@@ -314,29 +320,26 @@ __kernel void bitonic_esc(__global const unsigned int *indices,
 
     barrier(CLK_LOCAL_MEM_FENCE);
 
+
     // ---------------------- bitonic sort -------------------
-    bitonic_sort(cols);
+    bitonic_sort(cols, fill_pointer);
 
-
-    // -------------------------------------- scan -----------------------------------------------------
-
+    barrier(CLK_LOCAL_MEM_FENCE);
+//
+//
+//    // -------------------------------------- scan -----------------------------------------------------
+//
     __local uint positions[NNZ_ESTIMATION + 1];
-
+//
     if (NNZ_ESTIMATION > group_size) {
         scan_half_sized(positions, cols, fill_pointer);
+        barrier(CLK_LOCAL_MEM_FENCE);
         set_positions_half_sized(positions, cols, fill_pointer, result);
     } else {
         scan(positions, cols, fill_pointer);
         set_positions(positions, cols, fill_pointer, result);
     }
 
-    barrier(CLK_LOCAL_MEM_FENCE);
-
-    // total of pref sum
-    nnz_estimation[row_index] = positions[NNZ_ESTIMATION];
-
-    /*
-     * вывести в глобальную память
-     */
+    nnz_estimation[row_index] = positions[fill_pointer];
 
 }
