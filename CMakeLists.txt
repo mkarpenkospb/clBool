@@ -44,6 +44,7 @@ add_executable(sparse-boolean-matrix-operations
         src/coo/cl/to_result_matrix_single_thread.cl
         src/coo/cl/half_sized_scan.cl
         src/coo/cl/merge_large_rows.cl
+        src/coo/cl/new_merge.cl
 
 
         src/coo/test/coo_addition_test.cpp

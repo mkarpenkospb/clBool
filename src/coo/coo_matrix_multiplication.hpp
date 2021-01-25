@@ -43,7 +43,10 @@ void build_groups_and_allocate_new_matrix(Controls &controls,
                                           std::vector<cpu_buffer> &cpu_workload_groups,
                                           cl::Buffer &nnz_estimation,
                                           const matrix_dcsr &a,
-                                          uint32_t b_cols
+                                          uint32_t b_cols,
+
+                                          cl::Buffer &aux_for_37_group_mem_pointers,
+                                          cl::Buffer &aux_for_37_group_mem
 );
 
 uint32_t get_group(uint32_t size);
@@ -68,7 +71,10 @@ void run_kernels(Controls &controls,
 
                  const matrix_dcsr &pre,
                  const matrix_dcsr &a,
-                 const matrix_dcsr &b
+                 const matrix_dcsr &b,
+
+                 const cl::Buffer &aux_mem_pointers,
+                 cl::Buffer &aux_mem
 );
 
 void write_bins_info(Controls &controls,
