@@ -1,5 +1,5 @@
 #include <numeric>
-#include "coo_matrix_multiplication.hpp"
+#include "dscr_matrix_multiplication.hpp"
 #include "coo_matrix_addition.hpp"
 #include "../library_classes/controls.hpp"
 #include "../utils.hpp"
@@ -472,7 +472,8 @@ void run_kernels(Controls &controls,
         }
 
         auto  kernelAndArgs = get_merge_kernel(controls, groups_length[workload_group_id]);
-        kernelAndArgs.first(kernelAndArgs.second, groups_pointers[workload_group_id],
+        kernelAndArgs.first(kernelAndArgs.second,
+                            gpu_workload_groups, groups_pointers[workload_group_id],
                             aux_mem_pointers, aux_mem,
                             pre.rows_pointers_gpu(), pre.cols_indices_gpu(),
                             nnz_estimation,
@@ -534,8 +535,11 @@ void build_groups_and_allocate_new_matrix(Controls& controls,
     cl::Buffer pre_cols_indices_gpu = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * pre_nnz);
 
     // ну не будем мы ничего писать в эти указатели, поэтому true
-    aux_for_37_group_mem_pointers = cl::Buffer(controls.queue, rows_pointers_cpu.begin(), rows_pointers_cpu.end(), true);
-    aux_for_37_group_mem = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * aux);
+    if (aux != 0) {
+        aux_for_37_group_mem_pointers = cl::Buffer(controls.queue, rows_pointers_cpu.begin(), rows_pointers_cpu.end(),
+                                                   true);
+        aux_for_37_group_mem = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * aux);
+    }
 
 
     pre = matrix_dcsr(pre_rows_pointers, a.rows_compressed_gpu(), pre_cols_indices_gpu,

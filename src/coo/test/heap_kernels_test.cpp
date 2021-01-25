@@ -6,7 +6,7 @@
 #include "../../library_classes/controls.hpp"
 #include "../../utils.hpp"
 #include "../coo_utils.hpp"
-#include "../coo_matrix_multiplication.hpp"
+#include "../dscr_matrix_multiplication.hpp"
 
 using namespace coo_utils;
 using namespace utils;
@@ -35,9 +35,14 @@ void testHeapAndCopyKernels() {
     cpu_buffer groups_pointers(BINS_NUM + 1);
     cpu_buffer groups_length(BINS_NUM);
 
+    cl::Buffer aux_ptr;
+    cl::Buffer aux_mem;
+
     matrix_dcsr pre;
     build_groups_and_allocate_new_matrix(controls, pre,
-                                         cpu_workload_groups, nnz_estimation, a_gpu, b_gpu.nCols());
+                                         cpu_workload_groups, nnz_estimation, a_gpu, b_gpu.nCols(),
+                                         aux_ptr, aux_mem
+                                         );
 
 
     cl::Buffer gpu_workload_groups(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a_gpu.nzr());
@@ -48,10 +53,13 @@ void testHeapAndCopyKernels() {
     std::cout << "groups_pointers: \n"; utils::print_cpu_buffer(groups_pointers);
     std::cout << "groups_length: \n"; utils::print_cpu_buffer(groups_length);
 
+    cl::Buffer a;
+    cl::Buffer b;
 
     run_kernels(controls, cpu_workload_groups, groups_length, groups_pointers,
                 gpu_workload_groups, nnz_estimation,
-                pre, a_gpu, b_gpu
+                pre, a_gpu, b_gpu,
+                a, b
     );
 
 

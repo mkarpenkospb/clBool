@@ -7,7 +7,7 @@
 #include "../../library_classes/matrix_dcsr.hpp"
 #include "../../utils.hpp"
 #include "../coo_utils.hpp"
-#include "../coo_matrix_multiplication.hpp"
+#include "../dscr_matrix_multiplication.hpp"
 
 using namespace coo_utils;
 using namespace utils;

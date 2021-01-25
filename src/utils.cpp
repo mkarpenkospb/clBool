@@ -1,7 +1,8 @@
 #include "utils.hpp"
 #include "library_classes/matrix_dcsr.hpp"
 #include "library_classes/matrix_coo.hpp"
-#include "coo/coo_matrix_multiplication.hpp"
+#include "coo/dscr_matrix_multiplication.hpp"
+#include "fast_random.h"
 //#include "coo/coo_utils.hpp"
 
 #include <cstdint>
@@ -194,11 +195,19 @@ namespace utils {
         controls.queue.enqueueReadBuffer(buffer_g, CL_TRUE, 0, sizeof(uint32_t) * cpu_copy.size(), cpu_copy.data());
         for (uint32_t i = 0; i < size; ++i) {
             if (cpu_copy[i] != buffer_c[i]) {
-                std::cerr << "buffers are different" << std::endl;
-                return;
+                throw std::runtime_error("buffers are different");
             }
         }
         std::cout << "buffers are equal" << std::endl;
+    }
+
+
+    void fill_random_buffer(cpu_buffer &buf) {
+        uint32_t n = buf.size();
+        FastRandom r(n);
+        for (uint32_t i = 0; i < n; ++i) {
+            buf[i] = r.next();
+        }
     }
 
 }

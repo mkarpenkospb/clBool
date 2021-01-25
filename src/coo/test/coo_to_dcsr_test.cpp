@@ -4,7 +4,7 @@
 #include "../../library_classes/controls.hpp"
 #include "../../utils.hpp"
 #include "../coo_utils.hpp"
-#include "../coo_matrix_multiplication.hpp"
+#include "../dscr_matrix_multiplication.hpp"
 
 
 using coo_utils::matrix_coo_cpu;

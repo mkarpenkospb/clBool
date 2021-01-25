@@ -14,7 +14,9 @@ int main() {
 //    simpleTestCopy();
 //    testMultiplication();
 //    testScan();
-    testESC();
+//    testESC();
+//    test_new_merge();
+    test_new_merge_full();
 }
 
 

@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.1)
 project(sparse-boolean-matrix-operations)
 
-# у меня не работает юбез явного указания путей
+# у меня не работает без явного указания путей
 set(OpenCL_LIBRARY "C:/Windows/System32/OpenCL.dll")
 set(OpenCL_INCLUDE_DIR_LIBRARY "C:/Windows/System32/")
 set(OpenCL_INCLUDE_DIR "libs/clew")
@@ -26,7 +26,7 @@ add_executable(sparse-boolean-matrix-operations
         src/coo/coo_initialization.cpp
         src/coo/coo_utils.cpp
         src/coo/coo_kronecker_product.cpp
-        src/coo/coo_matrix_multiplication.cpp
+        src/coo/dscr_matrix_multiplication.cpp
 
         src/coo/cl/prepare_positions.cl
         src/coo/cl/merge_path.cl
@@ -38,13 +38,12 @@ add_executable(sparse-boolean-matrix-operations
         src/coo/cl/count_workload.cl
         src/coo/cl/heap_merge.cl
         src/coo/cl/bitonic_esc.cl
-        src/coo/cl/merge_rows.cl
         src/coo/cl/copy_one_value.cl
         src/coo/cl/to_result_matrix_work_group.cl
         src/coo/cl/to_result_matrix_single_thread.cl
-        src/coo/cl/half_sized_scan.cl
         src/coo/cl/merge_large_rows.cl
-        src/coo/cl/new_merge.cl
+        src/coo/cl/for_test/half_sized_scan.cl
+        src/coo/cl/for_test/new_merge.cl
 
 
         src/coo/test/coo_addition_test.cpp
@@ -59,6 +58,7 @@ add_executable(sparse-boolean-matrix-operations
         src/coo/test/check_objects_copying.cpp
         src/coo/test/test_half_sized_scan.cpp
         src/coo/test/esc_kernels_test.cpp
+        src/coo/test/test_new_merge.cpp
         )
 
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})

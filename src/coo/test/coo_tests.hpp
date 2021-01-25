@@ -14,3 +14,5 @@ void simpleTestCopy();
 void testMultiplication();
 void testScan() ;
 void testESC() ;
+void test_new_merge();
+void test_new_merge_full();

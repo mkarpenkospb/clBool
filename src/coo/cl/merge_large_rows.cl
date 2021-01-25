@@ -202,10 +202,11 @@ merge_pointer(__local const uint *a, __local const uint *b, __local uint *c, uin
     }
 }
 
-// тут нам нужны оба указателия, поэтому вернем sizeB * below_idx_a + below_idx_b
+
 // тут нам нужны оба указателия, поэтому вернем примерно sizeB * above_idx_a + above_idx_b
 inline uint
-merge_pointer_global(__global const uint *a, __local const uint *b, __local uint *c, uint sizeA, uint sizeB, uint diag_index) {
+merge_pointer_global(__global const uint *a, __local const uint *b, __global uint *c, uint sizeA, uint sizeB, uint diag_index) {
+    unsigned int sizeB_inc = sizeB + 1;
     unsigned int res_size = sizeA + sizeB;
     unsigned int min_side = sizeA < sizeB ? sizeA : sizeB;
     unsigned int max_side = res_size - min_side;
@@ -240,13 +241,13 @@ merge_pointer_global(__global const uint *a, __local const uint *b, __local uint
         // success
         if (below != above) {
             if ((diag_index < sizeA) && m == 0) {
-                return sizeB * above_idx_a + above_idx_b;
+                return sizeB_inc * above_idx_a + above_idx_b;
             }
             if ((diag_index < sizeB) && m == diag_length - 1) {
-                return sizeB * below_idx_a + below_idx_b;
+                return sizeB_inc * below_idx_a + below_idx_b;
             }
             // в случаях выше эти индексы лучше вообще не трогать, поэтому не объединяю
-            return a[above_idx_a] > b[below_idx_b] ? above_idx_a * sizeB + above_idx_b : below_idx_a * sizeB + below_idx_b;
+            return a[above_idx_a] > b[below_idx_b] ? above_idx_a * sizeB_inc + above_idx_b : below_idx_a * sizeB_inc + below_idx_b;
         }
 
         if (below) {
@@ -266,14 +267,15 @@ merge_local(__local const uint *a, __local const uint *b, __local uint *c, uint 
     c[diag_index] = mptr > sizeA ? b[mptr - sizeA] : a[mptr];
 }
 
-__kernel void
-merge_global(__global const uint *a, __local const uint *b, __local uint *c, uint sizeA, uint sizeB) {
+inline void
+merge_global(__global const uint *a, __local const uint *b, __global uint *c, uint sizeA, uint sizeB) {
+    uint sizeB_inc = sizeB + 1;
     uint step_length = ((sizeA + sizeB) + GROUP_SIZE - 1) / GROUP_SIZE;
     uint diag_index = get_local_id(0) * step_length;
     if (diag_index >= sizeA + sizeB) return;
     uint mptr = merge_pointer_global(a, b, c, sizeA, sizeB, diag_index);
-    uint a_ptr = mptr % sizeA;
-    uint b_ptr = mptr / sizeB;
+    uint a_ptr = mptr / sizeB_inc;
+    uint b_ptr = mptr % sizeB_inc;
 
     for (uint i = 0; i < step_length; ++i) {
         if (a_ptr < sizeA && a[a_ptr] < b[b_ptr] || b_ptr >= sizeB) {
@@ -285,7 +287,6 @@ merge_global(__global const uint *a, __local const uint *b, __local uint *c, uin
             c[diag_index + i] = b[b_ptr++];
             continue;
         }
-
         return;
     }
 }

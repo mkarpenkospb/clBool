@@ -1,5 +1,5 @@
 // taken from here https://github.com/GPGPUCourse/GPGPUTasks2020/tree/task01/src/cl
-
+#include <cstdio>
 #ifndef clion_defines_cl // pragma once
 #define clion_defines_cl
 

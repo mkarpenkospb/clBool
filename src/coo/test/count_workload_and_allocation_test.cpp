@@ -6,7 +6,7 @@
 #include "../../library_classes/controls.hpp"
 #include "../../utils.hpp"
 #include "../coo_utils.hpp"
-#include "../coo_matrix_multiplication.hpp"
+#include "../dscr_matrix_multiplication.hpp"
 
 using namespace coo_utils;
 using namespace utils;
@@ -48,10 +48,13 @@ void testCountWorkloadAndAllocation() {
     std::vector<cpu_buffer> cpu_workload_groups(BINS_NUM, cpu_buffer());
     cpu_buffer groups_pointers(BINS_NUM);
 
+    cl::Buffer a;
+    cl::Buffer b;
+
     matrix_dcsr pre;
     build_groups_and_allocate_new_matrix(controls,
                                          pre,
-                                         cpu_workload_groups, nnz_estimation, a_gpu, b_gpu.nCols());
+                                         cpu_workload_groups, nnz_estimation, a_gpu, b_gpu.nCols(), a, b);
 
     cl::Buffer gpu_workload_groups(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a_gpu.nzr());
     unsigned int offset = 0;
