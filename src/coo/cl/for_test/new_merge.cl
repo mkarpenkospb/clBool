@@ -19,7 +19,7 @@ merge_pointer_global(__global const uint *a, __local const uint *b, __global uin
     unsigned int max_side = res_size - min_side;
 
     unsigned int diag_length = diag_index < min_side ? diag_index + 2 :
-                               diag_index < max_side ? min_side + 2 :
+                               diag_index < max_side ? min_side + 1:
                                res_size - diag_index;
 
     unsigned r = diag_length;
@@ -183,78 +183,6 @@ merge_global_full(__global const uint *a, __global const uint *b, __global uint 
 
 
 
-inline void
-merge_local(__local const uint *a, __local const uint *b, __local uint *c, uint sizeA, uint sizeB) {
-    uint diag_index = get_local_id(0);
-    unsigned int res_size = sizeA + sizeB;
-    if (diag_index >= res_size) return;
-    unsigned int min_side = sizeA < sizeB ? sizeA : sizeB;
-    unsigned int max_side = res_size - min_side;
-
-    unsigned int diag_length = diag_index < min_side ? diag_index + 2 :
-                               diag_index < max_side ? min_side + 2 :
-                               res_size - diag_index;
-
-    // Массив A представляем как ряды, B как столбцы
-
-
-    unsigned r = diag_length;
-    unsigned l = 0;
-    unsigned int m = 0;
-
-    unsigned int below_idx_a = 0;
-    unsigned int below_idx_b = 0;
-    unsigned int above_idx_a = 0;
-    unsigned int above_idx_b = 0;
-
-    unsigned int above = 0; // значение сравнения справа сверху
-    unsigned int below = 0; // значение сравнения слева снизу
-
-    while (l < r) {
-        m = (l + r) / 2;
-        below_idx_a = diag_index < sizeA ? diag_index - m + 1 : sizeA - m;
-        below_idx_b = diag_index < sizeA ? m - 1 : (diag_index - sizeA) + m;
-
-        above_idx_a = below_idx_a - 1;
-        above_idx_b = below_idx_b + 1;
-
-        below = m == 0 ? 1 : a[below_idx_a] > b[below_idx_b];
-        above = m == diag_length - 1 ? 0 : a[above_idx_a] > b[above_idx_b];
-
-        // success
-        if (below != above) {
-            if (diag_index == 128) {
-                printf("above_idx_a: %d\n", above_idx_a);
-                printf("below_idx_b: %d\n", below_idx_b);
-                printf("m: %d\n", m);
-                printf("diag_length: %d\n", diag_length);
-                printf("sizeA: %d\n", sizeA);
-                printf("sizeB: %d\n", sizeB);
-            }
-//            if ((diag_index < sizeA) && m == 0) {
-//                c[diag_index] = a[above_idx_a];
-//                return;
-//            }
-//            if ((diag_index < sizeB) && m == diag_length - 1) {
-//                c[diag_index] = b[below_idx_b];
-//                return;
-//            }
-            // в случаях выше эти индексы лучше вообще не трогать, поэтому не объединяю
-            // смотрим, что в ячейке выше диагонали, а именно, как в неё пришли.
-            c[diag_index] =  max(a[above_idx_a], b[below_idx_b]);
-            return;
-        }
-
-        if (below) {
-            l = m;
-        } else {
-            r = m;
-        }
-    }
-}
-
-
-
 __kernel void new_merge_full(__global const uint *a,
                             __global const uint *b,
                             __global uint *c,
@@ -264,14 +192,3 @@ __kernel void new_merge_full(__global const uint *a,
 }
 
 
-__kernel void local_merge(__global uint data,
-                          __global uint result,
-                          uint sizeA,
-                          uint sizeB
-                          ) {
-    __local uint local_data[GROUP_SIZE];
-    __local uint *a = local_data;
-    __local uint *b = local_data + sizeA;
-
-
-}

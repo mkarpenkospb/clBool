@@ -53,8 +53,9 @@ namespace coo_utils {
         {
 
             cpu_buffer cols_indices {
-                    1, 2, 7, 22, 23, 25, 28, 30
-//                    10, 12, 13, 42,
+                    1, 2, 7, 22, 23, 25, 28, 30,
+                    10, 12, 13, 42,
+                    4
 //                    10, 15, 16, 23,
 //                    1, 5, 7, 14,
 //                    0, 2, 11, 14,
@@ -62,16 +63,15 @@ namespace coo_utils {
             };
 
             cpu_buffer rows_pointers {
-                    0, 8
+                    0, 8, 12, 13
             };
 
             cpu_buffer rows_compressed {
-                    5
+                    5, 33
             };
             a = matrix_dcsr_cpu(rows_pointers, rows_compressed, cols_indices);
         }
         return std::make_pair(a, b);
-
     }
 
     std::pair<matrix_dcsr_cpu, matrix_dcsr_cpu> generate_random_matrices_esc(uint32_t max_size, uint32_t seed) {
