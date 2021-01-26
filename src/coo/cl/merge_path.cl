@@ -35,7 +35,7 @@ __kernel void merge(__global unsigned int *rowsC,
 
 
     unsigned int diag_length = diag_index < min_side ? diag_index + 2 :
-                               diag_index < max_side ? min_side + 2 :
+                               diag_index < max_side ? min_side + 1 :
                                res_size - diag_index;
 
     unsigned r = diag_length;

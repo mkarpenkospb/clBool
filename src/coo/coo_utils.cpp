@@ -12,7 +12,67 @@ namespace coo_utils {
 
     using cpu_buffer = std::vector<uint32_t>;
 
+    std::pair<matrix_dcsr_cpu, matrix_dcsr_cpu> generate_random_matrices_large(uint32_t max_size, uint32_t seed) {
+        // попытаемся нагенерить штук 50 рядов по 32 - 63 элемента
+        // создание второй матрицы
+        matrix_dcsr_cpu a;
+        matrix_dcsr_cpu b;
+        {
+            uint32_t random_to_fit = 150;
+            uint32_t min_row_size = 129;
+            cpu_buffer cols_indices;
+            cpu_buffer rows_pointers;
+            cpu_buffer rows_compressed;
+            uint32_t rows = 50;
 
+            if (max_size < rows) {
+                throw std::runtime_error("too small matrix for generator");
+            }
+
+            FastRandom r(seed);
+            rows_pointers.push_back(0);
+            uint32_t nnz = 0;
+            for (uint32_t i = 0; i < rows; ++i) {
+                rows_compressed.push_back(i); // ох ну и пусть
+                cpu_buffer curr_row(random_to_fit);
+                for (uint32_t j = 0; j < random_to_fit; ++j) {
+                    curr_row[j] = r.next() % max_size;
+                }
+                std::sort(curr_row.begin(), curr_row.end());
+                curr_row.erase(std::unique(curr_row.begin(), curr_row.end()), curr_row.end());
+                uint32_t row_size = curr_row.size();
+                if (row_size < min_row_size) continue;
+                nnz += row_size;
+                rows_pointers.push_back(nnz);
+                cols_indices.insert(cols_indices.end(), curr_row.begin(), curr_row.end());
+            }
+            b = matrix_dcsr_cpu(rows_pointers, rows_compressed, cols_indices);
+        }
+
+
+        {
+
+            cpu_buffer cols_indices {
+                    1, 2, 7, 22, 23, 25, 28, 30
+//                    10, 12, 13, 42,
+//                    10, 15, 16, 23,
+//                    1, 5, 7, 14,
+//                    0, 2, 11, 14,
+//                    22, 24, 28, 30, 31, 32, 33, 34
+            };
+
+            cpu_buffer rows_pointers {
+                    0, 8
+            };
+
+            cpu_buffer rows_compressed {
+                    5
+            };
+            a = matrix_dcsr_cpu(rows_pointers, rows_compressed, cols_indices);
+        }
+        return std::make_pair(a, b);
+
+    }
 
     std::pair<matrix_dcsr_cpu, matrix_dcsr_cpu> generate_random_matrices_esc(uint32_t max_size, uint32_t seed) {
         // попытаемся нагенерить штук 50 рядов по 32 - 63 элемента

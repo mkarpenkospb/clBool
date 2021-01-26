@@ -9,14 +9,14 @@ int main() {
 //    testCountWorkload();
 //    testCountWorkloadAndAllocation();
 //    testHeapAndCopyKernels();
-//    multiplicationTest();
 //    checkCopying();
 //    simpleTestCopy();
 //    testMultiplication();
 //    testScan();
 //    testESC();
 //    test_new_merge();
-    test_new_merge_full();
+//    test_new_merge_full();
+    largeRowsTest();
 }
 
 

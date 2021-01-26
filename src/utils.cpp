@@ -195,6 +195,12 @@ namespace utils {
         controls.queue.enqueueReadBuffer(buffer_g, CL_TRUE, 0, sizeof(uint32_t) * cpu_copy.size(), cpu_copy.data());
         for (uint32_t i = 0; i < size; ++i) {
             if (cpu_copy[i] != buffer_c[i]) {
+                uint32_t start = std::max(0, (int)i - 10);
+                uint32_t stop = std::min(size, i + 10);
+                for (uint32_t j = start; j < stop; ++j) {
+                    std::cout << j << ": (" << cpu_copy[j] << ", " << buffer_c[j] << "), ";
+                }
+                std::cout << std::endl;
                 throw std::runtime_error("buffers are different");
             }
         }

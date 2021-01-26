@@ -45,8 +45,8 @@ void build_groups_and_allocate_new_matrix(Controls &controls,
                                           const matrix_dcsr &a,
                                           uint32_t b_cols,
 
-                                          cl::Buffer &aux_for_37_group_mem_pointers,
-                                          cl::Buffer &aux_for_37_group_mem
+                                          cl::Buffer &aux_pointers,
+                                          cl::Buffer &aux_mem
 );
 
 uint32_t get_group(uint32_t size);

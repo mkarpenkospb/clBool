@@ -74,9 +74,9 @@ auto get_heap_kernel(Controls &controls,
 //        heap_merge(eargs, workload, a_rows_pointers, a_cols, b_rows_compressed, b_rows_pointers, a_nzr, b_nzr);
     } catch (const cl::Error &e) {
         std::stringstream exception;
-        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << " in get_heap_kernel"<< "\n";
         if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
-            exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device);
+            exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device) << " in get_heap_kernel";
         }
         throw std::runtime_error(exception.str());
     }
@@ -113,9 +113,9 @@ auto get_copy_one_value_kernel(Controls &controls,
 //        heap_merge(eargs, workload, a_rows_pointers, a_cols, b_rows_compressed, b_rows_pointers, a_nzr, b_nzr);
     } catch (const cl::Error &e) {
         std::stringstream exception;
-        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err())<< " in get_copy_one_value_kernel" << "\n";
         if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
-            exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device);
+            exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device) << "in get_copy_one_value_kernel";
         }
         throw std::runtime_error(exception.str());
     }
@@ -148,9 +148,9 @@ auto get_to_result_matrix_single_thread(Controls &controls,
 //        heap_merge(eargs, workload, a_rows_pointers, a_cols, b_rows_compressed, b_rows_pointers, a_nzr, b_nzr);
     } catch (const cl::Error &e) {
         std::stringstream exception;
-        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err())<< " in get_to_result_matrix_single_thread" << "\n";
         if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
-            exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device);
+            exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device) << "in get_to_result_matrix_single_thread";
         }
         throw std::runtime_error(exception.str());
     }
@@ -184,9 +184,9 @@ auto get_to_result_matrix_work_group(Controls &controls,
 //        heap_merge(eargs, workload, a_rows_pointers, a_cols, b_rows_compressed, b_rows_pointers, a_nzr, b_nzr);
     } catch (const cl::Error &e) {
         std::stringstream exception;
-        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err())<< " in get_to_result_matrix_work_group " << "\n";
         if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
-            exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device);
+            exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device) << "in get_to_result_matrix_work_group ";
         }
         throw std::runtime_error(exception.str());
     }
@@ -221,9 +221,9 @@ auto get_esc_kernel(Controls &controls,
         return std::pair<KernelType, cl::EnqueueArgs>(bitonic_esc, eargs);
     } catch (const cl::Error &e) {
         std::stringstream exception;
-        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err())<< " in get_esc_kernel" << "\n";
         if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
-            exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device);
+            exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device) << "in get_esc_kernel";
         }
         throw std::runtime_error(exception.str());
     }
@@ -238,7 +238,7 @@ auto get_merge_kernel(Controls &controls,
         program = controls.create_program_from_file("../src/coo/cl/merge_large_rows.cl");
         uint32_t block_size = controls.block_size;
         std::stringstream options;
-        options << "-D GROUP_SIZE=" << block_size;
+        options << "-D GROUP_SIZE=" << block_size << " -D RUN";
         program.build(options.str().c_str());
 
         uint32_t work_group_size = block_size;
@@ -258,9 +258,9 @@ auto get_merge_kernel(Controls &controls,
         return std::pair<KernelType, cl::EnqueueArgs>(local_global_merge, eargs);
     } catch (const cl::Error &e) {
         std::stringstream exception;
-        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err())<< " in get_merge_kernel" << "\n";
         if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
-            exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device);
+            exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device) << "in get_merge_kernel";
         }
         throw std::runtime_error(exception.str());
     }
@@ -284,7 +284,7 @@ void matrix_multiplication(Controls &controls,
 
     cl::Buffer nnz_estimation;
     count_workload(controls, nnz_estimation, a, b);
-//    utils::print_gpu_buffer(controls, nnz_estimation, a.nzr());
+    utils::print_gpu_buffer(controls, nnz_estimation, a.nzr());
 
     std::vector<cpu_buffer> cpu_workload_groups(BINS_NUM, cpu_buffer());
     cpu_buffer groups_pointers(BINS_NUM + 1);
@@ -301,7 +301,7 @@ void matrix_multiplication(Controls &controls,
     cl::Buffer gpu_workload_groups(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a.nzr());
 
     write_bins_info(controls, gpu_workload_groups, cpu_workload_groups, groups_pointers, groups_length);
-//    utils::print_gpu_buffer(controls, gpu_workload_groups,  a.nzr());
+    utils::print_gpu_buffer(controls, gpu_workload_groups,  a.nzr());
 
     run_kernels(controls, cpu_workload_groups, groups_length, groups_pointers,
                 gpu_workload_groups, nnz_estimation,
@@ -498,11 +498,11 @@ void build_groups_and_allocate_new_matrix(Controls& controls,
                                           const matrix_dcsr &a,
                                           uint32_t b_cols,
 
-                                          cl::Buffer &aux_for_37_group_mem_pointers,
-                                          cl::Buffer &aux_for_37_group_mem
+                                          cl::Buffer &aux_pointers,
+                                          cl::Buffer &aux_mem
                                           ) {
 
-    cpu_buffer aux_for_37group_pointers_cpu;
+    cpu_buffer aux_pointers_cpu;
     uint32_t aux = 0;
 
     cpu_buffer cpu_workload(a.nzr());
@@ -518,17 +518,17 @@ void build_groups_and_allocate_new_matrix(Controls& controls,
         uint32_t group = get_group(current_workload);
         cpu_workload_groups[group].push_back(i);
         rows_pointers_cpu[i] = pre_nnz;
-        if (group == 37) {
-            aux_for_37group_pointers_cpu.push_back(aux);
-            aux += pre_nnz;
-        }
+
         // TODO: добавить переаллокацию
 //        pre_nnz += current_workload < 513 ? current_workload : 256;
         pre_nnz += current_workload;
-
+        if (group == 37) {
+            aux_pointers_cpu.push_back(aux);
+            aux += pre_nnz;
+        }
     }
 
-    aux_for_37group_pointers_cpu.push_back(aux);
+    aux_pointers_cpu.push_back(aux);
     rows_pointers_cpu[a.nzr()] = pre_nnz;
 
     cl::Buffer pre_rows_pointers = cl::Buffer(controls.queue, rows_pointers_cpu.begin(), rows_pointers_cpu.end(), false);
@@ -536,9 +536,10 @@ void build_groups_and_allocate_new_matrix(Controls& controls,
 
     // ну не будем мы ничего писать в эти указатели, поэтому true
     if (aux != 0) {
-        aux_for_37_group_mem_pointers = cl::Buffer(controls.queue, rows_pointers_cpu.begin(), rows_pointers_cpu.end(),
-                                                   true);
-        aux_for_37_group_mem = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * aux);
+        std::cout << "aux allocation with " << aux << std::endl;
+        aux_pointers = cl::Buffer(controls.queue, aux_pointers_cpu.begin(), aux_pointers_cpu.end(),
+                                  true);
+        aux_mem = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * aux);
     }
 
 
@@ -626,7 +627,7 @@ void count_workload(Controls &controls,
 
     } catch (const cl::Error &e) {
         std::stringstream exception;
-        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << " in count_workload" << "\n";
         if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
             exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device);
         }
@@ -670,7 +671,7 @@ void prepare_positions(Controls &controls,
 
     } catch (const cl::Error &e) {
         std::stringstream exception;
-        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "in prepare_positions" << "\n";
         if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
             exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device);
         }
@@ -711,7 +712,7 @@ void set_positions(Controls &controls,
 
     } catch (const cl::Error &e) {
         std::stringstream exception;
-        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << " in set_positions1" << "\n";
         if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
             exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device);
         }
@@ -756,7 +757,7 @@ void set_positions(Controls &controls,
 
     } catch (const cl::Error &e) {
         std::stringstream exception;
-        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << " in set_positions2" << "\n";
         if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
             exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(controls.device);
         }

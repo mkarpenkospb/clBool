@@ -54,7 +54,7 @@ add_executable(sparse-boolean-matrix-operations
         src/coo/test/count_workload_test.cpp
         src/coo/test/count_workload_and_allocation_test.cpp
         src/coo/test/heap_kernels_test.cpp
-        src/coo/test/multiplication_test.cpp
+        src/coo/test/large_rows_test.cpp
         src/coo/test/check_objects_copying.cpp
         src/coo/test/test_half_sized_scan.cpp
         src/coo/test/esc_kernels_test.cpp
