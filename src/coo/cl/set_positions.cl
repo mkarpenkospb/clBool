@@ -1,14 +1,9 @@
-//#include "clion_defines.cl"
-//#define GROUP_SIZE 256
+#ifndef RUN
 
+#include "clion_defines.cl"
+#define GROUP_SIZE 256
 
-/*
- *
- *
- * we have positions:               0 1 2 2 3 4 5  6  6  7  8  8  0  9
- * each position "If my closer index that less than me is the same, I'm not moving"
- *
- */
+#endif
 
 
 __kernel void set_positions(__global unsigned int* newRows,

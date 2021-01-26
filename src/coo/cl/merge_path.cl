@@ -1,6 +1,9 @@
-//#include "clion_defines.cl"
-//#define GROUP_SIZE 256
+#ifndef RUN
 
+#include "clion_defines.cl"
+#define GROUP_SIZE 256
+
+#endif
 
 bool is_greater_global(__global const unsigned int *rowsA,
                        __global const unsigned int *colsA,

@@ -1,7 +1,9 @@
-//#include "clion_defines.cl"
-//
-//#define GROUP_SIZE 256
+#ifndef RUN
 
+#include "clion_defines.cl"
+#define GROUP_SIZE 256
+
+#endif
 
 
 // TODO: maybe split task to call less threads

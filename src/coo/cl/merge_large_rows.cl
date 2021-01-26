@@ -1,7 +1,6 @@
 #ifndef RUN
 
 #include "clion_defines.cl"
-
 #define GROUP_SIZE 256
 
 #endif
@@ -12,6 +11,9 @@
 #define SWAP_GLOBAL(a, b) {__global uint * tmp=a; a=b; b=tmp;}
 // we want to generate code for 31 different heap sizes, and we'll send this
 // constant as a compilation parameter
+
+template <typename K>
+inline void sum(K val) {};
 
 inline void print_local_array(__local uint *arr, uint size) {
     for (uint i = 0; i < size; ++i) {
@@ -143,43 +145,6 @@ scan(__local uint *positions, uint scan_size) {
         printf("quite 6\n");
     }
     barrier(CLK_LOCAL_MEM_FENCE);
-}
-
-
-inline void
-scan_global(__global uint *positions, uint scan_size) {
-    uint local_id = get_local_id(0);
-    uint dp = 1;
-
-    for (uint s = scan_size >> 1; s > 0; s >>= 1) {
-        barrier(CLK_LOCAL_MEM_FENCE);
-        if (local_id < s) {
-            uint i = dp * (2 * local_id + 1) - 1;
-            uint j = dp * (2 * local_id + 2) - 1;
-            positions[j] += positions[i];
-        }
-
-        dp <<= 1;
-    }
-
-    if (local_id == BUFFER_SIZE - 1) {
-        positions[BUFFER_SIZE] = positions[local_id];
-        positions[local_id] = 0;
-    }
-
-    for (uint s = 1; s < scan_size; s <<= 1) {
-        dp >>= 1;
-        barrier(CLK_LOCAL_MEM_FENCE);
-
-        if (local_id < s) {
-            uint i = dp * (2 * local_id + 1) - 1;
-            uint j = dp * (2 * local_id + 2) - 1;
-
-            unsigned int t = positions[j];
-            positions[j] += positions[i];
-            positions[i] = t;
-        }
-    }
 }
 
 inline void

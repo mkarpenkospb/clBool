@@ -1,11 +1,11 @@
-//#include "clion_defines.cl"
-//
-//#define SWAP(a,b) {__local uint * tmp=a; a=b; b=tmp;}
-//
-//#define GROUP_SIZE 256
-//// we want to generate code for 31 different heap sizes, and we'll send this
-//// constant as a compilation parameter
-//#define NNZ_ESTIMATION 32
+#ifndef RUN
+
+#include "clion_defines.cl"
+#define GROUP_SIZE 256
+#define NNZ_ESTIMATION 32
+
+#endif
+
 
 uint search_global(__global const unsigned int *array, uint value, uint size) {
     uint l = 0;

@@ -1,16 +1,9 @@
-//#include "clion_defines.cl"
-//#define GROUP_SIZE 256
+#ifndef RUN
 
+#include "clion_defines.cl"
+#define GROUP_SIZE 256
 
-/*
- * what we have:                    1 3 5 5 7 8 10 11 11 1 314 14 14 17
- * what we want:                    1 1 1 0 1 1 1  1  0  1  1  0  0  1
- * so later the positions will be:  0 1 2 2 3 4 5  6  6  7  8  8  8  9
- * apply exclusive prefix sum on it, total sum == size of new matrix in another variable
- *
- *
- */
-
+#endif
 
 __kernel void prepare_array_for_positions(__global unsigned int* result,
                                           __global const unsigned int* rows,

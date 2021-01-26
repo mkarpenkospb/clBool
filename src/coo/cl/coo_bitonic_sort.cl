@@ -1,10 +1,10 @@
-//#include "clion_defines.cl"
-//
-//#define GROUP_SIZE 256
+#ifndef RUN
 
-//void swap(unsigned int* a, unsigned int* b) {
-//    unsigned int
-//}
+#include "clion_defines.cl"
+#define GROUP_SIZE 256
+
+#endif
+
 
 bool is_greater_local(__local const unsigned int* rows,
                       __local const unsigned int* cols,
