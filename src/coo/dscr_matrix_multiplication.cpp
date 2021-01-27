@@ -199,7 +199,7 @@ auto get_esc_kernel(Controls &controls,
     try {
 
         program = controls.create_program_from_file("../src/coo/cl/bitonic_esc.cl");
-        uint32_t block_size = nnz_estimation; //std::min(controls.block_size, std::max(32u, nnz_estimation / 2));
+        uint32_t block_size = std::max(32u, nnz_estimation / 2); //std::min(controls.block_size, std::max(32u, nnz_estimation / 2));
         std::stringstream options;
         options << "-D RUN " << "-D GROUP_SIZE=" << block_size << " -D NNZ_ESTIMATION=" << nnz_estimation;
         program.build(options.str().c_str());
@@ -219,6 +219,7 @@ auto get_esc_kernel(Controls &controls,
         cl::EnqueueArgs eargs(controls.queue, cl::NDRange(global_work_size), cl::NDRange(work_group_size));
 
         return std::pair<KernelType, cl::EnqueueArgs>(bitonic_esc, eargs);
+
     } catch (const cl::Error &e) {
         std::stringstream exception;
         exception << "\n" << e.what() << " : " << utils::error_name(e.err())<< " in get_esc_kernel" << "\n";
@@ -440,8 +441,8 @@ void run_kernels(Controls &controls,
 
 ) {
     std::vector<cl::Event> events;
-    std::cout << "aux_mem_pointers\n";
-    utils::print_gpu_buffer(controls, aux_mem_pointers,  2);
+//    std::cout << "aux_mem_pointers\n";
+//    utils::print_gpu_buffer(controls, aux_mem_pointers,  2);
     for (uint32_t workload_group_id = 1; workload_group_id < BINS_NUM; ++workload_group_id) {
         const auto group = cpu_workload_groups[workload_group_id];
         if (group.empty()) continue;
@@ -558,12 +559,12 @@ void build_groups_and_allocate_new_matrix(Controls& controls,
 
     // ну не будем мы ничего писать в эти указатели, поэтому true
     if (aux != 0) {
-        std::cout << "aux allocation with " << aux << std::endl << "aux pointers\n";
+//        std::cout << "aux allocation with " << aux << std::endl << "aux pointers\n";
 
-        for(auto const &elem: aux_pointers_cpu) {
-            std::cout << elem  << ", ";
-        }
-        std::cout << std::endl;
+//        for(auto const &elem: aux_pointers_cpu) {
+//            std::cout << elem  << ", ";
+//        }
+//        std::cout << std::endl;
 
         aux_pointers = cl::Buffer(controls.queue, aux_pointers_cpu.begin(), aux_pointers_cpu.end(),
                                   true);

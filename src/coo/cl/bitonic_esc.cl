@@ -1,6 +1,7 @@
 #ifndef RUN
 
 #include "clion_defines.cl"
+
 #define GROUP_SIZE 256
 #define NNZ_ESTIMATION 32
 
@@ -89,36 +90,32 @@ void scan(__local uint *positions, __local const uint *cols, uint fill_pointer) 
     uint dp = 1;
 
     positions[local_id] = local_id == 0 ? 1 :
-                          (local_id >= fill_pointer ) || (cols[local_id] == cols[local_id - 1])
+                          (local_id >= fill_pointer) || (cols[local_id] == cols[local_id - 1])
                           ? 0 : 1;
 
-    for(uint s = group_size>>1; s > 0; s >>= 1)
-    {
+    for (uint s = group_size >> 1; s > 0; s >>= 1) {
         barrier(CLK_LOCAL_MEM_FENCE);
-        if(local_id < s)
-        {
-            uint i = dp*(2 * local_id + 1) - 1;
-            uint j = dp*(2 * local_id + 2) - 1;
+        if (local_id < s) {
+            uint i = dp * (2 * local_id + 1) - 1;
+            uint j = dp * (2 * local_id + 2) - 1;
             positions[j] += positions[i];
         }
 
         dp <<= 1;
     }
     barrier(CLK_LOCAL_MEM_FENCE);
-    if(local_id == NNZ_ESTIMATION - 1) {
+    if (local_id == NNZ_ESTIMATION - 1) {
         positions[NNZ_ESTIMATION] = positions[local_id];
         positions[local_id] = 0;
     }
 
-    for(uint s = 1; s < group_size; s <<= 1)
-    {
+    for (uint s = 1; s < group_size; s <<= 1) {
         dp >>= 1;
         barrier(CLK_LOCAL_MEM_FENCE);
 
-        if(local_id < s)
-        {
-            uint i = dp*(2 * local_id + 1) - 1;
-            uint j = dp*(2 * local_id + 2) - 1;
+        if (local_id < s) {
+            uint i = dp * (2 * local_id + 1) - 1;
+            uint j = dp * (2 * local_id + 2) - 1;
 
             unsigned int t = positions[j];
             positions[j] += positions[i];
@@ -134,69 +131,56 @@ void scan_half_sized(__local uint *positions, __local const uint *cols, uint fil
     uint block_size = get_local_size(0);
     uint doubled_block_size = get_local_size(0) * 2;
 
-    uint dp = 1;
     positions[local_id] = local_id == 0 ? 1 :
-                          (local_id >= fill_pointer ) || (cols[local_id] == cols[local_id - 1])
+                          (local_id >= fill_pointer) || (cols[local_id] == cols[local_id - 1])
                           ? 0 : 1;
 
-    positions[local_id_second_half] = (local_id_second_half >= fill_pointer ) || (cols[local_id_second_half] == cols[local_id_second_half - 1])
-                          ? 0 : 1;
+    positions[local_id_second_half] =
+            (local_id_second_half >= fill_pointer) || (cols[local_id_second_half] == cols[local_id_second_half - 1])
+            ? 0 : 1;
 
+    barrier(CLK_LOCAL_MEM_FENCE);
 
-    for(uint s = doubled_block_size>>1; s > 1; s >>= 1)
-    {
+    uint dp = 1;
+    for (uint s = doubled_block_size >> 1; s > 0; s >>= 1) {
         barrier(CLK_LOCAL_MEM_FENCE);
-        if(local_id < s)
-        {
-            uint i = dp*(2 * local_id + 1) - 1;
-            uint j = dp*(2 * local_id + 2) - 1;
+
+        if (local_id < s) {
+            uint i = dp * (2 * local_id + 1) - 1;
+            uint j = dp * (2 * local_id + 2) - 1;
             positions[j] += positions[i];
-        }
-        barrier(CLK_LOCAL_MEM_FENCE);
-        if(local_id_second_half < s)
-        {
-            uint i = dp*(2 * local_id_second_half + 1) - 1;
-            uint j = dp*(2 * local_id_second_half + 2) - 1;
-            positions[j] += positions[i];
+
         }
 
         dp <<= 1;
     }
     barrier(CLK_LOCAL_MEM_FENCE);
-    positions[doubled_block_size - 1] += positions[block_size - 1];
-    barrier(CLK_LOCAL_MEM_FENCE);
 
-    if(local_id == block_size - 1) {
-        unsigned int t = positions[local_id];
-        positions[local_id] = 0;
+    if (local_id == block_size - 1) {
         positions[NNZ_ESTIMATION] = positions[local_id_second_half];
-        positions[local_id_second_half] = t;
+        positions[local_id_second_half] = 0;
     }
     barrier(CLK_LOCAL_MEM_FENCE);
-    for(uint s = 2; s < doubled_block_size; s <<= 1)
-    {
+//    if (get_global_id(0) == 0 && fill_pointer == 101) {
+//        printf("fill_pointer: %d\n", fill_pointer);
+//        print_local_array(positions, NNZ_ESTIMATION + 1);
+//    }
+//    barrier(CLK_LOCAL_MEM_FENCE);
+    for (uint s = 1; s < doubled_block_size; s <<= 1) {
         dp >>= 1;
         barrier(CLK_LOCAL_MEM_FENCE);
 
-        if(local_id < s)
-        {
-            uint i = dp*(2 * local_id + 1) - 1;
-            uint j = dp*(2 * local_id + 2) - 1;
-
+        if (local_id < s) {
+            uint i = dp * (2 * local_id + 1) - 1;
+            uint j = dp * (2 * local_id + 2) - 1;
+//            if ( fill_pointer == 101) {
+//                printf("i: %d, j: %d\n", i, j);
+//            }
             unsigned int t = positions[j];
             positions[j] += positions[i];
             positions[i] = t;
         }
-        barrier(CLK_LOCAL_MEM_FENCE);
-        if(local_id_second_half < s)
-        {
-            uint i = dp*(2 * local_id_second_half + 1) - 1;
-            uint j = dp*(2 * local_id_second_half + 2) - 1;
 
-            unsigned int t = positions[j];
-            positions[j] += positions[i];
-            positions[i] = t;
-        }
     }
 }
 
@@ -206,11 +190,11 @@ void set_positions(__local const uint *positions, __local const uint *cols, uint
 
     if (local_id >= fill_pointer) return;
     if (local_id == fill_pointer - 1 && positions[local_id] != positions[NNZ_ESTIMATION]) {
-        if (positions[local_id] >= real_nnz) printf("oyoyoyoy\n");
+//        if (positions[local_id] >= real_nnz) printf("oyoyoyoy\n");
         result[positions[local_id]] = cols[local_id];
     }
     if (positions[local_id] != positions[local_id + 1]) {
-        if (positions[local_id] >= real_nnz) printf("oyoyoyoy2\n");
+//        if (positions[local_id] >= real_nnz) printf("oyoyoyoy2\n");
         result[positions[local_id]] = cols[local_id];
     }
 }
@@ -259,24 +243,26 @@ void set_positions_half_sized(__local const uint *positions, __local const uint 
 
 // Выделить половину от грауппы на ряд, но не менее 32, ибо менее 32 не имеет смысла
 __kernel void bitonic_esc(__global const unsigned int *indices,
-                         unsigned int group_start,
-                         unsigned int group_length,
+                          unsigned int group_start,
+                          unsigned int group_length,
 
-                          __global const unsigned int *pre_matrix_rows_pointers, // указатели, куда записывать, или преф сумма по nnz_estimation
+                          __global
+                          const unsigned int *pre_matrix_rows_pointers, // указатели, куда записывать, или преф сумма по nnz_estimation
                           __global unsigned int *pre_matrix_cols_indices, // указатели сюда, записываем сюда
 
                           __global unsigned int *nnz_estimation, // это нужно обновлять
 
-                         __global const unsigned int *a_rows_pointers,
-                         __global const unsigned int *a_cols,
+                          __global const unsigned int *a_rows_pointers,
+                          __global const unsigned int *a_cols,
 
-                         __global const unsigned int *b_rows_pointers,
-                         __global const unsigned int *b_rows_compressed,
-                         __global const unsigned int *b_cols,
-                         const unsigned int b_nzr
+                          __global const unsigned int *b_rows_pointers,
+                          __global const unsigned int *b_rows_compressed,
+                          __global const unsigned int *b_cols,
+                          const unsigned int b_nzr
 ) {
 
     uint local_id = get_local_id(0);
+    uint global_id = get_global_id(0);
     uint group_id = get_group_id(0); // главный за индекс ряда
     uint row_pos = group_start + group_id; // какой ряд обрабатывать будем
     uint group_size = get_local_size(0);
@@ -350,11 +336,16 @@ __kernel void bitonic_esc(__global const unsigned int *indices,
     __local uint positions[NNZ_ESTIMATION + 1];
 //
     if (NNZ_ESTIMATION > group_size) {
-        printf("hererere\n");
+//        printf("hererere\n");
         scan_half_sized(positions, cols, fill_pointer);
         barrier(CLK_LOCAL_MEM_FENCE);
         barrier(CLK_GLOBAL_MEM_FENCE);
-
+//        if (global_id == 0 && fill_pointer == 101) {
+//            printf("fill_pointer: %d\n", fill_pointer);
+//            print_local_array(positions, NNZ_ESTIMATION + 1);
+//        }
+        barrier(CLK_LOCAL_MEM_FENCE);
+        barrier(CLK_GLOBAL_MEM_FENCE);
         set_positions_half_sized(positions, cols, fill_pointer, result);
     } else {
         scan(positions, cols, fill_pointer);
@@ -368,7 +359,7 @@ __kernel void bitonic_esc(__global const unsigned int *indices,
     barrier(CLK_GLOBAL_MEM_FENCE);
 
     if (local_id == 0) {
-        nnz_estimation[row_index] = positions[fill_pointer];
+        nnz_estimation[row_index] = positions[NNZ_ESTIMATION];
     }
     barrier(CLK_LOCAL_MEM_FENCE);
     barrier(CLK_GLOBAL_MEM_FENCE);

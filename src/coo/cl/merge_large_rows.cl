@@ -323,30 +323,23 @@ __kernel void merge_large_rows(__global const uint *indices,
 ) {
     uint local_id = get_local_id(0);
     uint group_id = get_group_id(0);
-    barrier(CLK_LOCAL_MEM_FENCE);
-    barrier(CLK_GLOBAL_MEM_FENCE);
+
     uint col_index, b_row_pointer, b_start, b_end, b_row_length, scan_size, new_length;
-    barrier(CLK_LOCAL_MEM_FENCE);
-    barrier(CLK_GLOBAL_MEM_FENCE);
+
     __local uint merge_buffer1[BUFFER_SIZE];
     __local uint merge_buffer2[BUFFER_SIZE];
-    barrier(CLK_LOCAL_MEM_FENCE);
-    barrier(CLK_GLOBAL_MEM_FENCE);
+
     __local uint *buff_1 = merge_buffer1;
     __local uint *buff_2 = merge_buffer2;
-    barrier(CLK_LOCAL_MEM_FENCE);
-    barrier(CLK_GLOBAL_MEM_FENCE);
+;
     __local uint positions[BUFFER_SIZE + 1];
-    barrier(CLK_LOCAL_MEM_FENCE);
-    barrier(CLK_GLOBAL_MEM_FENCE);
+
     uint fill_pointer = 0;
-    barrier(CLK_LOCAL_MEM_FENCE);
-    barrier(CLK_GLOBAL_MEM_FENCE);
+
     uint row_index = indices[group_start + group_id];
     uint a_start = a_rows_pointers[row_index];
     uint a_end = a_rows_pointers[row_index + 1];
-    barrier(CLK_LOCAL_MEM_FENCE);
-    barrier(CLK_GLOBAL_MEM_FENCE);
+
 
     __global uint *result = pre_matrix_cols_indices + pre_matrix_rows_pointers[row_index];
     __global uint *current_row_aux_memory = aux_mem + aux_mem_pointers[group_id];
@@ -365,6 +358,10 @@ __kernel void merge_large_rows(__global const uint *indices,
     __local uint new_b_row_start[1];
     __local uint old_b_row_end[1];
     uint global_fill_pointer = 0;
+
+    if (local_id == 0) {
+        *global_flag = 0;
+    }
 
     barrier(CLK_LOCAL_MEM_FENCE);
     barrier(CLK_GLOBAL_MEM_FENCE);
@@ -442,6 +439,11 @@ __kernel void merge_large_rows(__global const uint *indices,
         barrier(CLK_LOCAL_MEM_FENCE);
         barrier(CLK_GLOBAL_MEM_FENCE);
 
+//        if (local_id == 255) {
+//            printf("b_row_length %d\n", b_row_length);
+//            printf("*global_flag %d\n", *global_flag);
+//        }
+
         // ------------------ LOCAL MERGE ---------------------------
 
         if (fill_pointer != 0) {
@@ -466,7 +468,6 @@ __kernel void merge_large_rows(__global const uint *indices,
             set_positions(positions, buff_1, filled_b_length, buff_2 + fill_pointer, scan_size);
             barrier(CLK_LOCAL_MEM_FENCE);
 
-
             // теперь задача смержить две отсортированных половинки из buff_to_merge в buff_1
             merge_local(buff_2, buff_2 + fill_pointer, buff_1, fill_pointer, new_length);
             barrier(CLK_LOCAL_MEM_FENCE);
@@ -487,7 +488,6 @@ __kernel void merge_large_rows(__global const uint *indices,
 //                print_local_array(buff_2, filled_b_length);
 //            }
         }
-
         fill_pointer += new_length;
         barrier(CLK_LOCAL_MEM_FENCE);
         barrier(CLK_GLOBAL_MEM_FENCE);
@@ -502,7 +502,9 @@ __kernel void merge_large_rows(__global const uint *indices,
             barrier(CLK_LOCAL_MEM_FENCE);
             barrier(CLK_GLOBAL_MEM_FENCE);
             if (global_fill_pointer == 0) {
-                if (local_id < fill_pointer) {result[local_id] = buff_2[local_id];}
+                if (local_id < fill_pointer) {
+                    result[local_id] = buff_2[local_id];
+                }
                 new_length = fill_pointer;
                 barrier(CLK_LOCAL_MEM_FENCE);
                 barrier(CLK_GLOBAL_MEM_FENCE);
@@ -529,10 +531,16 @@ __kernel void merge_large_rows(__global const uint *indices,
                 scan_size = ceil_to_power2(fill_pointer);
                 barrier(CLK_LOCAL_MEM_FENCE);
                 barrier(CLK_GLOBAL_MEM_FENCE);
+
+
+                barrier(CLK_LOCAL_MEM_FENCE);
+                barrier(CLK_GLOBAL_MEM_FENCE);
+
                 scan(positions, scan_size);
                 barrier(CLK_LOCAL_MEM_FENCE);
                 barrier(CLK_GLOBAL_MEM_FENCE);
                 new_length = positions[scan_size];
+
                 // переместим их из buff2 в buff1
                 set_positions(positions, buff_2, fill_pointer, buff_1, scan_size);
 
@@ -540,6 +548,7 @@ __kernel void merge_large_rows(__global const uint *indices,
                 barrier(CLK_GLOBAL_MEM_FENCE);
 
                 merge_global(buff_1_global, buff_1, buff_2_global, global_fill_pointer, new_length);
+
                 barrier(CLK_LOCAL_MEM_FENCE);
                 barrier(CLK_GLOBAL_MEM_FENCE);
                 SWAP_GLOBAL(buff_1_global, buff_2_global);
@@ -570,7 +579,7 @@ __kernel void merge_large_rows(__global const uint *indices,
     barrier(CLK_GLOBAL_MEM_FENCE);
     if (result != buff_1_global) {
         uint steps = (global_fill_pointer + GROUP_SIZE - 1) / GROUP_SIZE;
-//        if (local_id == 0 && row_index == 1044) printf("cooooopying\n");
+        if (local_id == 0) printf("cooooopying\n");
         for (uint step = 0; step < steps; ++step) {
 
             uint elem_id = local_id + GROUP_SIZE * step;

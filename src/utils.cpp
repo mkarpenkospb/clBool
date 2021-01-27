@@ -48,6 +48,7 @@ namespace utils {
         try {
             cl::Platform::get(&platforms);
             platforms[0].getDevices(CL_DEVICE_TYPE_GPU, &devices);
+            std::cout << devices[0].getInfo<CL_DEVICE_MAX_WORK_GROUP_SIZE>() << std::endl;
             return Controls(devices[0]);
 
         } catch (const cl::Error &e) {
