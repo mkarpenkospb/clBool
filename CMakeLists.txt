@@ -59,6 +59,7 @@ add_executable(sparse-boolean-matrix-operations
         src/coo/test/test_half_sized_scan.cpp
         src/coo/test/esc_kernels_test.cpp
         src/coo/test/test_new_merge.cpp
+        src/coo/test/test_multiplication.cpp
         )
 
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})

@@ -181,5 +181,9 @@ __kernel void heap_merge(__global const unsigned int *indices,
     /*
      * update info about real nnz in the row
      */
+//    if (a_row_index == 643) {
+//        printf("nnz_estimation[a_row_index]: %d\n", nnz_estimation[a_row_index]);
+//        printf("heap_pointer_unique: %d\n", heap_pointer_unique);
+//    }
     nnz_estimation[a_row_index] = heap_pointer_unique;
 }

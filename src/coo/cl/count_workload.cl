@@ -38,26 +38,20 @@ __kernel void count_workload(__global unsigned int* nnz_estimation,
 ) {
     uint global_id = get_global_id(0);
     if (global_id >= a_nzr) return;
-//    if (global_id == 0) {
-//        printf("here!\n");
-//    }
+
 
     nnz_estimation[global_id] = 0;
-
     uint start = a_rows_pointers[global_id];
     uint end = a_rows_pointers[global_id + 1];
 
     for (uint col_idx = start; col_idx < end; col_idx ++) {
         uint col_ptr = a_cols[col_idx];
         uint col_ptr_position = search_global(b_rows_compressed, col_ptr, b_nzr);
-//        if (global_id == 2) {
-//            printf("\n");
-//            printf("col_ptr: %d \n", col_ptr);
-//            printf("col_ptr_position: %d \n", col_ptr_position);
-//            printf("b_nzr: %d \n", b_nzr);
-//            printf("\n");
-//        }
         nnz_estimation[global_id] += col_ptr_position == b_nzr ? 0 :
                 b_rows_pointers[col_ptr_position + 1] - b_rows_pointers[col_ptr_position];
     }
+
+//    if (global_id == 1617) {
+//        printf("nnz_estimation[global_id]: %d\n", nnz_estimation[global_id]);
+//    }
 }

@@ -41,7 +41,7 @@ void merge(Controls &controls,
         uint32_t block_size = controls.block_size;
 
         std::stringstream options;
-        options << "-D GROUP_SIZE=" << block_size;
+        options << "-D RUN " << "-D GROUP_SIZE=" << block_size;
         program.build(options.str().c_str());
 
         uint32_t work_group_size = block_size;
@@ -67,7 +67,7 @@ void merge(Controls &controls,
 
         merged_rows_out = std::move(merged_rows);
         merged_cols_out = std::move(merged_cols);
-        std::cout << "\nmerge finished\n";
+//        std::cout << "\nmerge finished\n";
     } catch (const cl::Error &e) {
         std::stringstream exception;
         exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
@@ -103,7 +103,7 @@ void reduce_duplicates(Controls &controls,
     merged_rows = std::move(new_rows);
     merged_cols = std::move(new_cols);
 
-    std::cout << "\nreduce finished\n";
+//    std::cout << "\nreduce finished\n";
 }
 
 
@@ -119,7 +119,7 @@ void prepare_positions(Controls &controls,
         uint32_t block_size = controls.block_size;
 
         std::stringstream options;
-        options << "-D GROUP_SIZE=" << block_size;
+        options << "-D RUN " << "-D GROUP_SIZE=" << block_size;
         program.build(options.str().c_str());
 
 //        std::vector<uint32_t> look_positions(merged_size);
@@ -136,7 +136,7 @@ void prepare_positions(Controls &controls,
 
 //        controls.queue.enqueueReadBuffer(positions, CL_TRUE, 0, sizeof(uint32_t) * merged_size, look_positions.data());
 
-        std::cout << "\nprepare positions finished\n";
+//        std::cout << "\nprepare positions finished\n";
 
     } catch (const cl::Error &e) {
         std::stringstream exception;
@@ -160,7 +160,7 @@ void prefix_sum(Controls &controls,
         uint32_t block_size = controls.block_size;
 
         std::stringstream options;
-        options << "-D GROUP_SIZE=" << block_size;
+        options << "-D RUN " << "-D GROUP_SIZE=" << block_size;
         program.build(options.str().c_str());
 
         uint32_t work_group_size = block_size;
@@ -224,9 +224,12 @@ void prefix_sum(Controls &controls,
 //        controls.queue.enqueueReadBuffer(array, CL_TRUE, 0, sizeof(uint32_t) * array_size, result.data());
 
         // the last element of array is the new matrix size - 1
-        controls.queue.enqueueReadBuffer(total_sum_gpu, CL_TRUE, 0, sizeof(uint32_t), &total_sum);
+        cl::Event readingBuff;
+        controls.queue.enqueueReadBuffer(total_sum_gpu, CL_TRUE, 0, sizeof(uint32_t), &total_sum, nullptr, &readingBuff);
+        readingBuff.wait();
+
 //        check_pref_correctness(result, before);
-        std::cout << "\nprefix sum finished with new size: " << total_sum << "\n";
+//        std::cout << "\nprefix sum finished with new size: " << total_sum << "\n";
     } catch (const cl::Error &e) {
         std::stringstream exception;
         exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
@@ -252,7 +255,7 @@ void set_positions(Controls &controls,
         uint32_t block_size = controls.block_size;
 
         std::stringstream options;
-        options << "-D GROUP_SIZE=" << block_size;
+        options << "-D RUN " << "-D GROUP_SIZE=" << block_size;
         program.build(options.str().c_str());
 
         cl::Kernel set_positions_kernel(program, "set_positions");

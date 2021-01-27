@@ -15,13 +15,10 @@
 
 
 void sort_arrays(Controls &controls, cl::Buffer &rows_gpu, cl::Buffer &cols_gpu, uint32_t n) {
-
     cl::Program program;
 
     try {
-
         std::ifstream cl_file("../src/coo/cl/coo_bitonic_sort.cl");
-//        std::ifstream cl_file("coo_bitonic_sort.cl");
         std::string cl_string(std::istreambuf_iterator<char>(cl_file), (std::istreambuf_iterator<char>()));
         cl::Program::Sources source(1, cl_string);
 
@@ -30,9 +27,8 @@ void sort_arrays(Controls &controls, cl::Buffer &rows_gpu, cl::Buffer &cols_gpu,
         uint32_t block_size = controls.block_size;
 
         std::stringstream options;
-        options << "-D GROUP_SIZE=" << block_size;
+        options << "-D RUN " << "-D GROUP_SIZE=" << block_size;
         program.build(options.str().c_str());
-
 
         uint32_t work_group_size = block_size;
         // a bitonic sort needs 2 time less threads than values in array to sort

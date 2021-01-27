@@ -25,6 +25,7 @@ __kernel void to_result(__global const unsigned int *indices,
     uint new_row_start = c_rows_pointers[row_index];
     uint row_length = c_rows_pointers[row_index + 1] - c_rows_pointers[row_index];
 
+
     uint steps = (row_length + GROUP_SIZE - 1) / GROUP_SIZE;
 
     for (uint i = 0; i < steps; ++i) {

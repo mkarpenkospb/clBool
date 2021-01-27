@@ -89,8 +89,6 @@ namespace coo_utils {
                                    const matrix_dcsr_cpu &a,
                                    const matrix_dcsr_cpu &b);
 
-    void print_matrix(const matrix_dcsr_cpu &m_cpu);
-
     matrix_dcsr_cpu coo_to_dcsr_cpu(const matrix_coo_cpu &matrix_coo);
 
     matrix_dcsr matrix_dcsr_from_cpu(Controls &controls, coo_utils::matrix_dcsr_cpu &m, uint32_t size);
@@ -100,7 +98,10 @@ namespace coo_utils {
                       const matrix_dcsr_cpu &b_cpu);
 
 
-    void print_matrix(Controls &controls, const matrix_dcsr& m_gpu);
     std::pair<matrix_dcsr_cpu, matrix_dcsr_cpu> generate_random_matrices_esc(uint32_t max_size, uint32_t seed);
     std::pair<matrix_dcsr_cpu, matrix_dcsr_cpu> generate_random_matrices_large(uint32_t max_size, uint32_t seed);
+
+
+    void print_matrix(const matrix_dcsr_cpu &m_cpu, uint32_t index = -1);
+    void print_matrix(Controls &controls, const matrix_dcsr& m_gpu, uint32_t index = -1);
 }

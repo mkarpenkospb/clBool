@@ -1,7 +1,6 @@
 // taken from here https://github.com/GPGPUCourse/GPGPUTasks2020/tree/task01/src/cl
+#pragma once
 #include <cstdio>
-#ifndef clion_defines_cl // pragma once
-#define clion_defines_cl
 
 //#ifdef __CLION_IDE__
 
@@ -64,6 +63,7 @@ size_t	get_num_groups		(uint dimindx);
 size_t	get_group_id		(uint dimindx);
 size_t	get_global_offset	(uint dimindx);
 
+
 #ifndef STATIC_KEYWORD
 #define STATIC_KEYWORD static
 #endif
@@ -73,4 +73,3 @@ size_t	get_global_offset	(uint dimindx);
 // 64 for AMD, 32 for NVidia, 8 for intel GPUs, 1 for CPU
 #define WARP_SIZE 64
 
-#endif // pragma once

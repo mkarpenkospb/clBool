@@ -39,12 +39,11 @@ __kernel void scan_blelloch(
 
     if(local_id == block_size - 1) {
         vertices[group_id] = tmp[local_id];
-//        if (group_id == 0) {
-//            printf("tmp[local_id]: %d\n", tmp[local_id]);
-//        }
         if (get_local_size(0) == get_global_size(0)) *total_sum = tmp[local_id];
         tmp[local_id] = 0;
     }
+
+    barrier(CLK_GLOBAL_MEM_FENCE);
 
     for(uint s = 1; s < block_size; s <<= 1)
     {

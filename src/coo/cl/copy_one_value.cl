@@ -49,30 +49,16 @@ __kernel void copy_one_value(__global const unsigned int *indices,
     uint row_pos = group_start + global_id;
     uint group_end = group_start + group_length;
 
-
     if (row_pos >= group_end) return;
     uint a_row_index = indices[row_pos];
     uint start = a_rows_pointers[a_row_index];
     uint end = a_rows_pointers[a_row_index + 1];
 
-//    printf("here!!!\n");
-
-    /*
-     * Это обработка рядов, в которых возможно максимум одно значение.
-     * Значит, при подсчете workload ровно один раз мы нашли нужный нам ряд.
-     * Так как нулевой ряд мы найти не моги, это и будет момент завершения работы потока.
-     */
-
     for (uint col_idx = start; col_idx < end; col_idx++) {
         uint col_ptr = a_cols[col_idx];
         uint col_ptr_position = search_global(b_rows_compressed, col_ptr, b_nzr);
         if (col_ptr_position != b_nzr) {
-            printf("here!!!\n");
-            printf("group_start: %d\n", group_start);
-            printf("group_length: %d\n", group_length);
             uint value_pointer = b_rows_pointers[col_ptr_position];
-            printf("value_pointer: %d\n", value_pointer);
-
             pre_matrix_cols_indices[pre_matrix_rows_pointers[a_row_index]] = b_cols[value_pointer];
             return;
         }

@@ -16,7 +16,8 @@ int main() {
 //    testESC();
 //    test_new_merge();
 //    test_new_merge_full();
-    largeRowsTest();
+//    largeRowsTest();
+    test_multiplication();
 }
 
 

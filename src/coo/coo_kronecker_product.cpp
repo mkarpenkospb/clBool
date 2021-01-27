@@ -18,7 +18,7 @@ void kronecker_product(Controls &controls,
         uint32_t block_size = controls.block_size;
 
         std::stringstream options;
-        options << "-D GROUP_SIZE=" << block_size;
+        options << "-D RUN " << "-D GROUP_SIZE=" << block_size;
         program.build(options.str().c_str());
 
         uint32_t work_group_size = block_size;
