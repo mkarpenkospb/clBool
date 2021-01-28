@@ -1,7 +1,7 @@
 #include <cstdint>
 #include "coo_utils.hpp"
 #include "../library_classes/matrix_coo.hpp"
-#include "../fast_random.h"
+#include "../common/fast_random.h"
 #include "../library_classes/matrix_dcsr.hpp"
 #include <vector>
 #include <iostream>
@@ -234,7 +234,7 @@ namespace coo_utils {
         uint32_t n_cols = *std::max_element(cols.begin(), cols.end());
         uint32_t nnz = m_cpu.size();
 
-        return matrix_coo(controls, n_rows, n_cols, nnz, std::move(rows), std::move(cols), true);
+        return matrix_coo(controls, n_rows, n_cols, nnz, rows, cols, true);
     }
 
     void
@@ -445,7 +445,7 @@ namespace coo_utils {
     }
 
 
-    matrix_dcsr matrix_dcsr_from_cpu(Controls &controls, coo_utils::matrix_dcsr_cpu &m, uint32_t size) {
+    matrix_dcsr matrix_dcsr_from_cpu(Controls &controls, matrix_dcsr_cpu &m, uint32_t size) {
 
         cl::Buffer rows_pointers(controls.context, m.rows_pointers().begin(), m.rows_pointers().end(), false);
         cl::Buffer rows_compressed(controls.context, m.rows_compressed().begin(), m.rows_compressed().end(), false);
@@ -455,6 +455,5 @@ namespace coo_utils {
                            size, size, m.cols_indices().size(), m.rows_compressed().size());
 
     }
-
 
 }

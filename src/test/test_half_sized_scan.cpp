@@ -1,12 +1,6 @@
 #include "coo_tests.hpp"
-
-
-#include "coo_tests.hpp"
-#include "../../cl_includes.hpp"
-#include "../../library_classes/controls.hpp"
-#include "../../utils.hpp"
-#include "../coo_utils.hpp"
-#include "../dscr_matrix_multiplication.hpp"
+#include "../coo/coo_utils.hpp"
+#include "../dcsr/dscr_matrix_multiplication.hpp"
 
 using namespace coo_utils;
 using namespace utils;

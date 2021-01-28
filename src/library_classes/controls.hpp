@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../cl_includes.hpp"
+#include "../common/cl_includes.hpp"
 #include <string>
 #include <iostream>
 #include <sstream>

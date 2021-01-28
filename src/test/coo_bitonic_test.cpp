@@ -1,10 +1,9 @@
 #include <algorithm>
-#include "../../cl_includes.hpp"
+#include "../common/cl_includes.hpp"
 #include "coo_tests.hpp"
-#include "../../library_classes/controls.hpp"
-#include "../coo_utils.hpp"
+#include "../library_classes/controls.hpp"
+#include "../coo/coo_utils.hpp"
 
-using coo_utils::matrix_coo_cpu;
 void testBitonicSort() {
     Controls controls = utils::create_controls();
 

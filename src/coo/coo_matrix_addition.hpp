@@ -1,8 +1,8 @@
 #pragma once
 
 #include "../library_classes/controls.hpp"
-#include "../cl_includes.hpp"
-#include "../utils.hpp"
+#include "../common/cl_includes.hpp"
+#include "../common/utils.hpp"
 #include "../library_classes/matrix_coo.hpp"
 
 void matrix_addition(
@@ -16,7 +16,7 @@ void check_merge_correctness(
         Controls &controls,
         cl::Buffer &rows,
         cl::Buffer &cols,
-        size_t merged_size
+        uint32_t merged_size
 );
 
 void merge(

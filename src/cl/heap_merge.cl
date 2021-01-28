@@ -6,7 +6,6 @@
 
 #endif
 
-
 uint search_global(__global const unsigned int *array, uint value, uint size) {
     uint l = 0;
     uint r = size;
@@ -65,16 +64,6 @@ void heapify(__local uint *heap, uint i, uint heap_size) {
     }
 }
 
-/*
- * indices -- array of indices to work with
- * group_start, group_length - start and length of the group with nnz-estimation of NNZ_ESTIMATION
- *
- */
-
-
-/*
- * Размер группы 32 по потоки, иначе too much для локальной памяти
- */
 
 __kernel void heap_merge(__global const unsigned int *indices,
                          unsigned int group_start, // indices_pointers[workload_group_id]
@@ -98,30 +87,20 @@ __kernel void heap_merge(__global const unsigned int *indices,
 
     uint row_pos = group_start + global_id;
     uint group_end = group_start + group_length;
-    /*
-     * Каждый поток независимо работает со своей пирамидой,
-     * поэтому в кернеле нет барьеров, можно сейчас выходить
-     */
-    if (row_pos >= group_end) return;
 
-    /*
-     * a_row_index is not the row pointer itself, but a position where we can find our row pointer in a_rows_pointers
-     * тот же самый индекс для результата
-     */
+    if (row_pos >= group_end) return;
 
     uint a_row_index = indices[row_pos];
 
     __local uint heap_storage[GROUP_SIZE][NNZ_ESTIMATION];
     __local uint *heap = heap_storage[local_id];
-    /*
-     * да, там будут нулевые ряды, но тут мы не встанем на такие указатели
-     */
+
     __global uint *result = pre_matrix_cols_indices + pre_matrix_rows_pointers[a_row_index];
 
     // ------------------ fill heap -------------------
 
     uint a_start = a_rows_pointers[a_row_index];
-    uint a_end = a_rows_pointers[a_row_index + 1]; // не выйдем за границы, так как последний указатель отвечает за размер последнего ряда
+    uint a_end = a_rows_pointers[a_row_index + 1];
     uint heap_fill_pointer = 0;
 
     for (uint a_pointer = a_start; a_pointer < a_end; ++a_pointer) {
@@ -178,12 +157,5 @@ __kernel void heap_merge(__global const unsigned int *indices,
         heapify(heap, 0, heap_size);
     }
 
-    /*
-     * update info about real nnz in the row
-     */
-//    if (a_row_index == 643) {
-//        printf("nnz_estimation[a_row_index]: %d\n", nnz_estimation[a_row_index]);
-//        printf("heap_pointer_unique: %d\n", heap_pointer_unique);
-//    }
     nnz_estimation[a_row_index] = heap_pointer_unique;
 }

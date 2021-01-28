@@ -14,7 +14,7 @@ void kronecker_product(Controls &controls,
 
         uint32_t res_size = matrix_a.nnz() * matrix_b.nnz();
 
-        program = controls.create_program_from_file("../src/coo/cl/coo_kronecker.cl");
+        program = controls.create_program_from_file("../src/cl/coo_kronecker.cl");
         uint32_t block_size = controls.block_size;
 
         std::stringstream options;
@@ -40,7 +40,7 @@ void kronecker_product(Controls &controls,
                          matrix_b.nnz(), matrix_b.nRows(), matrix_b.nCols());
 
         matrix_out = matrix_coo(controls, matrix_a.nRows() * matrix_b.nRows(), matrix_a.nCols() * matrix_b.nCols(),
-                                res_size, std::move(res_rows), std::move(res_cols));
+                                res_size);
 
     } catch (const cl::Error &e) {
         std::stringstream exception;

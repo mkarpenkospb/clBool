@@ -3,8 +3,8 @@
 #include <cstdint>
 
 
-#include "../utils.hpp"
-#include "../fast_random.h"
+#include "../common/utils.hpp"
+#include "../common/fast_random.h"
 #include "coo_initialization.hpp"
 
 #include <string>
@@ -18,7 +18,7 @@ void sort_arrays(Controls &controls, cl::Buffer &rows_gpu, cl::Buffer &cols_gpu,
     cl::Program program;
 
     try {
-        std::ifstream cl_file("../src/coo/cl/coo_bitonic_sort.cl");
+        std::ifstream cl_file("../src/cl/coo_bitonic_sort.cl");
         std::string cl_string(std::istreambuf_iterator<char>(cl_file), (std::istreambuf_iterator<char>()));
         cl::Program::Sources source(1, cl_string);
 

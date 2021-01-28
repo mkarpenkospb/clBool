@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../cl_includes.hpp"
+#include "../common/cl_includes.hpp"
 #include "../library_classes/controls.hpp"
 
 void check_pref_correctness(const std::vector<uint32_t>& result,

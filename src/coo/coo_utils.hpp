@@ -4,11 +4,10 @@
 #include "../library_classes/controls.hpp"
 #include "../library_classes/matrix_coo.hpp"
 #include "../library_classes/matrix_dcsr.hpp"
+#include "../library_classes/cpu_matrices.hpp"
+#include "../common/utils.hpp"
 
 namespace coo_utils {
-    using coordinates = std::pair<uint32_t, uint32_t>;
-    using matrix_coo_cpu = std::vector<coordinates>;
-    using cpu_buffer = std::vector<uint32_t>;
 
     void check_correctness(const cpu_buffer &rows, const cpu_buffer &cols);
 
@@ -40,50 +39,6 @@ namespace coo_utils {
 
     // cpu class for double compressed matrix
 
-    class matrix_dcsr_cpu {
-        cpu_buffer _rows_pointers;
-        cpu_buffer _rows_compressed;
-        cpu_buffer _cols_indices;
-
-    public:
-        matrix_dcsr_cpu(cpu_buffer rows_pointers, cpu_buffer rows_compressed, cpu_buffer cpu_indices)
-                : _rows_pointers(std::move(rows_pointers)), _rows_compressed(std::move(rows_compressed)),
-                  _cols_indices(std::move(cpu_indices)) {}
-
-        matrix_dcsr_cpu() = default;
-
-        matrix_dcsr_cpu &operator=(matrix_dcsr_cpu other) {
-            _rows_pointers = std::move(other._rows_pointers);
-            _rows_compressed = std::move(other._rows_compressed);
-            _cols_indices = std::move(other._cols_indices);
-            return *this;
-        }
-
-        cpu_buffer &rows_pointers() {
-            return _rows_pointers;
-        }
-
-        cpu_buffer &rows_compressed() {
-            return _rows_compressed;
-        }
-
-        cpu_buffer &cols_indices() {
-            return _cols_indices;
-        }
-
-        const cpu_buffer &rows_pointers() const {
-            return _rows_pointers;
-        }
-
-        const cpu_buffer &rows_compressed() const {
-            return _rows_compressed;
-        }
-
-        const cpu_buffer &cols_indices() const {
-            return _cols_indices;
-        }
-
-    };
 
     void matrix_multiplication_cpu(matrix_dcsr_cpu &c,
                                    const matrix_dcsr_cpu &a,
@@ -91,7 +46,7 @@ namespace coo_utils {
 
     matrix_dcsr_cpu coo_to_dcsr_cpu(const matrix_coo_cpu &matrix_coo);
 
-    matrix_dcsr matrix_dcsr_from_cpu(Controls &controls, coo_utils::matrix_dcsr_cpu &m, uint32_t size);
+    matrix_dcsr matrix_dcsr_from_cpu(Controls &controls, matrix_dcsr_cpu &m, uint32_t size);
 
     void get_workload(cpu_buffer &workload,
                       const matrix_dcsr_cpu &a_cpu,

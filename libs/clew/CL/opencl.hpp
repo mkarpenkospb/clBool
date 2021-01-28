@@ -3572,11 +3572,11 @@ namespace detail {
         Context context_;
 
     public:
-        typedef T value_type;
-        typedef value_type* pointer;
-        typedef const value_type* const_pointer;
-        typedef value_type& reference;
-        typedef const value_type& const_reference;
+        typedef T index_type;
+        typedef index_type* pointer;
+        typedef const index_type* const_pointer;
+        typedef index_type& reference;
+        typedef const index_type& const_reference;
         typedef std::size_t size_type;
         typedef std::ptrdiff_t difference_type;
 
@@ -3716,9 +3716,9 @@ namespace detail {
     template<class SVMTrait>
     class SVMAllocator<void, SVMTrait> {
     public:
-        typedef void value_type;
-        typedef value_type* pointer;
-        typedef const value_type* const_pointer;
+        typedef void index_type;
+        typedef index_type* pointer;
+        typedef const index_type* const_pointer;
 
         template<typename U>
         struct rebind

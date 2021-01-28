@@ -1,4 +1,5 @@
 #pragma once
+#include "../common/utils.hpp"
 
 void testMatrixAddition();
 void testBitonicSort();

@@ -2,12 +2,11 @@
 
 
 #include "coo_tests.hpp"
-#include "../../cl_includes.hpp"
-#include "../../library_classes/controls.hpp"
-#include "../../library_classes/matrix_dcsr.hpp"
-#include "../../utils.hpp"
-#include "../coo_utils.hpp"
-#include "../dscr_matrix_multiplication.hpp"
+#include "../common/cl_includes.hpp"
+#include "../library_classes/controls.hpp"
+#include "../library_classes/matrix_dcsr.hpp"
+#include "../coo/coo_utils.hpp"
+#include "../dcsr/dscr_matrix_multiplication.hpp"
 
 using namespace coo_utils;
 const uint32_t BINS_NUM = 38;
@@ -33,20 +32,7 @@ void checkCopying() {
 
     matrix_coo a_coo = coo_utils::matrix_coo_from_cpu(controls, matrix_a_coo_cpu);
 
-    cl::Buffer a_rows_pointers;
-
-    /*
-     * _rows_compressed -- rows array with no duplicates
-     * probably we don't need it
-     */
-    cl::Buffer a_rows_compressed;
-    uint32_t a_nzr;
-
-    create_rows_pointers(controls, a_rows_pointers, a_rows_compressed, a_coo.rows_indices_gpu(), a_coo.nnz(), a_nzr);
-
-
-    matrix_dcsr a_dcsr = matrix_dcsr(a_rows_pointers, a_rows_compressed, a_coo.cols_indices_gpu(),
-                                     a_coo.nRows(), a_coo.nCols(), a_coo.nnz(), a_nzr);
+    matrix_dcsr a_dcsr = coo_to_dcsr_gpu(controls, a_coo);
 
     uint32_t value = 239;
     controls.queue.enqueueWriteBuffer(a_coo.cols_indices_gpu(), CL_TRUE, 0, sizeof(uint32_t) * 1, &value);

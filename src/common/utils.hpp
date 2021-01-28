@@ -1,13 +1,13 @@
 #pragma once
+#include "../library_classes/controls.hpp"
+#include "../library_classes/matrix_coo.hpp"
+#include "../library_classes/matrix_dcsr.hpp"
+#include "../library_classes/cpu_matrices.hpp"
 
-#include <cstdint>
-#include "cl_includes.hpp"
-#include "library_classes/controls.hpp"
-//#include "library_classes/matrix_dcsr.hpp"
-//#include "library_classes/matrix_coo.hpp"
-//#include "coo/coo_utils.hpp"
 
 namespace utils {
+    void compare_matrices(Controls &controls, matrix_dcsr m_gpu, matrix_dcsr_cpu m_cpu);
+
     using cpu_buffer = std::vector<uint32_t>;
 
     void fill_random_buffer(cpu_buffer &buf);
@@ -29,5 +29,8 @@ namespace utils {
     void print_cpu_buffer(const cpu_buffer& buffer);
 
     void compare_buffers(Controls &controls, const cl::Buffer &buffer_g, const cpu_buffer& buffer_c, uint32_t size);
+
+    void program_handler(const cl::Error &e, const cl::Program &program,
+                         const cl::Device &device, const std::string& name);
 //    matrix_dcsr matrix_dcsr_from_cpu(Controls &controls, const coo_utils::matrix_dcsr_cpu &m, uint32_t size);
 }

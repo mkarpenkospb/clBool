@@ -1,12 +1,7 @@
 #include "coo_tests.hpp"
 
-
-#include "coo_tests.hpp"
-#include "../../cl_includes.hpp"
-#include "../../library_classes/controls.hpp"
-#include "../../utils.hpp"
-#include "../coo_utils.hpp"
-#include "../dscr_matrix_multiplication.hpp"
+#include "../coo/coo_utils.hpp"
+#include "../dcsr/dscr_matrix_multiplication.hpp"
 
 using namespace coo_utils;
 using namespace utils;
@@ -66,12 +61,6 @@ void testHeapAndCopyKernels() {
     std::cout << std::endl;
     std::cout << "pre: \n"; print_matrix(controls, pre);
 
-}
-
-void compare_matrices(Controls &controls, matrix_dcsr m_gpu, matrix_dcsr_cpu m_cpu) {
-    compare_buffers(controls, m_gpu.rows_pointers_gpu(), m_cpu.rows_pointers(), m_gpu.nzr() + 1);
-    compare_buffers(controls, m_gpu.rows_compressed_gpu(), m_cpu.rows_compressed(), m_gpu.nzr());
-    compare_buffers(controls, m_gpu.cols_indices_gpu(), m_cpu.cols_indices(), m_gpu.nnz());
 }
 
 

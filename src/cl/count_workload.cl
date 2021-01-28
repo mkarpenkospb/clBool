@@ -50,8 +50,4 @@ __kernel void count_workload(__global unsigned int* nnz_estimation,
         nnz_estimation[global_id] += col_ptr_position == b_nzr ? 0 :
                 b_rows_pointers[col_ptr_position + 1] - b_rows_pointers[col_ptr_position];
     }
-
-//    if (global_id == 1617) {
-//        printf("nnz_estimation[global_id]: %d\n", nnz_estimation[global_id]);
-//    }
 }

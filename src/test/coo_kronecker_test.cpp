@@ -1,12 +1,11 @@
 #include <algorithm>
-#include "../../cl_includes.hpp"
+#include "../common/cl_includes.hpp"
 #include "coo_tests.hpp"
-#include "../../library_classes/controls.hpp"
-#include "../coo_utils.hpp"
-#include "../coo_kronecker_product.hpp"
+#include "../library_classes/controls.hpp"
+#include "../coo/coo_utils.hpp"
+#include "../coo/coo_kronecker_product.hpp"
 
 
-using coo_utils::matrix_coo_cpu;
 
 void testKronecker() {
     Controls controls = utils::create_controls();
@@ -31,12 +30,8 @@ void testKronecker() {
     coo_utils::get_vectors_from_cpu_matrix(rows_cpu, cols_cpu, matrix_res_cpu);
 
     uint32_t size = rows_cpu.size();
-    for (uint32_t i = 0; i < size; ++i) {
-        if (matrix_res_gpu.rows_indices_cpu()[i] != rows_cpu[i] ||
-            matrix_res_gpu.cols_indices_cpu()[i] != cols_cpu[i]) {
-            std::cerr << "incorrect kronecker" << std::endl;
-        }
-    }
+    utils::compare_buffers(controls, matrix_res_gpu.rows_indices_gpu(), rows_cpu, rows_cpu.size());
+    utils::compare_buffers(controls, matrix_res_gpu.cols_indices_gpu(), cols_cpu, cols_cpu.size());
 
     std::cout << "correct kronecker" << std::endl;
 }

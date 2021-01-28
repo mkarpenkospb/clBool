@@ -1,18 +1,34 @@
 #include "utils.hpp"
-#include "library_classes/matrix_dcsr.hpp"
-#include "library_classes/matrix_coo.hpp"
-#include "coo/dscr_matrix_multiplication.hpp"
 #include "fast_random.h"
-//#include "coo/coo_utils.hpp"
-
-#include <cstdint>
-#include <vector>
-#include <string>
-#include <sstream>
-#include <iostream>
-
 
 namespace utils {
+    void compare_buffers(Controls &controls, const cl::Buffer &buffer_g, const cpu_buffer &buffer_c, uint32_t size) {
+        cpu_buffer cpu_copy(size);
+        controls.queue.enqueueReadBuffer(buffer_g, CL_TRUE, 0, sizeof(uint32_t) * cpu_copy.size(), cpu_copy.data());
+        for (uint32_t i = 0; i < size; ++i) {
+            if (cpu_copy[i] != buffer_c[i]) {
+                uint32_t start = std::max(0, (int) i - 10);
+                uint32_t stop = std::min(size, i + 10);
+                for (uint32_t j = start; j < stop; ++j) {
+                    std::cout << j << ": (" << cpu_copy[j] << ", " << buffer_c[j] << "), ";
+                }
+                std::cout << std::endl;
+                throw std::runtime_error("buffers are different");
+            }
+        }
+        std::cout << "buffers are equal" << std::endl;
+    }
+
+    void compare_matrices(Controls &controls, matrix_dcsr m_gpu, matrix_dcsr_cpu m_cpu) {
+        if (m_gpu.nnz() != m_cpu.cols_indices().size()) {
+            std::cout << "diff nnz, gpu: " << m_gpu.nnz() << " vs cpu: " << m_cpu.cols_indices().size() << std::endl;
+        }
+        compare_buffers(controls, m_gpu.rows_pointers_gpu(), m_cpu.rows_pointers(), m_gpu.nzr() + 1);
+        compare_buffers(controls, m_gpu.rows_compressed_gpu(), m_cpu.rows_compressed(), m_gpu.nzr());
+        compare_buffers(controls, m_gpu.cols_indices_gpu(), m_cpu.cols_indices(), m_gpu.nnz());
+    }
+
+
 // https://stackoverflow.com/a/466242
     unsigned int ceil_to_power2(uint32_t v) {
         v--;
@@ -184,28 +200,11 @@ namespace utils {
         std::cout << std::endl;
     }
 
-    void print_cpu_buffer(const cpu_buffer& buffer) {
+    void print_cpu_buffer(const cpu_buffer &buffer) {
         for (auto const &item: buffer) {
             std::cout << item << ", ";
         }
         std::cout << std::endl;
-    }
-
-    void compare_buffers(Controls &controls, const cl::Buffer &buffer_g, const cpu_buffer& buffer_c, uint32_t size) {
-        cpu_buffer cpu_copy(size);
-        controls.queue.enqueueReadBuffer(buffer_g, CL_TRUE, 0, sizeof(uint32_t) * cpu_copy.size(), cpu_copy.data());
-        for (uint32_t i = 0; i < size; ++i) {
-            if (cpu_copy[i] != buffer_c[i]) {
-                uint32_t start = std::max(0, (int)i - 10);
-                uint32_t stop = std::min(size, i + 10);
-                for (uint32_t j = start; j < stop; ++j) {
-                    std::cout << j << ": (" << cpu_copy[j] << ", " << buffer_c[j] << "), ";
-                }
-                std::cout << std::endl;
-                throw std::runtime_error("buffers are different");
-            }
-        }
-        std::cout << "buffers are equal" << std::endl;
     }
 
 
@@ -217,4 +216,13 @@ namespace utils {
         }
     }
 
+    void
+    program_handler(const cl::Error &e, const cl::Program &program, const cl::Device &device, const std::string &name) {
+        std::stringstream exception;
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << " in " << name << " \n";
+        if (e.err() == CL_BUILD_PROGRAM_FAILURE) {
+            exception << program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(device);
+        }
+        throw std::runtime_error(exception.str());
+    }
 }

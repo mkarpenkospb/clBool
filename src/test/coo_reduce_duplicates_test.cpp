@@ -1,12 +1,11 @@
 #include <algorithm>
-#include "../../cl_includes.hpp"
+#include "../common/cl_includes.hpp"
 #include "coo_tests.hpp"
-#include "../../library_classes/controls.hpp"
-#include "../coo_utils.hpp"
-#include "../coo_matrix_addition.hpp"
+#include "../library_classes/controls.hpp"
+#include "../coo/coo_utils.hpp"
+#include "../coo/coo_matrix_addition.hpp"
 
 
-using coo_utils::matrix_coo_cpu;
 void testReduceDuplicates() {
 
     Controls controls = utils::create_controls();

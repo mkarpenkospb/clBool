@@ -1,44 +1,40 @@
 #include "matrix_coo.hpp"
 
 matrix_coo::matrix_coo(Controls &controls,
-                       uint32_t nRows,
-                       uint32_t nCols,
-                       uint32_t nEntities)
-        : matrix_base(nRows, nCols, nEntities),
-          _rows_indices_gpu(cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * _nnz)),
-          _cols_indices_gpu(cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * _nnz)),
-          _rows_indices_cpu(std::vector<uint32_t>(0, _nnz)),
-          _cols_indices_cpu(std::vector<uint32_t>(0, _nnz)) {}
+                       index_type nRows,
+                       index_type nCols,
+                       index_type nEntities)
+    : matrix_base(nRows, nCols, nEntities)
+    , _rows_indices_gpu(cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(index_type) * _nnz))
+    , _cols_indices_gpu(cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(index_type) * _nnz))
+    {}
+
+matrix_coo::matrix_coo(index_type nRows,
+                       index_type nCols,
+                       index_type nEntities,
+                       cl::Buffer &rows_indices_gpu,
+                       cl::Buffer &cols_indices_gpu)
+    : matrix_base(nRows, nCols, nEntities)
+    , _rows_indices_gpu(rows_indices_gpu)
+    , _cols_indices_gpu(cols_indices_gpu)
+    {}
 
 
 matrix_coo::matrix_coo(Controls &controls,
-                       uint32_t nRows,
-                       uint32_t nCols,
-                       uint32_t nEntities,
-                       std::vector<uint32_t> rows_indices,
-                       std::vector<uint32_t> cols_indices,
+                       index_type nRows,
+                       index_type nCols,
+                       index_type nEntities,
+                       std::vector<index_type> &rows_indices,
+                       std::vector<index_type> &cols_indices,
                        bool sorted)
-        : matrix_base(nRows, nCols, nEntities),
-          _rows_indices_gpu(cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * _nnz)),
-          _cols_indices_gpu(cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * _nnz)),
-          _rows_indices_cpu(std::move(rows_indices)), _cols_indices_cpu(std::move(cols_indices)) {
+    : matrix_base(nRows, nCols, nEntities)
+    , _rows_indices_gpu(cl::Buffer(controls.queue, rows_indices.begin(), rows_indices.end(), false))
+    , _cols_indices_gpu(cl::Buffer(controls.queue, cols_indices.begin(), cols_indices.end(), false))
+ {
     try {
-
-        controls.queue.enqueueWriteBuffer(_rows_indices_gpu, CL_TRUE, 0, sizeof(uint32_t) * _rows_indices_cpu.size(),
-                                          _rows_indices_cpu.data());
-
-        controls.queue.enqueueWriteBuffer(_cols_indices_gpu, CL_TRUE, 0, sizeof(uint32_t) * _cols_indices_cpu.size(),
-                                          _cols_indices_cpu.data());
 
         if (!sorted) {
             sort_arrays(controls, _rows_indices_gpu, _cols_indices_gpu, _nnz);
-
-
-            controls.queue.enqueueReadBuffer(_rows_indices_gpu, CL_TRUE, 0, sizeof(uint32_t) * _rows_indices_cpu.size(),
-                                             _rows_indices_cpu.data());
-
-            controls.queue.enqueueReadBuffer(_cols_indices_gpu, CL_TRUE, 0, sizeof(uint32_t) * _cols_indices_cpu.size(),
-                                             _cols_indices_cpu.data());
         }
 
     } catch (const cl::Error &e) {
@@ -50,26 +46,21 @@ matrix_coo::matrix_coo(Controls &controls,
 
 
 matrix_coo::matrix_coo(Controls &controls,
-                       uint32_t nRows,
-                       uint32_t nCols,
-                       uint32_t nEntities,
-                       cl::Buffer rows,
-                       cl::Buffer cols,
+                       index_type nRows,
+                       index_type nCols,
+                       index_type nEntities,
+                       cl::Buffer &rows,
+                       cl::Buffer &cols,
                        bool sorted)
-        : matrix_base(nRows, nCols, nEntities),
-          _rows_indices_gpu(std::move(rows)),
-          _cols_indices_gpu(std::move(cols)),
-          _rows_indices_cpu(std::vector<uint32_t>(nEntities)),
-          _cols_indices_cpu(std::vector<uint32_t>(nEntities)) {
+    : matrix_base(nRows, nCols, nEntities)
+    , _rows_indices_gpu(rows)
+    , _cols_indices_gpu(cols)
+ {
     try {
         if (!sorted) {
             sort_arrays(controls, _rows_indices_gpu, _cols_indices_gpu, _nnz);
         }
-        controls.queue.enqueueReadBuffer(_rows_indices_gpu, CL_TRUE, 0, sizeof(uint32_t) * _nnz,
-                                         _rows_indices_cpu.data());
 
-        controls.queue.enqueueReadBuffer(_cols_indices_gpu, CL_TRUE, 0, sizeof(uint32_t) * _nnz,
-                                         _cols_indices_cpu.data());
     } catch (const cl::Error &e) {
         std::stringstream exception;
         exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
@@ -81,11 +72,8 @@ matrix_coo &matrix_coo::operator=(matrix_coo other) {
     n_cols = other.n_cols;
     n_rows = other.n_rows;
     _nnz = other._nnz;
-    _rows_indices_gpu = std::move(other._rows_indices_gpu);
-    _cols_indices_gpu = std::move(other._cols_indices_gpu);
-    _rows_indices_cpu = std::move(other._rows_indices_cpu);
-    _cols_indices_cpu = std::move(other._cols_indices_cpu);
+    _rows_indices_gpu = other._rows_indices_gpu;
+    _cols_indices_gpu = other._cols_indices_gpu;
     return *this;
 }
-
 
