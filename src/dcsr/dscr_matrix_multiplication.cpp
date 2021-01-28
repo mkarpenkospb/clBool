@@ -86,7 +86,10 @@ void matrix_multiplication(Controls &controls,
                            matrix_dcsr &matrix_out,
                            const matrix_dcsr &a,
                            const matrix_dcsr &b) {
-
+    if (a.nnz() == 0 || b.nnz() == 0) {
+        std::cout << "empty result\n";
+        return;
+    }
     cl::Buffer nnz_estimation;
     count_workload(controls, nnz_estimation, a, b);
 
@@ -371,7 +374,10 @@ void build_groups_and_allocate_new_matrix(Controls& controls,
             aux += current_workload;
         }
     }
-
+    if (pre_nnz == 0) {
+        std::cout << "empty result\n";
+        return;
+    }
     aux_pointers_cpu.push_back(aux);
     rows_pointers_cpu[a.nzr()] = pre_nnz;
 
