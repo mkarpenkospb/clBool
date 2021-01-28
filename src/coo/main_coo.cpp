@@ -5,7 +5,7 @@ int main() {
 //    testReduceDuplicates();
 //    testMatrixAddition();
 //    testKronecker();
-//    testCOOtoDCSR();
+    testCOOtoDCSR();
 //    testCountWorkload();
 //    testCountWorkloadAndAllocation();
 //    testHeapAndCopyKernels();
@@ -17,7 +17,7 @@ int main() {
 //    test_new_merge();
 //    test_new_merge_full();
 //    largeRowsTest();
-    test_multiplication();
+//    test_multiplication();
 }
 
 

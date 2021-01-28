@@ -5,6 +5,7 @@
 #include "../library_classes/matrix_dcsr.hpp"
 #include "../library_classes/program.hpp"
 #include "cl_operations.hpp"
+#include "utils.hpp"
 
 
 matrix_coo dcsr_to_coo(Controls &controls, matrix_dcsr &a);

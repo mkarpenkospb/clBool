@@ -1,7 +1,7 @@
 #include "matrices_conversions.hpp"
 
 matrix_coo dcsr_to_coo(Controls &controls, matrix_dcsr &a) {
-    cl::Buffer c_rows_indices(controls.context, CL_MEM_READ_WRITE, sizeof(matrix_dcsr::index_type) * a.nzr());
+    cl::Buffer c_rows_indices(controls.context, CL_MEM_READ_WRITE, sizeof(matrix_dcsr::index_type) * a.nnz());
 
     auto dscr_to_coo_kernel = program<cl::Buffer, cl::Buffer, cl::Buffer>("../src/cl/dscr_to_coo.cl")
             .set_kernel_name("dscr_to_coo")
@@ -51,7 +51,7 @@ matrix_dcsr coo_to_dcsr_gpu(Controls &controls, const matrix_coo &a) {
     uint32_t nzr;
     create_rows_pointers(controls, rows_pointers, rows_compressed, a.rows_indices_gpu(), a.nnz(), nzr);
 
-    return matrix_dcsr(rows_pointers, rows_compressed, a.rows_indices_gpu(),
+    return matrix_dcsr(rows_pointers, rows_compressed, a.cols_indices_gpu(),
                        a.nRows(), a.nCols(), a.nnz(), nzr
     );
 }

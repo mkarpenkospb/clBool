@@ -200,9 +200,11 @@ namespace utils {
         std::cout << std::endl;
     }
 
-    void print_cpu_buffer(const cpu_buffer &buffer) {
-        for (auto const &item: buffer) {
-            std::cout << item << ", ";
+    void print_cpu_buffer(const cpu_buffer &buffer, uint32_t size) {
+        uint32_t end = size;
+        if (size == -1) end = buffer.size();
+        for (uint32_t i = 0; i < end; ++i) {
+            std::cout << buffer[i] << ", ";
         }
         std::cout << std::endl;
     }

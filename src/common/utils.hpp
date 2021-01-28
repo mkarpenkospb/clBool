@@ -26,7 +26,7 @@ namespace utils {
 
     void print_gpu_buffer(Controls &controls, const cl::Buffer &buffer, uint32_t size);
 
-    void print_cpu_buffer(const cpu_buffer& buffer);
+    void print_cpu_buffer(const cpu_buffer &buffer, uint32_t size = -1);
 
     void compare_buffers(Controls &controls, const cl::Buffer &buffer_g, const cpu_buffer& buffer_c, uint32_t size);
 

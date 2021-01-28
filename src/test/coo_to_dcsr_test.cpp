@@ -16,6 +16,14 @@ void testCOOtoDCSR() {
     coo_utils::get_rows_pointers_and_compressed(rows_pointers_cpu, rows_compressed_cpu, m_cpu);
 
     matrix_coo matrix_gpu = coo_utils::matrix_coo_from_cpu(controls, m_cpu);
+    cpu_buffer coo_rows_indices(matrix_gpu.nnz());
+    cpu_buffer coo_cols_indices(matrix_gpu.nnz());
+
+    controls.queue.enqueueReadBuffer(matrix_gpu.rows_indices_gpu(), true, 0,
+                                      sizeof(matrix_coo::index_type) * matrix_gpu.nnz(), coo_rows_indices.data());
+    controls.queue.enqueueReadBuffer(matrix_gpu.cols_indices_gpu(), true, 0,
+                                      sizeof(matrix_coo::index_type) * matrix_gpu.nnz(), coo_cols_indices.data());
+    utils::print_cpu_buffer(coo_cols_indices, 10);
 
     matrix_dcsr m_dcsr = coo_to_dcsr_gpu(controls, matrix_gpu);
 
@@ -24,6 +32,9 @@ void testCOOtoDCSR() {
 
 
     matrix_coo another_one = dcsr_to_coo(controls, m_dcsr);
-
+    utils::print_gpu_buffer(controls, another_one.cols_indices_gpu(), 10);
+    utils::print_gpu_buffer(controls, another_one.rows_indices_gpu(), 10);
+    utils::compare_buffers(controls, another_one.rows_indices_gpu(), coo_rows_indices, coo_rows_indices.size());
+    utils::compare_buffers(controls, another_one.cols_indices_gpu(), coo_cols_indices, coo_cols_indices.size());
 
 }
