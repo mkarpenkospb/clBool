@@ -10,7 +10,7 @@ void testCOOtoDCSR() {
 
     uint32_t size = 1000463;
     uint32_t max_size = 100024;
-    matrix_coo_cpu m_cpu = coo_utils::generate_random_matrix_coo_cpu(size, max_size);
+    matrix_coo_cpu_pairs m_cpu = coo_utils::generate_random_matrix_coo_cpu(size, max_size);
     cpu_buffer rows_pointers_cpu;
     cpu_buffer rows_compressed_cpu;
     coo_utils::get_rows_pointers_and_compressed(rows_pointers_cpu, rows_compressed_cpu, m_cpu);

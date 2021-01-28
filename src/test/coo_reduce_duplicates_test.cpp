@@ -24,7 +24,7 @@ void testReduceDuplicates() {
     coo_utils::fill_random_matrix(rows_cpu, cols_cpu, 1043);
 
     // -------------------- create and sort cpu matrix ----------------------------
-    matrix_coo_cpu m_cpu;
+    matrix_coo_cpu_pairs m_cpu;
     coo_utils::form_cpu_matrix(m_cpu, rows_cpu, cols_cpu);
     std::sort(m_cpu.begin(), m_cpu.end());
 

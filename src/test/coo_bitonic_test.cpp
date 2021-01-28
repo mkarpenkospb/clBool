@@ -16,7 +16,7 @@ void testBitonicSort() {
 
         coo_utils::fill_random_matrix(rows_cpu, cols_cpu);
 
-        matrix_coo_cpu m_cpu;
+        matrix_coo_cpu_pairs m_cpu;
 
         coo_utils::form_cpu_matrix(m_cpu, rows_cpu, cols_cpu);
 

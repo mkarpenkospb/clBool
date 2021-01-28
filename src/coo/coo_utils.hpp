@@ -14,26 +14,26 @@ namespace coo_utils {
     void fill_random_matrix(cpu_buffer &rows, cpu_buffer &cols, uint32_t max_size = 1024);
 
     void
-    form_cpu_matrix(matrix_coo_cpu &matrix_out, const cpu_buffer &rows, const cpu_buffer &cols);
+    form_cpu_matrix(matrix_coo_cpu_pairs &matrix_out, const cpu_buffer &rows, const cpu_buffer &cols);
 
     void get_vectors_from_cpu_matrix(cpu_buffer &rows_out, cpu_buffer &cols_out,
-                                     const matrix_coo_cpu &matrix);
+                                     const matrix_coo_cpu_pairs &matrix);
 
-    matrix_coo_cpu generate_random_matrix_coo_cpu(uint32_t pseudo_nnz, uint32_t max_size = 1024);
+    matrix_coo_cpu_pairs generate_random_matrix_coo_cpu(uint32_t pseudo_nnz, uint32_t max_size = 1024);
 
-    matrix_coo matrix_coo_from_cpu(Controls &controls, const matrix_coo_cpu &m_cpu);
-
-    void
-    matrix_addition_cpu(matrix_coo_cpu &matrix_out, const matrix_coo_cpu &matrix_a, const matrix_coo_cpu &matrix_b);
+    matrix_coo matrix_coo_from_cpu(Controls &controls, const matrix_coo_cpu_pairs &m_cpu);
 
     void
-    kronecker_product_cpu(matrix_coo_cpu &matrix_out, const matrix_coo_cpu &matrix_a, const matrix_coo_cpu &matrix_b);
+    matrix_addition_cpu(matrix_coo_cpu_pairs &matrix_out, const matrix_coo_cpu_pairs &matrix_a, const matrix_coo_cpu_pairs &matrix_b);
 
-    void print_matrix(const matrix_coo_cpu &m_cpu);
+    void
+    kronecker_product_cpu(matrix_coo_cpu_pairs &matrix_out, const matrix_coo_cpu_pairs &matrix_a, const matrix_coo_cpu_pairs &matrix_b);
+
+    void print_matrix(const matrix_coo_cpu_pairs &m_cpu);
 
     void get_rows_pointers_and_compressed(cpu_buffer &rows_pointers,
                                           cpu_buffer &rows_compressed,
-                                          const matrix_coo_cpu &matrix_cpu);
+                                          const matrix_coo_cpu_pairs &matrix_cpu);
 
 
 
@@ -44,9 +44,7 @@ namespace coo_utils {
                                    const matrix_dcsr_cpu &a,
                                    const matrix_dcsr_cpu &b);
 
-    matrix_dcsr_cpu coo_to_dcsr_cpu(const matrix_coo_cpu &matrix_coo);
-
-    matrix_dcsr matrix_dcsr_from_cpu(Controls &controls, matrix_dcsr_cpu &m, uint32_t size);
+    matrix_dcsr_cpu coo_to_dcsr_cpu(const matrix_coo_cpu_pairs &matrix_coo);
 
     void get_workload(cpu_buffer &workload,
                       const matrix_dcsr_cpu &a_cpu,

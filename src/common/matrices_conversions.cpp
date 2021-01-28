@@ -55,3 +55,52 @@ matrix_dcsr coo_to_dcsr_gpu(Controls &controls, const matrix_coo &a) {
                        a.nRows(), a.nCols(), a.nnz(), nzr
     );
 }
+
+matrix_dcsr matrix_dcsr_from_cpu(Controls &controls, matrix_dcsr_cpu &m, uint32_t size) {
+
+    cl::Buffer rows_pointers(controls.context, m.rows_pointers().begin(), m.rows_pointers().end(), false);
+    cl::Buffer rows_compressed(controls.context, m.rows_compressed().begin(), m.rows_compressed().end(), false);
+    cl::Buffer cols_indices(controls.context, m.cols_indices().begin(), m.cols_indices().end(), false);
+
+    return matrix_dcsr(rows_pointers, rows_compressed, cols_indices,
+                       size, size, m.cols_indices().size(), m.rows_compressed().size());
+
+}
+
+matrix_coo matrix_coo_from_cpu(Controls &controls, matrix_coo_cpu &m, uint32_t size) {
+
+    cl::Buffer rows_indices(controls.context, m.rows_indices().begin(), m.rows_indices().end(), false);
+    cl::Buffer cols_indices(controls.context, m.cols_indices().begin(), m.cols_indices().end(), false);
+
+    return matrix_coo(size, size, m.rows_indices().size(), rows_indices, cols_indices);
+}
+
+matrix_dcsr_cpu matrix_dcsr_from_gpu(Controls &controls, matrix_dcsr &m) {
+
+    cpu_buffer rows_pointers(m.nzr() + 1);
+    cpu_buffer rows_compressed(m.nzr());
+    cpu_buffer cols_indices(m.nnz());
+
+    controls.queue.enqueueReadBuffer(m.rows_pointers_gpu(), CL_TRUE, 0,
+                                     sizeof(matrix_dcsr::index_type) * rows_pointers.size(), rows_pointers.data());
+    controls.queue.enqueueReadBuffer(m.rows_compressed_gpu(), CL_TRUE, 0,
+                                     sizeof(matrix_dcsr::index_type) * rows_compressed.size(), rows_compressed.data());
+    controls.queue.enqueueReadBuffer(m.cols_indices_gpu(), CL_TRUE, 0,
+                                     sizeof(matrix_dcsr::index_type) * cols_indices.size(), cols_indices.data());
+
+    return matrix_dcsr_cpu(rows_pointers, rows_compressed, cols_indices);
+
+}
+
+matrix_coo_cpu matrix_coo_from_gpu(Controls &controls, matrix_coo &m) {
+
+    cpu_buffer rows_indices(m.nnz());
+    cpu_buffer cols_indices(m.nnz());
+
+    controls.queue.enqueueReadBuffer(m.rows_indices_gpu(), CL_TRUE, 0,
+                                     sizeof(matrix_dcsr::index_type) * rows_indices.size(), rows_indices.data());
+    controls.queue.enqueueReadBuffer(m.cols_indices_gpu(), CL_TRUE, 0,
+                                     sizeof(matrix_dcsr::index_type) * cols_indices.size(), cols_indices.data());
+
+    return matrix_coo_cpu(rows_indices, cols_indices);
+}

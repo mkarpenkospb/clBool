@@ -21,7 +21,7 @@ void checkCopying() {
     uint32_t nnz_limit = 25;
     uint32_t max_size = 10;
 
-    matrix_coo_cpu matrix_a_coo_cpu = generate_random_matrix_coo_cpu(nnz_limit, max_size);
+    matrix_coo_cpu_pairs matrix_a_coo_cpu = generate_random_matrix_coo_cpu(nnz_limit, max_size);
     matrix_dcsr_cpu matrix_a_cpu = coo_to_dcsr_cpu(matrix_a_coo_cpu);
 
     std::cout << "matrix_a_coo_cpu: \n";

@@ -144,7 +144,7 @@ namespace coo_utils {
     }
 
     void
-    form_cpu_matrix(matrix_coo_cpu &matrix_out, const cpu_buffer &rows, const cpu_buffer &cols) {
+    form_cpu_matrix(matrix_coo_cpu_pairs &matrix_out, const cpu_buffer &rows, const cpu_buffer &cols) {
         matrix_out.resize(rows.size());
         std::transform(rows.begin(), rows.end(), cols.begin(), matrix_out.begin(),
                        [](uint32_t i, uint32_t j) -> coordinates { return {i, j}; });
@@ -152,7 +152,7 @@ namespace coo_utils {
     }
 
     void get_vectors_from_cpu_matrix(cpu_buffer &rows_out, cpu_buffer &cols_out,
-                                     const matrix_coo_cpu &matrix) {
+                                     const matrix_coo_cpu_pairs &matrix) {
         uint32_t n = matrix.size();
 
         rows_out.resize(matrix.size());
@@ -183,14 +183,14 @@ namespace coo_utils {
         std::cout << "check finished, probably correct\n";
     }
 
-    matrix_coo_cpu generate_random_matrix_coo_cpu(uint32_t pseudo_nnz, uint32_t max_size) {
+    matrix_coo_cpu_pairs generate_random_matrix_coo_cpu(uint32_t pseudo_nnz, uint32_t max_size) {
 
         cpu_buffer rows(pseudo_nnz);
         cpu_buffer cols(pseudo_nnz);
 
         fill_random_matrix(rows, cols, max_size);
 
-        matrix_coo_cpu m_cpu;
+        matrix_coo_cpu_pairs m_cpu;
         form_cpu_matrix(m_cpu, rows, cols);
         std::sort(m_cpu.begin(), m_cpu.end());
 
@@ -199,7 +199,7 @@ namespace coo_utils {
         return m_cpu;
     }
 
-    matrix_dcsr_cpu coo_to_dcsr_cpu(const matrix_coo_cpu &matrix_coo) {
+    matrix_dcsr_cpu coo_to_dcsr_cpu(const matrix_coo_cpu_pairs &matrix_coo) {
         cpu_buffer rows_pointers;
         cpu_buffer rows_compressed;
         cpu_buffer cols_indices;
@@ -224,7 +224,7 @@ namespace coo_utils {
     }
 
 
-    matrix_coo matrix_coo_from_cpu(Controls &controls, const matrix_coo_cpu &m_cpu) {
+    matrix_coo matrix_coo_from_cpu(Controls &controls, const matrix_coo_cpu_pairs &m_cpu) {
         cpu_buffer rows;
         cpu_buffer cols;
 
@@ -238,7 +238,7 @@ namespace coo_utils {
     }
 
     void
-    matrix_addition_cpu(matrix_coo_cpu &matrix_out, const matrix_coo_cpu &matrix_a, const matrix_coo_cpu &matrix_b) {
+    matrix_addition_cpu(matrix_coo_cpu_pairs &matrix_out, const matrix_coo_cpu_pairs &matrix_a, const matrix_coo_cpu_pairs &matrix_b) {
 
         std::merge(matrix_a.begin(), matrix_a.end(), matrix_b.begin(), matrix_b.end(),
                    std::back_inserter(matrix_out));
@@ -248,7 +248,7 @@ namespace coo_utils {
     }
 
     void
-    kronecker_product_cpu(matrix_coo_cpu &matrix_out, const matrix_coo_cpu &matrix_a, const matrix_coo_cpu &matrix_b) {
+    kronecker_product_cpu(matrix_coo_cpu_pairs &matrix_out, const matrix_coo_cpu_pairs &matrix_a, const matrix_coo_cpu_pairs &matrix_b) {
         auto less_for_rows = [](const coordinates &a, const coordinates &b) -> bool {
             return a.first < b.first;
         };
@@ -273,7 +273,7 @@ namespace coo_utils {
     }
 
 
-    void print_matrix(const matrix_coo_cpu &m_cpu) {
+    void print_matrix(const matrix_coo_cpu_pairs &m_cpu) {
         if (m_cpu.empty()) {
             std::cout << "empty matrix" << std::endl;
             return;
@@ -347,7 +347,7 @@ namespace coo_utils {
 
     void get_rows_pointers_and_compressed(cpu_buffer &rows_pointers,
                                           cpu_buffer &rows_compressed,
-                                          const matrix_coo_cpu &matrix_cpu) {
+                                          const matrix_coo_cpu_pairs &matrix_cpu) {
         if (matrix_cpu.empty()) return;
 
         size_t position = 0;
@@ -389,7 +389,7 @@ namespace coo_utils {
 
 
 
-//    void matrix_coo_to_dcsr_cpu(matrix_dcsr_cpu &out, const matrix_coo_cpu &in) {
+//    void matrix_coo_to_dcsr_cpu(matrix_dcsr_cpu &out, const matrix_coo_cpu_pairs &in) {
 //
 //    }
 
@@ -442,18 +442,6 @@ namespace coo_utils {
 
         c_rows_pointers.push_back(current_pointer);
         c = matrix_dcsr_cpu(std::move(c_rows_pointers), std::move(c_rows_compressed), std::move(c_cols_indices));
-    }
-
-
-    matrix_dcsr matrix_dcsr_from_cpu(Controls &controls, matrix_dcsr_cpu &m, uint32_t size) {
-
-        cl::Buffer rows_pointers(controls.context, m.rows_pointers().begin(), m.rows_pointers().end(), false);
-        cl::Buffer rows_compressed(controls.context, m.rows_compressed().begin(), m.rows_compressed().end(), false);
-        cl::Buffer cols_indices(controls.context, m.cols_indices().begin(), m.cols_indices().end(), false);
-
-        return matrix_dcsr(rows_pointers, rows_compressed, cols_indices,
-                           size, size, m.cols_indices().size(), m.rows_compressed().size());
-
     }
 
 }
