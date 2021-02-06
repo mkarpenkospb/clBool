@@ -61,7 +61,7 @@ void merge(Controls &controls,
                          a.nnz(), b.nnz());
 
         // TODO: maybe add wait
-        check_merge_correctness(controls, merged_rows, merged_cols, merged_size);
+//        check_merge_correctness(controls, merged_rows, merged_cols, merged_size);
 
         merged_rows_out = std::move(merged_rows);
         merged_cols_out = std::move(merged_cols);
@@ -131,8 +131,6 @@ void prepare_positions(Controls &controls,
 }
 
 
-
-
 void set_positions(Controls &controls,
                    cl::Buffer &new_rows,
                    cl::Buffer &new_cols,
@@ -167,29 +165,29 @@ void set_positions(Controls &controls,
 }
 
 
-void check_pref_correctness(const std::vector<uint32_t> &result,
-                            const std::vector<uint32_t> &before) {
-    uint32_t n = before.size();
-    uint32_t acc = 0;
+//void check_pref_correctness(const std::vector<uint32_t> &result,
+//                            const std::vector<uint32_t> &before) {
+//    uint32_t n = before.size();
+//    uint32_t acc = 0;
+//
+//    for (uint32_t i = 0; i < n; ++i) {
+//        acc = i == 0 ? 0 : before[i - 1] + acc;
+//
+//        if (acc != result[i]) {
+//            throw std::runtime_error("incorrect result");
+//        }
+//    }
+//    std::cout << "correct pref sum, the last value is " << result[n - 1] << std::endl;
+//}
 
-    for (uint32_t i = 0; i < n; ++i) {
-        acc = i == 0 ? 0 : before[i - 1] + acc;
 
-        if (acc != result[i]) {
-            throw std::runtime_error("incorrect result");
-        }
-    }
-    std::cout << "correct pref sum, the last value is " << result[n - 1] << std::endl;
-}
-
-
-// check weak correctness
-void check_merge_correctness(Controls &controls, cl::Buffer &rows, cl::Buffer &cols, uint32_t merged_size) {
-    std::vector<uint32_t> rowsC(merged_size);
-    std::vector<uint32_t> colsC(merged_size);
-
-    controls.queue.enqueueReadBuffer(rows, CL_TRUE, 0, sizeof(uint32_t) * merged_size, rowsC.data());
-    controls.queue.enqueueReadBuffer(cols, CL_TRUE, 0, sizeof(uint32_t) * merged_size, colsC.data());
-
-    coo_utils::check_correctness(rowsC, colsC);
-}
+//// check weak correctness
+//void check_merge_correctness(Controls &controls, cl::Buffer &rows, cl::Buffer &cols, uint32_t merged_size) {
+//    std::vector<uint32_t> rowsC(merged_size);
+//    std::vector<uint32_t> colsC(merged_size);
+//
+//    controls.queue.enqueueReadBuffer(rows, CL_TRUE, 0, sizeof(uint32_t) * merged_size, rowsC.data());
+//    controls.queue.enqueueReadBuffer(cols, CL_TRUE, 0, sizeof(uint32_t) * merged_size, colsC.data());
+//
+//    coo_utils::check_correctness(rowsC, colsC);
+//}
