@@ -4,6 +4,7 @@
 #define GROUP_SIZE 256
 
 #endif
+//#define GROUP_SIZE 256
 inline
 bool is_greater_global(__global const uint *rowsA,
                        __global const uint *colsA,

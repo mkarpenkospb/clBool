@@ -1,5 +1,6 @@
 #include "cl_operations.hpp"
 
+#include "../cl/headers/prefix_sum.h"
 void prefix_sum(Controls &controls,
                 cl::Buffer &array,
                 uint32_t &total_sum,
@@ -7,7 +8,7 @@ void prefix_sum(Controls &controls,
 
     cl::Program program;
     try {
-        program = controls.create_program_from_file("../src/cl/prefix_sum.cl");
+        program = controls.create_program_from_source(prefix_sum_kernel, prefix_sum_kernel_length);
         uint32_t block_size = controls.block_size;
 
         std::stringstream options;

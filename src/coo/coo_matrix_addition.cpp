@@ -3,6 +3,9 @@
 #include "../common/utils.hpp"
 #include "coo_utils.hpp"
 #include "coo_matrix_addition.hpp"
+#include "../cl/headers/merge_path.h"
+#include "../cl/headers/prepare_positions.h"
+#include "../cl/headers/set_positions.h"
 
 
 void matrix_addition(Controls &controls,
@@ -34,12 +37,12 @@ void merge(Controls &controls,
 
         uint32_t merged_size = a.nnz() + b.nnz();
 
-        program = controls.create_program_from_file("../src/cl/merge_path.cl");
+        program = controls.create_program_from_source(merge_path_kernel, merge_path_kernel_length);
 
         uint32_t block_size = controls.block_size;
 
         std::stringstream options;
-        options << "-D RUN " << "-D GROUP_SIZE=" << block_size;
+        options << "-D RUN=1 " << "-D GROUP_SIZE=" << block_size;
         program.build(options.str().c_str());
 
         uint32_t work_group_size = block_size;
@@ -107,7 +110,7 @@ void prepare_positions(Controls &controls,
 ) {
     cl::Program program;
     try {
-        program = controls.create_program_from_file("../src/cl/prepare_positions.cl");
+        program = controls.create_program_from_source(prepare_positions_kernel, prepare_positions_kernel_length);
         uint32_t block_size = controls.block_size;
 
         std::stringstream options;
@@ -141,7 +144,7 @@ void set_positions(Controls &controls,
 
     cl::Program program;
     try {
-        program = controls.create_program_from_file("../src/cl/set_positions.cl");
+        program = controls.create_program_from_source(set_positions_kernel, set_positions_kernel_length);
         uint32_t block_size = controls.block_size;
 
         std::stringstream options;

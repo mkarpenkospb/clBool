@@ -9,8 +9,8 @@ void testMatrixAddition() {
     Controls controls = utils::create_controls();
 
     matrix_coo_cpu_pairs matrix_res_cpu;
-    matrix_coo_cpu_pairs matrix_a_cpu = coo_utils::generate_random_matrix_coo_cpu(2345542, 10756);
-    matrix_coo_cpu_pairs matrix_b_cpu = coo_utils::generate_random_matrix_coo_cpu(12332112, 23341);
+    matrix_coo_cpu_pairs matrix_a_cpu = coo_utils::generate_random_matrix_coo_cpu(123, 10756);
+    matrix_coo_cpu_pairs matrix_b_cpu = coo_utils::generate_random_matrix_coo_cpu(432, 23341);
 
     matrix_coo matrix_res_gpu;
     matrix_coo matrix_a_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_a_cpu);

@@ -11,7 +11,7 @@ const uint32_t BINS_NUM = 38;
 
 void test_multiplication() {
     Controls controls = utils::create_controls();
-    for (uint32_t k = 17; k < 20; ++k) {
+    for (uint32_t k = 4; k < 20; ++k) {
         for (uint32_t i = 20; i < 10000; i += 50) {
             std::cout << "i = " << i << ", k = " << k << std::endl;
             uint32_t max_size = i;

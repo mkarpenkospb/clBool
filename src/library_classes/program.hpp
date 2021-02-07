@@ -8,8 +8,9 @@ public:
     using kernel_type = cl::KernelFunctor<Args...>;
 
 private:
-    std::string _file_name = "";
-    std::string _kernel_name = "";
+    const char * _kernel = "";
+    uint32_t _kernel_length = 0;
+    std::string _kernel_name;
     uint32_t _block_size = 0;
     uint32_t _needed_work_size = 0;
     cl::Program cl_program;
@@ -18,19 +19,21 @@ private:
     std::string options_str;
 
     void check_completeness() {
-        if (_file_name == "") throw std::runtime_error("empty file_name");
-        if (_kernel_name == "") throw std::runtime_error("empty kernel_name");
+        if (_kernel_length == 0) throw std::runtime_error("zero kernel length");
+        if (_kernel_name == "") throw std::runtime_error("no kernel name");
         if (_needed_work_size == 0) throw std::runtime_error("zero global_work_size");
     }
 
 public:
     program() = default;
-    explicit program(std::string file_name)
-    : _file_name(std::move(file_name))
+    explicit program(const char *kernel, uint32_t kernel_length)
+    : _kernel(kernel)
+    , _kernel_length(kernel_length)
     {}
 
-    program& set_file_name(std::string file_name) {
-        _file_name = std::move(file_name);
+    program& set_sources(const char *kernel, uint32_t kernel_length) {
+        _kernel = kernel;
+        _kernel_length = kernel_length;
         return *this;
     }
 
@@ -64,7 +67,7 @@ public:
         check_completeness();
         if (_block_size == 0) _block_size = controls.block_size;
         try {
-            cl_program = controls.create_program_from_file(_file_name);
+            cl_program = controls.create_program_from_source(_kernel, _kernel_length);
             std::stringstream options;
             options <<  options_str << " -D RUN " << " -D GROUP_SIZE=" << _block_size;
             cl_program.build(options.str().c_str());
