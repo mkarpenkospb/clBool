@@ -28,7 +28,7 @@ namespace utils {
 
     void print_cpu_buffer(const cpu_buffer &buffer, uint32_t size = -1);
 
-    void compare_buffers(Controls &controls, const cl::Buffer &buffer_g, const cpu_buffer& buffer_c, uint32_t size);
+    void compare_buffers(Controls &controls, const cl::Buffer &buffer_g, const cpu_buffer& buffer_c, uint32_t size, std::string name = "");
 
     void program_handler(const cl::Error &e, const cl::Program &program,
                          const cl::Device &device, const std::string& name);

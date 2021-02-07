@@ -1,5 +1,6 @@
 
 #include "../library_classes/controls.hpp"
+#include "../library_classes/program.hpp"
 #include "../common/utils.hpp"
 #include "coo_utils.hpp"
 #include "coo_matrix_addition.hpp"
@@ -31,47 +32,28 @@ void merge(Controls &controls,
            const matrix_coo &a,
            const matrix_coo &b) {
 
-    cl::Program program;
+    uint32_t merged_size = a.nnz() + b.nnz();
 
-    try {
+    auto coo_merge = program<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+                    uint32_t, uint32_t>
+                    (merge_path_kernel, merge_path_kernel_length)
+                    .set_needed_work_size(merged_size)
+                    .set_kernel_name("merge");
 
-        uint32_t merged_size = a.nnz() + b.nnz();
 
-        program = controls.create_program_from_source(merge_path_kernel, merge_path_kernel_length);
+    cl::Buffer merged_rows(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * merged_size);
+    cl::Buffer merged_cols(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * merged_size);
 
-        uint32_t block_size = controls.block_size;
+    coo_merge.run(controls,
+                 merged_rows, merged_cols,
+                 a.rows_indices_gpu(), a.cols_indices_gpu(),
+                 b.rows_indices_gpu(), b.cols_indices_gpu(),
+                 a.nnz(), b.nnz());
 
-        std::stringstream options;
-        options << "-D RUN=1 " << "-D GROUP_SIZE=" << block_size;
-        program.build(options.str().c_str());
-
-        uint32_t work_group_size = block_size;
-        uint32_t global_work_size = utils::calculate_global_size(work_group_size, merged_size);
-
-        cl::Buffer merged_rows(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * merged_size);
-        cl::Buffer merged_cols(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * merged_size);
-
-        cl::Kernel coo_merge(program, "merge");
-        cl::KernelFunctor<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-                uint32_t, uint32_t> coo_merge_kernel(coo_merge);
-
-        cl::EnqueueArgs eargs(controls.queue, cl::NDRange(global_work_size), cl::NDRange(work_group_size));
-
-        coo_merge_kernel(eargs,
-                         merged_rows, merged_cols,
-                         a.rows_indices_gpu(), a.cols_indices_gpu(),
-                         b.rows_indices_gpu(), b.cols_indices_gpu(),
-                         a.nnz(), b.nnz());
-
-        // TODO: maybe add wait
 //        check_merge_correctness(controls, merged_rows, merged_cols, merged_size);
 
-        merged_rows_out = std::move(merged_rows);
-        merged_cols_out = std::move(merged_cols);
-//        std::cout << "\nmerge finished\n";
-    } catch (const cl::Error &e) {
-        utils::program_handler(e, program, controls.device, "merge");
-    }
+    merged_rows_out = std::move(merged_rows);
+    merged_cols_out = std::move(merged_cols);
 }
 
 
@@ -108,29 +90,12 @@ void prepare_positions(Controls &controls,
                        cl::Buffer &merged_cols,
                        uint32_t merged_size
 ) {
-    cl::Program program;
-    try {
-        program = controls.create_program_from_source(prepare_positions_kernel, prepare_positions_kernel_length);
-        uint32_t block_size = controls.block_size;
+    auto prepare_positions = program<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t>
+            (prepare_positions_kernel, prepare_positions_kernel_length)
+            .set_needed_work_size(merged_size)
+            .set_kernel_name("prepare_array_for_positions");
 
-        std::stringstream options;
-        options << "-D RUN " << "-D GROUP_SIZE=" << block_size;
-        program.build(options.str().c_str());
-
-        uint32_t work_group_size = block_size;
-        uint32_t global_work_size = utils::calculate_global_size(work_group_size, merged_size);
-
-        cl::Kernel coo_prepare_positions_kernel(program, "prepare_array_for_positions");
-        cl::KernelFunctor<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t> coo_prepare_positions(
-                coo_prepare_positions_kernel);
-        cl::EnqueueArgs eargs(controls.queue, cl::NDRange(global_work_size), cl::NDRange(work_group_size));
-
-        coo_prepare_positions(eargs, positions, merged_rows, merged_cols, merged_size);
-
-    } catch (const cl::Error &e) {
-        utils::program_handler(e, program, controls.device, "prepare_positions");
-    }
-
+    prepare_positions.run(controls, positions, merged_rows, merged_cols, merged_size);
 }
 
 
@@ -142,29 +107,12 @@ void set_positions(Controls &controls,
                    cl::Buffer &positions,
                    uint32_t merged_size) {
 
-    cl::Program program;
-    try {
-        program = controls.create_program_from_source(set_positions_kernel, set_positions_kernel_length);
-        uint32_t block_size = controls.block_size;
+    auto set_positions = program<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, unsigned int>
+            (set_positions_kernel, set_positions_kernel_length)
+            .set_needed_work_size(merged_size)
+            .set_kernel_name("set_positions");
 
-        std::stringstream options;
-        options << "-D RUN " << "-D GROUP_SIZE=" << block_size;
-        program.build(options.str().c_str());
-
-        cl::Kernel set_positions_kernel(program, "set_positions");
-        cl::KernelFunctor<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, unsigned int> set_positions(
-                set_positions_kernel);
-
-        uint32_t work_group_size = block_size;
-        uint32_t global_work_size = utils::calculate_global_size(work_group_size, merged_size);
-
-        cl::EnqueueArgs eargs(controls.queue, cl::NDRange(global_work_size), cl::NDRange(work_group_size));
-
-        set_positions(eargs, new_rows, new_cols, merged_rows, merged_cols, positions, merged_size);
-
-    } catch (const cl::Error &e) {
-        utils::program_handler(e, program, controls.device, "set_positions");
-    }
+    set_positions.run(controls, new_rows, new_cols, merged_rows, merged_cols, positions, merged_size);
 }
 
 
