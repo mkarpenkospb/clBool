@@ -102,7 +102,7 @@ void create_final_matrix(Controls &controls,
                                       /*,nullptr, &write*/);
 //    write.wait();
     cl::Event e1;
-    cl::Event e2 ;
+    cl::Event e2;
     if (groups_length[1] != 0) {
         auto single_value_rows = program<cl::Buffer, uint32_t, uint32_t,
                 cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer>
@@ -120,7 +120,8 @@ void create_final_matrix(Controls &controls,
 
     if (second_group_length != 0) {
         auto ordinary_rows = program<cl::Buffer, uint32_t,
-                cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer> (to_result_matrix_work_group_kernel, to_result_matrix_work_group_kernel_length)
+                cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer>
+                (to_result_matrix_work_group_kernel, to_result_matrix_work_group_kernel_length)
                 .set_needed_work_size(controls.block_size * second_group_length)
                 .set_async(true)
                 .set_kernel_name("to_result");
@@ -130,8 +131,14 @@ void create_final_matrix(Controls &controls,
                           nnz_estimation, c_cols_indices, pre.rows_pointers_gpu(), pre.cols_indices_gpu());
     }
 
-    if (groups_length[1] != 0) e1.wait();
-    if (second_group_length != 0) e2.wait();
+    try {
+        if (groups_length[1] != 0) e1.wait();
+        if (second_group_length != 0) e2.wait();
+    } catch (const cl::Error &e) {
+        std::stringstream exception;
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << " in " << "create_final_matrix" << " \n";
+        throw std::runtime_error(exception.str());
+    }
 
     cl::Buffer positions(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a.nzr());
 
@@ -292,7 +299,13 @@ void run_kernels(Controls &controls,
                                               b.nzr()
                             ));
     }
-    cl::Event::waitForEvents(events);
+    try {
+        cl::Event::waitForEvents(events);
+    } catch (const cl::Error &e) {
+        std::stringstream exception;
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << " in " << "run_kernels" << " \n";
+        throw std::runtime_error(exception.str());
+    }
 }
 
 void build_groups_and_allocate_new_matrix(Controls& controls,

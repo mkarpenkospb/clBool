@@ -75,7 +75,7 @@ scan(__local uint *positions, uint scan_size) {
         positions[scan_size] = positions[local_id];
         positions[local_id] = 0;
     }
-    barrier(CLK_LOCAL_MEM_FENCE);
+
     for (uint s = 1; s < scan_size; s <<= 1) {
         dp >>= 1;
         barrier(CLK_LOCAL_MEM_FENCE);
@@ -93,14 +93,10 @@ scan(__local uint *positions, uint scan_size) {
 }
 
 inline void
-set_positions(__local const uint *positions, __local const uint *vals, uint size, __local uint *result,
-              uint scan_size) {
+set_positions(__local const uint *positions, __local const uint *vals, __local uint *result, uint size) {
     uint local_id = get_local_id(0);
 
     if (local_id >= size) return;
-    if (local_id == size - 1 && positions[local_id] != positions[scan_size]) {
-        result[positions[local_id]] = vals[local_id];
-    }
     if (positions[local_id] != positions[local_id + 1]) {
         result[positions[local_id]] = vals[local_id];
     }
@@ -110,25 +106,18 @@ set_positions(__local const uint *positions, __local const uint *vals, uint size
 inline void
 merge_local(__local const uint *a, __local const uint *b, __local uint *c, uint sizeA, uint sizeB) {
     uint diag_index = get_local_id(0);
-    unsigned int res_size = sizeA + sizeB;
+    uint res_size = sizeA + sizeB;
     if (diag_index >= res_size) return;
-    unsigned int min_side = sizeA < sizeB ? sizeA : sizeB;
-    unsigned int max_side = res_size - min_side;
+    uint min_side = sizeA < sizeB ? sizeA : sizeB;
+    uint max_side = res_size - min_side;
 
-    unsigned int diag_length = diag_index < min_side ? diag_index + 2 :
+    uint diag_length = diag_index < min_side ? diag_index + 2 :
                                diag_index < max_side ? min_side + 1 :
                                res_size - diag_index;
-    unsigned r = diag_length;
-    unsigned l = 0;
-    unsigned int m = 0;
 
-    unsigned int below_idx_a = 0;
-    unsigned int below_idx_b = 0;
-    unsigned int above_idx_a = 0;
-    unsigned int above_idx_b = 0;
-
-    unsigned int above = 0; // значение сравнения справа сверху
-    unsigned int below = 0; // значение сравнения слева снизу
+    uint r = diag_length, l = 0, m = 0;
+    uint below_idx_a = 0, below_idx_b = 0, above_idx_a = 0, above_idx_b = 0;
+    uint above = 0, below = 0;
 
     while (l < r) {
         m = (l + r) / 2;
@@ -332,48 +321,40 @@ __kernel void merge_large_rows(__global const uint *indices,
             global_flag = false;
         }
 
-        barrier(CLK_GLOBAL_MEM_FENCE);
         uint steps = (b_row_length + GROUP_SIZE - 1) / GROUP_SIZE;
+
         // ------------------ COPY  ---------------------------
         barrier(CLK_LOCAL_MEM_FENCE);
-        barrier(CLK_GLOBAL_MEM_FENCE);
-        // hint: мы не можем сделать тут больше одного шага, но пусть будет
-        for (uint group_step = 0; group_step < steps && !global_flag; ++group_step) {
-            barrier(CLK_LOCAL_MEM_FENCE);
-            barrier(CLK_GLOBAL_MEM_FENCE);
-            uint elem_id_local = group_step * GROUP_SIZE + local_id;
-            uint elem_id = b_start + elem_id_local;
-            if (elem_id < b_end) {
-                uint fill_position = elem_id_local + fill_pointer;
-                // fill_position нам тут нужен для проверки, что ряд поместится.
-                if (fill_position < BUFFER_SIZE) {
-                    if (fill_pointer == 0) {
-                        buff_2[elem_id_local] = b_cols[elem_id];
-                    } else {
-                        buff_1[elem_id_local] = b_cols[elem_id];
-                        positions[elem_id_local] =
-                                search_local(buff_2, buff_1[elem_id_local], fill_pointer) == fill_pointer ? 1 : 0;
-                    }
-
+        uint elem_id = b_start + local_id;
+        if (elem_id < b_end) {
+            uint fill_position = local_id + fill_pointer;
+            // fill_position нам тут нужен для проверки, что ряд поместится в buff_2 при потенциальном копировании.
+            if (fill_position < BUFFER_SIZE) {
+                if (fill_pointer == 0) {
+                    buff_2[local_id] = b_cols[elem_id];
                 } else {
-                    if (fill_position == BUFFER_SIZE) {
-                        global_flag = true;
-                        new_b_row_start = elem_id;
-                        old_b_row_end = b_end;
-                    }
+                    buff_1[local_id] = b_cols[elem_id];
+                    positions[local_id] =
+                            search_local(buff_2, buff_1[local_id], fill_pointer) == fill_pointer ? 1 : 0;
+                }
+            } else {
+                if (fill_position == BUFFER_SIZE) {
+                    global_flag = true;
+                    new_b_row_start = elem_id;
+                    old_b_row_end = b_end;
                 }
             }
-            barrier(CLK_LOCAL_MEM_FENCE);
-            barrier(CLK_GLOBAL_MEM_FENCE);
         }
+
         barrier(CLK_LOCAL_MEM_FENCE);
         barrier(CLK_GLOBAL_MEM_FENCE);
-
+        // если кто-то из потоков не смог записать своё значение из второй матрицы, нужно будет вернуться к этому ряду
         if (global_flag) {a_row_pointer --;}
+        // new_b_row_start -  первая позиция, которую не успели записать
         uint filled_b_length = global_flag ? new_b_row_start - b_start : b_row_length;
         // ------------------ LOCAL MERGE ---------------------------
         if (fill_pointer != 0) {
-
+            // для всех кто не успел себя записать, позиции обулим
             if (local_id >= filled_b_length) positions[local_id] = 0;
             barrier(CLK_LOCAL_MEM_FENCE);
             scan_size = ceil_to_power2(filled_b_length);
@@ -383,7 +364,7 @@ __kernel void merge_large_rows(__global const uint *indices,
 
             new_length = positions[scan_size];
 
-            set_positions(positions, buff_1, filled_b_length, buff_2 + fill_pointer, scan_size);
+            set_positions(positions, buff_1, buff_2 + fill_pointer, filled_b_length);
             barrier(CLK_LOCAL_MEM_FENCE);
 
             merge_local(buff_2, buff_2 + fill_pointer, buff_1, fill_pointer, new_length);
@@ -394,10 +375,8 @@ __kernel void merge_large_rows(__global const uint *indices,
             new_length = filled_b_length;
         }
 
-
         fill_pointer += new_length;
         bool last_step = (a_row_pointer == a_end - 1) && (filled_b_length == b_row_length);
-        barrier(CLK_LOCAL_MEM_FENCE);
 
         // ------------------ GLOBAL MERGE ---------------------------
 
@@ -409,14 +388,16 @@ __kernel void merge_large_rows(__global const uint *indices,
                 new_length = fill_pointer;
             }
             else {
-                positions[local_id] =
-                        search_global(buff_1_global, buff_2[local_id], global_fill_pointer) == global_fill_pointer ? 1 : 0;
+                if (local_id < fill_pointer) {
+                    positions[local_id] =
+                            search_global(buff_1_global, buff_2[local_id], global_fill_pointer) == global_fill_pointer
+                            ? 1 : 0;
+                } else {
+                    positions[local_id] = 0;
+                }
 
                 barrier(CLK_LOCAL_MEM_FENCE);
                 barrier(CLK_GLOBAL_MEM_FENCE);
-
-                if (local_id >= fill_pointer) positions[local_id] = 0;
-                barrier(CLK_LOCAL_MEM_FENCE);
 
                 scan_size = ceil_to_power2(fill_pointer);
 
@@ -425,7 +406,7 @@ __kernel void merge_large_rows(__global const uint *indices,
 
                 new_length = positions[scan_size];
                 // переместим их из buff2 в buff1
-                set_positions(positions, buff_2, fill_pointer, buff_1, scan_size);
+                set_positions(positions, buff_2, buff_1, fill_pointer);
                 barrier(CLK_LOCAL_MEM_FENCE);
 
                 merge_global(buff_1_global, buff_1, buff_2_global, global_fill_pointer, new_length);
@@ -437,7 +418,8 @@ __kernel void merge_large_rows(__global const uint *indices,
             global_fill_pointer += new_length;
             fill_pointer = 0;
         }
-
+        barrier(CLK_LOCAL_MEM_FENCE);
+        barrier(CLK_GLOBAL_MEM_FENCE);
     }
 
     barrier(CLK_LOCAL_MEM_FENCE);
