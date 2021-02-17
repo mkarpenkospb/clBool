@@ -1,4 +1,5 @@
-//
-// Created by mkarp on 18.02.2021.
-//
+#include <iostream>
 
+int main() {
+    std::cout <<"Hello world\n";
+}
