@@ -106,5 +106,5 @@ add_executable(sparse-boolean-matrix-operations
         src/test/test_multiplication.cpp
         )
 
-target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})
+#target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})
 
