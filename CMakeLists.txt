@@ -4,7 +4,7 @@ project(sparse-boolean-matrix-operations)
 add_subdirectory(libs)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14")
 
-#set(OpenCL_LIBRARY "/root/intelFPGA_pro/17.1/hld/host/linux64/lib/")
+set(OpenCL_LIBRARY "/root/intelFPGA_pro/17.1/hld/host/linux64/lib/")
 #set(BOARD_LIB "/root/intelFPGA_pro/17.1/hld/board/euler2/linux64/lib")
 
 set(OpenCL_INCLUDE_DIR "/root/intelFPGA_pro/17.1/hld/host/include20/")
