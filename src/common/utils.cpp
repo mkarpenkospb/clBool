@@ -75,6 +75,7 @@ namespace utils {
     }
 
     void printDeviceInfo(const cl::Device &device) {
+        std::cout << "        CL_DEVICE_TYPE: " << device.getInfo<CL_DEVICE_TYPE>() << std::endl;
         std::cout << "        CL_DEVICE_AVAILABLE: " << device.getInfo<CL_DEVICE_AVAILABLE>() << std::endl;
         std::cout << "        CL_DEVICE_GLOBAL_MEM_SIZE: " <<  device.getInfo<CL_DEVICE_GLOBAL_MEM_SIZE>() / (1024 * 1024) << std::endl;
         std::cout << "        CL_DEVICE_MAX_WORK_GROUP_SIZE: " <<  device.getInfo<CL_DEVICE_MAX_WORK_GROUP_SIZE>() << std::endl;
@@ -90,26 +91,10 @@ namespace utils {
         std::cout << "CL_PLATFORM_NAME: " << platform.getInfo<CL_PLATFORM_NAME>() << std::endl;
         std::cout << "CL_PLATFORM_VENDOR: " << platform.getInfo<CL_PLATFORM_VENDOR>() << std::endl;
 
-        platform.getDevices(CL_DEVICE_TYPE_CPU, &devices);
-        std::cout << "    CPU: \n";
+        platform.getDevices(CL_DEVICE_TYPE_ALL, &devices);
         for (const auto &dev: devices) {
             printDeviceInfo(dev);
         }
-        devices.clear();
-
-        platform.getDevices(CL_DEVICE_TYPE_GPU, &devices);
-        std::cout << "    GPU: \n";
-        for (const auto &dev: devices) {
-            printDeviceInfo(dev);
-        }
-        devices.clear();
-
-        platform.getDevices(CL_DEVICE_TYPE_ACCELERATOR, &devices);
-        std::cout << "    ACCELERATOR: \n";
-        for (const auto &dev: devices) {
-            printDeviceInfo(dev);
-        }
-        devices.clear();
         std::cout << "-----------------------" << std::endl;
     }
 
