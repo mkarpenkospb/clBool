@@ -13,7 +13,7 @@ set(Library_classes "src/library_classes")
 
 # Handle OpenCL
 #find_package(OpenCL REQUIRED)
-include_directories(${OpenCL_INCLUDE_DIRS})
+include_directories(${OpenCL_INCLUDE_DIR})
 #link_directories(${OpenCL_LIBRARY})
 
 
