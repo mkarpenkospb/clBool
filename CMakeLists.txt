@@ -17,6 +17,7 @@ include_directories(${OpenCL_INCLUDE_DIR})
 #link_directories(${OpenCL_INCLUDE_DIR_LIBRARY})
 link_directories(${LD_LIBRARY_PATH})
 MESSAGE("${OpenCL_INCLUDE_DIR}")
+MESSAGE("${LD_LIBRARY_PATH}")
 
 
 convertIntoHeader(src/cl/merge_path.cl src/cl/headers/merge_path.h merge_path_kernel)
