@@ -12,10 +12,8 @@ set(Library_classes "src/library_classes")
 
 # Handle OpenCL
 #find_package(OpenCL REQUIRED)
-#include_directories(${OpenCL_INCLUDE_DIRS})
+include_directories(${OpenCL_INCLUDE_DIRS})
 #link_directories(${OpenCL_LIBRARY})
-#add_executable (sparse-boolean-matrix-operations src/example/cl/clion_defines.cl src/example/convolution.cpp)
-#target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})
 
 
 convertIntoHeader(src/cl/merge_path.cl src/cl/headers/merge_path.h merge_path_kernel)
