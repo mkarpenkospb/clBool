@@ -362,7 +362,7 @@ __kernel void merge_large_rows(__global const uint *indices,
             scan(positions, scan_size);
             barrier(CLK_LOCAL_MEM_FENCE);
 
-            new_length = positions[scan_size];
+            new_length = positions[filled_b_length];
 
             set_positions(positions, buff_1, buff_2 + fill_pointer, filled_b_length);
             barrier(CLK_LOCAL_MEM_FENCE);
@@ -374,7 +374,11 @@ __kernel void merge_large_rows(__global const uint *indices,
         } else {
             new_length = filled_b_length;
         }
-
+        barrier(CLK_LOCAL_MEM_FENCE);
+//        if (row_index == 586 && local_id == 0) {
+//            printf("1 fill_pointer: %d\n", fill_pointer);
+//            printf("1 new_length: %d\n", new_length);
+//        }
         fill_pointer += new_length;
         bool last_step = (a_row_pointer == a_end - 1) && (filled_b_length == b_row_length);
 
@@ -404,7 +408,7 @@ __kernel void merge_large_rows(__global const uint *indices,
                 scan(positions, scan_size);
                 barrier(CLK_LOCAL_MEM_FENCE);
 
-                new_length = positions[scan_size];
+                new_length = positions[fill_pointer];
                 // переместим их из buff2 в buff1
                 set_positions(positions, buff_2, buff_1, fill_pointer);
                 barrier(CLK_LOCAL_MEM_FENCE);
@@ -417,6 +421,11 @@ __kernel void merge_large_rows(__global const uint *indices,
 
             global_fill_pointer += new_length;
             fill_pointer = 0;
+            barrier(CLK_LOCAL_MEM_FENCE);
+//            if (row_index == 586 && local_id == 0) {
+//                printf("1 global_fill_pointer: %d\n", global_fill_pointer);
+//                printf("2 new_length: %d\n", new_length);
+//            }
         }
         barrier(CLK_LOCAL_MEM_FENCE);
         barrier(CLK_GLOBAL_MEM_FENCE);

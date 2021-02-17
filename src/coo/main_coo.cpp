@@ -17,7 +17,8 @@ int main() {
 //    test_new_merge();
 //    test_new_merge_full();
 //    largeRowsTest();
-    test_multiplication();
+    utils::show_devices();
+//    test_multiplication();
 }
 
 

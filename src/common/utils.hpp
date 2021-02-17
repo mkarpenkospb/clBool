@@ -32,5 +32,7 @@ namespace utils {
 
     void program_handler(const cl::Error &e, const cl::Program &program,
                          const cl::Device &device, const std::string& name);
+
+    void show_devices();
 //    matrix_dcsr matrix_dcsr_from_cpu(Controls &controls, const coo_utils::matrix_dcsr_cpu &m, uint32_t size);
 }

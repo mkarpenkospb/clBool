@@ -74,6 +74,63 @@ namespace utils {
         }
     }
 
+    void printDeviceInfo(const cl::Device &device) {
+        std::cout << "        CL_DEVICE_AVAILABLE: " << device.getInfo<CL_DEVICE_AVAILABLE>() << std::endl;
+        std::cout << "        CL_DEVICE_GLOBAL_MEM_SIZE: " <<  device.getInfo<CL_DEVICE_GLOBAL_MEM_SIZE>() / (1024 * 1024) << std::endl;
+        std::cout << "        CL_DEVICE_MAX_WORK_GROUP_SIZE: " <<  device.getInfo<CL_DEVICE_MAX_WORK_GROUP_SIZE>() << std::endl;
+        std::cout << "        CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS: " <<  device.getInfo<CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS>() << std::endl;
+
+
+    }
+
+    void printPlatformInfo(const cl::Platform &platform) {
+        std::vector<cl::Device> devices;
+        std::cout << "CL_PLATFORM_PROFILE: " << platform.getInfo<CL_PLATFORM_PROFILE>() << std::endl;
+        std::cout << "CL_PLATFORM_VERSION: " << platform.getInfo<CL_PLATFORM_VERSION>() << std::endl;
+        std::cout << "CL_PLATFORM_NAME: " << platform.getInfo<CL_PLATFORM_NAME>() << std::endl;
+        std::cout << "CL_PLATFORM_VENDOR: " << platform.getInfo<CL_PLATFORM_VENDOR>() << std::endl;
+
+        platform.getDevices(CL_DEVICE_TYPE_CPU, &devices);
+        std::cout << "    CPU: \n";
+        for (const auto &dev: devices) {
+            printDeviceInfo(dev);
+        }
+        devices.clear();
+
+        platform.getDevices(CL_DEVICE_TYPE_GPU, &devices);
+        std::cout << "    GPU: \n";
+        for (const auto &dev: devices) {
+            printDeviceInfo(dev);
+        }
+        devices.clear();
+
+        platform.getDevices(CL_DEVICE_TYPE_ACCELERATOR, &devices);
+        std::cout << "    ACCELERATOR: \n";
+        for (const auto &dev: devices) {
+            printDeviceInfo(dev);
+        }
+        devices.clear();
+        std::cout << "-----------------------" << std::endl;
+    }
+
+    void show_devices() {
+        std::vector<cl::Platform> platforms;
+        std::vector<cl::Kernel> kernels;
+        cl::Program program;
+        cl::Device device;
+        try {
+            cl::Platform::get(&platforms);
+            for (const auto &platform: platforms) {
+                printPlatformInfo(platform);
+            }
+
+        } catch (const cl::Error &e) {
+            std::stringstream exception;
+            exception << "\n" << e.what() << " : " << e.err() << "\n";
+            throw std::runtime_error(exception.str());
+        }
+    }
+
     std::string error_name(cl_int error) {
         switch (error) {
             case 0:

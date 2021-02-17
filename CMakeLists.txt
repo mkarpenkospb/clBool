@@ -3,9 +3,9 @@ project(sparse-boolean-matrix-operations)
 
 add_subdirectory(libs)
 
-# у меня не работает без явного указания путей
-set(OpenCL_LIBRARY "C:/Windows/System32/OpenCL.dll")
-set(OpenCL_INCLUDE_DIR_LIBRARY "C:/Windows/System32/")
+#set(OpenCL_LIBRARY "C:/Windows/System32/OpenCL.dll")
+#set(OpenCL_INCLUDE_DIR_LIBRARY "C:/Windows/System32/")
+
 set(OpenCL_INCLUDE_DIR "libs/clew")
 
 set(Library_classes "src/library_classes")

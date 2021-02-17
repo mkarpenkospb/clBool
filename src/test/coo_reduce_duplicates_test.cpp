@@ -10,7 +10,6 @@ void testReduceDuplicates() {
 
     Controls controls = utils::create_controls();
 
-
     uint32_t size = 10374663;
 
     // -------------------- create indices ----------------------------
@@ -46,7 +45,7 @@ void testReduceDuplicates() {
     std::cout << "\nmatrix cpu after size: " << m_cpu.size() << std::endl;
 
     // ------------------ now reduce gpu buffers and read in vectors ------------------------
-    size_t new_size;
+    uint32_t new_size;
     reduce_duplicates(controls, rows_gpu, cols_gpu, reinterpret_cast<uint32_t &>(new_size), size);
 
     rows_from_gpu.resize(new_size);

@@ -11,12 +11,12 @@ const uint32_t BINS_NUM = 38;
 
 void test_multiplication() {
     Controls controls = utils::create_controls();
-    for (uint32_t k = 18; k < 20; ++k) {
-        for (uint32_t i = 1000; i < 2000; i += 5) {
-//    for (int i = 0; i < 200; ++i) {
-            std::cout << "iter = " << i <<  ", i = " << i << ", k = " << k << std::endl;
-            uint32_t max_size = i;
-            uint32_t nnz_max = std::max(10u, max_size * k);
+//    for (uint32_t k = 18; k < 20; ++k) {
+//        for (uint32_t i = 1000; i < 2000; i += 5) {
+    for (int i = 0; i < 200; ++i) {
+            std::cout << "iter = " << i <<  ", i = " << 1035 << ", k = " << 18 << std::endl;
+            uint32_t max_size = 1035;
+            uint32_t nnz_max = std::max(10u, max_size * 18);
 
             matrix_dcsr_cpu a_cpu = coo_to_dcsr_cpu(generate_random_matrix_coo_cpu(nnz_max, max_size));
 //        print_cpu_buffer()
@@ -37,7 +37,7 @@ void test_multiplication() {
 //        print_matrix(controls, c_gpu, 69);
             compare_matrices(controls, c_gpu, c_cpu);
 //        }
-        }
+//        }
     }
 }
 

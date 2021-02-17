@@ -236,7 +236,7 @@ void run_kernels(Controls &controls,
 
 
         if (workload_group_id == 1) {
-//            std::cout << "first group!\n";
+            std::cout << "first group!\n";
             copy_one_value.set_needed_work_size(groups_length[workload_group_id])
             .set_block_size(std::min(controls.block_size,
                                      std::max(32u, utils::ceil_to_power2(groups_length[workload_group_id]))));
@@ -255,7 +255,7 @@ void run_kernels(Controls &controls,
 
 
         if (workload_group_id < 33 ) {
-//            std::cout << "2 - 32!: " << workload_group_id << "\n";
+            std::cout << "2 - 32!: " << workload_group_id << "\n";
             heap_merge.set_needed_work_size(groups_length[workload_group_id])
                         .add_option("NNZ_ESTIMATION", workload_group_id);
             events.push_back(heap_merge.run(controls, gpu_workload_groups, groups_pointers[workload_group_id], groups_length[workload_group_id],
@@ -269,7 +269,7 @@ void run_kernels(Controls &controls,
         }
 
         if (workload_group_id < 37 ) {
-//            std::cout << "33 - 36!\n";
+            std::cout << "33 - 36!\n";
             uint32_t block_size = std::max(32u, esc_estimation(workload_group_id) / 2);
             esc_kernel.add_option("NNZ_ESTIMATION", esc_estimation(workload_group_id))
             .set_block_size(block_size)
@@ -287,7 +287,7 @@ void run_kernels(Controls &controls,
         }
 
 
-//        std::cout << "37!\n";
+        std::cout << "37!\n";
         merge_large_rows.set_needed_work_size(groups_length[workload_group_id] * controls.block_size);
         events.push_back(merge_large_rows.run(controls,
                                               gpu_workload_groups, groups_pointers[workload_group_id],
