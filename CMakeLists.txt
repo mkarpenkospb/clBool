@@ -7,7 +7,7 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14")
 #set(OpenCL_LIBRARY "C:/Windows/System32/OpenCL.dll")
 #set(OpenCL_INCLUDE_DIR_LIBRARY "C:/Windows/System32/")
 
-set(OpenCL_INCLUDE_DIR "/root/intelFPGA_pro/17.1/hld/host/include20")
+set(OpenCL_INCLUDE_DIR "/root/intelFPGA_pro/17.1/hld/host/include20/")
 
 set(Library_classes "src/library_classes")
 
