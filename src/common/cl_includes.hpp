@@ -5,5 +5,5 @@
 #define CL_HPP_TARGET_OPENCL_VERSION 110
 
 
-#include "CL/cl2.hpp"
-#include "CL/opencl.h"
+#include "CL/cl.h"
+#include "CL/opencl.hpp"

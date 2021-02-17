@@ -4,11 +4,13 @@ project(sparse-boolean-matrix-operations)
 add_subdirectory(libs)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14")
 
-set(OpenCL_LIBRARY "/root/intelFPGA_pro/17.1/hld/host/linux64/lib/libOpenCL.so.1")
-#set(BOARD_LIB "/root/intelFPGA_pro/17.1/hld/board/euler2/linux64/lib")
-
-set(OpenCL_INCLUDE_DIR "/root/intelFPGA_pro/17.1/hld/host/include20/")
-
+if (WIN32)
+    set(OpenCL_LIBRARY "C:/Windows/System32/OpenCL.dll")
+endif(WIN32)
+if(UNIX)
+    set(OpenCL_LIBRARY "/root/intelFPGA_pro/17.1/hld/host/linux64/lib/libOpenCL.so.1")
+endif(UNIX)
+set(OpenCL_INCLUDE_DIR "libs/clew")
 set(Library_classes "src/library_classes")
 
 # Handle OpenCL
@@ -17,7 +19,6 @@ include_directories(${OpenCL_INCLUDE_DIR})
 #link_directories(${OpenCL_LIBRARY} ${BOARD_LIB})
 
 MESSAGE("${OpenCL_INCLUDE_DIR}")
-
 
 convertIntoHeader(src/cl/merge_path.cl src/cl/headers/merge_path.h merge_path_kernel)
 convertIntoHeader(src/cl/prepare_positions.cl src/cl/headers/prepare_positions.h prepare_positions_kernel)
@@ -111,3 +112,4 @@ add_executable(sparse-boolean-matrix-operations
 
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})
 
+add_executable(fpga_hello src/fpga/hello_world.cpp)
