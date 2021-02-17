@@ -4,8 +4,8 @@ project(sparse-boolean-matrix-operations)
 add_subdirectory(libs)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14")
 
-#set(OpenCL_LIBRARY "C:/Windows/System32/OpenCL.dll")
-#set(OpenCL_INCLUDE_DIR_LIBRARY "C:/Windows/System32/")
+set(OpenCL_LIBRARY "/root/intelFPGA_pro/17.1/hld/host/linux64/lib/")
+set(BOARD_LIB "/root/intelFPGA_pro/17.1/hld/board/euler2/linux64/lib")
 
 set(OpenCL_INCLUDE_DIR "/root/intelFPGA_pro/17.1/hld/host/include20/")
 
@@ -14,8 +14,8 @@ set(Library_classes "src/library_classes")
 # Handle OpenCL
 #find_package(OpenCL REQUIRED)
 include_directories(${OpenCL_INCLUDE_DIR})
-#link_directories(${OpenCL_INCLUDE_DIR_LIBRARY})
-link_directories(${LD_LIBRARY_PATH})
+link_directories(${OpenCL_LIBRARY} ${BOARD_LIB})
+
 MESSAGE("${OpenCL_INCLUDE_DIR}")
 MESSAGE("${LD_LIBRARY_PATH}")
 
