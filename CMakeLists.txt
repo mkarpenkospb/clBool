@@ -114,3 +114,4 @@ add_executable(sparse-boolean-matrix-operations
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})
 
 add_executable(fpga_hello src/fpga/hello_world.cpp)
+target_link_libraries(fpga_hello ${OpenCL_LIBRARY})
