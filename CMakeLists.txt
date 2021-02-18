@@ -37,6 +37,7 @@ convertIntoHeader(src/cl/bitonic_esc.cl src/cl/headers/bitonic_esc.h bitonic_esc
 convertIntoHeader(src/cl/count_workload.cl src/cl/headers/count_workload.h count_workload_kernel)
 convertIntoHeader(src/cl/for_test/new_merge.cl src/cl/headers/new_merge.h new_merge_kernel)
 
+
 add_executable(sparse-boolean-matrix-operations
         src/library_classes/matrix_coo.cpp
 
@@ -113,5 +114,18 @@ add_executable(sparse-boolean-matrix-operations
 
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})
 
-add_executable(fpga_hello src/fpga/hello_world.cpp)
+add_executable(fpga_hello src/fpga/hello_world.cpp
+        src/library_classes/matrix_coo.cpp
+
+        src/coo/main_coo.cpp
+        src/coo/coo_matrix_addition.cpp
+        src/coo/coo_initialization.cpp
+        src/coo/coo_utils.cpp
+        src/coo/coo_kronecker_product.cpp
+        src/dcsr/dscr_matrix_multiplication.cpp
+        src/common/matrices_conversions.cpp
+        src/common/cl_operations.cpp
+        src/common/utils.cpp
+
+        )
 target_link_libraries(fpga_hello ${OpenCL_LIBRARY})
