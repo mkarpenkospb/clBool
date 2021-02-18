@@ -1,9 +1,9 @@
-#ifndef RUN
-
-#include "../clion_defines.cl"
-#define GROUP_SIZE 256
-
-#endif
+//#ifndef RUN
+//
+//#include "../clion_defines.cl"
+//#define GROUP_SIZE 256
+//
+//#endif
 
 #define GROUP_SIZE 256
 
