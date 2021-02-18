@@ -25,6 +25,11 @@ struct Controls {
     cl::Program create_program_from_source(const char * kernel, uint32_t length) const {
         return cl::Program(context, {{kernel, length}});
     }
+
+    cl::Program create_program_from_binaries(const char * kernel, uint32_t length) const {
+        return cl::Program(context, {{kernel, length}});
+    }
+
 };
 
 

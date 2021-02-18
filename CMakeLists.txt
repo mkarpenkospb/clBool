@@ -8,7 +8,7 @@ if (WIN32)
     set(OpenCL_LIBRARY "C:/Windows/System32/OpenCL.dll")
 endif(WIN32)
 if(UNIX)
-    set(OpenCL_LIBRARY "/root/intelFPGA_pro/17.1/hld/host/linux64/lib/libOpenCL.so.1")
+    set(OpenCL_LIBRARY "/opt/intelFPGA_pro/17.1/hld/host/linux64/lib/libOpenCL.so.1")
 endif(UNIX)
 set(OpenCL_INCLUDE_DIR "libs/clew")
 set(Library_classes "src/library_classes")
@@ -67,6 +67,7 @@ add_executable(sparse-boolean-matrix-operations
         src/cl/to_result_matrix_single_thread.cl
         src/cl/merge_large_rows.cl
         src/cl/dscr_to_coo.cl
+        src/cl/simple_addition.cl
         # -----------------------------------------------------------------------
 
         # ----------------------------- test cl ---------------------------------

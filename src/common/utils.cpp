@@ -63,10 +63,8 @@ namespace utils {
         cl::Device device;
         try {
             cl::Platform::get(&platforms);
-            platforms[0].getDevices(CL_DEVICE_TYPE_GPU, &devices);
-            std::cout << devices[0].getInfo<CL_DEVICE_MAX_WORK_GROUP_SIZE>() << std::endl;
+            platforms[0].getDevices(CL_DEVICE_TYPE_ALL, &devices);
             return Controls(devices[0]);
-
         } catch (const cl::Error &e) {
             std::stringstream exception;
             exception << "\n" << e.what() << " : " << e.err() << "\n";
