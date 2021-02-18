@@ -68,7 +68,7 @@ add_executable(sparse-boolean-matrix-operations
         src/cl/to_result_matrix_single_thread.cl
         src/cl/merge_large_rows.cl
         src/cl/dscr_to_coo.cl
-        src/cl/simple_addition.cl
+
         # -----------------------------------------------------------------------
 
         # ----------------------------- test cl ---------------------------------
@@ -125,6 +125,6 @@ add_executable(fpga_hello src/fpga/hello_world.cpp
         src/common/matrices_conversions.cpp
         src/common/cl_operations.cpp
         src/common/utils.cpp
-
+        src/cl/fpga/simple_addition.cl
         )
 target_link_libraries(fpga_hello ${OpenCL_LIBRARY})
