@@ -1,0 +1,97 @@
+{
+  "performanceSummary":
+  {
+    "name":"Kernel Summary"
+    , "columns":
+    ["Kernel Name", "Kernel Type", "Autorun", "Workgroup Size", "# Compute Units"]
+    , "children":
+    [
+      {
+        "name":"aplusb"
+        , "data":
+        [
+          "NDRange"
+          , "No"
+          , "n/a"
+          , 1
+        ]
+        , "details":
+        [
+          {
+            "type":"text"
+            , "text":"Kernel type: NDRange"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition.cl"
+              , "line":14
+            }
+          ]
+        ]
+      }
+    ]
+  }
+  , "estimatedResources":
+  {
+    "name":"Estimated Resource Usage"
+    , "columns":
+    ["Kernel Name", "ALUTs ", "FFs  ", "RAMs ", "DSPs "]
+    , "children":
+    [
+      {
+        "name":"aplusb"
+        , "data":
+        [3585, 3797, 40, 1]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition.cl"
+              , "line":14
+            }
+          ]
+        ]
+      }
+      , {
+        "name":"Global Interconnect"
+        , "classes":
+        ["summary-highlight", "nohover"]
+        , "data":
+        [4121, 5284, 0, 0]
+      }
+      , {
+        "name":"Board Interface"
+        , "classes":
+        ["summary-highlight", "nohover"]
+        , "data":
+        [66800, 133600, 182, 0]
+      }
+      , {
+        "name":"Total"
+        , "classes":
+        ["summary-highlight", "nohover"]
+        , "data":
+        [74506, 142748, 224, 1]
+        , "data_percent":
+        [9.45988, 9.06221, 8.85026, 0.0658762]
+      }
+      , {
+        "name":"Available"
+        , "classes":
+        ["summary-highlight", "nohover"]
+        , "data":
+        [787600, 1575200, 2531, 1518]
+      }
+    ]
+  }
+  , "compileWarnings":
+  {
+    "name":"Compile Warnings"
+    , "children":
+    [
+    ]
+  }
+}

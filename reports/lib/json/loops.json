@@ -1,0 +1,43 @@
+{
+  "columns":
+  ["", "Pipelined", "II", "Bottleneck", "Details"]
+  , "children":
+  [
+    {
+      "name":"Kernel: aplusb"
+      , "data":
+      ["", "", ""]
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition.cl"
+            , "line":14
+          }
+        ]
+      ]
+      , "details":
+      [
+        {
+          "type":"brief"
+          , "text":"ND-Range"
+        }
+        , {
+          "type":"text"
+          , "text":"ND-Range"
+        }
+        , {
+          "type":"text"
+          , "text":"See %L for more information"
+          , "links":
+          [
+            {
+              "guide":"Best Practices Guide : Kernels"
+              , "link":"https://www.altera.com/documentation/mwh1391807516407.html#ipp1476408832230"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

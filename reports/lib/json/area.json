@@ -1,0 +1,281 @@
+{
+  "columns":
+  ["", "ALUTs", "FFs", "RAMs", "DSPs", "Details"]
+  , "debug_enabled":"true"
+  , "type":"module"
+  , "total_percent":
+  [17.9337, 9.45988, 9.06221, 8.85026, 0.0658762]
+  , "total":
+  [74506, 142748, 224, 1]
+  , "name":"Kernel System"
+  , "max_resources":
+  [787600, 1575200, 2531, 1518]
+  , "children":
+  [
+    {
+      "name":"Static Partition"
+      , "type":"partition"
+      , "children":
+      [
+        {
+          "name":"Board interface"
+          , "type":"resource"
+          , "data":
+          [66800, 133600, 182, 0]
+          , "details":
+          [
+            {
+              "type":"text"
+              , "text":"Platform interface logic."
+            }
+          ]
+        }
+      ]
+    }
+    , {
+      "name":"Global interconnect"
+      , "type":"resource"
+      , "data":
+      [4121, 5284, 0, 0]
+      , "details":
+      [
+        {
+          "type":"text"
+          , "text":"Global interconnect for 2 global loads and 1 global store. Reduce number of global loads and stores to simplify global interconnect."
+        }
+        , {
+          "type":"text"
+          , "text":"See %L for more information"
+          , "links":
+          [
+            {
+              "guide":"Best Practices Guide : Global Memory Interconnect"
+              , "link":"https://www.altera.com/documentation/mwh1391807516407.html#hnj1476724450050"
+            }
+          ]
+        }
+      ]
+    }
+    , {
+      "name":"System description ROM"
+      , "type":"resource"
+      , "data":
+      [0, 67, 2, 0]
+      , "details":
+      [
+        {
+          "type":"text"
+          , "text":"This read-only memory contains information for the host about the system and about each kernel in the system, including kernel names, arguments, and attributes.  The system description ROM ensures that the binary image on the FPGA is compatible with the host program."
+        }
+      ]
+    }
+    , {
+      "name":"aplusb"
+      , "compute_units":1
+      , "type":"function"
+      , "total_percent":
+      [0.648415, 0.45518, 0.241049, 1.5804, 0.0658762]
+      , "total_kernel_resources":
+      [3585, 3797, 40, 1]
+      , "details":
+      [
+        {
+          "type":"text"
+          , "text":"Number of compute units: 1"
+        }
+      ]
+      , "children":
+      [
+        {
+          "name":"Function overhead"
+          , "type":"resource"
+          , "data":
+          [1574, 1505, 0, 0]
+          , "details":
+          [
+            {
+              "type":"text"
+              , "text":"Kernel dispatch logic."
+            }
+          ]
+        }
+        , {
+          "name":"aplusb.B0"
+          , "type":"basicblock"
+          , "children":
+          [
+            {
+              "name":"State"
+              , "type":"resource"
+              , "data":
+              [2, 3, 0, 0]
+              , "details":
+              [
+                {
+                  "type":"text"
+                  , "text":"Resources for live values and control logic. To reduce this area:"
+                  , "details":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"reduce size of local variables"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"reduce scope of local variables, localizing them as much as possible"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"reduce number of nested loops"
+                    }
+                  ]
+                }
+              ]
+              , "children":
+              [
+                {
+                  "name":"No Source Line"
+                  , "type":"resource"
+                  , "data":
+                  [2, 3, 0, 0]
+                }
+              ]
+            }
+            , {
+              "name":"Cluster logic"
+              , "type":"resource"
+              , "data":
+              [84, 44, 0, 0]
+              , "details":
+              [
+                {
+                  "type":"text"
+                  , "text":"Logic required to efficiently support sets of operations that do not stall. This area cannot be affected directly."
+                }
+              ]
+            }
+            , {
+              "name":"Computation"
+              , "type":"resource"
+              , "children":
+              [
+                {
+                  "name":"No Source Line"
+                  , "type":"resource"
+                  , "data":
+                  [61, 1, 0, 0]
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":""
+                        , "line":0
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "name":"Integer Compare"
+                      , "type":"resource"
+                      , "count":1
+                      , "data":
+                      [35, 1, 0, 0]
+                    }
+                    , {
+                      "name":"Select"
+                      , "type":"resource"
+                      , "count":1
+                      , "data":
+                      [26, 0, 0, 0]
+                    }
+                  ]
+                }
+                , {
+                  "name":"simple_addition.cl:17"
+                  , "type":"resource"
+                  , "data":
+                  [35, 1, 0, 0]
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition.cl"
+                        , "line":17
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "name":"Integer Compare"
+                      , "type":"resource"
+                      , "count":1
+                      , "data":
+                      [35, 1, 0, 0]
+                    }
+                  ]
+                  , "replace_name":"true"
+                }
+                , {
+                  "name":"simple_addition.cl:20"
+                  , "type":"resource"
+                  , "data":
+                  [1829, 2243, 40, 1]
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition.cl"
+                        , "line":20
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "name":"Hardened Floating-point Add"
+                      , "type":"resource"
+                      , "count":1
+                      , "data":
+                      [0, 0, 0, 1]
+                    }
+                    , {
+                      "name":"Load"
+                      , "type":"resource"
+                      , "count":2
+                      , "data":
+                      [668, 678, 26, 0]
+                      , "details":
+                      [
+                        {
+                          "type":"text"
+                          , "text":"Load uses a Streaming LSU"
+                        }
+                      ]
+                    }
+                    , {
+                      "name":"Store"
+                      , "type":"resource"
+                      , "count":1
+                      , "data":
+                      [1161, 1565, 14, 0]
+                      , "details":
+                      [
+                        {
+                          "type":"text"
+                          , "text":"Store uses a Streaming LSU"
+                        }
+                      ]
+                    }
+                  ]
+                  , "replace_name":"true"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

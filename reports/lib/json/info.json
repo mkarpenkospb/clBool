@@ -1,0 +1,8 @@
+{"name":"Info","rows":[
+{"name":"Project Name","data":["simple_addition"],"classes":["info-table"]},
+{"name":"Target Family, Device, Board","data":["Arria 10, 10AX115S2F45E2LG, euler2:line_high"]},
+{"name":"AOC Version","data":["17.1.1 Build 273"]},
+{"name":"Quartus Version","data":["17.1.1 Build 273"]},
+{"name":"Command","data":["aoc -profile simple_addition.cl"]},
+{"name":"Reports Generated At", "data":["Thu Feb 18 17:09:26 2021"]}
+]}
