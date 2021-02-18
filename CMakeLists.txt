@@ -117,7 +117,6 @@ target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})
 add_executable(fpga_hello src/fpga/hello_world.cpp
         src/library_classes/matrix_coo.cpp
 
-        src/coo/main_coo.cpp
         src/coo/coo_matrix_addition.cpp
         src/coo/coo_initialization.cpp
         src/coo/coo_utils.cpp
