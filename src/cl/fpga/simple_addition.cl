@@ -7,19 +7,16 @@
 
 #define GROUP_SIZE 256
 
-__kernel void add(__global uint *c, __global uint *a, __global uint *b, uint size_a, uint size_b, uint size_c) {
-    uint global_id = get_global_id(0);
-    if (global_id >= size_c) return;
-    if (global_id < size_a && global_id < size_b) {
-        c[global_id] = a[global_id] + b[global_id];
+__kernel void aplusb(__global const float* a,
+                     __global const float* b,
+                     __global       float* c,
+                     unsigned int n)
+{
+    const unsigned int index = get_global_id(0);
+
+    if (index >= n)
         return;
-    }
-    if (global_id < size_a) {
-        c[global_id] = a[global_id];
-        return;
-    }
-    if (global_id < size_b) {
-        c[global_id] = b[global_id];
-    }
+
+    c[index] = a[index] + b[index];
 }
 
