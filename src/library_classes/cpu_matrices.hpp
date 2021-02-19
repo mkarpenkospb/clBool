@@ -3,6 +3,7 @@
 using coordinates = std::pair<uint32_t, uint32_t>;
 using matrix_coo_cpu_pairs = std::vector<coordinates>;
 using cpu_buffer = std::vector<uint32_t>;
+using cpu_buffer_f = std::vector<float>;
 
 class matrix_dcsr_cpu {
     cpu_buffer _rows_pointers;

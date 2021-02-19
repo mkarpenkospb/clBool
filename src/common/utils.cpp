@@ -2,23 +2,6 @@
 #include "fast_random.h"
 
 namespace utils {
-    void compare_buffers(Controls &controls, const cl::Buffer &buffer_g, const cpu_buffer &buffer_c, uint32_t size, std::string name) {
-        cpu_buffer cpu_copy(size);
-        controls.queue.enqueueReadBuffer(buffer_g, CL_TRUE, 0, sizeof(uint32_t) * cpu_copy.size(), cpu_copy.data());
-        for (uint32_t i = 0; i < size; ++i) {
-            if (cpu_copy[i] != buffer_c[i]) {
-                uint32_t start = std::max(0, (int) i - 10);
-                uint32_t stop = std::min(size, i + 10);
-                for (uint32_t j = start; j < stop; ++j) {
-                    std::cout << j << ": (" << cpu_copy[j] << ", " << buffer_c[j] << "), ";
-                }
-                std::cout << std::endl;
-                throw std::runtime_error("buffers for " + name + " are different");
-            }
-        }
-        std::cout << "buffers are equal" << std::endl;
-    }
-
     void compare_matrices(Controls &controls, matrix_dcsr m_gpu, matrix_dcsr_cpu m_cpu) {
         if (m_gpu.nnz() != m_cpu.cols_indices().size()) {
             std::cout << "diff nnz, gpu: " << m_gpu.nnz() << " vs cpu: " << m_cpu.cols_indices().size() << std::endl;
@@ -254,21 +237,23 @@ namespace utils {
         std::cout << std::endl;
     }
 
-    void print_cpu_buffer(const cpu_buffer &buffer, uint32_t size) {
-        uint32_t end = size;
-        if (size == -1) end = buffer.size();
-        for (uint32_t i = 0; i < end; ++i) {
-            std::cout << buffer[i] << ", ";
-        }
-        std::cout << std::endl;
-    }
 
 
-    void fill_random_buffer(cpu_buffer &buf) {
+
+    void fill_random_buffer(cpu_buffer &buf, uint32_t seed) {
         uint32_t n = buf.size();
-        FastRandom r(n);
+        FastRandom r(seed == -1 ? n : seed);
         for (uint32_t i = 0; i < n; ++i) {
             buf[i] = r.next();
+        }
+    }
+
+    void fill_random_buffer(cpu_buffer_f &buf, uint32_t seed) {
+        uint32_t n = buf.size();
+        uint32_t den = n > 3 ? n / 2 : 5;
+        FastRandom r(seed == -1 ? n : seed);
+        for (uint32_t i = 0; i < n; ++i) {
+            buf[i] = r.next() * 1.0f / den;
         }
     }
 

@@ -8,8 +8,12 @@ public:
     using kernel_type = cl::KernelFunctor<Args...>;
 
 private:
+//#ifndef FPGA
     const char * _kernel = "";
     uint32_t _kernel_length = 0;
+//#else
+    std::string _program_name;
+//#endif
     std::string _kernel_name;
     uint32_t _block_size = 0;
     uint32_t _needed_work_size = 0;
@@ -17,10 +21,14 @@ private:
     bool _built = false;
     bool _async = false;
 
+#ifdef WIN
     std::string options_str;
+#endif
 
     void check_completeness() {
+#ifndef FPGA
         if (_kernel_length == 0) throw std::runtime_error("zero kernel length");
+#endif
         if (_kernel_name == "") throw std::runtime_error("no kernel name");
         if (_needed_work_size == 0) throw std::runtime_error("zero global_work_size");
     }
@@ -28,11 +36,16 @@ private:
     void build_cl_program(Controls &controls) {
         if (_block_size == 0) _block_size = controls.block_size;
         try {
+#ifndef FPGA
             cl_program = controls.create_program_from_source(_kernel, _kernel_length);
             std::stringstream options;
             options <<  options_str << " -D RUN " << " -D GROUP_SIZE=" << _block_size;
             cl_program.build(options.str().c_str());
-
+#else
+            cl_program = controls.create_program_from_binaries(_program_name);
+            cl_program.build();
+#endif
+            _built = true;
         } catch (const cl::Error &e) {
             utils::program_handler(e, cl_program, controls.device, _kernel_name);
         }
@@ -40,6 +53,7 @@ private:
 
 public:
     program() = default;
+
     explicit program(const char *kernel, uint32_t kernel_length)
     : _kernel(kernel)
     , _kernel_length(kernel_length)
@@ -51,6 +65,23 @@ public:
         _built = false;
         return *this;
     }
+
+    program& add_option(std::string name, std::string value = "") {
+        options_str += (" -D " + name + "=" + value);
+        _built = false;
+        return *this;
+    }
+
+    template<typename OptionType>
+    program& add_option(std::string name, const OptionType &value) {
+        options_str += (" -D " + name + "=" + std::to_string(value));
+        _built = false;
+        return *this;
+    }
+
+    explicit program(std::string program_name)
+            : _program_name(program_name)
+    {}
 
     program& set_kernel_name(std::string kernel_name) {
         _kernel_name = std::move(kernel_name);
@@ -68,19 +99,6 @@ public:
         return *this;
     }
 
-    program& add_option(std::string name, std::string value = "") {
-        options_str += (" -D " + name + "=" + value);
-        _built = false;
-        return *this;
-    }
-
-    template<typename OptionType>
-    program& add_option(std::string name, const OptionType &value) {
-        options_str += (" -D " + name + "=" + std::to_string(value));
-        _built = false;
-        return *this;
-    }
-
     program& set_async(bool async) {
         _async = async;
         return *this;
@@ -90,7 +108,6 @@ public:
         build_cl_program(controls);
         _built = true;
     }
-
 
     cl::Event run(Controls &controls, Args ... args) {
         check_completeness();

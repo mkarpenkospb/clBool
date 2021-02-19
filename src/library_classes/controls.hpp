@@ -5,29 +5,44 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <direct.h>
 
-// TODO: in opencl 2.0 we have DeviceCommandQueue class so what about opencl 2.0?
 
 struct Controls {
+#ifdef WIN
+    std::string WORKING_DIR = R"(C:\Users\mkarp\GitReps\clean_matrix\sparse_boolean_matrix_operations\)";
+#else
+    std::string WORKING_DIR = "/root/Desktop/GitReps/sparse_boolean_matrix_operations";
+#endif
+    std::string FPGA_BINARIES = "src/cl/fpga/";
     const cl::Device device;
     const cl::Context context;
     cl::CommandQueue queue;
     cl::CommandQueue async_queue;
     const uint32_t block_size = uint32_t(256);
 
-    Controls(cl::Device device) :
+    Controls(cl::Device& device) :
             device(device)
     , context(cl::Context(device))
     , queue(cl::CommandQueue(context))
     , async_queue(cl::CommandQueue(context, CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE))
-    {}
+    {
+        chdir(WORKING_DIR.c_str());
+    }
 
     cl::Program create_program_from_source(const char * kernel, uint32_t length) const {
         return cl::Program(context, {{kernel, length}});
     }
 
-    cl::Program create_program_from_binaries(const char * kernel, uint32_t length) const {
-        return cl::Program(context, {{kernel, length}});
+    cl::Program create_program_from_binaries(std::string program_name) const {
+#ifdef WIN
+        program_name += ".cl";
+#else
+        fileName += ".aocx";
+#endif
+        std::ifstream input(FPGA_BINARIES +  program_name, std::ios::binary);
+        std::vector<char> buffer(std::istreambuf_iterator<char>(input), {});
+        return cl::Program(context, {{buffer.data(), buffer.size()}});
     }
 
 };
