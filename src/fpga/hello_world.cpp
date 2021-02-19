@@ -7,7 +7,7 @@ using namespace utils;
 int main() {
     std::cout <<"Hello world\n";
     Controls controls = create_controls();
-    /*
+
     uint32_t n = 43793;
     cpu_buffer_f a(n);
     cpu_buffer_f b(n);
@@ -32,6 +32,6 @@ int main() {
     p.run(controls, a_gpu, b_gpu, c_gpu, n);
 
     compare_buffers(controls, c_gpu, c, n);
-*/
+
 //    std::cout  << clP.getInfo<CL_PROGRAM_NUM_DEVICES>() << std::endl;
 }
