@@ -43,9 +43,9 @@ private:
             cl_program.build(options.str().c_str());
 #else
             cl_program = controls.create_program_from_binaries(_program_name);
-    #ifdef WIN
+//    #ifdef WIN
             cl_program.build();
-    #endif
+//    #endif
 
 #endif
             _built = true;
