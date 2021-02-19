@@ -1,13 +1,9 @@
-
-#include "../library_classes/controls.hpp"
-#include "../library_classes/program.hpp"
-#include "../common/utils.hpp"
-#include "coo_utils.hpp"
+#include <program.hpp>
 #include "coo_matrix_addition.hpp"
-#include "../cl/headers/merge_path.h"
-#include "../cl/headers/prepare_positions.h"
-#include "../cl/headers/set_positions.h"
 
+#include "merge_path.h"
+#include "prepare_positions.h"
+#include "set_positions.h"
 
 void matrix_addition(Controls &controls,
                      matrix_coo &matrix_out,

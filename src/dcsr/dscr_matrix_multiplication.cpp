@@ -1,16 +1,16 @@
 #include <numeric>
+#include <program.hpp>
 #include "dscr_matrix_multiplication.hpp"
-#include "../coo/coo_matrix_addition.hpp"
-#include "../coo/coo_utils.hpp"
-#include "../cl/headers/to_result_matrix_single_thread.h"
-#include "../cl/headers/to_result_matrix_work_group.h"
-#include "../cl/headers/heap_merge.h"
-#include "../cl/headers/copy_one_value.h"
-#include "../cl/headers/merge_large_rows.h"
-#include "../cl/headers/bitonic_esc.h"
-#include "../cl/headers/count_workload.h"
-#include "../cl/headers/prepare_positions.h"
-#include "../cl/headers/set_positions.h"
+#include "coo_matrix_addition.hpp"
+#include "to_result_matrix_single_thread.h"
+#include "to_result_matrix_work_group.h"
+#include "heap_merge.h"
+#include "copy_one_value.h"
+#include "merge_large_rows.h"
+#include "bitonic_esc.h"
+#include "count_workload.h"
+#include "prepare_positions.h"
+#include "set_positions.h"
 
 const uint32_t BINS_NUM = 38;
 const uint32_t HEAP_MERGE_BLOCK_SIZE = 32;

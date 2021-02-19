@@ -1,11 +1,10 @@
-#include <cstdint>
 #include "coo_utils.hpp"
-#include "../library_classes/matrix_coo.hpp"
-#include "../common/fast_random.h"
-#include "../library_classes/matrix_dcsr.hpp"
+
+#include <cstdint>
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <fast_random.h>
 
 
 namespace coo_utils {

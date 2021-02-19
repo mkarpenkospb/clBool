@@ -1,10 +1,10 @@
 #pragma once
 
 
-#include "../library_classes/controls.hpp"
-#include "../library_classes/matrix_coo.hpp"
-#include "../library_classes/matrix_dcsr.hpp"
-#include "../common/matrices_conversions.hpp"
+#include "controls.hpp"
+#include "matrix_coo.hpp"
+#include "matrix_dcsr.hpp"
+#include "matrices_conversions.hpp"
 
 typedef std::vector<uint32_t> cpu_buffer;
 

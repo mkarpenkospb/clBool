@@ -1,9 +1,7 @@
+#include <program.hpp>
 #include "coo_kronecker_product.hpp"
 
-#include "../library_classes/controls.hpp"
-#include "../library_classes/matrix_coo.hpp"
-#include "../library_classes/program.hpp"
-#include "../cl/headers/coo_kronecker.h"
+#include "coo_kronecker.h"
 
 void kronecker_product(Controls &controls,
                        matrix_coo& matrix_out,

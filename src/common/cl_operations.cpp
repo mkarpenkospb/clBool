@@ -1,13 +1,8 @@
 #include "cl_operations.hpp"
 
-#include "../cl/headers/prefix_sum.h"
+#include "prefix_sum.h"
+#include "utils.hpp"
 
-//namespace {
-//    auto prefix_sum = program<cl::Buffer, cl::Buffer, cl::LocalSpaceArg, cl::Buffer, unsigned int>
-//            (prefix_sum_kernel, prefix_sum_kernel_length)
-//            .set_kernel_name();
-//
-//}
 
 void prefix_sum(Controls &controls,
                 cl::Buffer &array,

@@ -1,6 +1,6 @@
 #pragma once
-
-#include "../library_classes/matrix_coo.hpp"
+#include <controls.hpp>
+#include <matrix_coo.hpp>
 
 void kronecker_product(Controls &controls,
                        matrix_coo &matrix_out,

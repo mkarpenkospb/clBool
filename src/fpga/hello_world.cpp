@@ -1,7 +1,7 @@
 #include <iostream>
-#include "../library_classes/controls.hpp"
-#include "../library_classes/program.hpp"
-#include "../common/utils.hpp"
+#include "controls.hpp"
+#include "program.hpp"
+#include "utils.hpp"
 using namespace utils;
 
 int main() {

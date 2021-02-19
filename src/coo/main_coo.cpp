@@ -1,4 +1,4 @@
-#include "../test/coo_tests.hpp"
+#include "coo_tests.hpp"
 
 int main() {
 //    testBitonicSort();

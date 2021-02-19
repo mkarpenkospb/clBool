@@ -11,11 +11,15 @@ if(UNIX)
     set(OpenCL_LIBRARY "/opt/intelFPGA_pro/17.1/hld/host/linux64/lib/libOpenCL.so.1")
 endif(UNIX)
 set(OpenCL_INCLUDE_DIR "libs/clew")
-set(Library_classes "src/library_classes")
+set(LIB_CLASSES "src/library_classes")
+set(COMMON "src/common")
+set(HEADERS "src/cl/headers")
+set(TESTS "src/test")
+set(COO "src/coo")
 
 # Handle OpenCL
 find_package(OpenCL REQUIRED)
-include_directories(${OpenCL_INCLUDE_DIR})
+include_directories(${OpenCL_INCLUDE_DIR} ${LIB_CLASSES} ${COMMON} ${HEADERS} ${TESTS} ${COO})
 #link_directories(${OpenCL_LIBRARY} ${BOARD_LIB})
 
 MESSAGE("${OpenCL_INCLUDE_DIR}")

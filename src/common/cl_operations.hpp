@@ -1,10 +1,7 @@
 #pragma once
 
-#include "../library_classes/controls.hpp"
-#include "../library_classes/matrix_coo.hpp"
-#include "../library_classes/matrix_dcsr.hpp"
-#include "../library_classes/program.hpp"
 
+#include <controls.hpp>
 
 void prefix_sum(Controls &controls,
                 cl::Buffer &array,

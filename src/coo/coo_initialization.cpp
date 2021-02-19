@@ -1,19 +1,12 @@
-#include <vector>
-#include <cstddef>
-#include <cstdint>
-
-
-#include "../common/utils.hpp"
-#include "../common/fast_random.h"
 #include "coo_initialization.hpp"
 
+#include <cstdint>
 #include <string>
-#include <sstream>
 #include <iostream>
-#include <fstream>
 #include <cmath>
+#include <utils.hpp>
 
-#include "../cl/headers/coo_bitonic_sort.h"
+#include "coo_bitonic_sort.h"
 
 void sort_arrays(Controls &controls, cl::Buffer &rows_gpu, cl::Buffer &cols_gpu, uint32_t n) {
     cl::Program program;

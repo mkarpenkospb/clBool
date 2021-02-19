@@ -1,8 +1,9 @@
+#include <program.hpp>
 #include "matrices_conversions.hpp"
 
-#include "../cl/headers/dscr_to_coo.h"
-#include "../cl/headers/prepare_positions.h"
-#include "../cl/headers/set_positions.h"
+#include "dscr_to_coo.h"
+#include "prepare_positions.h"
+#include "set_positions.h"
 
 matrix_coo dcsr_to_coo(Controls &controls, matrix_dcsr &a) {
     cl::Buffer c_rows_indices(controls.context, CL_MEM_READ_WRITE, sizeof(matrix_dcsr::index_type) * a.nnz());

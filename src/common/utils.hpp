@@ -1,11 +1,10 @@
 #pragma once
 
 #include <type_traits>
-#include "../library_classes/controls.hpp"
-#include "../library_classes/matrix_coo.hpp"
-#include "../library_classes/matrix_dcsr.hpp"
-#include "../library_classes/cpu_matrices.hpp"
-
+#include <matrix_dcsr.hpp>
+#include <cpu_matrices.hpp>
+#include "cl_includes.hpp"
+#include "controls.hpp"
 
 namespace utils {
     template<typename, typename = std::void_t<>>
@@ -17,8 +16,6 @@ namespace utils {
             typename T::value_type>> : std::true_type { };
 
     void compare_matrices(Controls &controls, matrix_dcsr m_gpu, matrix_dcsr_cpu m_cpu);
-
-    using cpu_buffer = std::vector<uint32_t>;
 
     void fill_random_buffer(cpu_buffer &buf, uint32_t seed = -1);
 

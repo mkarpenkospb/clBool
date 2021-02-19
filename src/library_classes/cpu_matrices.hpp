@@ -1,4 +1,7 @@
 #pragma once
+#include <utility>
+#include <cstdint>
+#include <vector>
 
 using coordinates = std::pair<uint32_t, uint32_t>;
 using matrix_coo_cpu_pairs = std::vector<coordinates>;

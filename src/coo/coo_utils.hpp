@@ -1,14 +1,11 @@
 #pragma once
 
-#include <vector>
-#include "../library_classes/controls.hpp"
-#include "../library_classes/matrix_coo.hpp"
-#include "../library_classes/matrix_dcsr.hpp"
-#include "../library_classes/cpu_matrices.hpp"
-#include "../common/utils.hpp"
+
+#include <controls.hpp>
+#include <matrix_coo.hpp>
+#include "cpu_matrices.hpp"
 
 namespace coo_utils {
-
     void check_correctness(const cpu_buffer &rows, const cpu_buffer &cols);
 
     void fill_random_matrix(cpu_buffer &rows, cpu_buffer &cols, uint32_t max_size = 1024);

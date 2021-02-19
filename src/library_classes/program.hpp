@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../common/utils.hpp"
+#include "utils.hpp"
 
 template <typename ... Args>
 class program {
