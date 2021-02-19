@@ -7,9 +7,9 @@
 
 #define GROUP_SIZE 256
 
-__kernel void aplusb(__global const float* a,
-                     __global const float* b,
-                     __global       float* c,
+__kernel void aplusb(__global float* restrict a,
+                     __global float* restrict b,
+                     __global float* restrict c,
                      unsigned int n)
 {
     const unsigned int index = get_global_id(0);
