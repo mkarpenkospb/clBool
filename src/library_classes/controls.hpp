@@ -39,7 +39,7 @@ struct Controls {
 #ifdef WIN
         program_name += ".cl";
 #else
-        fileName += ".aocx";
+        program_name += ".aocx";
 #endif
         std::ifstream input(FPGA_BINARIES +  program_name, std::ios::binary);
         std::vector<char> buffer(std::istreambuf_iterator<char>(input), {});

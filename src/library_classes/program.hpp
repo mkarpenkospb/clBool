@@ -65,7 +65,7 @@ public:
         _built = false;
         return *this;
     }
-
+#ifdef WIN
     program& add_option(std::string name, std::string value = "") {
         options_str += (" -D " + name + "=" + value);
         _built = false;
@@ -78,7 +78,7 @@ public:
         _built = false;
         return *this;
     }
-
+#endif
     explicit program(std::string program_name)
             : _program_name(program_name)
     {}
