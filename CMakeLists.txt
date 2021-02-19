@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.1)
 project(sparse-boolean-matrix-operations)
 
 add_subdirectory(libs)
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17")
 
 if (WIN32)
     set(OpenCL_LIBRARY "C:/Windows/System32/OpenCL.dll")
