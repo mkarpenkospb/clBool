@@ -65,20 +65,24 @@ public:
         _built = false;
         return *this;
     }
-#ifdef WIN
+
     program& add_option(std::string name, std::string value = "") {
+#ifdef WIN
         options_str += (" -D " + name + "=" + value);
         _built = false;
+#endif
         return *this;
     }
 
     template<typename OptionType>
     program& add_option(std::string name, const OptionType &value) {
+#ifdef WIN
         options_str += (" -D " + name + "=" + std::to_string(value));
         _built = false;
+#endif
         return *this;
     }
-#endif
+
     explicit program(std::string program_name)
             : _program_name(program_name)
     {}
