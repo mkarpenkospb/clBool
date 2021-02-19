@@ -5,7 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include <direct.h>
+#include <io.h>
 
 
 struct Controls {
