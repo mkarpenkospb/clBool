@@ -43,7 +43,10 @@ private:
             cl_program.build(options.str().c_str());
 #else
             cl_program = controls.create_program_from_binaries(_program_name);
+    #ifdef WIN
             cl_program.build();
+    #endif
+
 #endif
             _built = true;
         } catch (const cl::Error &e) {
