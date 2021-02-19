@@ -8,7 +8,7 @@ int main() {
     std::cout <<"Hello world\n";
     Controls controls = create_controls();
 
-    uint32_t n = 43793;
+    uint32_t n = controls.block_size * 234;
     cpu_buffer_f a(n);
     cpu_buffer_f b(n);
     cpu_buffer_f c(n);

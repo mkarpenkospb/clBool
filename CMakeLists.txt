@@ -131,4 +131,5 @@ add_executable(fpga_hello src/fpga/hello_world.cpp
         src/common/utils.cpp
         src/cl/fpga/simple_addition.cl
         )
+
 target_link_libraries(fpga_hello ${OpenCL_LIBRARY})

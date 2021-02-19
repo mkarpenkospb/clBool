@@ -42,12 +42,17 @@ struct Controls {
     cl::Program create_program_from_binaries(std::string program_name) const {
 #ifdef WIN
         program_name += ".cl";
+        std::ifstream input(FPGA_BINARIES +  program_name, std::ios::binary);
+        std::vector<char> buffer(std::istreambuf_iterator<char>(input), {});
+        return cl::Program(context, {{buffer.data(), buffer.size()}});
+
 #else
         program_name += ".aocx";
-#endif
         std::ifstream input(FPGA_BINARIES +  program_name, std::ios::binary);
         std::vector<unsigned char> buffer(std::istreambuf_iterator<char>(input), {});
         return cl::Program(context, {device}, {buffer});
+#endif
+
     }
 
 };
