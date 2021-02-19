@@ -76,7 +76,6 @@ void reduce_duplicates(Controls &controls,
 
     merged_rows = std::move(new_rows);
     merged_cols = std::move(new_cols);
-
 }
 
 
