@@ -46,8 +46,9 @@ struct Controls {
         program_name += ".aocx";
 #endif
         std::ifstream input(FPGA_BINARIES +  program_name, std::ios::binary);
-        std::vector<char> buffer(std::istreambuf_iterator<char>(input), {});
-        return cl::Program(context, {{buffer.data(), buffer.size()}});
+        std::vector<unsigned char> buffer(std::istreambuf_iterator<char>(input), {});
+        uint32_t size = buffer.size();
+        return cl::Program(context, {device}, {{buffer.data(), (unsigned char *)(&size)}});
     }
 
 };
