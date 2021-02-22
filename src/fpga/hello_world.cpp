@@ -21,7 +21,7 @@ int main() {
     cl::Buffer b_gpu(controls.queue, b.begin(), b.end(), false);
     cl::Buffer c_gpu(controls.context, CL_MEM_READ_WRITE, sizeof(cpu_buffer_f::value_type) * c.size());
 
-    auto p = program<cl::Buffer, cl::Buffer, cl::Buffer, cl_uint>("simple_addition_branch")
+    auto p = program<cl::Buffer, cl::Buffer, cl::Buffer, cl_uint>("simple_addition")
             .set_kernel_name("aplusb")
             .set_needed_work_size(n);
 
