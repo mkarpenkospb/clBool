@@ -10,7 +10,7 @@ namespace utils {
 
     using cpu_buffer = std::vector<uint32_t>;
 
-    void fill_random_buffer(cpu_buffer &buf);
+    void fill_random_buffer(cpu_buffer &buf, uint32_t mod = 1);
 
 // https://stackoverflow.com/a/466242
     unsigned int ceil_to_power2(uint32_t v);
