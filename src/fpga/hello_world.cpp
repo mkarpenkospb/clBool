@@ -12,8 +12,8 @@ int main() {
     uint32_t n = 25355321;
 
     std::vector<char> buffer(4*n);
-    ptrdiff_t start = reinterpret_cast<size_t>(&buffer[0]);
-    uint32_t byteAlignment = 8;
+    uint64_t start = reinterpret_cast<uint64_t>(&buffer[0]);
+    uint64_t byteAlignment = 8;
     start = ((start >> byteAlignment) + 1) << byteAlignment;
     float *ptrStart = reinterpret_cast<float *>(start);
 
