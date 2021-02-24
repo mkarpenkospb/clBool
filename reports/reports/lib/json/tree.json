@@ -1,0 +1,29 @@
+{
+  "nodes":
+  [
+    {
+      "name":"aplusb"
+      , "id":3401072360
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"aplusb.B0"
+          , "id":3401216400
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 0"
+              , "id":3403441776
+              , "type":"cluster"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  , "links":
+  [
+  ]
+}

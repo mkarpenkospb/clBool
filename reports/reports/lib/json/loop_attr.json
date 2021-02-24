@@ -1,0 +1,40 @@
+{
+  "name":"loop_attributes"
+  , "id":4294967295
+  , "nodes":
+  [
+    {
+      "name":"aplusb"
+      , "id":3403043440
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
+            , "line":14
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"aplusb.B0"
+          , "id":3403065072
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"169.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+  ]
+}
