@@ -6,7 +6,7 @@ using namespace utils;
 
 int main() {
     std::cout <<"Hello world\n";
-    Controls controls = create_controls();
+//    Controls controls = create_controls();
     std::cout <<"success\n";
 //    uint32_t n = controls.block_size * 5000;
 //    cpu_buffer_f a(n);
