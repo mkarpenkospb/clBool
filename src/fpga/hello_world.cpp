@@ -34,5 +34,4 @@ int main() {
 
     compare_buffers(controls, c_gpu, c, n);
 
-    std::cout  << clP.getInfo<CL_PROGRAM_NUM_DEVICES>() << std::endl;
 }
