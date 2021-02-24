@@ -32,6 +32,7 @@ struct Controls {
     , async_queue(queue)
 #endif
     {
+        std::cout << "here" << std::endl;
         chdir(WORKING_DIR.c_str());
     }
 
