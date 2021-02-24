@@ -21,8 +21,8 @@
               [
                 [
                   {
-                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition.cl"
-                    , "line":20
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
+                    , "line":17
                   }
                 ]
               ]
@@ -31,10 +31,10 @@
                 {
                   "type":"table"
                   , "Width":"32 bits"
-                  , "Type":"Streaming"
+                  , "Type":"Burst-coalesced"
                   , "Stall-free":"No"
                   , "Start Cycle":"1"
-                  , "Latency":"1"
+                  , "Latency":"159"
                   , "Reference":
                   [
                     {
@@ -44,7 +44,7 @@
                       [
                         {
                           "guide":"Best Practices Guide : Load-Store Units"
-                          , "link":"https://www.altera.com/documentation/mwh1391807516407.html#yeo1491314105959"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
                         }
                       ]
                     }
@@ -60,8 +60,8 @@
               [
                 [
                   {
-                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition.cl"
-                    , "line":20
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
+                    , "line":17
                   }
                 ]
               ]
@@ -70,10 +70,10 @@
                 {
                   "type":"table"
                   , "Width":"32 bits"
-                  , "Type":"Streaming"
+                  , "Type":"Burst-coalesced"
                   , "Stall-free":"No"
                   , "Start Cycle":"1"
-                  , "Latency":"1"
+                  , "Latency":"159"
                   , "Reference":
                   [
                     {
@@ -83,7 +83,7 @@
                       [
                         {
                           "guide":"Best Practices Guide : Load-Store Units"
-                          , "link":"https://www.altera.com/documentation/mwh1391807516407.html#yeo1491314105959"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
                         }
                       ]
                     }
@@ -99,8 +99,8 @@
               [
                 [
                   {
-                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition.cl"
-                    , "line":20
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
+                    , "line":17
                   }
                 ]
               ]
@@ -109,10 +109,10 @@
                 {
                   "type":"table"
                   , "Width":"32 bits"
-                  , "Type":"Streaming"
+                  , "Type":"Burst-coalesced"
                   , "Stall-free":"No"
-                  , "Start Cycle":"9"
-                  , "Latency":"1"
+                  , "Start Cycle":"167"
+                  , "Latency":"2"
                   , "Reference":
                   [
                     {
@@ -122,7 +122,7 @@
                       [
                         {
                           "guide":"Best Practices Guide : Load-Store Units"
-                          , "link":"https://www.altera.com/documentation/mwh1391807516407.html#yeo1491314105959"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
                         }
                       ]
                     }
@@ -133,7 +133,7 @@
             , {
               "type":"inst"
               , "id":7
-              , "name":"begin"
+              , "name":"Begin"
               , "details":
               [
                 {
@@ -146,12 +146,12 @@
             , {
               "type":"inst"
               , "id":8
-              , "name":"end"
+              , "name":"End"
               , "details":
               [
                 {
                   "type":"table"
-                  , "Start Cycle":"10"
+                  , "Start Cycle":"169"
                   , "Latency":"1"
                 }
               ]
@@ -161,7 +161,7 @@
           [
             {
               "type":"table"
-              , "Latency":"10"
+              , "Latency":"169"
             }
           ]
         }
@@ -219,12 +219,12 @@
       , "to":6
     }
     , {
-      "from":6
-      , "to":9
-    }
-    , {
       "from":9
       , "to":5
+    }
+    , {
+      "from":6
+      , "to":9
     }
     , {
       "from":9

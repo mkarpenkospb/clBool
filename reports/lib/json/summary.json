@@ -21,13 +21,17 @@
             "type":"text"
             , "text":"Kernel type: NDRange"
           }
+          , {
+            "type":"text"
+            , "text":"The kernel does not use any work-group information (such as get_local_id() or get_group_id()).Local work-group size will be automatically modified to match global work-group size on launch.This is a hardware optimization."
+          }
         ]
         , "debug":
         [
           [
             {
-              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition.cl"
-              , "line":14
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
+              , "line":10
             }
           ]
         ]
@@ -38,19 +42,19 @@
   {
     "name":"Estimated Resource Usage"
     , "columns":
-    ["Kernel Name", "ALUTs ", "FFs  ", "RAMs ", "DSPs "]
+    ["Kernel Name", "ALUTs ", "FFs  ", "RAMs ", "DSPs ", "MLABs"]
     , "children":
     [
       {
         "name":"aplusb"
         , "data":
-        [3585, 3797, 40, 1]
+        [2849, 8721, 33, 1, 43]
         , "debug":
         [
           [
             {
-              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition.cl"
-              , "line":14
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
+              , "line":10
             }
           ]
         ]
@@ -60,30 +64,37 @@
         , "classes":
         ["summary-highlight", "nohover"]
         , "data":
-        [4121, 5284, 0, 0]
+        [4121, 5284, 0, 0, 0]
       }
       , {
         "name":"Board Interface"
         , "classes":
         ["summary-highlight", "nohover"]
         , "data":
-        [66800, 133600, 182, 0]
+        [66800, 133600, 182, 0, 0]
+      }
+      , {
+        "name":"System description ROM"
+        , "classes":
+        ["summary-highlight", "nohover"]
+        , "data":
+        [0, 67, 2, 0, 0]
       }
       , {
         "name":"Total"
         , "classes":
         ["summary-highlight", "nohover"]
         , "data":
-        [74506, 142748, 224, 1]
+        [73770, 147672, 217, 1, 43]
         , "data_percent":
-        [9.45988, 9.06221, 8.85026, 0.0658762]
+        [8.63413, 8.64185, 7.99853, 0.0658762]
       }
       , {
         "name":"Available"
         , "classes":
         ["summary-highlight", "nohover"]
         , "data":
-        [787600, 1575200, 2531, 1518]
+        [854400, 1708800, 2713, 1518, 0]
       }
     ]
   }
