@@ -9,7 +9,7 @@ int main() {
 
     Controls controls = create_controls(); //create_controls();
 
-    uint32_t n = controls.block_size * 5000;
+    uint32_t n = 25355321;
     cpu_buffer_f a(n);
     cpu_buffer_f b(n);
     cpu_buffer_f c(n);
