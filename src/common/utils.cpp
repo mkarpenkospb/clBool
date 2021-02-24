@@ -45,8 +45,13 @@ namespace utils {
         cl::Program program;
         cl::Device device;
         try {
+            std::cout << "1" << std::endl;
             cl::Platform::get(&platforms);
+            std::cout << "2" << std::endl;
+
             platforms[0].getDevices(CL_DEVICE_TYPE_ALL, &devices);
+            std::cout << "3" << std::endl;
+
             return Controls(devices[0]);
         } catch (const cl::Error &e) {
             std::stringstream exception;
