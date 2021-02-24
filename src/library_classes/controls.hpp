@@ -21,6 +21,7 @@ struct Controls {
     cl::CommandQueue queue;
     cl::CommandQueue async_queue;
     const uint32_t block_size = uint32_t(256);
+    Controls () = default;
 
     Controls(cl::Device& device)
 //            device(device)
