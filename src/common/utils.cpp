@@ -52,7 +52,7 @@ namespace utils {
             platforms[0].getDevices(CL_DEVICE_TYPE_ALL, &devices);
             std::cout << "3" << std::endl;
 
-            return Controls(devices[0]);
+//            return Controls(devices[0]);
         } catch (const cl::Error &e) {
             std::stringstream exception;
             exception << "\n" << e.what() << " : " << e.err() << "\n";
