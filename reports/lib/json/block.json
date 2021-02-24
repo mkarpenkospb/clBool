@@ -1,11 +1,11 @@
 {
-  "2326241680":
+  "3401216400":
   {
     "nodes":
     [
       {
         "name":"Cluster 0"
-        , "id":2328467056
+        , "id":3403441776
         , "start":"161.00"
         , "end":"167.00"
         , "details":
@@ -23,7 +23,7 @@
         [
           {
             "name":"Logic"
-            , "id":2328473568
+            , "id":3403448288
             , "details":
             [
               {
@@ -36,7 +36,7 @@
           }
           , {
             "name":"Exit"
-            , "id":2328480944
+            , "id":3403455664
             , "details":
             [
               {
@@ -53,82 +53,8 @@
         ]
       }
       , {
-        "name":"LD"
-        , "id":2328513168
-        , "start":"1.00"
-        , "end":"161.00"
-        , "details":
-        [
-          {
-            "type":"table"
-            , "Instruction":"Load"
-            , "Width":"32 bits"
-            , "LSU Style":"Burst-coalesced"
-            , "Stall-free":"No"
-            , "Global Memory":"Yes"
-            , "Start Cycle":"1"
-            , "Latency":"160"
-          }
-        ]
-        , "debug":
-        [
-          [
-            {
-              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
-              , "line":17
-            }
-          ]
-        ]
-        , "type":"inst"
-      }
-      , {
-        "name":"a"
-        , "id":2329133568
-        , "start":"1.00"
-        , "end":"1.00"
-        , "details":
-        [
-          {
-            "type":"table"
-            , "Instruction":"Input Synchronization for 'a'"
-            , "Start Cycle":"1"
-            , "Latency":"0"
-          }
-        ]
-        , "type":"inst"
-      }
-      , {
-        "name":"LD"
-        , "id":2329187920
-        , "start":"1.00"
-        , "end":"161.00"
-        , "details":
-        [
-          {
-            "type":"table"
-            , "Instruction":"Load"
-            , "Width":"32 bits"
-            , "LSU Style":"Burst-coalesced"
-            , "Stall-free":"No"
-            , "Global Memory":"Yes"
-            , "Start Cycle":"1"
-            , "Latency":"160"
-          }
-        ]
-        , "debug":
-        [
-          [
-            {
-              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
-              , "line":17
-            }
-          ]
-        ]
-        , "type":"inst"
-      }
-      , {
         "name":"ST"
-        , "id":2332746464
+        , "id":3407695600
         , "start":"167.00"
         , "end":"169.00"
         , "details":
@@ -156,115 +82,8 @@
         , "type":"inst"
       }
       , {
-        "name":"n"
-        , "id":2333497136
-        , "start":"1.00"
-        , "end":"1.00"
-        , "details":
-        [
-          {
-            "type":"table"
-            , "Instruction":"Input Synchronization for 'n'"
-            , "Start Cycle":"1"
-            , "Latency":"0"
-          }
-        ]
-        , "type":"inst"
-      }
-      , {
-        "name":"Ptr. Comp."
-        , "id":2333572080
-        , "start":"1.00"
-        , "end":"167.00"
-        , "details":
-        [
-          {
-            "type":"table"
-            , "Instruction":"Pointer Computation"
-            , "Start Cycle":"1"
-            , "Latency":"166"
-          }
-        ]
-        , "debug":
-        [
-          [
-            {
-              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
-              , "line":17
-            }
-          ]
-        ]
-        , "type":"inst"
-      }
-      , {
-        "name":"Compare"
-        , "id":2333579616
-        , "start":"1.00"
-        , "end":"1.00"
-        , "details":
-        [
-          {
-            "type":"table"
-            , "Instruction":"32-bit Integer Compare"
-            , "Start Cycle":"1"
-            , "Latency":"0"
-          }
-        ]
-        , "debug":
-        [
-          [
-            {
-              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
-              , "line":16
-            }
-          ]
-        ]
-        , "type":"inst"
-      }
-      , {
-        "name":"Ptr. Comp."
-        , "id":2333580672
-        , "start":"1.00"
-        , "end":"1.00"
-        , "details":
-        [
-          {
-            "type":"table"
-            , "Instruction":"Pointer Computation"
-            , "Start Cycle":"1"
-            , "Latency":"0"
-          }
-        ]
-        , "debug":
-        [
-          [
-            {
-              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
-              , "line":17
-            }
-          ]
-        ]
-        , "type":"inst"
-      }
-      , {
-        "name":"b"
-        , "id":2333592304
-        , "start":"1.00"
-        , "end":"1.00"
-        , "details":
-        [
-          {
-            "type":"table"
-            , "Instruction":"Input Synchronization for 'b'"
-            , "Start Cycle":"1"
-            , "Latency":"0"
-          }
-        ]
-        , "type":"inst"
-      }
-      , {
         "name":"And"
-        , "id":2333601200
+        , "id":3408471952
         , "start":"1.00"
         , "end":"1.00"
         , "details":
@@ -289,24 +108,62 @@
         , "type":"inst"
       }
       , {
-        "name":"c"
-        , "id":2333614144
+        "name":"LD"
+        , "id":3408473744
+        , "start":"1.00"
+        , "end":"161.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Burst-coalesced"
+            , "Stall-free":"No"
+            , "Global Memory":"Yes"
+            , "Start Cycle":"1"
+            , "Latency":"160"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
+              , "line":17
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":3408551344
         , "start":"1.00"
         , "end":"1.00"
         , "details":
         [
           {
             "type":"table"
-            , "Instruction":"Input Synchronization for 'c'"
+            , "Instruction":"32-bit Integer Compare"
             , "Start Cycle":"1"
             , "Latency":"0"
           }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
+              , "line":16
+            }
+          ]
         ]
         , "type":"inst"
       }
       , {
         "name":"Ptr. Comp."
-        , "id":2333670608
+        , "id":3408554672
         , "start":"1.00"
         , "end":"1.00"
         , "details":
@@ -329,16 +186,203 @@
         ]
         , "type":"inst"
       }
+      , {
+        "name":"Ptr. Comp."
+        , "id":3408555872
+        , "start":"1.00"
+        , "end":"167.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Pointer Computation"
+            , "Start Cycle":"1"
+            , "Latency":"166"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
+              , "line":17
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"c"
+        , "id":3408567680
+        , "start":"1.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'c'"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"b"
+        , "id":3408576368
+        , "start":"1.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'b'"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"LD"
+        , "id":3408583488
+        , "start":"1.00"
+        , "end":"161.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Burst-coalesced"
+            , "Stall-free":"No"
+            , "Global Memory":"Yes"
+            , "Start Cycle":"1"
+            , "Latency":"160"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
+              , "line":17
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Ptr. Comp."
+        , "id":3408588816
+        , "start":"1.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Pointer Computation"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
+              , "line":17
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"n"
+        , "id":3408621952
+        , "start":"1.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'n'"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"a"
+        , "id":3408625520
+        , "start":"1.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'a'"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
     ]
     , "links":
     [
       {
-        "from":2328473568
-        , "to":2328480944
+        "from":3403448288
+        , "to":3403455664
       }
       , {
-        "from":2328513168
-        , "to":2328473568
+        "from":3403455664
+        , "to":3407695600
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":3408471952
+        , "to":3408554672
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":3408471952
+        , "to":3408555872
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":3408471952
+        , "to":3408588816
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":3408473744
+        , "to":3403448288
         , "details":
         [
           {
@@ -348,8 +392,41 @@
         ]
       }
       , {
-        "from":2329133568
-        , "to":2333580672
+        "from":3408551344
+        , "to":3407695600
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":3408551344
+        , "to":3408473744
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":3408551344
+        , "to":3408583488
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":3408554672
+        , "to":3408473744
         , "details":
         [
           {
@@ -359,8 +436,41 @@
         ]
       }
       , {
-        "from":2329187920
-        , "to":2328473568
+        "from":3408555872
+        , "to":3407695600
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":3408567680
+        , "to":3408555872
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":3408576368
+        , "to":3408554672
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":3408583488
+        , "to":3403448288
         , "details":
         [
           {
@@ -370,8 +480,8 @@
         ]
       }
       , {
-        "from":2328480944
-        , "to":2332746464
+        "from":3408588816
+        , "to":3408583488
         , "details":
         [
           {
@@ -381,8 +491,8 @@
         ]
       }
       , {
-        "from":2333497136
-        , "to":2333579616
+        "from":3408621952
+        , "to":3408551344
         , "details":
         [
           {
@@ -392,118 +502,8 @@
         ]
       }
       , {
-        "from":2333572080
-        , "to":2332746464
-        , "details":
-        [
-          {
-            "type":"table"
-            , "Width":"64"
-          }
-        ]
-      }
-      , {
-        "from":2333579616
-        , "to":2328513168
-        , "details":
-        [
-          {
-            "type":"table"
-            , "Width":"1"
-          }
-        ]
-      }
-      , {
-        "from":2333579616
-        , "to":2329187920
-        , "details":
-        [
-          {
-            "type":"table"
-            , "Width":"1"
-          }
-        ]
-      }
-      , {
-        "from":2333579616
-        , "to":2332746464
-        , "details":
-        [
-          {
-            "type":"table"
-            , "Width":"1"
-          }
-        ]
-      }
-      , {
-        "from":2333580672
-        , "to":2329187920
-        , "details":
-        [
-          {
-            "type":"table"
-            , "Width":"64"
-          }
-        ]
-      }
-      , {
-        "from":2333592304
-        , "to":2333670608
-        , "details":
-        [
-          {
-            "type":"table"
-            , "Width":"64"
-          }
-        ]
-      }
-      , {
-        "from":2333601200
-        , "to":2333572080
-        , "details":
-        [
-          {
-            "type":"table"
-            , "Width":"64"
-          }
-        ]
-      }
-      , {
-        "from":2333601200
-        , "to":2333580672
-        , "details":
-        [
-          {
-            "type":"table"
-            , "Width":"64"
-          }
-        ]
-      }
-      , {
-        "from":2333601200
-        , "to":2333670608
-        , "details":
-        [
-          {
-            "type":"table"
-            , "Width":"64"
-          }
-        ]
-      }
-      , {
-        "from":2333614144
-        , "to":2333572080
-        , "details":
-        [
-          {
-            "type":"table"
-            , "Width":"64"
-          }
-        ]
-      }
-      , {
-        "from":2333670608
-        , "to":2328513168
+        "from":3408625520
+        , "to":3408588816
         , "details":
         [
           {

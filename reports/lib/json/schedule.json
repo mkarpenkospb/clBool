@@ -1,11 +1,11 @@
 {
-  "2326097640":
+  "3401072360":
   {
     "nodes":
     [
       {
         "name":"aplusb.B0"
-        , "id":2326241680
+        , "id":3401216400
         , "start":"0"
         , "end":"169"
         , "details":
@@ -18,8 +18,81 @@
         , "children":
         [
           {
+            "name":"a"
+            , "id":3408625520
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'a'"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"n"
+            , "id":3408621952
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'n'"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":3408551344
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
+                  , "line":16
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"b"
+            , "id":3408576368
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'b'"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
             "name":"c"
-            , "id":2333614144
+            , "id":3408567680
             , "start":"1"
             , "end":"1"
             , "details":
@@ -35,7 +108,7 @@
           }
           , {
             "name":"And"
-            , "id":2333601200
+            , "id":3408471952
             , "start":"1"
             , "end":"1"
             , "details":
@@ -61,48 +134,7 @@
           }
           , {
             "name":"Ptr. Comp."
-            , "id":2333572080
-            , "start":"1"
-            , "end":"167"
-            , "details":
-            [
-              {
-                "type":"table"
-                , "Instruction":"Pointer Computation"
-                , "Start Cycle":"1"
-                , "Latency":"166"
-              }
-            ]
-            , "debug":
-            [
-              [
-                {
-                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
-                  , "line":17
-                }
-              ]
-            ]
-            , "type":"inst"
-          }
-          , {
-            "name":"b"
-            , "id":2333592304
-            , "start":"1"
-            , "end":"1"
-            , "details":
-            [
-              {
-                "type":"table"
-                , "Instruction":"Input Synchronization for 'b'"
-                , "Start Cycle":"1"
-                , "Latency":"0"
-              }
-            ]
-            , "type":"inst"
-          }
-          , {
-            "name":"Ptr. Comp."
-            , "id":2333670608
+            , "id":3408588816
             , "start":"1"
             , "end":"1"
             , "details":
@@ -120,47 +152,6 @@
                 {
                   "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
                   , "line":17
-                }
-              ]
-            ]
-            , "type":"inst"
-          }
-          , {
-            "name":"n"
-            , "id":2333497136
-            , "start":"1"
-            , "end":"1"
-            , "details":
-            [
-              {
-                "type":"table"
-                , "Instruction":"Input Synchronization for 'n'"
-                , "Start Cycle":"1"
-                , "Latency":"0"
-              }
-            ]
-            , "type":"inst"
-          }
-          , {
-            "name":"Compare"
-            , "id":2333579616
-            , "start":"1"
-            , "end":"1"
-            , "details":
-            [
-              {
-                "type":"table"
-                , "Instruction":"32-bit Integer Compare"
-                , "Start Cycle":"1"
-                , "Latency":"0"
-              }
-            ]
-            , "debug":
-            [
-              [
-                {
-                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
-                  , "line":16
                 }
               ]
             ]
@@ -168,7 +159,7 @@
           }
           , {
             "name":"LD"
-            , "id":2328513168
+            , "id":3408583488
             , "start":"1"
             , "end":"161"
             , "details":
@@ -196,24 +187,33 @@
             , "type":"inst"
           }
           , {
-            "name":"a"
-            , "id":2329133568
+            "name":"Ptr. Comp."
+            , "id":3408555872
             , "start":"1"
-            , "end":"1"
+            , "end":"167"
             , "details":
             [
               {
                 "type":"table"
-                , "Instruction":"Input Synchronization for 'a'"
+                , "Instruction":"Pointer Computation"
                 , "Start Cycle":"1"
-                , "Latency":"0"
+                , "Latency":"166"
               }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
+                  , "line":17
+                }
+              ]
             ]
             , "type":"inst"
           }
           , {
             "name":"Ptr. Comp."
-            , "id":2333580672
+            , "id":3408554672
             , "start":"1"
             , "end":"1"
             , "details":
@@ -238,7 +238,7 @@
           }
           , {
             "name":"LD"
-            , "id":2329187920
+            , "id":3408473744
             , "start":"1"
             , "end":"161"
             , "details":
@@ -267,7 +267,7 @@
           }
           , {
             "name":"Cluster 0"
-            , "id":2328467056
+            , "id":3403441776
             , "start":"161"
             , "end":"167"
             , "details":
@@ -285,7 +285,7 @@
             [
               {
                 "name":"f32 +"
-                , "id":2333631008
+                , "id":3404743904
                 , "start":"161"
                 , "end":"164"
                 , "details":
@@ -310,7 +310,7 @@
               }
               , {
                 "name":"Exit"
-                , "id":2333598656
+                , "id":3408573440
                 , "start":"164"
                 , "end":"167"
                 , "details":
@@ -330,7 +330,7 @@
           }
           , {
             "name":"ST"
-            , "id":2332746464
+            , "id":3407695600
             , "start":"167"
             , "end":"169"
             , "details":
