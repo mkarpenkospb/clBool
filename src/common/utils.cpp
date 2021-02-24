@@ -58,6 +58,7 @@ namespace utils {
             exception << "\n" << e.what() << " : " << e.err() << "\n";
             throw std::runtime_error(exception.str());
         }
+        return Controls();
     }
 
 

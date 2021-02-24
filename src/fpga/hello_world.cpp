@@ -7,7 +7,7 @@ using namespace utils;
 int main() {
     std::cout <<"Hello world\n";
     std::cout << round_to_power2(4) << std::endl;
-//    create_controls();
+    create_controls();
     Controls controls = Controls(); //create_controls();
     std::cout <<"success\n";
 //    uint32_t n = controls.block_size * 5000;
