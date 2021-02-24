@@ -47,7 +47,7 @@ namespace utils {
             cl::Platform::get(&platforms);
             std::cout << "2" << std::endl;
             platforms[0].getDevices(CL_DEVICE_TYPE_ALL, &devices);
-            std::cout << "3" << std::endl;
+            std::cout << devices.size() << std::endl;
         } catch (const cl::Error &e) {
             std::stringstream exception;
             exception << "\n" << e.what() << " : " << e.err() << "\n";
@@ -87,7 +87,7 @@ namespace utils {
         std::cout << "CL_PLATFORM_NAME: " << platform.getInfo<CL_PLATFORM_NAME>() << std::endl;
         std::cout << "CL_PLATFORM_VENDOR: " << platform.getInfo<CL_PLATFORM_VENDOR>() << std::endl;
 
-        platform.getDevices(CL_DEVICE_TYPE_DEFAULT, &devices);
+        platform.getDevices(CL_DEVICE_TYPE_ALL, &devices);
         for (const auto &dev: devices) {
             printDeviceInfo(dev);
         }
