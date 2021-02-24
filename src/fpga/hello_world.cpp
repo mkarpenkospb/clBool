@@ -13,9 +13,12 @@ int main() {
 
     std::vector<char> buffer(4*n);
     uint64_t start = reinterpret_cast<uint64_t>(&buffer[0]);
+    printf("Origin address: [%#010x, %#010x]\n",start, &buffer[4*n - 1]);
     uint64_t byteAlignment = 8;
     start = ((start >> byteAlignment) + 1) << byteAlignment;
     float *ptrStart = reinterpret_cast<float *>(start);
+
+    printf("Start addresses: %#010x, %#010x, %#010x\n", ptrStart, ptrStart + (n + 10), ptrStart + 2*(n + 10));
 
 //    cpu_buffer_f a(n);
 //    cpu_buffer_f b(n);
