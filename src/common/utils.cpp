@@ -42,23 +42,18 @@ namespace utils {
         std::vector<cl::Platform> platforms;
         std::vector<cl::Device> devices;
         std::vector<cl::Kernel> kernels;
-        cl::Program program;
-        cl::Device device;
         try {
-//            std::cout << "1" << std::endl;
-//            cl::Platform::get(&platforms);
-//            std::cout << "2" << std::endl;
-//
-//            platforms[0].getDevices(CL_DEVICE_TYPE_ALL, &devices);
-//            std::cout << "3" << std::endl;
-
-//            return Controls(devices[0]);
+            std::cout << "1" << std::endl;
+            cl::Platform::get(&platforms);
+            std::cout << "2" << std::endl;
+            platforms[0].getDevices(CL_DEVICE_TYPE_ALL, &devices);
+            std::cout << "3" << std::endl;
         } catch (const cl::Error &e) {
             std::stringstream exception;
             exception << "\n" << e.what() << " : " << e.err() << "\n";
             throw std::runtime_error(exception.str());
         }
-        return Controls();
+        return Controls(devices[0]);
     }
 
 

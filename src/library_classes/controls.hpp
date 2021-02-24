@@ -16,30 +16,23 @@ struct Controls {
     std::string WORKING_DIR = "/root/Desktop/GitReps/sparse_boolean_matrix_operations";
 #endif
     std::string FPGA_BINARIES = "src/cl/fpga/";
-    cl::Device device;
-    cl::Context context;
+    const cl::Device device;
+    const cl::Context context;
     cl::CommandQueue queue;
     cl::CommandQueue async_queue;
     const uint32_t block_size = uint32_t(256);
-    Controls () = default;
 
-    Controls(cl::Device& device)
-//            device(device)
-//    , context(cl::Context(device))
-//    , queue(cl::CommandQueue(context))
+    Controls(cl::Device& device) :
+            device(device)
+    , context(cl::Context(device))
+    , queue(cl::CommandQueue(context))
 #ifdef WIN
-    : async_queue(cl::CommandQueue(context, CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE))
+    , async_queue(cl::CommandQueue(context, CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE))
 #else
-//    , async_queue(queue)
+    , async_queue(queue)
 #endif
     {
-        std::cout << "here1" << std::endl;
-        this->device = device;
-        std::cout << "here2" << std::endl;
-        context = cl::Context(device);
-        std::cout << "her3" << std::endl;
-        queue = cl::CommandQueue(context);
-        std::cout << "here4" << std::endl;
+        std::cout << "here" << std::endl;
         chdir(WORKING_DIR.c_str());
     }
 
