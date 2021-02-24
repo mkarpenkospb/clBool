@@ -10,9 +10,23 @@ int main() {
     Controls controls = create_controls(); //create_controls();
 
     uint32_t n = 25355321;
-    cpu_buffer_f a(n);
-    cpu_buffer_f b(n);
-    cpu_buffer_f c(n);
+
+    std::vector<char> buffer(4*n);
+    ptrdiff_t start = reinterpret_cast<size_t>(&buffer[0]);
+    uint32_t byteAlignment = 8;
+    start = ((start >> byteAlignment) + 1) << byteAlignment;
+    float *ptrStart = reinterpret_cast<float *>(start);
+
+//    cpu_buffer_f a(n);
+//    cpu_buffer_f b(n);
+//    cpu_buffer_f c(n);
+    cpu_buffer_f *pa = new (ptrStart) cpu_buffer_f(n);
+    cpu_buffer_f *pb = new (ptrStart + (n + 10)) cpu_buffer_f(n);
+    cpu_buffer_f *pc = new (ptrStart + 2*(n + 10)) cpu_buffer_f(n);
+
+    cpu_buffer_f a = *pa;
+    cpu_buffer_f b = *pb;
+    cpu_buffer_f c = *pc;
     fill_random_buffer(a, 165131233);
     fill_random_buffer(b, 176713);
     print_cpu_buffer(a, 10);
