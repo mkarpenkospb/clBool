@@ -45,7 +45,7 @@ int main() {
     t.restart();
     cl::Buffer a_gpu(controls.queue, a.begin(), a.end(), false);
     cl::Buffer b_gpu(controls.queue, b.begin(), b.end(), false);
-    cl::Buffer c_gpu(controls.context, CL_MEM_READ_WRITE, sizeof(cpu_buffer_f::value_type) * c.size());
+    cl::Buffer c_gpu(controls.context, CL_MEM_WRITE_ONLY, sizeof(cpu_buffer_f::value_type) * c.size());
     time = t.elapsed();
     if (DEBUG_ENABLE) *logger << "load data to device in " << time << " \n";
 

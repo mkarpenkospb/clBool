@@ -42,9 +42,12 @@ private:
             options <<  options_str << " -D RUN " << " -D GROUP_SIZE=" << _block_size;
             cl_program.build(options.str().c_str());
 #else
+            t.restart();
             cl_program = controls.create_program_from_binaries(_program_name);
 //    #ifdef WIN
             cl_program.build();
+            bool time = t.elapsed();
+            if (DEBUG_ENABLE) *logger << "built in " << time << " \n";
 //    #endif
 
 #endif
