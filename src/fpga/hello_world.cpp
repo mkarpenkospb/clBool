@@ -14,7 +14,7 @@ int main() {
 
     Controls controls = create_controls(); //create_controls();
 
-    uint32_t n = 25355321;
+    uint32_t n = controls.block_size * 5000;
 
 //    std::vector<float> buffer(4*n);
 //    uint64_t start = reinterpret_cast<uint64_t>(&buffer[0]);
