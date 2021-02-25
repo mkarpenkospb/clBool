@@ -42,12 +42,10 @@ private:
             options <<  options_str << " -D RUN " << " -D GROUP_SIZE=" << _block_size;
             cl_program.build(options.str().c_str());
 #else
-            t.restart();
+
             cl_program = controls.create_program_from_binaries(_program_name);
 //    #ifdef WIN
             cl_program.build();
-            bool time = t.elapsed();
-            if (DEBUG_ENABLE) *logger << "built in " << time << " \n";
 //    #endif
 
 #endif
@@ -123,12 +121,23 @@ public:
         check_completeness();
         try {
             if (!_built) {
+                t.restart();
                 build_cl_program(controls);
                 _built = true;
+                double time = t.elapsed();
+                if (DEBUG_ENABLE) *logger << "kernel created in " << time << " \n";
             }
+            t.restart();
             cl::Kernel kernel(cl_program, _kernel_name.c_str());
+            double time = t.elapsed();
+            if (DEBUG_ENABLE) *logger << "kernel created in " << time << " \n";
 
+
+            t.restart();
             kernel_type functor(kernel);
+            time = t.elapsed();
+            if (DEBUG_ENABLE) *logger << "functor created in " << time << " \n";
+
 
             cl::EnqueueArgs eargs(_async ? controls.async_queue : controls.queue,
                                   cl::NDRange(utils::calculate_global_size(_block_size, _needed_work_size)),
