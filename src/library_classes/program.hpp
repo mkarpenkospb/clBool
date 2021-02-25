@@ -125,7 +125,7 @@ public:
                 build_cl_program(controls);
                 _built = true;
                 double time = t.elapsed();
-                if (DEBUG_ENABLE) *logger << "kernel created in " << time << " \n";
+                if (DEBUG_ENABLE) *logger << "built created in " << time << " \n";
             }
 //            t.restart();
 //            cl::Kernel kernel(cl_program, _kernel_name.c_str());
