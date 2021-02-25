@@ -4,6 +4,10 @@
 #include "utils.hpp"
 using namespace utils;
 
+uint64_t alignBy(uint64_t addr, uint64_t offset) {
+    return ((addr >> offset) + 1) << offset;
+}
+
 int main() {
     std::cout <<"Hello world\n";
 
@@ -11,12 +15,14 @@ int main() {
 
     uint32_t n = 25355321;
 
-    std::vector<char> buffer(4*n);
+    std::vector<float> buffer(4*n);
     uint64_t start = reinterpret_cast<uint64_t>(&buffer[0]);
     printf("Origin address: [%#010x, %#010x]\n",start, &buffer[4*n - 1]);
     uint64_t byteAlignment = 8;
-    start = ((start >> byteAlignment) + 1) << byteAlignment;
+    start = alignBy(start, byteAlignment);
     float *ptrStart = reinterpret_cast<float *>(start);
+    float *ptrStart2 =reinterpret_cast<float *>(alignBy(start + (n + 10) * sizeof(float), byteAlignment));
+    float *ptrStart3 =reinterpret_cast<float *>(alignBy(start + 2 * (n + 10) * sizeof(float), byteAlignment));
 
     printf("Start addresses: %#010x, %#010x, %#010x\n", ptrStart, ptrStart + (n + 10), ptrStart + 2*(n + 10));
 
@@ -24,8 +30,8 @@ int main() {
 //    cpu_buffer_f b(n);
 //    cpu_buffer_f c(n);
     cpu_buffer_f *pa = new (ptrStart) cpu_buffer_f(n);
-    cpu_buffer_f *pb = new (ptrStart + (n + 10)) cpu_buffer_f(n);
-    cpu_buffer_f *pc = new (ptrStart + 2*(n + 10)) cpu_buffer_f(n);
+    cpu_buffer_f *pb = new (ptrStart2) cpu_buffer_f(n);
+    cpu_buffer_f *pc = new (ptrStart3) cpu_buffer_f(n);
 
     cpu_buffer_f a = *pa;
     cpu_buffer_f b = *pb;
