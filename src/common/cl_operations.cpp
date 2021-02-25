@@ -10,7 +10,11 @@ void prefix_sum(Controls &controls,
                 uint32_t array_size) {
     cl::Program program;
     try {
+#ifndef FPGA
         program = controls.create_program_from_source(prefix_sum_kernel, prefix_sum_kernel_length);
+#else
+        program = controls.create_program_from_binaries("prefix_sum");
+#endif
         uint32_t block_size = controls.block_size;
 
         std::stringstream options;

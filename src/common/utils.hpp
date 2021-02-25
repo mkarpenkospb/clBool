@@ -186,7 +186,6 @@ namespace utils {
     void compare_buffers(Controls &controls,
                             const cl::Buffer &buffer_g, const std::vector<T> &buffer_c, uint32_t size,
                             std::string name = "") {
-//        void *allocator = _aligned_malloc(sizeof(T), 64);
         using buf = std::vector<T, aligned_allocator<T, 64>>;
         static float epsilon = 0.00001;
         buf cpu_copy(size);
@@ -196,7 +195,7 @@ namespace utils {
 
         controls.queue.enqueueReadBuffer(buffer_g, CL_TRUE, 0, sizeof(typename buf::value_type) * cpu_copy.size(),
                                          cpu_copy.data(), nullptr, &ev);
-
+        ev.wait();
         double time = t.elapsed();
         if (DEBUG_ENABLE) *logger << "read buffer in " << time << " \n";
 
