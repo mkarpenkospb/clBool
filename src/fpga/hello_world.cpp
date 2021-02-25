@@ -64,10 +64,10 @@ int main() {
     if (DEBUG_ENABLE) *logger << "run CPU in " << time << " \n";
 
     t.restart();
-    cl::Event ev = p.run(controls, a_gpu, b_gpu, c_gpu, n);
+    cl::Event ev = p.run(controls, a_gpu, b_gpu, c_gpu);
     ev.wait();
     time = t.elapsed();
     if (DEBUG_ENABLE) *logger << "run DEVICE in " << time << " \n";
 
-    compare_buffers(controls, c_gpu, c);
+    compare_buffers(controls, c_gpu, c, n);
 }
