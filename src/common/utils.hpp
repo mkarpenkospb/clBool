@@ -190,7 +190,7 @@ namespace utils {
         using buf = std::vector<T, aligned_allocator<T, 64>>;
         static float epsilon = 0.00001;
         buf cpu_copy(size);
-
+        timer t;
         t.restart();
         cl::Event ev;
 

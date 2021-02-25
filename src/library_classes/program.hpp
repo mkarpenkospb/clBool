@@ -118,6 +118,7 @@ public:
     }
 
     cl::Event run(Controls &controls, Args ... args) {
+        timer t;
         check_completeness();
         try {
             if (!_built) {
@@ -126,11 +127,7 @@ public:
                 _built = true;
                 double time = t.elapsed();
                 if (DEBUG_ENABLE) *logger << "built created in " << time << " \n";
-            }
-//            t.restart();
-//            cl::Kernel kernel(cl_program, _kernel_name.c_str());
-//            double time = t.elapsed();
-//            if (DEBUG_ENABLE) *logger << "kernel created in " << time << " \n";
+            };
 
 
             t.restart();
