@@ -14,7 +14,7 @@ int main() {
 
     Controls controls = create_controls(); //create_controls();
 
-    uint32_t n = controls.block_size * 5000;
+    uint32_t n = 25000000;
 
 //    std::vector<float> buffer(4*n);
 //    uint64_t start = reinterpret_cast<uint64_t>(&buffer[0]);
@@ -50,8 +50,8 @@ int main() {
     if (DEBUG_ENABLE) *logger << "load data to device in " << time << " \n";
 
     t.restart();
-    auto p = program<cl::Buffer, cl::Buffer, cl::Buffer, cl_uint>("simple_addition_branch")
-            .set_kernel_name("aplusb")
+    auto p = program<cl::Buffer, cl::Buffer, cl::Buffer>("vector_add")
+            .set_kernel_name("vector_add")
             .set_needed_work_size(n);
     time = t.elapsed();
     if (DEBUG_ENABLE) *logger << "load program in " << time << " \n";
@@ -64,7 +64,7 @@ int main() {
     if (DEBUG_ENABLE) *logger << "run CPU in " << time << " \n";
 
     t.restart();
-    cl::Event ev = p.run(controls, a_gpu, b_gpu, c_gpu, n);
+    cl::Event ev = p.run(controls, a_gpu, b_gpu, c_gpu);
     ev.wait();
     time = t.elapsed();
     if (DEBUG_ENABLE) *logger << "run DEVICE in " << time << " \n";
