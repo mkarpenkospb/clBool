@@ -50,7 +50,7 @@ int main() {
     if (DEBUG_ENABLE) *logger << "load data to device in " << time << " \n";
 
     t.restart();
-    auto p = program<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t>("vector_add")
+    auto p = program<cl::Buffer, cl::Buffer, cl::Buffer>("vector_add")
             .set_kernel_name("vector_add")
             .set_needed_work_size(n);
     time = t.elapsed();
@@ -69,5 +69,5 @@ int main() {
     time = t.elapsed();
     if (DEBUG_ENABLE) *logger << "run DEVICE in " << time << " \n";
 
-    compare_buffers(controls, c_gpu, c, n);
+    compare_buffers(controls, c_gpu, c);
 }
