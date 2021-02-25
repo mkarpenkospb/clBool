@@ -50,15 +50,23 @@ struct Controls {
         timer localt;
         program_name += ".aocx";
         std::cout << program_name << std::endl;
+        std::string file = FPGA_BINARIES +  program_name;
+
 
         localt.start();
-        std::ifstream input(FPGA_BINARIES +  program_name, std::ios::binary);
-        double time = localt.elapsed();
-        if (DEBUG_ENABLE) *logger << "read input in " << time << "\n";
 
-        localt.restart();
-        std::vector<unsigned char> buffer(std::istreambuf_iterator<char>(input), {});
-        time = localt.elapsed();
+        //https://stackoverflow.com/a/6755132
+        std::ifstream is(file);
+        is.seekg(0, std::ios_base::end);
+        std::size_t size=is.tellg();
+        is.seekg(0, std::ios_base::beg);
+        std::vector<unsigned char> buffer(size/sizeof(unsigned char));
+        is.read((char*) &buffer[0], size);
+        // Close the file
+        is.close();
+
+
+        double time = localt.elapsed();
         if (DEBUG_ENABLE) *logger << "create buffer with binaries in " << time << "\n";
 
         return cl::Program(context, {device}, {buffer});
