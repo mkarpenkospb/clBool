@@ -30,7 +30,7 @@
         [
           [
             {
-              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition.cl"
               , "line":10
             }
           ]
@@ -48,12 +48,12 @@
       {
         "name":"aplusb"
         , "data":
-        [2849, 8721, 33, 1, 43]
+        [2789, 8693, 32, 1, 43]
         , "debug":
         [
           [
             {
-              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition.cl"
               , "line":10
             }
           ]
@@ -71,7 +71,7 @@
         , "classes":
         ["summary-highlight", "nohover"]
         , "data":
-        [66800, 133600, 182, 0, 0]
+        [65540, 131080, 176, 0, 0]
       }
       , {
         "name":"System description ROM"
@@ -85,9 +85,9 @@
         , "classes":
         ["summary-highlight", "nohover"]
         , "data":
-        [73770, 147672, 217, 1, 43]
+        [72450, 145124, 210, 1, 43]
         , "data_percent":
-        [8.63413, 8.64185, 7.99853, 0.0658762]
+        [8.47964, 8.49274, 7.74051, 0.0658762]
       }
       , {
         "name":"Available"

@@ -4,9 +4,9 @@
   , "debug_enabled":"true"
   , "type":"module"
   , "total_percent":
-  [16.8607, 8.73479, 8.64185, 7.99853, 0.0658762]
+  [16.5666, 8.58029, 8.49274, 7.74051, 0.0658762]
   , "total":
-  [73770, 147672, 217, 1, 43]
+  [72450, 145124, 210, 1, 43]
   , "name":"Kernel System"
   , "max_resources":
   [854400, 1708800, 2713, 1518, 42720]
@@ -21,7 +21,7 @@
           "name":"Board interface"
           , "type":"resource"
           , "data":
-          [66800, 133600, 182, 0, 0]
+          [65540, 131080, 176, 0, 0]
           , "details":
           [
             {
@@ -82,9 +82,9 @@
       , "compute_units":1
       , "type":"function"
       , "total_percent":
-      [0.926911, 0.434106, 0.510358, 1.21637, 0.0658762]
+      [0.919196, 0.427083, 0.50872, 1.17951, 0.0658762]
       , "total_kernel_resources":
-      [2849, 8721, 33, 1, 43]
+      [2789, 8693, 32, 1, 43]
       , "details":
       [
         {
@@ -128,7 +128,7 @@
               "name":"State"
               , "type":"resource"
               , "data":
-              [69, 75, 3, 0, 0]
+              [44, 48, 2, 0, 0]
               , "details":
               [
                 {
@@ -161,7 +161,7 @@
                   "name":"No Source Line"
                   , "type":"resource"
                   , "data":
-                  [69, 75, 3, 0, 0]
+                  [44, 48, 2, 0, 0]
                 }
               ]
             }
@@ -188,33 +188,7 @@
               , "children":
               [
                 {
-                  "name":"simple_addition_branch.cl:16"
-                  , "type":"resource"
-                  , "data":
-                  [35, 1, 0, 0, 0]
-                  , "debug":
-                  [
-                    [
-                      {
-                        "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
-                        , "line":16
-                      }
-                    ]
-                  ]
-                  , "children":
-                  [
-                    {
-                      "name":"32-bit Integer Compare"
-                      , "type":"resource"
-                      , "count":1
-                      , "data":
-                      [35, 1, 0, 0, 0]
-                    }
-                  ]
-                  , "replace_name":"true"
-                }
-                , {
-                  "name":"simple_addition_branch.cl:17"
+                  "name":"simple_addition.cl:16"
                   , "type":"resource"
                   , "data":
                   [1399, 6228, 30, 1, 31]
@@ -222,8 +196,8 @@
                   [
                     [
                       {
-                        "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition_branch.cl"
-                        , "line":17
+                        "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition.cl"
+                        , "line":16
                       }
                     ]
                   ]
