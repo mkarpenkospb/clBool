@@ -40,7 +40,7 @@ struct Controls {
     }
 
     cl::Program create_program_from_binaries(std::string program_name) const {
-#ifdef WIN
+#ifndef WIN
         program_name += ".cl";
         std::ifstream input(FPGA_BINARIES +  program_name, std::ios::binary);
         std::vector<char> buffer(std::istreambuf_iterator<char>(input), {});
@@ -51,17 +51,15 @@ struct Controls {
         program_name += ".aocx";
         std::cout << program_name << std::endl;
 
-
         localt.start();
         std::ifstream input(FPGA_BINARIES +  program_name, std::ios::binary);
         double time = localt.elapsed();
-        if (DEBUG_ENABLE) *logger << "read input in " << time ;
-
+        if (DEBUG_ENABLE) *logger << "read input in " << time << "\n";
 
         localt.restart();
         std::vector<unsigned char> buffer(std::istreambuf_iterator<char>(input), {});
         time = localt.elapsed();
-        if (DEBUG_ENABLE) *logger << "create buffer with binaries in " << time ;
+        if (DEBUG_ENABLE) *logger << "create buffer with binaries in " << time << "\n";
 
         return cl::Program(context, {device}, {buffer});
 #endif
