@@ -15,27 +15,11 @@ int main() {
 
     uint32_t n = 12345621;
 
-//    std::vector<float> buffer(4*n);
-//    uint64_t start = reinterpret_cast<uint64_t>(&buffer[0]);
-//    printf("Origin address: [%#010x, %#010x]\n",start, &buffer[4*n - 1]);
-//    uint64_t byteAlignment = 16;
-//    start = alignBy(start, byteAlignment);
-//    float *ptrStart = reinterpret_cast<float *>(start);
-//    float *ptrStart2 =reinterpret_cast<float *>(alignBy(start + (n + 10) * sizeof(float), byteAlignment));
-//    float *ptrStart3 =reinterpret_cast<float *>(alignBy(start + 2 * (n + 10) * sizeof(float), byteAlignment));
-//
-//    printf("Start addresses: %#010x, %#010x, %#010x\n", ptrStart, ptrStart2, ptrStart3);
 
     cpu_buffer_f a(n);
     cpu_buffer_f b(n);
     cpu_buffer_f c(n);
-//    cpu_buffer_f *pa = new (ptrStart) cpu_buffer_f(n);
-//    cpu_buffer_f *pb = new (ptrStart2) cpu_buffer_f(n);
-//    cpu_buffer_f *pc = new (ptrStart3) cpu_buffer_f(n);
 
-//    cpu_buffer_f a = *pa;
-//    cpu_buffer_f b = *pb;
-//    cpu_buffer_f c = *pc;
     fill_random_buffer(a, 165131233);
     fill_random_buffer(b, 176713);
     print_cpu_buffer(a, 10);
