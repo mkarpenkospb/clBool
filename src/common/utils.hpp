@@ -52,8 +52,16 @@ namespace utils {
                             std::string name = "") {
                 static float epsilon = 0.00001;
         buf cpu_copy(size);
+
+        t.restart();
+        cl::Event ev;
+
         controls.queue.enqueueReadBuffer(buffer_g, CL_TRUE, 0, sizeof(typename buf::value_type) * cpu_copy.size(),
-                                         cpu_copy.data());
+                                         cpu_copy.data(), nullptr, &ev);
+
+        double time = t.elapsed();
+        if (DEBUG_ENABLE) *logger << "read buffer in " << time << " \n";
+
         for (uint32_t i = 0; i < size; ++i) {
             typename buf::value_type d = cpu_copy[i] - buffer_c[i];
             if (d >  epsilon || d < -epsilon) {

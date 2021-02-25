@@ -21,6 +21,11 @@ public:
         fstream.open(this->path, std::fstream::in | std::fstream::out | std::fstream::trunc);
     }
 
+    const Logger& operator*() const {
+        stream << "[LOGGING] ";
+        return *this;
+    }
+
     template <class T>
     const Logger& operator<<(const T &str) const {
         stream << str;

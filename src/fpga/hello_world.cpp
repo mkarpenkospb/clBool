@@ -6,19 +6,10 @@
 #include "libutils/timer.h"
 using namespace utils;
 
-#define DEBUG_ENABLE 1
-#ifdef WIN
-const Logger logger;//(/*"C:/Users/mkarp/GitReps/clean_matrix/sparse_boolean_matrix_operations/log/log.txt"*/);
-#else
-const Logger logger;//("root/Desktop/GitReps/sparse_boolean_matrix_operations");
-#endif
-timer t;
-
-
 int main() {
     double time;
 
-    if (DEBUG_ENABLE) logger << "start" << " \n";
+    if (DEBUG_ENABLE) *logger << "start" << " \n";
     std::cout <<"Hello world\n";
 
     Controls controls = create_controls(); //create_controls();
@@ -51,28 +42,32 @@ int main() {
     print_cpu_buffer(a, 10);
     print_cpu_buffer(b, 10);
 
+    t.restart();
     cl::Buffer a_gpu(controls.queue, a.begin(), a.end(), false);
     cl::Buffer b_gpu(controls.queue, b.begin(), b.end(), false);
     cl::Buffer c_gpu(controls.context, CL_MEM_READ_WRITE, sizeof(cpu_buffer_f::value_type) * c.size());
-    t.start();
+    time = t.elapsed();
+    if (DEBUG_ENABLE) *logger << "load data to device in " << time << " \n";
+
+    t.restart();
     auto p = program<cl::Buffer, cl::Buffer, cl::Buffer, cl_uint>("simple_addition_branch")
             .set_kernel_name("aplusb")
             .set_needed_work_size(n);
     time = t.elapsed();
-    if (DEBUG_ENABLE) logger << "load program in " << time << " \n";
+    if (DEBUG_ENABLE) *logger << "load program in " << time << " \n";
 
     t.restart();
     for (uint32_t i = 0; i < n; ++i) {
         c[i] = a[i] + b[i];
     }
     time = t.elapsed();
-    if (DEBUG_ENABLE) logger << "run CPU in " << time << " \n";
+    if (DEBUG_ENABLE) *logger << "run CPU in " << time << " \n";
 
     t.restart();
     cl::Event ev = p.run(controls, a_gpu, b_gpu, c_gpu, n);
     ev.wait();
     time = t.elapsed();
-    if (DEBUG_ENABLE) logger << "run GPU in " << time << " \n";
+    if (DEBUG_ENABLE) *logger << "run GPU in " << time << " \n";
 
     compare_buffers(controls, c_gpu, c, n);
 }
