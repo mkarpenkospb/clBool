@@ -50,8 +50,8 @@ int main() {
     if (DEBUG_ENABLE) *logger << "load data to device in " << time << " \n";
 
     t.restart();
-    auto p = program<cl::Buffer, cl::Buffer, cl::Buffer>("vector_add")
-            .set_kernel_name("vector_add")
+    auto p = program<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t>("simple_addition_branch")
+            .set_kernel_name("aplusb")
             .set_needed_work_size(n);
     time = t.elapsed();
     if (DEBUG_ENABLE) *logger << "load program in " << time << " \n";
@@ -64,7 +64,7 @@ int main() {
     if (DEBUG_ENABLE) *logger << "run CPU in " << time << " \n";
 
     t.restart();
-    cl::Event ev = p.run(controls, a_gpu, b_gpu, c_gpu);
+    cl::Event ev = p.run(controls, a_gpu, b_gpu, c_gpu, n);
     ev.wait();
     time = t.elapsed();
     if (DEBUG_ENABLE) *logger << "run DEVICE in " << time << " \n";
