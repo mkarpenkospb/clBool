@@ -10,7 +10,6 @@ int main() {
     double time;
     timer t;
     if (DEBUG_ENABLE) *logger << "start" << " \n";
-    std::cout <<"Hello world\n";
 
     Controls controls = create_controls(); //create_controls();
 
@@ -41,6 +40,8 @@ int main() {
     fill_random_buffer(b, 176713);
     print_cpu_buffer(a, 10);
     print_cpu_buffer(b, 10);
+    if (DEBUG_ENABLE) *logger << "data generated on CPU for n = " << n <<  " \n";
+
 
     t.restart();
     cl::Buffer a_gpu(controls.queue, a.begin(), a.end(), false);
