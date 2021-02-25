@@ -50,8 +50,8 @@ int main() {
     if (DEBUG_ENABLE) *logger << "load data to device in " << time << " \n";
 
     t.restart();
-    auto p = program<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t>("simple_addition_branch")
-            .set_kernel_name("aplusb")
+    auto p = program<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t>("vector_add")
+            .set_kernel_name("vector_add")
             .set_needed_work_size(n);
     time = t.elapsed();
     if (DEBUG_ENABLE) *logger << "load program in " << time << " \n";
