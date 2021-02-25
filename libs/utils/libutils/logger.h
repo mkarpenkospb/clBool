@@ -26,6 +26,11 @@ public:
         return *this;
     }
 
+    const Logger& operator->() const {
+        stream << "[LOGGING] ";
+        return *this;
+    }
+
     template <class T>
     const Logger& operator<<(const T &str) const {
         stream << str;

@@ -67,7 +67,7 @@ int main() {
     cl::Event ev = p.run(controls, a_gpu, b_gpu, c_gpu, n);
     ev.wait();
     time = t.elapsed();
-    if (DEBUG_ENABLE) *logger << "run GPU in " << time << " \n";
+    if (DEBUG_ENABLE) *logger << "run DEVICE in " << time << " \n";
 
     compare_buffers(controls, c_gpu, c, n);
 }
