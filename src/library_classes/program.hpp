@@ -127,15 +127,15 @@ public:
                 double time = t.elapsed();
                 if (DEBUG_ENABLE) *logger << "kernel created in " << time << " \n";
             }
+//            t.restart();
+//            cl::Kernel kernel(cl_program, _kernel_name.c_str());
+//            double time = t.elapsed();
+//            if (DEBUG_ENABLE) *logger << "kernel created in " << time << " \n";
+
+
             t.restart();
-            cl::Kernel kernel(cl_program, _kernel_name.c_str());
+            kernel_type functor(cl_program, _kernel_name.c_str());
             double time = t.elapsed();
-            if (DEBUG_ENABLE) *logger << "kernel created in " << time << " \n";
-
-
-            t.restart();
-            kernel_type functor(kernel);
-            time = t.elapsed();
             if (DEBUG_ENABLE) *logger << "functor created in " << time << " \n";
 
 
