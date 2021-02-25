@@ -16,10 +16,11 @@ set(COMMON "src/common")
 set(HEADERS "src/cl/headers")
 set(TESTS "src/test")
 set(COO "src/coo")
+set(UTILS "libs/utils")
 
 # Handle OpenCL
 find_package(OpenCL REQUIRED)
-include_directories(${OpenCL_INCLUDE_DIR} ${LIB_CLASSES} ${COMMON} ${HEADERS} ${TESTS} ${COO})
+include_directories(${OpenCL_INCLUDE_DIR} ${LIB_CLASSES} ${COMMON} ${HEADERS} ${TESTS} ${COO} ${UTILS})
 #link_directories(${OpenCL_LIBRARY} ${BOARD_LIB})
 
 MESSAGE("${OpenCL_INCLUDE_DIR}")

@@ -33,6 +33,11 @@ struct Controls {
 #endif
     {
         std::cout << "here" << std::endl;
+        char buff[FILENAME_MAX];
+        getcwd(buff, FILENAME_MAX);
+
+        std::cout << buff << std::endl;
+
         chdir(WORKING_DIR.c_str());
     }
 
