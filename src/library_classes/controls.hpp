@@ -40,7 +40,7 @@ struct Controls {
     }
 
     cl::Program create_program_from_binaries(std::string program_name) const {
-#ifndef WIN
+#ifdef WIN
         program_name += ".cl";
         std::ifstream input(FPGA_BINARIES +  program_name, std::ios::binary);
         std::vector<char> buffer(std::istreambuf_iterator<char>(input), {});
