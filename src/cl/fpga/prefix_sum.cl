@@ -1,20 +1,22 @@
 //#ifndef RUN
 //
-//#include "clion_defines.cl"
+//#include "../clion_defines.cl"
 //#define GROUP_SIZE 256
-//
+//#define restrict
+//#define local
 //#endif
+
+#define __local local
 
 // TODO: optimise bank conflicts
 // https://developer.nvidia.com/gpugems/gpugems3/part-vi-gpu-computing/chapter-39-parallel-prefix-sum-scan-cuda
 
-#define __local local
 __kernel void scan_blelloch(
-        __global unsigned int * vertices,
-        __global unsigned int * pref_sum,
-        __local unsigned int * tmp,
-        __global unsigned int * total_sum,
-        unsigned int n)
+        __global uint* restrict vertices,
+        __global uint* restrict pref_sum,
+        __local uint* restrict tmp,
+        __global uint* restrict total_sum,
+        uint n)
 {
     uint global_id = get_global_id(0);
     uint local_id = get_local_id(0);
@@ -57,7 +59,7 @@ __kernel void scan_blelloch(
             uint i = dp*(2 * local_id + 1) - 1;
             uint j = dp*(2 * local_id + 2) - 1;
 
-            unsigned int t = tmp[j];
+            uint t = tmp[j];
             tmp[j] += tmp[i];
             tmp[i] = t;
         }
@@ -70,10 +72,10 @@ __kernel void scan_blelloch(
     }
 }
 
-__kernel void update_pref_sum(__global unsigned int * pref_sum,
-                              __global const unsigned int * vertices,
-                              unsigned int n,
-                              unsigned int leaf_size) {
+__kernel void update_pref_sum(__global uint* restrict pref_sum,
+                              __global const uint* restrict vertices,
+                              uint n,
+                              uint leaf_size) {
 
     uint global_id = get_global_id(0);
     if (global_id >= n) return;

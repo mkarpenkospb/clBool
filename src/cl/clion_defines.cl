@@ -6,7 +6,7 @@
 
 #define __kernel
 #define __global
-#define __local
+//#define __local
 #define __constant
 #define __private
 

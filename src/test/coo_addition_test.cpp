@@ -11,8 +11,8 @@ void testMatrixAddition() {
 
 //    for (int i = 100; i < 10000; i += 50) {
 //        for (int j = 100; j < 1000; j += 50) {
-            int i = 13234234;
-            int j = 32746761;
+            int i = 1234234;
+            int j = 3746761;
 
             if (DEBUG_ENABLE) *logger << "data generated for a_nnz ~ " << i << " and b_nnx ~ " << j << " \n";
 

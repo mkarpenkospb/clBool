@@ -2,16 +2,18 @@
 //
 //#include "../clion_defines.cl"
 //#define GROUP_SIZE 256
-//
+//#define restrict
+//#define local
 //#endif
+
 #define __local local
 #define GROUP_SIZE 256
 
 inline
-bool is_greater_global(__global const uint *rowsA,
-                       __global const uint *colsA,
-                       __global const uint *rowsB,
-                       __global const uint *colsB,
+bool is_greater_global(__global const uint* restrict rowsA,
+                       __global const uint* restrict colsA,
+                       __global const uint* restrict rowsB,
+                       __global const uint* restrict colsB,
                        uint indexA,
                        uint indexB) {
 
@@ -21,10 +23,10 @@ bool is_greater_global(__global const uint *rowsA,
 }
 
 inline
-bool is_greater_local(__local const uint *rowsA,
-                      __local const uint *colsA,
-                      __local const uint *rowsB,
-                      __local const uint *colsB,
+bool is_greater_local(__local const uint* restrict rowsA,
+                      __local const uint* restrict colsA,
+                      __local const uint* restrict rowsB,
+                      __local const uint* restrict colsB,
                       uint indexA,
                       uint indexB) {
 
@@ -37,10 +39,10 @@ bool is_greater_local(__local const uint *rowsA,
 
 
 inline
-uint merge_pointer(__global const uint *rowsA,
-                   __global const uint *colsA,
-                   __global const uint *rowsB,
-                   __global const uint *colsB,
+uint merge_pointer(__global const uint* restrict rowsA,
+                   __global const uint* restrict colsA,
+                   __global const uint* restrict rowsB,
+                   __global const uint* restrict colsB,
                    uint diag_index,
                    uint sizeA,
                    uint sizeB) {
@@ -92,12 +94,12 @@ uint merge_pointer(__global const uint *rowsA,
 }
 
 inline
-void merge_local(__global uint *rowsC,
-                 __global uint *colsC,
-                 __local const uint *rowsA,
-                 __local const uint *colsA,
-                 __local const uint *rowsB,
-                 __local const uint *colsB,
+void merge_local(__global uint* restrict rowsC,
+                 __global uint* restrict colsC,
+                 __local const uint* restrict rowsA,
+                 __local const uint* restrict colsA,
+                 __local const uint* restrict rowsB,
+                 __local const uint* restrict colsB,
                  uint diag_index,
                  uint sizeA,
                  uint sizeB) {
@@ -181,12 +183,12 @@ uint get_b_index(uint diag_index, uint m, uint sizeA) {
     return (diag_index - sizeA) + m + 1;
 }
 
-__kernel void merge(__global uint *rowsC,
-                    __global uint *colsC,
-                    __global const uint *rowsA,
-                    __global const uint *colsA,
-                    __global const uint *rowsB,
-                    __global const uint *colsB,
+__kernel void merge(__global uint* restrict rowsC,
+                    __global uint* restrict colsC,
+                    __global const uint* restrict rowsA,
+                    __global const uint* restrict colsA,
+                    __global const uint* restrict rowsB,
+                    __global const uint* restrict colsB,
                     uint sizeA,
                     uint sizeB) {
 
@@ -196,7 +198,6 @@ __kernel void merge(__global uint *rowsC,
     uint local_id = get_local_id(0);
     uint global_id = get_global_id(0);
     uint group_size = get_local_size(0);
-
     __local uint ab_cols_local[GROUP_SIZE];
     __local uint ab_rows_local[GROUP_SIZE];
 

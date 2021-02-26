@@ -1,17 +1,20 @@
 //#ifndef RUN
 //
-//#include "clion_defines.cl"
+//#include "../clion_defines.cl"
 //#define GROUP_SIZE 256
-//
+//#define restrict
+//#define local
 //#endif
+
 #define __local local
-__kernel void prepare_array_for_positions(__global unsigned int* result,
-                                          __global const unsigned int* rows,
-                                          __global const unsigned int* cols,
-                                          unsigned int size
+
+__kernel void prepare_array_for_positions(__global uint* restrict result,
+                                          __global const uint* restrict rows,
+                                          __global const uint* restrict cols,
+                                          uint size
                                           ) {
 
-    unsigned int global_id = get_global_id(0);
+    uint global_id = get_global_id(0);
 
     if (global_id >= size) {
         return;
@@ -24,12 +27,12 @@ __kernel void prepare_array_for_positions(__global unsigned int* result,
 }
 
 
-__kernel void prepare_array_for_rows_positions(__global unsigned int* result,
-                                               __global const unsigned int* rows,
-                                               unsigned int size
+__kernel void prepare_array_for_rows_positions(__global uint* restrict result,
+                                               __global const uint* restrict rows,
+                                               uint size
 ) {
 
-    unsigned int global_id = get_global_id(0);
+    uint global_id = get_global_id(0);
 
     if (global_id >= size) {
         return;
@@ -43,13 +46,13 @@ __kernel void prepare_array_for_rows_positions(__global unsigned int* result,
 
 
 
-__kernel void prepare_array_for_shift(__global unsigned int* result,
-                                      __global const unsigned int* rows,
-                                      __global const unsigned int* cols,
-                                      unsigned int size
+__kernel void prepare_array_for_shift(__global uint* restrict result,
+                                      __global const uint* restrict rows,
+                                      __global const uint* restrict cols,
+                                      uint size
                                       ) {
 
-    unsigned int global_id = get_global_id(0);
+    uint global_id = get_global_id(0);
 
     if (global_id >= size) {
         return;
@@ -63,12 +66,12 @@ __kernel void prepare_array_for_shift(__global unsigned int* result,
 }
 
 
-__kernel void prepare_for_shift_empty_rows(__global unsigned int* result,
-                                           __global const unsigned int* nnz_estimation,
-                                           unsigned int size
+__kernel void prepare_for_shift_empty_rows(__global uint* restrict result,
+                                           __global const uint* restrict nnz_estimation,
+                                           uint size
 ) {
 
-    unsigned int global_id = get_global_id(0);
+    uint global_id = get_global_id(0);
 
     if (global_id >= size) {
         return;

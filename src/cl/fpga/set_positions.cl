@@ -1,22 +1,24 @@
 //#ifndef RUN
 //
-//#include "clion_defines.cl"
+//#include "../clion_defines.cl"
 //#define GROUP_SIZE 256
-//
+//#define restrict
+//#define local
 //#endif
 
-#define __local local
-__kernel void set_positions(__global unsigned int* newRows,
-                            __global unsigned int* newCols,
-                            __global const unsigned int* rows,
-                            __global const unsigned int* cols,
-                            __global const unsigned int* positions,
-                            unsigned int size
+//#define __local local
+
+__kernel void set_positions(__global uint* restrict newRows,
+                            __global uint* restrict newCols,
+                            __global const uint* restrict rows,
+                            __global const uint* restrict cols,
+                            __global const uint* restrict positions,
+                            uint size
                             ) {
 
-    unsigned int local_id = get_local_id(0);
-    unsigned int group_id = get_group_id(0);
-    unsigned int global_id = get_global_id(0);
+    uint local_id = get_local_id(0);
+    uint group_id = get_group_id(0);
+    uint global_id = get_global_id(0);
 
     if (global_id == size - 1 && positions[global_id] != size) {
         newRows[positions[global_id]] = rows[global_id];
@@ -33,16 +35,16 @@ __kernel void set_positions(__global unsigned int* newRows,
 }
 
 
-__kernel void set_positions_pointers_and_rows(__global uint* newRowsPosition,
-                                              __global uint* newRows,
-                                              __global const uint* rowsPositions,
-                                              __global const uint* rows,
-                                              __global const uint* positions,
+__kernel void set_positions_pointers_and_rows(__global uint* restrict newRowsPosition,
+                                              __global uint* restrict newRows,
+                                              __global const uint* restrict rowsPositions,
+                                              __global const uint* restrict rows,
+                                              __global const uint* restrict positions,
                                               uint nnz, // old nzr
                                               uint old_nzr,
                                               uint new_nzr
 ) {
-    unsigned int global_id = get_global_id(0);
+    uint global_id = get_global_id(0);
 
     if (global_id >= old_nzr) return;
 
@@ -62,14 +64,14 @@ __kernel void set_positions_pointers_and_rows(__global uint* newRowsPosition,
 }
 
 
-__kernel void set_positions_rows(__global uint* rows_pointers,
-                                 __global uint* rows_compressed,
-                                 __global const uint* rows,
-                                 __global const uint* positions,
+__kernel void set_positions_rows(__global uint* restrict rows_pointers,
+                                 __global uint* restrict rows_compressed,
+                                 __global const uint* restrict rows,
+                                 __global const uint* restrict positions,
                                  uint size,
                                  uint nzr
 ) {
-    unsigned int global_id = get_global_id(0);
+    uint global_id = get_global_id(0);
 
     if (global_id == size - 1) {
         if (positions[global_id] != size) {
