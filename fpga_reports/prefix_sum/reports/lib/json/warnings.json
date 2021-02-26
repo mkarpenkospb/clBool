@@ -1,0 +1,4 @@
+{"nodes":[
+{"debug":[[{"filename":"set_positions.cl","line":"9"}]],"details":[{"text":"Compiler Warning: set_positions.cl:9: declaring global arguments 'newRows', 'newCols', 'rows', 'cols' and 'positions' with no 'restrict' may lead to low performance for kernel 'set_positions'"}],"name":"set_positions.cl:9: declaring global arguments 'newRows', 'newCols', 'rows', 'cols' and 'positions' with no 'restrict' may lead to low performance for kernel 'set_positions'"},
+{"details":[{"text":"Compiler Warning: addpipe in board_spec.xml is set to 1 which is no longer supported"}],"name":"addpipe in board_spec.xml is set to 1 which is no longer supported"}
+]}

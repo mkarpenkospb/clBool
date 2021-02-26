@@ -1,0 +1,1163 @@
+{
+  "nodes":
+  [
+    {
+      "type":"kernel"
+      , "id":72
+      , "name":"scan_blelloch"
+      , "children":
+      [
+        {
+          "type":"inst"
+          , "id":81
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                , "line":25
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"tmp"
+              , "Start Cycle":"179"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":82
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                , "line":34
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"tmp"
+              , "Start Cycle":"131"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":83
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                , "line":34
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"tmp"
+              , "Start Cycle":"131"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":84
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                , "line":34
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"tmp"
+              , "Start Cycle":"139"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":85
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                , "line":69
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"tmp"
+              , "Start Cycle":"131"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":87
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                , "line":60
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"tmp"
+              , "Start Cycle":"131"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":88
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                , "line":61
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"tmp"
+              , "Start Cycle":"131"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":89
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                , "line":61
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"tmp"
+              , "Start Cycle":"139"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":90
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                , "line":62
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"tmp"
+              , "Start Cycle":"146"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":91
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                , "line":43
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"tmp"
+              , "Start Cycle":"0"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":94
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                , "line":45
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"tmp"
+              , "Start Cycle":"8"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"memtype"
+          , "id":105
+          , "name":"Local Memory"
+          , "children":
+          [
+            {
+              "type":"memsys"
+              , "id":106
+              , "name":"tmp"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"prefix_sum.cl"
+                    , "line":12
+                  }
+                ]
+              ]
+              , "children":
+              [
+                {
+                  "type":"bank"
+                  , "id":107
+                  , "name":"Bank 0"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"prefix_sum.cl"
+                        , "line":12
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":111
+                      , "name":"R"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":121
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":133
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":137
+                      , "name":"RW"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"4 total ports/bank\n1 read ports/bank\n0 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"4"
+                      , "Number of read ports per bank":"1"
+                      , "Number of write ports per bank":"0"
+                      , "Number of shared ports per bank":"3"
+                      , "Total replication":"2"
+                    }
+                  ]
+                }
+                , {
+                  "type":"bank"
+                  , "id":108
+                  , "name":"Bank 1"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"prefix_sum.cl"
+                        , "line":12
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":112
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":117
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":123
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":129
+                      , "name":"RW"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"4 total ports/bank\n0 read ports/bank\n0 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"4"
+                      , "Number of read ports per bank":"0"
+                      , "Number of write ports per bank":"0"
+                      , "Number of shared ports per bank":"4"
+                      , "Total replication":"2"
+                    }
+                  ]
+                }
+                , {
+                  "type":"bank"
+                  , "id":109
+                  , "name":"Bank 2"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"prefix_sum.cl"
+                        , "line":12
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":114
+                      , "name":"R"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":125
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":135
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":139
+                      , "name":"RW"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"4 total ports/bank\n1 read ports/bank\n0 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"4"
+                      , "Number of read ports per bank":"1"
+                      , "Number of write ports per bank":"0"
+                      , "Number of shared ports per bank":"3"
+                      , "Total replication":"2"
+                    }
+                  ]
+                }
+                , {
+                  "type":"bank"
+                  , "id":110
+                  , "name":"Bank 3"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"prefix_sum.cl"
+                        , "line":12
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":115
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":119
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":127
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":131
+                      , "name":"RW"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"4 total ports/bank\n0 read ports/bank\n0 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"4"
+                      , "Number of read ports per bank":"0"
+                      , "Number of write ports per bank":"0"
+                      , "Number of shared ports per bank":"4"
+                      , "Total replication":"2"
+                    }
+                  ]
+                }
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Requested size":"16384 bytes"
+                  , "Implemented size":"16384 bytes"
+                  , "Number of banks":"4"
+                  , "Bank width":"32 bits"
+                  , "Bank depth":"1024 words"
+                  , "Number of replicates":"1"
+                  , "Number of private copies":"2"
+                  , "Additional Information":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"For each replicate, 2 private copies were created to efficiently support multiple simultaneous workgroups"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"Running memory at 2x clock to support more concurrent ports"
+                    }
+                  ]
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Local Memory"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/chn1469549457114.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":113
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":116
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":118
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":120
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":122
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":124
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":126
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":128
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":130
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":132
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":134
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":136
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":138
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":140
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  , "links":
+  [
+    {
+      "from":111
+      , "to":82
+    }
+    , {
+      "from":113
+      , "to":82
+    }
+    , {
+      "from":84
+      , "to":113
+    }
+    , {
+      "from":113
+      , "to":88
+    }
+    , {
+      "from":113
+      , "to":112
+    }
+    , {
+      "from":112
+      , "to":113
+    }
+    , {
+      "from":114
+      , "to":82
+    }
+    , {
+      "from":116
+      , "to":82
+    }
+    , {
+      "from":84
+      , "to":116
+    }
+    , {
+      "from":116
+      , "to":88
+    }
+    , {
+      "from":116
+      , "to":115
+    }
+    , {
+      "from":115
+      , "to":116
+    }
+    , {
+      "from":118
+      , "to":83
+    }
+    , {
+      "from":89
+      , "to":118
+    }
+    , {
+      "from":118
+      , "to":91
+    }
+    , {
+      "from":118
+      , "to":117
+    }
+    , {
+      "from":117
+      , "to":118
+    }
+    , {
+      "from":120
+      , "to":83
+    }
+    , {
+      "from":89
+      , "to":120
+    }
+    , {
+      "from":120
+      , "to":91
+    }
+    , {
+      "from":120
+      , "to":119
+    }
+    , {
+      "from":119
+      , "to":120
+    }
+    , {
+      "from":81
+      , "to":122
+    }
+    , {
+      "from":122
+      , "to":85
+    }
+    , {
+      "from":122
+      , "to":121
+    }
+    , {
+      "from":121
+      , "to":122
+    }
+    , {
+      "from":124
+      , "to":85
+    }
+    , {
+      "from":90
+      , "to":124
+    }
+    , {
+      "from":124
+      , "to":123
+    }
+    , {
+      "from":123
+      , "to":124
+    }
+    , {
+      "from":81
+      , "to":126
+    }
+    , {
+      "from":126
+      , "to":85
+    }
+    , {
+      "from":126
+      , "to":125
+    }
+    , {
+      "from":125
+      , "to":126
+    }
+    , {
+      "from":128
+      , "to":85
+    }
+    , {
+      "from":90
+      , "to":128
+    }
+    , {
+      "from":128
+      , "to":127
+    }
+    , {
+      "from":127
+      , "to":128
+    }
+    , {
+      "from":81
+      , "to":130
+    }
+    , {
+      "from":130
+      , "to":87
+    }
+    , {
+      "from":94
+      , "to":130
+    }
+    , {
+      "from":130
+      , "to":129
+    }
+    , {
+      "from":129
+      , "to":130
+    }
+    , {
+      "from":81
+      , "to":132
+    }
+    , {
+      "from":132
+      , "to":87
+    }
+    , {
+      "from":94
+      , "to":132
+    }
+    , {
+      "from":132
+      , "to":131
+    }
+    , {
+      "from":131
+      , "to":132
+    }
+    , {
+      "from":134
+      , "to":88
+    }
+    , {
+      "from":90
+      , "to":134
+    }
+    , {
+      "from":134
+      , "to":133
+    }
+    , {
+      "from":133
+      , "to":134
+    }
+    , {
+      "from":136
+      , "to":88
+    }
+    , {
+      "from":90
+      , "to":136
+    }
+    , {
+      "from":136
+      , "to":135
+    }
+    , {
+      "from":135
+      , "to":136
+    }
+    , {
+      "from":138
+      , "to":91
+    }
+    , {
+      "from":94
+      , "to":138
+    }
+    , {
+      "from":138
+      , "to":137
+    }
+    , {
+      "from":137
+      , "to":138
+    }
+    , {
+      "from":140
+      , "to":91
+    }
+    , {
+      "from":94
+      , "to":140
+    }
+    , {
+      "from":140
+      , "to":139
+    }
+    , {
+      "from":139
+      , "to":140
+    }
+  ]
+}
