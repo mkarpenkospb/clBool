@@ -130,10 +130,27 @@ public:
             };
 
 
+
+
+
             t.restart();
             kernel_type functor(cl_program, _kernel_name.c_str());
             double time = t.elapsed();
             if (DEBUG_ENABLE) *logger << "functor created in " << time << " \n";
+
+
+            cl::Kernel k = functor.getKernel();
+            std::vector<cl::size_type> compiled_work_group_size;
+            k.getWorkGroupInfo(controls.device, CL_KERNEL_COMPILE_WORK_GROUP_SIZE, &compiled_work_group_size);
+
+            if (DEBUG_ENABLE) *logger << "CL_KERNEL_COMPILE_WORK_GROUP_SIZE: " << compiled_work_group_size[0]
+            << ", " << compiled_work_group_size[1] << ", "<< compiled_work_group_size[2] << "\n"  ;
+
+            std::vector<cl::size_type> work_group_size;
+            k.getWorkGroupInfo(controls.device, CL_KERNEL_COMPILE_WORK_GROUP_SIZE, &work_group_size);
+
+            if (DEBUG_ENABLE) *logger << "CL_KERNEL_COMPILE_WORK_GROUP_SIZE: " << work_group_size[0]
+                                      << ", " << work_group_size[1] <<", " <<work_group_size[2] << "\n";
 
 
             cl::EnqueueArgs eargs(_async ? controls.async_queue : controls.queue,

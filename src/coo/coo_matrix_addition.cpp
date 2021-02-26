@@ -58,7 +58,6 @@ void merge(Controls &controls,
                  a.nnz(), b.nnz());
 
 //        check_merge_correctness(controls, merged_rows, merged_cols, merged_size);
-
     merged_rows_out = std::move(merged_rows);
     merged_cols_out = std::move(merged_cols);
 }
