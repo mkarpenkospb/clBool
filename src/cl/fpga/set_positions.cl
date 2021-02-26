@@ -6,7 +6,7 @@
 //#define local
 //#endif
 
-//#define __local local
+#define __local local
 
 __kernel void set_positions(__global uint* restrict newRows,
                             __global uint* restrict newCols,
