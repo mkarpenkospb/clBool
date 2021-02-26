@@ -1,0 +1,258 @@
+{
+  "name":"loop_attributes"
+  , "id":4294967295
+  , "nodes":
+  [
+    {
+      "name":"merge"
+      , "id":2416371952
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+            , "line":191
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"merge.B0"
+          , "id":2414338608
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"8.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B1"
+          , "id":2418932928
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B3"
+          , "id":2419649856
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"3.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B2"
+          , "id":2418999712
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"287.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+                , "line":82
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"merge.B4"
+          , "id":2419892496
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B5"
+          , "id":2419969104
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B10"
+          , "id":2422542752
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B7"
+          , "id":2420678992
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"287.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+                , "line":82
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"merge.B6"
+          , "id":2420038928
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"287.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+                , "line":82
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"merge.B13"
+          , "id":2423288384
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"155.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B12"
+          , "id":2423214672
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B11"
+          , "id":2423147136
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B8"
+          , "id":2421334176
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"16.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+                , "line":139
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"merge.B9"
+          , "id":2421574560
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"52.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+  ]
+}
