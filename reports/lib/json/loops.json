@@ -4,15 +4,15 @@
   , "children":
   [
     {
-      "name":"Kernel: aplusb"
+      "name":"Kernel: merge"
       , "data":
       ["", "", ""]
       , "debug":
       [
         [
           {
-            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/simple_addition.cl"
-            , "line":10
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+            , "line":184
           }
         ]
       ]
@@ -39,6 +39,121 @@
               "guide":"Best Practices Guide : Kernels"
               , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/ipp1476408832230.html"
             }
+          ]
+        }
+      ]
+      , "children":
+      [
+        {
+          "name":"merge.B2"
+          , "data":
+          ["No", "n/a", "n/a"]
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+                , "line":82
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"brief"
+              , "text":"Thread capacity = 270"
+            }
+            , {
+              "type":"text"
+              , "text":"Thread capacity = 270"
+            }
+          ]
+          , "children":
+          [
+          ]
+        }
+        , {
+          "name":"merge.B7"
+          , "data":
+          ["No", "n/a", "n/a"]
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+                , "line":82
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"brief"
+              , "text":"Thread capacity = 270"
+            }
+            , {
+              "type":"text"
+              , "text":"Thread capacity = 270"
+            }
+          ]
+          , "children":
+          [
+          ]
+        }
+        , {
+          "name":"merge.B6"
+          , "data":
+          ["No", "n/a", "n/a"]
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+                , "line":82
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"brief"
+              , "text":"Thread capacity = 270"
+            }
+            , {
+              "type":"text"
+              , "text":"Thread capacity = 270"
+            }
+          ]
+          , "children":
+          [
+          ]
+        }
+        , {
+          "name":"merge.B8"
+          , "data":
+          ["No", "n/a", "n/a"]
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+                , "line":139
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"brief"
+              , "text":"Thread capacity = 17"
+            }
+            , {
+              "type":"text"
+              , "text":"Thread capacity = 17"
+            }
+          ]
+          , "children":
+          [
           ]
         }
       ]

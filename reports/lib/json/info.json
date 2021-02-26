@@ -1,1 +1,1 @@
-{"compileInfo":{"nodes":[{"command":"aoc simple_addition.cl","family":"Arria 10, 10AX115S2F45I1SG, a10_ref:a10gx","id":1,"name":"simple_addition","product":"OPENCL","quartus":"20.4.0 Build 72 Pro","time":"Wed Feb 24 22:30:58 2021","version":"20.4.0 Build 72"}]}}
+{"compileInfo":{"nodes":[{"command":"aoc --fast-compile merge_path.cl","family":"Arria 10, 10AX115S2F45E2LG, euler2:line_high","id":1,"name":"merge_path","product":"OPENCL","quartus":"17.1.1 Build 273 Pro","time":"Fri Feb 26 02:39:22 2021","version":"20.4.0 Build 72"}]}}

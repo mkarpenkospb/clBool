@@ -1,2 +1,4 @@
 {"nodes":[
+{"debug":[[{"filename":"merge_path.cl","line":"184"}]],"details":[{"text":"Compiler Warning: merge_path.cl:184: declaring global arguments 'rowsC', 'colsC', 'rowsA', 'colsA', 'rowsB' and 'colsB' with no 'restrict' may lead to low performance for kernel 'merge'"}],"name":"merge_path.cl:184: declaring global arguments 'rowsC', 'colsC', 'rowsA', 'colsA', 'rowsB' and 'colsB' with no 'restrict' may lead to low performance for kernel 'merge'"},
+{"details":[{"text":"Compiler Warning: addpipe in board_spec.xml is set to 1 which is no longer supported"}],"name":"addpipe in board_spec.xml is set to 1 which is no longer supported"}
 ]}
