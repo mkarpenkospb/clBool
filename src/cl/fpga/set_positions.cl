@@ -5,7 +5,7 @@
 //
 //#endif
 
-
+#define __local local
 __kernel void set_positions(__global unsigned int* newRows,
                             __global unsigned int* newCols,
                             __global const unsigned int* rows,

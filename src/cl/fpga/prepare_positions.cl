@@ -4,7 +4,7 @@
 //#define GROUP_SIZE 256
 //
 //#endif
-
+#define __local local
 __kernel void prepare_array_for_positions(__global unsigned int* result,
                                           __global const unsigned int* rows,
                                           __global const unsigned int* cols,

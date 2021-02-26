@@ -7,6 +7,8 @@
 
 // TODO: optimise bank conflicts
 // https://developer.nvidia.com/gpugems/gpugems3/part-vi-gpu-computing/chapter-39-parallel-prefix-sum-scan-cuda
+
+#define __local local
 __kernel void scan_blelloch(
         __global unsigned int * vertices,
         __global unsigned int * pref_sum,
