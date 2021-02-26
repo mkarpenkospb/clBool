@@ -147,9 +147,9 @@ public:
             << ", " << compiled_work_group_size[1] << ", "<< compiled_work_group_size[2] << "\n"  ;
 
             std::vector<cl::size_type> work_group_size;
-            k.getWorkGroupInfo(controls.device, CL_KERNEL_COMPILE_WORK_GROUP_SIZE, &work_group_size);
+            k.getWorkGroupInfo(controls.device, CL_KERNEL_WORK_GROUP_SIZE, &work_group_size);
 
-            if (DEBUG_ENABLE) *logger << "CL_KERNEL_COMPILE_WORK_GROUP_SIZE: " << work_group_size[0]
+            if (DEBUG_ENABLE) *logger << "CL_KERNEL_WORK_GROUP_SIZE: " << work_group_size[0]
                                       << ", " << work_group_size[1] <<", " <<work_group_size[2] << "\n";
 
 
