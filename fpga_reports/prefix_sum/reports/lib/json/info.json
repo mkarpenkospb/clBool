@@ -1,1 +1,0 @@
-{"compileInfo":{"nodes":[{"command":"aoc -fast-compile set_positions.cl prepare_positions.cl prefix_sum.cl","family":"Arria 10, 10AX115S2F45E2LG, euler2:line_high","id":1,"name":"prefix_sum","product":"OPENCL","quartus":"17.1.1 Build 273 Pro","time":"Fri Feb 26 14:41:41 2021","version":"20.4.0 Build 72"}]}}
