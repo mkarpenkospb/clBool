@@ -8,6 +8,7 @@
 
 #define __local local
 
+__attribute__((reqd_work_group_size(256,1,1)))
 __kernel void prepare_array_for_positions(__global uint* restrict result,
                                           __global const uint* restrict rows,
                                           __global const uint* restrict cols,
@@ -26,7 +27,7 @@ __kernel void prepare_array_for_positions(__global uint* restrict result,
                         0 : 1;
 }
 
-
+__attribute__((reqd_work_group_size(256,1,1)))
 __kernel void prepare_array_for_rows_positions(__global uint* restrict result,
                                                __global const uint* restrict rows,
                                                uint size
@@ -45,7 +46,7 @@ __kernel void prepare_array_for_rows_positions(__global uint* restrict result,
 }
 
 
-
+__attribute__((reqd_work_group_size(256,1,1)))
 __kernel void prepare_array_for_shift(__global uint* restrict result,
                                       __global const uint* restrict rows,
                                       __global const uint* restrict cols,
@@ -65,7 +66,7 @@ __kernel void prepare_array_for_shift(__global uint* restrict result,
                         1 : 0;
 }
 
-
+__attribute__((reqd_work_group_size(256,1,1)))
 __kernel void prepare_for_shift_empty_rows(__global uint* restrict result,
                                            __global const uint* restrict nnz_estimation,
                                            uint size

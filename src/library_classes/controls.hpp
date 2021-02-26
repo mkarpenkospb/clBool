@@ -20,7 +20,7 @@ struct Controls {
     const cl::Context context;
     cl::CommandQueue queue;
     cl::CommandQueue async_queue;
-    const uint32_t block_size = uint32_t(128);
+    const uint32_t block_size = uint32_t(256);
 
     Controls(cl::Device& device) :
             device(device)

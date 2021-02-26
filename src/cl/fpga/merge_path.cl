@@ -4,6 +4,8 @@
 //#define GROUP_SIZE 256
 //#define restrict
 //#define local
+//#define __attribute__(a)
+//
 //#endif
 
 #define __local local
@@ -183,6 +185,7 @@ uint get_b_index(uint diag_index, uint m, uint sizeA) {
     return (diag_index - sizeA) + m + 1;
 }
 
+__attribute__((reqd_work_group_size(256,1,1)))
 __kernel void merge(__global uint* restrict rowsC,
                     __global uint* restrict colsC,
                     __global const uint* restrict rowsA,

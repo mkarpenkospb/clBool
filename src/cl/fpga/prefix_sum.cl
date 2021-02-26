@@ -11,6 +11,7 @@
 // TODO: optimise bank conflicts
 // https://developer.nvidia.com/gpugems/gpugems3/part-vi-gpu-computing/chapter-39-parallel-prefix-sum-scan-cuda
 
+__attribute__((reqd_work_group_size(256,1,1)))
 __kernel void scan_blelloch(
         __global uint* restrict vertices,
         __global uint* restrict pref_sum,
@@ -72,6 +73,7 @@ __kernel void scan_blelloch(
     }
 }
 
+__attribute__((reqd_work_group_size(256,1,1)))
 __kernel void update_pref_sum(__global uint* restrict pref_sum,
                               __global const uint* restrict vertices,
                               uint n,

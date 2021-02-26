@@ -8,6 +8,7 @@
 
 #define __local local
 
+__attribute__((reqd_work_group_size(256,1,1)))
 __kernel void set_positions(__global uint* restrict newRows,
                             __global uint* restrict newCols,
                             __global const uint* restrict rows,
@@ -34,7 +35,7 @@ __kernel void set_positions(__global uint* restrict newRows,
     }
 }
 
-
+__attribute__((reqd_work_group_size(256,1,1)))
 __kernel void set_positions_pointers_and_rows(__global uint* restrict newRowsPosition,
                                               __global uint* restrict newRows,
                                               __global const uint* restrict rowsPositions,
@@ -63,7 +64,7 @@ __kernel void set_positions_pointers_and_rows(__global uint* restrict newRowsPos
     }
 }
 
-
+__attribute__((reqd_work_group_size(256,1,1)))
 __kernel void set_positions_rows(__global uint* restrict rows_pointers,
                                  __global uint* restrict rows_compressed,
                                  __global const uint* restrict rows,
