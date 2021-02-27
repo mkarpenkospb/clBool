@@ -25,7 +25,7 @@ void matrix_addition(Controls &controls,
     time = t.elapsed();
     if (DEBUG_ENABLE)  *logger << "reduce_duplicates routine finished in " <<  time << "\n";
 
-    matrix_out = matrix_coo(controls, a.nRows(), a.nCols(), new_size, merged_rows, merged_cols);
+    matrix_out = matrix_coo(controls, a.nRows(), a.nCols(), new_size, merged_rows, merged_cols, true);
 }
 
 
