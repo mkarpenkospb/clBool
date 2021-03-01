@@ -8,7 +8,7 @@
 void testMatrixAddition() {
     timer t;
     Controls controls = utils::create_controls();
-    for (int iter = 0; iter < 10; iter++) {
+    for (int iter = 0; iter < 20; iter++) {
         if (DEBUG_ENABLE)
             *logger << "\n----------------------------- ITER " << iter << " --------------------------------\n";
         std::cout << "\n----------------------------- ITER " << iter << " --------------------------------\n";
