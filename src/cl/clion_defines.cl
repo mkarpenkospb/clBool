@@ -6,9 +6,10 @@
 
 #define __kernel
 #define __global
-//#define __local
+#define local
 #define __constant
 #define __private
+#define restrict
 
 #define half float
 #define uint unsigned int

@@ -26,8 +26,8 @@ public:
         return *this;
     }
 
-    const Logger& operator->() const {
-        stream << "[LOGGING] ";
+    const Logger& operator*(int) const {
+        stream << "\n";
         return *this;
     }
 
