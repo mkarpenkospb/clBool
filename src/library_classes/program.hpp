@@ -24,7 +24,6 @@ struct KernelCache {
         cl::Program cl_program;
         try {
             if (KernelCache::programs.find(_program_name) != KernelCache::programs.end()) {
-                if (DEBUG_ENABLE) *logger << "program's already loaded" << " \n";
                 return programs[_program_name];
             }
             #ifndef FPGA
@@ -49,7 +48,6 @@ struct KernelCache {
     static const cl::Kernel &get_kernel(const Controls &controls, const kernel_id &id) {
         cl::Program cl_program = get_program(controls, id.first);
         if (kernels.find(id) != kernels.end()) {
-            if (DEBUG_ENABLE) *logger << "kernel's already created " << " \n";
             return kernels[id];
         }
         timer t;
@@ -151,11 +149,7 @@ public:
         check_completeness(controls);
         try {
             cl::Kernel kernel = KernelCache::get_kernel(controls, {_program_name, _kernel_name});
-            timer t;
-            t.restart();
             kernel_type functor(kernel);
-            double time = t.elapsed();
-            if (DEBUG_ENABLE) *logger << "functor created in " << time << "\n";
             cl::EnqueueArgs eargs(_async ? controls.async_queue : controls.queue,
                                   cl::NDRange(utils::calculate_global_size(_block_size, _needed_work_size)),
                                   cl::NDRange(_block_size));
