@@ -24,7 +24,7 @@ struct KernelCache {
         cl::Program cl_program;
         try {
             if (KernelCache::programs.find(_program_name) != KernelCache::programs.end()) {
-                if (DEBUG_ENABLE) *logger << "program's already loaded" << time << " \n";
+                if (DEBUG_ENABLE) *logger << "program's already loaded" << " \n";
                 return programs[_program_name];
             }
             #ifndef FPGA
@@ -49,7 +49,7 @@ struct KernelCache {
     static const cl::Kernel &get_kernel(const Controls &controls, const kernel_id &id) {
         cl::Program cl_program = get_program(controls, id.first);
         if (kernels.find(id) != kernels.end()) {
-            if (DEBUG_ENABLE) *logger << "kernel's already created " << time << " \n";
+            if (DEBUG_ENABLE) *logger << "kernel's already created " << " \n";
             return kernels[id];
         }
         timer t;

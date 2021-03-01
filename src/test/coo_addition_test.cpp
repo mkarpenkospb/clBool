@@ -9,8 +9,8 @@ void testMatrixAddition() {
     timer t;
     Controls controls = utils::create_controls();
 
-//    for (int i = 100; i < 10000; i += 50) {
-//        for (int j = 100; j < 1000; j += 50) {
+    for (int iter = 0; iter < 5; iter ++) {
+            std::cout << "\n----------------------------- ITER " << iter << " --------------------------------\n";
             int i = 1234234;
             int j = 3746761;
 
@@ -44,7 +44,6 @@ void testMatrixAddition() {
 
             utils::compare_buffers(controls, matrix_res_gpu.rows_indices_gpu(), rows_cpu, rows_cpu.size());
             utils::compare_buffers(controls, matrix_res_gpu.cols_indices_gpu(), cols_cpu, cols_cpu.size());
-//        }
-//    }
+    }
 
 }
