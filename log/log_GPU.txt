@@ -1,0 +1,159 @@
+[LOGGING] 
+----------------------------- ITER 0 --------------------------------
+[LOGGING] data generated for a_nnz ~ 1227712 and b_nnx ~ 3733965 
+[LOGGING] matrices transferred to DEVICE in 0.206 
+[LOGGING] matrix addition in CPU finished in 0.4 
+[LOGGING] program merge_path created in 0.004 
+[LOGGING] kernel merge created in 0 
+[LOGGING] merge routine finished in 0.006
+[LOGGING] program prepare_positions created in 0.015 
+[LOGGING] kernel prepare_array_for_positions created in 0 
+[LOGGING] reduce_duplicates -> prepare_positions routine finished in 0.016
+[LOGGING] program prefix_sum created in 0.002 
+[LOGGING] kernel scan_blelloch created in 0 
+[LOGGING] kernel update_pref_sum created in 0 
+[LOGGING] reduce_duplicates -> prefix_sum routine finished in 0.009
+[LOGGING] program set_positions created in 0.001 
+[LOGGING] kernel set_positions created in 0 
+[LOGGING] reduce_duplicates -> set_positions routine finished in 0.003
+[LOGGING] reduce_duplicates routine finished in 0.031
+[LOGGING] matrix addition in DEVICE finished in 0.037 
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] 
+----------------------------- ITER 1 --------------------------------
+[LOGGING] data generated for a_nnz ~ 1227712 and b_nnx ~ 3733965 
+[LOGGING] matrices transferred to DEVICE in 0.207 
+[LOGGING] matrix addition in CPU finished in 0.387 
+[LOGGING] merge routine finished in 0.003
+[LOGGING] reduce_duplicates -> prepare_positions routine finished in 0.001
+[LOGGING] reduce_duplicates -> prefix_sum routine finished in 0.021
+[LOGGING] reduce_duplicates -> set_positions routine finished in 0.003
+[LOGGING] reduce_duplicates routine finished in 0.028
+[LOGGING] matrix addition in DEVICE finished in 0.031 
+[LOGGING] read buffer in 0.009 
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] 
+----------------------------- ITER 2 --------------------------------
+[LOGGING] data generated for a_nnz ~ 1227712 and b_nnx ~ 3733965 
+[LOGGING] matrices transferred to DEVICE in 0.208 
+[LOGGING] matrix addition in CPU finished in 0.391 
+[LOGGING] merge routine finished in 0.003
+[LOGGING] reduce_duplicates -> prepare_positions routine finished in 0.001
+[LOGGING] reduce_duplicates -> prefix_sum routine finished in 0.021
+[LOGGING] reduce_duplicates -> set_positions routine finished in 0.002
+[LOGGING] reduce_duplicates routine finished in 0.028
+[LOGGING] matrix addition in DEVICE finished in 0.031 
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.007 
+[LOGGING] buffers are equal
+[LOGGING] 
+----------------------------- ITER 3 --------------------------------
+[LOGGING] data generated for a_nnz ~ 1227712 and b_nnx ~ 3733965 
+[LOGGING] matrices transferred to DEVICE in 0.209 
+[LOGGING] matrix addition in CPU finished in 0.393 
+[LOGGING] merge routine finished in 0.002
+[LOGGING] reduce_duplicates -> prepare_positions routine finished in 0.001
+[LOGGING] reduce_duplicates -> prefix_sum routine finished in 0.021
+[LOGGING] reduce_duplicates -> set_positions routine finished in 0.003
+[LOGGING] reduce_duplicates routine finished in 0.028
+[LOGGING] matrix addition in DEVICE finished in 0.03 
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] 
+----------------------------- ITER 4 --------------------------------
+[LOGGING] data generated for a_nnz ~ 1227712 and b_nnx ~ 3733965 
+[LOGGING] matrices transferred to DEVICE in 0.21 
+[LOGGING] matrix addition in CPU finished in 0.394 
+[LOGGING] merge routine finished in 0.002
+[LOGGING] reduce_duplicates -> prepare_positions routine finished in 0.001
+[LOGGING] reduce_duplicates -> prefix_sum routine finished in 0.022
+[LOGGING] reduce_duplicates -> set_positions routine finished in 0.002
+[LOGGING] reduce_duplicates routine finished in 0.028
+[LOGGING] matrix addition in DEVICE finished in 0.03 
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] 
+----------------------------- ITER 5 --------------------------------
+[LOGGING] data generated for a_nnz ~ 1227712 and b_nnx ~ 3733965 
+[LOGGING] matrices transferred to DEVICE in 0.212 
+[LOGGING] matrix addition in CPU finished in 0.425 
+[LOGGING] merge routine finished in 0.003
+[LOGGING] reduce_duplicates -> prepare_positions routine finished in 0.002
+[LOGGING] reduce_duplicates -> prefix_sum routine finished in 0.021
+[LOGGING] reduce_duplicates -> set_positions routine finished in 0.003
+[LOGGING] reduce_duplicates routine finished in 0.029
+[LOGGING] matrix addition in DEVICE finished in 0.032 
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] 
+----------------------------- ITER 6 --------------------------------
+[LOGGING] data generated for a_nnz ~ 1227712 and b_nnx ~ 3733965 
+[LOGGING] matrices transferred to DEVICE in 0.21 
+[LOGGING] matrix addition in CPU finished in 0.397 
+[LOGGING] merge routine finished in 0.003
+[LOGGING] reduce_duplicates -> prepare_positions routine finished in 0.001
+[LOGGING] reduce_duplicates -> prefix_sum routine finished in 0.022
+[LOGGING] reduce_duplicates -> set_positions routine finished in 0.002
+[LOGGING] reduce_duplicates routine finished in 0.028
+[LOGGING] matrix addition in DEVICE finished in 0.031 
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.009 
+[LOGGING] buffers are equal
+[LOGGING] 
+----------------------------- ITER 7 --------------------------------
+[LOGGING] data generated for a_nnz ~ 1227712 and b_nnx ~ 3733965 
+[LOGGING] matrices transferred to DEVICE in 0.21 
+[LOGGING] matrix addition in CPU finished in 0.396 
+[LOGGING] merge routine finished in 0.003
+[LOGGING] reduce_duplicates -> prepare_positions routine finished in 0.001
+[LOGGING] reduce_duplicates -> prefix_sum routine finished in 0.022
+[LOGGING] reduce_duplicates -> set_positions routine finished in 0.002
+[LOGGING] reduce_duplicates routine finished in 0.028
+[LOGGING] matrix addition in DEVICE finished in 0.031 
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] 
+----------------------------- ITER 8 --------------------------------
+[LOGGING] data generated for a_nnz ~ 1227712 and b_nnx ~ 3733965 
+[LOGGING] matrices transferred to DEVICE in 0.21 
+[LOGGING] matrix addition in CPU finished in 0.395 
+[LOGGING] merge routine finished in 0.003
+[LOGGING] reduce_duplicates -> prepare_positions routine finished in 0.001
+[LOGGING] reduce_duplicates -> prefix_sum routine finished in 0.021
+[LOGGING] reduce_duplicates -> set_positions routine finished in 0.002
+[LOGGING] reduce_duplicates routine finished in 0.028
+[LOGGING] matrix addition in DEVICE finished in 0.031 
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] 
+----------------------------- ITER 9 --------------------------------
+[LOGGING] data generated for a_nnz ~ 1227712 and b_nnx ~ 3733965 
+[LOGGING] matrices transferred to DEVICE in 0.212 
+[LOGGING] matrix addition in CPU finished in 0.4 
+[LOGGING] merge routine finished in 0.002
+[LOGGING] reduce_duplicates -> prepare_positions routine finished in 0.001
+[LOGGING] reduce_duplicates -> prefix_sum routine finished in 0.021
+[LOGGING] reduce_duplicates -> set_positions routine finished in 0.003
+[LOGGING] reduce_duplicates routine finished in 0.027
+[LOGGING] matrix addition in DEVICE finished in 0.029 
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal

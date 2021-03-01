@@ -211,7 +211,7 @@ namespace utils {
                 throw std::runtime_error("buffers for " + name + " are different");
             }
         }
-        std::cout << "buffers are equal" << std::endl;
+        if (DEBUG_ENABLE) *logger << "buffers are equal\n";
     }
 
     void program_handler(const cl::Error &e, const cl::Program &program,

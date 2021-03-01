@@ -19,6 +19,9 @@ public:
             , stream(fstream)
     {
         fstream.open(this->path, std::fstream::in | std::fstream::out | std::fstream::trunc);
+        if (!fstream.is_open()) {
+            std::cerr << "cannot open file\n";
+        }
     }
 
     const Logger& operator*() const {
