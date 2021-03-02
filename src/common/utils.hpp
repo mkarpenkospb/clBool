@@ -9,17 +9,9 @@
 
 namespace utils {
 
-    template<typename, typename = std::void_t<>>
-    struct proper_container : std::false_type { };
-
-    template<typename T>
-    struct proper_container<T, std::void_t<typename T::iterator,
-            typename T::const_iterator,
-            typename T::value_type>> : std::true_type { };
-
     void compare_matrices(Controls &controls, matrix_dcsr m_gpu, matrix_dcsr_cpu m_cpu);
 
-    void fill_random_buffer(cpu_buffer &buf, uint32_t seed = -1);
+    void fill_random_buffer(cpu_buffer &buf, uint32_t seed = -1, uint32_t mod = 1);
 
     void fill_random_buffer(cpu_buffer_f &buf, uint32_t seed = -1);
 

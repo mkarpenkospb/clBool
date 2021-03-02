@@ -259,11 +259,11 @@ namespace utils {
 
 
 
-    void fill_random_buffer(cpu_buffer &buf, uint32_t seed) {
+    void fill_random_buffer(cpu_buffer &buf, uint32_t seed, uint32_t mod) {
         uint32_t n = buf.size();
         FastRandom r(seed == -1 ? n : seed);
         for (uint32_t i = 0; i < n; ++i) {
-            buf[i] = r.next();
+            buf[i] = r.next() % mod;
         }
     }
 

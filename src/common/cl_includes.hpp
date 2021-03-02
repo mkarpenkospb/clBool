@@ -16,7 +16,7 @@
 
 #if DEBUG_ENABLE
     #ifdef WIN
-    inline const Logger logger("../log/log_GPU.txt");
+    inline const Logger logger/*("../log/log_GPU.txt")*/;
     #else
     inline const Logger logger("../log/log_FPGA.txt");
     #endif
