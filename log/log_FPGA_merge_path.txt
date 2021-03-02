@@ -1,103 +1,103 @@
 [LOGGING] 
 ----------------------------- ITER 0 --------------------------------
 [LOGGING] data generated for a_nnz ~ 1227749 and b_nnz ~ 3734060 
-[LOGGING] merge on CPU finished in 0.353972 
-[LOGGING] matrices transferred to DEVICE in 0.359653 
-[LOGGING] create buffer with binaries in 0.151305
-[LOGGING] program merge_path created in 0.464236 
-[LOGGING] kernel merge created in 1.3e-05 
-[LOGGING] merge on DEVICE finished in 0.549001 
-[LOGGING] read buffer in 0.003822 
+[LOGGING] merge on CPU finished in 0.354779 
+[LOGGING] matrices transferred to DEVICE in 0.311876 
+[LOGGING] create buffer with binaries in 0.105482
+[LOGGING] program merge_path created in 0.392366 
+[LOGGING] kernel merge created in 1.2e-05 
+[LOGGING] merge on DEVICE finished in 0.477112 
+[LOGGING] read buffer in 0.004842 
 [LOGGING] buffers are equal
-[LOGGING] read buffer in 0.003706 
+[LOGGING] read buffer in 0.005565 
 [LOGGING] buffers are equal
 [LOGGING] 
 ----------------------------- ITER 1 --------------------------------
 [LOGGING] data generated for a_nnz ~ 1227749 and b_nnz ~ 3734060 
-[LOGGING] merge on CPU finished in 0.360229 
-[LOGGING] matrices transferred to DEVICE in 0.312067 
-[LOGGING] merge on DEVICE finished in 0.084869 
-[LOGGING] read buffer in 0.003721 
+[LOGGING] merge on CPU finished in 0.345425 
+[LOGGING] matrices transferred to DEVICE in 0.227641 
+[LOGGING] merge on DEVICE finished in 0.084716 
+[LOGGING] read buffer in 0.003724 
 [LOGGING] buffers are equal
-[LOGGING] read buffer in 0.003723 
+[LOGGING] read buffer in 0.003733 
 [LOGGING] buffers are equal
 [LOGGING] 
 ----------------------------- ITER 2 --------------------------------
 [LOGGING] data generated for a_nnz ~ 1227749 and b_nnz ~ 3734060 
-[LOGGING] merge on CPU finished in 0.350533 
-[LOGGING] matrices transferred to DEVICE in 0.309755 
-[LOGGING] merge on DEVICE finished in 0.084989 
-[LOGGING] read buffer in 0.006853 
+[LOGGING] merge on CPU finished in 0.343022 
+[LOGGING] matrices transferred to DEVICE in 0.352589 
+[LOGGING] merge on DEVICE finished in 0.084893 
+[LOGGING] read buffer in 0.003767 
 [LOGGING] buffers are equal
-[LOGGING] read buffer in 0.005758 
+[LOGGING] read buffer in 0.003727 
 [LOGGING] buffers are equal
 [LOGGING] 
 ----------------------------- ITER 3 --------------------------------
 [LOGGING] data generated for a_nnz ~ 1227749 and b_nnz ~ 3734060 
-[LOGGING] merge on CPU finished in 0.340653 
-[LOGGING] matrices transferred to DEVICE in 0.3105 
-[LOGGING] merge on DEVICE finished in 0.084787 
-[LOGGING] read buffer in 0.00373 
+[LOGGING] merge on CPU finished in 0.33294 
+[LOGGING] matrices transferred to DEVICE in 0.308051 
+[LOGGING] merge on DEVICE finished in 0.084742 
+[LOGGING] read buffer in 0.003758 
 [LOGGING] buffers are equal
-[LOGGING] read buffer in 0.003717 
+[LOGGING] read buffer in 0.003734 
 [LOGGING] buffers are equal
 [LOGGING] 
 ----------------------------- ITER 4 --------------------------------
 [LOGGING] data generated for a_nnz ~ 1227749 and b_nnz ~ 3734060 
-[LOGGING] merge on CPU finished in 0.340594 
-[LOGGING] matrices transferred to DEVICE in 0.30489 
-[LOGGING] merge on DEVICE finished in 0.084843 
-[LOGGING] read buffer in 0.003827 
+[LOGGING] merge on CPU finished in 0.366858 
+[LOGGING] matrices transferred to DEVICE in 0.316627 
+[LOGGING] merge on DEVICE finished in 0.084866 
+[LOGGING] read buffer in 0.003734 
 [LOGGING] buffers are equal
-[LOGGING] read buffer in 0.003726 
+[LOGGING] read buffer in 0.003722 
 [LOGGING] buffers are equal
 [LOGGING] 
 ----------------------------- ITER 5 --------------------------------
 [LOGGING] data generated for a_nnz ~ 1227749 and b_nnz ~ 3734060 
-[LOGGING] merge on CPU finished in 0.340332 
-[LOGGING] matrices transferred to DEVICE in 0.309031 
-[LOGGING] merge on DEVICE finished in 0.084819 
-[LOGGING] read buffer in 0.003778 
+[LOGGING] merge on CPU finished in 0.33311 
+[LOGGING] matrices transferred to DEVICE in 0.217349 
+[LOGGING] merge on DEVICE finished in 0.084599 
+[LOGGING] read buffer in 0.003825 
 [LOGGING] buffers are equal
-[LOGGING] read buffer in 0.003744 
+[LOGGING] read buffer in 0.003676 
 [LOGGING] buffers are equal
 [LOGGING] 
 ----------------------------- ITER 6 --------------------------------
 [LOGGING] data generated for a_nnz ~ 1227749 and b_nnz ~ 3734060 
-[LOGGING] merge on CPU finished in 0.34514 
-[LOGGING] matrices transferred to DEVICE in 0.307475 
-[LOGGING] merge on DEVICE finished in 0.084751 
-[LOGGING] read buffer in 0.003748 
+[LOGGING] merge on CPU finished in 0.333632 
+[LOGGING] matrices transferred to DEVICE in 0.21742 
+[LOGGING] merge on DEVICE finished in 0.084732 
+[LOGGING] read buffer in 0.003679 
 [LOGGING] buffers are equal
-[LOGGING] read buffer in 0.003707 
+[LOGGING] read buffer in 0.003625 
 [LOGGING] buffers are equal
 [LOGGING] 
 ----------------------------- ITER 7 --------------------------------
 [LOGGING] data generated for a_nnz ~ 1227749 and b_nnz ~ 3734060 
-[LOGGING] merge on CPU finished in 0.348115 
-[LOGGING] matrices transferred to DEVICE in 0.30578 
-[LOGGING] merge on DEVICE finished in 0.084748 
-[LOGGING] read buffer in 0.003699 
+[LOGGING] merge on CPU finished in 0.333049 
+[LOGGING] matrices transferred to DEVICE in 0.217989 
+[LOGGING] merge on DEVICE finished in 0.08458 
+[LOGGING] read buffer in 0.003688 
 [LOGGING] buffers are equal
-[LOGGING] read buffer in 0.00374 
+[LOGGING] read buffer in 0.003686 
 [LOGGING] buffers are equal
 [LOGGING] 
 ----------------------------- ITER 8 --------------------------------
 [LOGGING] data generated for a_nnz ~ 1227749 and b_nnz ~ 3734060 
-[LOGGING] merge on CPU finished in 0.489251 
-[LOGGING] matrices transferred to DEVICE in 0.309001 
-[LOGGING] merge on DEVICE finished in 0.084615 
-[LOGGING] read buffer in 0.003778 
+[LOGGING] merge on CPU finished in 0.362239 
+[LOGGING] matrices transferred to DEVICE in 0.306957 
+[LOGGING] merge on DEVICE finished in 0.084541 
+[LOGGING] read buffer in 0.003681 
 [LOGGING] buffers are equal
-[LOGGING] read buffer in 0.003741 
+[LOGGING] read buffer in 0.00367 
 [LOGGING] buffers are equal
 [LOGGING] 
 ----------------------------- ITER 9 --------------------------------
 [LOGGING] data generated for a_nnz ~ 1227749 and b_nnz ~ 3734060 
-[LOGGING] merge on CPU finished in 0.35693 
-[LOGGING] matrices transferred to DEVICE in 0.359126 
-[LOGGING] merge on DEVICE finished in 0.084634 
-[LOGGING] read buffer in 0.005684 
+[LOGGING] merge on CPU finished in 0.332911 
+[LOGGING] matrices transferred to DEVICE in 0.303096 
+[LOGGING] merge on DEVICE finished in 0.084744 
+[LOGGING] read buffer in 0.003797 
 [LOGGING] buffers are equal
-[LOGGING] read buffer in 0.003835 
+[LOGGING] read buffer in 0.003721 
 [LOGGING] buffers are equal
