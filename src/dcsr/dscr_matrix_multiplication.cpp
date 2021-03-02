@@ -106,7 +106,7 @@ void create_final_matrix(Controls &controls,
     if (groups_length[1] != 0) {
         auto single_value_rows = program<cl::Buffer, uint32_t, uint32_t,
                 cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer>
-                (to_result_matrix_single_thread_kernel, to_result_matrix_work_group_kernel_length)
+                (to_result_matrix_single_thread_kernel, to_result_matrix_single_thread_kernel_length)
                 .set_block_size(std::min(controls.block_size, std::max(32u, utils::ceil_to_power2(groups_length[1]))))
                 .set_needed_work_size(groups_length[1])
                 .set_async(true)
