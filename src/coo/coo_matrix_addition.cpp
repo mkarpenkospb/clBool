@@ -42,7 +42,7 @@ void merge(Controls &controls,
 #ifndef FPGA
                     (merge_path_kernel, merge_path_kernel_length)
 #else
-                    ("merge_path")
+                    ("compile_single_command/set_positions")
 #endif
                     .set_needed_work_size(merged_size)
                     .set_kernel_name("merge");
@@ -115,7 +115,7 @@ void prepare_positions(Controls &controls,
 #ifndef FPGA
             (prepare_positions_kernel, prepare_positions_kernel_length)
 #else
-            ("prepare_positions")
+            ("compile_single_command/set_positions")
 #endif
             .set_needed_work_size(merged_size)
             .set_kernel_name("prepare_array_for_positions");
@@ -136,7 +136,7 @@ void set_positions(Controls &controls,
 #ifndef FPGA
             (set_positions_kernel, set_positions_kernel_length)
 #else
-            ("set_positions")
+            ("compile_single_command/set_positions")
 #endif
             .set_needed_work_size(merged_size)
             .set_kernel_name("set_positions");

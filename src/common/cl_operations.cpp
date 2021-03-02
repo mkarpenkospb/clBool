@@ -11,9 +11,9 @@ void prefix_sum(Controls &controls,
 
     #ifdef FPGA
     auto scan = program<cl::Buffer, cl::Buffer, cl::LocalSpaceArg, cl::Buffer, unsigned int>
-            ("prefix_sum").set_kernel_name("scan_blelloch");
+            ("compile_single_command/set_positions").set_kernel_name("scan_blelloch");
     auto update = program<cl::Buffer, cl::Buffer, unsigned int, unsigned int>
-            ("prefix_sum").set_kernel_name("update_pref_sum");
+            ("compile_single_command/set_positions").set_kernel_name("update_pref_sum");
     #else
     program = controls.create_program_from_source(prefix_sum_kernel, prefix_sum_kernel_length);
     std::stringstream options;
