@@ -1,0 +1,2192 @@
+{
+  "301119512":
+  {
+    "nodes":
+    [
+      {
+        "name":"scan_blelloch.B0"
+        , "id":301199120
+        , "start":"0"
+        , "end":"185"
+        , "details":
+        [
+          {
+            "type":"table"
+          }
+        ]
+        , "type":"bb"
+        , "children":
+        [
+          {
+            "name":"wg.limiter.enter"
+            , "id":328453360
+            , "start":"177"
+            , "end":"178"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"wg.limiter.enter"
+                , "Start Cycle":"177"
+                , "Latency":"1"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":22
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"<<"
+            , "id":308508976
+            , "start":"178"
+            , "end":"178"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"64-bit Left Shift"
+                , "Constant Operand":"10 (0xA)"
+                , "Start Cycle":"178"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"And"
+            , "id":319734096
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"64-bit And"
+                , "Constant Operand":"4294967295 (0xFFFFFFFF)"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":28
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"<<"
+            , "id":318961312
+            , "start":"185"
+            , "end":"185"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Left Shift"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"185"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":35
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"+"
+            , "id":318928560
+            , "start":"185"
+            , "end":"185"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Add"
+                , "Constant Operand":"2 (0x2)"
+                , "Start Cycle":"185"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":36
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Or"
+            , "id":308408976
+            , "start":"185"
+            , "end":"185"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Or"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"185"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":35
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"n"
+            , "id":318941200
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'n'"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":318994576
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":28
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":308327664
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":28
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"pref_sum"
+            , "id":305136992
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'pref_sum'"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":308130832
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":28
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":318211968
+            , "start":"1"
+            , "end":"178"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"1"
+                , "Latency":"177"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":28
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Select"
+            , "id":319016240
+            , "start":"178"
+            , "end":"178"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Select"
+                , "Start Cycle":"178"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":28
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":303183408
+            , "start":"178"
+            , "end":"178"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"178"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":28
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"ST"
+            , "id":303199264
+            , "start":"178"
+            , "end":"185"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Store"
+                , "Width":"32 bits"
+                , "LSU Style":"Pipelined"
+                , "Stall-free":"No"
+                , "Global Memory":"No"
+                , "Start Cycle":"178"
+                , "Latency":"7"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":28
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+        ]
+      }
+      , {
+        "name":"scan_blelloch.B1"
+        , "id":301187152
+        , "start":"185"
+        , "end":"459"
+        , "details":
+        [
+          {
+            "type":"table"
+          }
+        ]
+        , "type":"bb"
+        , "children":
+        [
+          {
+            "name":">>"
+            , "id":308503472
+            , "start":"186"
+            , "end":"444"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Logical Right Shift"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"1"
+                , "Latency":"258"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":30
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":308309952
+            , "start":"459"
+            , "end":"459"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"274"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":30
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":319018736
+            , "start":"444"
+            , "end":"444"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"259"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":33
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"<<"
+            , "id":327967168
+            , "start":"440"
+            , "end":"459"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Left Shift"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"255"
+                , "Latency":"19"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":40
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"*"
+            , "id":324538848
+            , "start":"440"
+            , "end":"443"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Multiply"
+                , "Start Cycle":"255"
+                , "Latency":"3"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":36
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"+"
+            , "id":308484272
+            , "start":"444"
+            , "end":"444"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Add"
+                , "Constant Operand":"-1 (0xFFFFFFFF)"
+                , "Start Cycle":"259"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":36
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":330018304
+            , "start":"444"
+            , "end":"444"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"259"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":37
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"*"
+            , "id":304691872
+            , "start":"440"
+            , "end":"443"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Multiply"
+                , "Start Cycle":"255"
+                , "Latency":"3"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":35
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"+"
+            , "id":318919824
+            , "start":"444"
+            , "end":"444"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Add"
+                , "Constant Operand":"-1 (0xFFFFFFFF)"
+                , "Start Cycle":"259"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":35
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":308399792
+            , "start":"444"
+            , "end":"444"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"259"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":37
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"simple.barrier"
+            , "id":304301376
+            , "start":"186"
+            , "end":"444"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"simple.barrier"
+                , "Start Cycle":"1"
+                , "Latency":"258"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":32
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":330035760
+            , "start":"444"
+            , "end":"452"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Pipelined"
+                , "Stall-free":"No"
+                , "Global Memory":"No"
+                , "Start Cycle":"259"
+                , "Latency":"8"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":37
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":308359360
+            , "start":"444"
+            , "end":"452"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Pipelined"
+                , "Stall-free":"No"
+                , "Global Memory":"No"
+                , "Start Cycle":"259"
+                , "Latency":"8"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":37
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"+"
+            , "id":330036272
+            , "start":"452"
+            , "end":"452"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Add"
+                , "Start Cycle":"267"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":37
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"ST"
+            , "id":328066928
+            , "start":"452"
+            , "end":"459"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Store"
+                , "Width":"32 bits"
+                , "LSU Style":"Pipelined"
+                , "Stall-free":"No"
+                , "Global Memory":"No"
+                , "Start Cycle":"267"
+                , "Latency":"7"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":37
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+        ]
+      }
+      , {
+        "name":"scan_blelloch.B4"
+        , "id":301134480
+        , "start":"459"
+        , "end":"727"
+        , "details":
+        [
+          {
+            "type":"table"
+          }
+        ]
+        , "type":"bb"
+        , "children":
+        [
+          {
+            "name":"Compare"
+            , "id":328642128
+            , "start":"459"
+            , "end":"459"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"0"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":45
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":328058416
+            , "start":"459"
+            , "end":"459"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"0"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":45
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":328058752
+            , "start":"459"
+            , "end":"467"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Pipelined"
+                , "Stall-free":"No"
+                , "Global Memory":"No"
+                , "Start Cycle":"0"
+                , "Latency":"8"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":46
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"ST"
+            , "id":307883984
+            , "start":"467"
+            , "end":"474"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Store"
+                , "Width":"32 bits"
+                , "LSU Style":"Pipelined"
+                , "Stall-free":"No"
+                , "Global Memory":"No"
+                , "Start Cycle":"8"
+                , "Latency":"7"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":48
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"vertices"
+            , "id":328091296
+            , "start":"467"
+            , "end":"467"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'vertices'"
+                , "Start Cycle":"8"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":328064432
+            , "start":"467"
+            , "end":"467"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"8"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":46
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"ST"
+            , "id":328060720
+            , "start":"467"
+            , "end":"469"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Store"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"8"
+                , "Latency":"2"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":46
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"__acl_global_size_0"
+            , "id":328059632
+            , "start":"459"
+            , "end":"459"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for '__acl_global_size_0'"
+                , "Start Cycle":"0"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":305825792
+            , "start":"459"
+            , "end":"459"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"64-bit Integer Compare"
+                , "Start Cycle":"0"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":47
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"And"
+            , "id":305826128
+            , "start":"459"
+            , "end":"460"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit And"
+                , "Start Cycle":"0"
+                , "Latency":"1"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":47
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":305826464
+            , "start":"467"
+            , "end":"467"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"8"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":47
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"total_sum"
+            , "id":323672016
+            , "start":"467"
+            , "end":"467"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'total_sum'"
+                , "Start Cycle":"8"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"ST"
+            , "id":303534816
+            , "start":"467"
+            , "end":"469"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Store"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"8"
+                , "Latency":"2"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":47
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"simple.barrier"
+            , "id":308798848
+            , "start":"469"
+            , "end":"727"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"simple.barrier"
+                , "Start Cycle":"10"
+                , "Latency":"258"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":51
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+        ]
+      }
+      , {
+        "name":"scan_blelloch.B3"
+        , "id":301134400
+        , "start":"727"
+        , "end":"1008"
+        , "details":
+        [
+          {
+            "type":"table"
+          }
+        ]
+        , "type":"bb"
+        , "children":
+        [
+          {
+            "name":"<<"
+            , "id":330010528
+            , "start":"986"
+            , "end":"1008"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Left Shift"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"259"
+                , "Latency":"22"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":53
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":328801968
+            , "start":"986"
+            , "end":"987"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"259"
+                , "Latency":"1"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":53
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":307281040
+            , "start":"986"
+            , "end":"986"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"259"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":58
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"simple.barrier"
+            , "id":308116720
+            , "start":"728"
+            , "end":"986"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"simple.barrier"
+                , "Start Cycle":"1"
+                , "Latency":"258"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":56
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Cluster 0"
+            , "id":304943376
+            , "start":"979"
+            , "end":"986"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Cluster Name":"i_sfc_s_c0_in_post_barrier_block82_scan_blellochs_c0_enter28_scan_blelloch4"
+                , "Cluster Type":"Stall-Free"
+                , "Cluster Start Cycle":"252"
+                , "Cluster Latency":"7"
+              }
+            ]
+            , "type":"cluster"
+            , "children":
+            [
+              {
+                "name":">>"
+                , "id":329943024
+                , "start":"979"
+                , "end":"979"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"32-bit Logical Right Shift"
+                    , "Constant Operand":"1 (0x1)"
+                    , "Start Cycle":"252"
+                    , "Latency":"0"
+                  }
+                ]
+                , "debug":
+                [
+                  [
+                    {
+                      "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                      , "line":55
+                    }
+                  ]
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"*"
+                , "id":329944272
+                , "start":"979"
+                , "end":"982"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"32-bit Integer Multiply"
+                    , "Start Cycle":"252"
+                    , "Latency":"3"
+                  }
+                ]
+                , "debug":
+                [
+                  [
+                    {
+                      "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                      , "line":61
+                    }
+                  ]
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"+"
+                , "id":329944608
+                , "start":"983"
+                , "end":"983"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"32-bit Integer Add"
+                    , "Constant Operand":"-1 (0xFFFFFFFF)"
+                    , "Start Cycle":"256"
+                    , "Latency":"0"
+                  }
+                ]
+                , "debug":
+                [
+                  [
+                    {
+                      "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                      , "line":61
+                    }
+                  ]
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"Ptr. Comp."
+                , "id":329945280
+                , "start":"983"
+                , "end":"983"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"Pointer Computation"
+                    , "Start Cycle":"256"
+                    , "Latency":"0"
+                  }
+                ]
+                , "debug":
+                [
+                  [
+                    {
+                      "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                      , "line":63
+                    }
+                  ]
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"*"
+                , "id":329943600
+                , "start":"979"
+                , "end":"982"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"32-bit Integer Multiply"
+                    , "Start Cycle":"252"
+                    , "Latency":"3"
+                  }
+                ]
+                , "debug":
+                [
+                  [
+                    {
+                      "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                      , "line":60
+                    }
+                  ]
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"+"
+                , "id":329943936
+                , "start":"983"
+                , "end":"983"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"32-bit Integer Add"
+                    , "Constant Operand":"-1 (0xFFFFFFFF)"
+                    , "Start Cycle":"256"
+                    , "Latency":"0"
+                  }
+                ]
+                , "debug":
+                [
+                  [
+                    {
+                      "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                      , "line":60
+                    }
+                  ]
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"Ptr. Comp."
+                , "id":306680144
+                , "start":"983"
+                , "end":"983"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"Pointer Computation"
+                    , "Start Cycle":"256"
+                    , "Latency":"0"
+                  }
+                ]
+                , "debug":
+                [
+                  [
+                    {
+                      "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                      , "line":64
+                    }
+                  ]
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"Exit"
+                , "id":317557568
+                , "start":"983"
+                , "end":"986"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Start Cycle":"256"
+                    , "Latency":"3"
+                    , "Exit FIFO Depth":"32"
+                    , "Exit FIFO Width":"192"
+                    , "Details":"Exit FIFO depth is sized to accommodate all data that may be in-flight in the stall-free cluster; this depth will be equal to or greater than the latency of the cluster.  The width of the FIFO depends on the amount of data that needs to pass from the stall-free logic cluster to the stall-able logic below it."
+                  }
+                ]
+                , "type":"inst"
+              }
+            ]
+          }
+          , {
+            "name":"LD"
+            , "id":318650208
+            , "start":"986"
+            , "end":"994"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Pipelined"
+                , "Stall-free":"No"
+                , "Global Memory":"No"
+                , "Start Cycle":"259"
+                , "Latency":"8"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":64
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":318231360
+            , "start":"986"
+            , "end":"994"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Pipelined"
+                , "Stall-free":"No"
+                , "Global Memory":"No"
+                , "Start Cycle":"259"
+                , "Latency":"8"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":63
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"+"
+            , "id":329790720
+            , "start":"994"
+            , "end":"994"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Add"
+                , "Start Cycle":"267"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":64
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"ST"
+            , "id":329791056
+            , "start":"994"
+            , "end":"1001"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Store"
+                , "Width":"32 bits"
+                , "LSU Style":"Pipelined"
+                , "Stall-free":"No"
+                , "Global Memory":"No"
+                , "Start Cycle":"267"
+                , "Latency":"7"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":64
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"ST"
+            , "id":328066096
+            , "start":"1001"
+            , "end":"1008"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Store"
+                , "Width":"32 bits"
+                , "LSU Style":"Pipelined"
+                , "Stall-free":"No"
+                , "Global Memory":"No"
+                , "Start Cycle":"274"
+                , "Latency":"7"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":65
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+        ]
+      }
+      , {
+        "name":"scan_blelloch.B2"
+        , "id":301187232
+        , "start":"1008"
+        , "end":"1276"
+        , "details":
+        [
+          {
+            "type":"table"
+          }
+        ]
+        , "type":"bb"
+        , "children":
+        [
+          {
+            "name":"simple.barrier"
+            , "id":327174544
+            , "start":"1008"
+            , "end":"1266"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"simple.barrier"
+                , "Start Cycle":"0"
+                , "Latency":"258"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":69
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":328067504
+            , "start":"1266"
+            , "end":"1274"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Pipelined"
+                , "Stall-free":"No"
+                , "Global Memory":"No"
+                , "Start Cycle":"258"
+                , "Latency":"8"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":72
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"wg.limiter.exit"
+            , "id":305137888
+            , "start":"1274"
+            , "end":"1275"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"wg.limiter.exit"
+                , "Start Cycle":"266"
+                , "Latency":"1"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":74
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"ST"
+            , "id":308233056
+            , "start":"1274"
+            , "end":"1276"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Store"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"266"
+                , "Latency":"2"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":72
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+        ]
+      }
+    ]
+    , "links":
+    [
+    ]
+  }
+  , "301126888":
+  {
+    "nodes":
+    [
+      {
+        "name":"update_pref_sum.B0"
+        , "id":301255344
+        , "start":"0"
+        , "end":"195"
+        , "details":
+        [
+          {
+            "type":"table"
+          }
+        ]
+        , "type":"bb"
+        , "children":
+        [
+          {
+            "name":"Cluster 1"
+            , "id":317750400
+            , "start":"1"
+            , "end":"32"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Cluster Name":"i_sfc_s_c0_in_entry_update_pref_sums_c0_enter_update_pref_sum1"
+                , "Cluster Type":"Stall-Free"
+                , "Cluster Start Cycle":"1"
+                , "Cluster Latency":"31"
+              }
+            ]
+            , "type":"cluster"
+            , "children":
+            [
+              {
+                "name":"And"
+                , "id":328070208
+                , "start":"19"
+                , "end":"29"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"64-bit And"
+                    , "Constant Operand":"4294967295 (0xFFFFFFFF)"
+                    , "Start Cycle":"19"
+                    , "Latency":"10"
+                  }
+                ]
+                , "debug":
+                [
+                  [
+                    {
+                      "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                      , "line":96
+                    }
+                  ]
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"pref_sum"
+                , "id":328070544
+                , "start":"0"
+                , "end":"29"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"Input Synchronization for 'pref_sum'"
+                    , "Start Cycle":"0"
+                    , "Latency":"29"
+                  }
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"Ptr. Comp."
+                , "id":328073904
+                , "start":"29"
+                , "end":"29"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"Pointer Computation"
+                    , "Start Cycle":"29"
+                    , "Latency":"0"
+                  }
+                ]
+                , "debug":
+                [
+                  [
+                    {
+                      "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                      , "line":96
+                    }
+                  ]
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"n"
+                , "id":328079200
+                , "start":"0"
+                , "end":"28"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"Input Synchronization for 'n'"
+                    , "Start Cycle":"0"
+                    , "Latency":"28"
+                  }
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"Compare"
+                , "id":328081408
+                , "start":"28"
+                , "end":"29"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"32-bit Integer Compare"
+                    , "Start Cycle":"28"
+                    , "Latency":"1"
+                  }
+                ]
+                , "debug":
+                [
+                  [
+                    {
+                      "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                      , "line":83
+                    }
+                  ]
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"leaf_size"
+                , "id":328205440
+                , "start":"0"
+                , "end":"2"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"Input Synchronization for 'leaf_size'"
+                    , "Start Cycle":"0"
+                    , "Latency":"2"
+                  }
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"/"
+                , "id":328207648
+                , "start":"2"
+                , "end":"29"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"32-bit Unsigned Integer Divide"
+                    , "Start Cycle":"2"
+                    , "Latency":"27"
+                  }
+                ]
+                , "debug":
+                [
+                  [
+                    {
+                      "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                      , "line":88
+                    }
+                  ]
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"And"
+                , "id":328207984
+                , "start":"29"
+                , "end":"29"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"32-bit And"
+                    , "Constant Operand":"255 (0xFF)"
+                    , "Start Cycle":"29"
+                    , "Latency":"0"
+                  }
+                ]
+                , "debug":
+                [
+                  [
+                    {
+                      "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                      , "line":89
+                    }
+                  ]
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"Compare"
+                , "id":328208320
+                , "start":"29"
+                , "end":"29"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"32-bit Integer Compare"
+                    , "Start Cycle":"29"
+                    , "Latency":"0"
+                  }
+                ]
+                , "debug":
+                [
+                  [
+                    {
+                      "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                      , "line":92
+                    }
+                  ]
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"Or"
+                , "id":328069872
+                , "start":"29"
+                , "end":"29"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"1-bit Or"
+                    , "Start Cycle":"29"
+                    , "Latency":"0"
+                  }
+                ]
+                , "debug":
+                [
+                  [
+                    {
+                      "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                      , "line":96
+                    }
+                  ]
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"vertices"
+                , "id":328208992
+                , "start":"0"
+                , "end":"29"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"Input Synchronization for 'vertices'"
+                    , "Start Cycle":"0"
+                    , "Latency":"29"
+                  }
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"Ptr. Comp."
+                , "id":328068080
+                , "start":"29"
+                , "end":"29"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Instruction":"Pointer Computation"
+                    , "Start Cycle":"29"
+                    , "Latency":"0"
+                  }
+                ]
+                , "debug":
+                [
+                  [
+                    {
+                      "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                      , "line":96
+                    }
+                  ]
+                ]
+                , "type":"inst"
+              }
+              , {
+                "name":"Exit"
+                , "id":328063984
+                , "start":"29"
+                , "end":"32"
+                , "details":
+                [
+                  {
+                    "type":"table"
+                    , "Start Cycle":"29"
+                    , "Latency":"3"
+                    , "Exit FIFO Depth":"32"
+                    , "Exit FIFO Width":"256"
+                    , "Details":"Exit FIFO depth is sized to accommodate all data that may be in-flight in the stall-free cluster; this depth will be equal to or greater than the latency of the cluster.  The width of the FIFO depends on the amount of data that needs to pass from the stall-free logic cluster to the stall-able logic below it."
+                  }
+                ]
+                , "type":"inst"
+              }
+            ]
+          }
+          , {
+            "name":"LD"
+            , "id":329941056
+            , "start":"32"
+            , "end":"193"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"32"
+                , "Latency":"161"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":96
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":328057072
+            , "start":"32"
+            , "end":"193"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"32"
+                , "Latency":"161"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":96
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"+"
+            , "id":305532400
+            , "start":"193"
+            , "end":"193"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Add"
+                , "Start Cycle":"193"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":96
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"ST"
+            , "id":305532736
+            , "start":"193"
+            , "end":"195"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Store"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"193"
+                , "Latency":"2"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/prefix_sum.cl"
+                  , "line":96
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+        ]
+      }
+    ]
+    , "links":
+    [
+    ]
+  }
+}

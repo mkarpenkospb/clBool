@@ -1,0 +1,47 @@
+{
+  "nodes":
+  [
+    {
+      "name":"set_positions"
+      , "id":3167900888
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"set_positions.B0"
+          , "id":3168119104
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"set_positions_rows"
+      , "id":3168060392
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"set_positions_rows.B0"
+          , "id":3168166224
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"set_positions_pointers_and_rows"
+      , "id":3168059448
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"set_positions_pointers_and_rows.B0"
+          , "id":3168134688
+          , "type":"bb"
+        }
+      ]
+    }
+  ]
+  , "links":
+  [
+  ]
+}

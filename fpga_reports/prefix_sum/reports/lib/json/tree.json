@@ -1,0 +1,70 @@
+{
+  "nodes":
+  [
+    {
+      "name":"scan_blelloch"
+      , "id":301119512
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"scan_blelloch.B4"
+          , "id":301134480
+          , "type":"bb"
+        }
+        , {
+          "name":"scan_blelloch.B2"
+          , "id":301187232
+          , "type":"bb"
+        }
+        , {
+          "name":"scan_blelloch.B3"
+          , "id":301134400
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 0"
+              , "id":304943376
+              , "type":"cluster"
+            }
+          ]
+        }
+        , {
+          "name":"scan_blelloch.B0"
+          , "id":301199120
+          , "type":"bb"
+        }
+        , {
+          "name":"scan_blelloch.B1"
+          , "id":301187152
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"update_pref_sum"
+      , "id":301126888
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"update_pref_sum.B0"
+          , "id":301255344
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 1"
+              , "id":317750400
+              , "type":"cluster"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  , "links":
+  [
+  ]
+}

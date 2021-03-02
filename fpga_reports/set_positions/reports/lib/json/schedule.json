@@ -1,0 +1,3457 @@
+{
+  "3167900888":
+  {
+    "nodes":
+    [
+      {
+        "name":"set_positions.B0"
+        , "id":3168119104
+        , "start":"0"
+        , "end":"681"
+        , "details":
+        [
+          {
+            "type":"table"
+          }
+        ]
+        , "type":"bb"
+        , "children":
+        [
+          {
+            "name":"And"
+            , "id":3194536656
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"64-bit And"
+                , "Constant Operand":"4294967295 (0xFFFFFFFF)"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":24
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"size"
+            , "id":3194483488
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'size'"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"+"
+            , "id":3194335120
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Add"
+                , "Constant Operand":"-1 (0xFFFFFFFF)"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":24
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":3194130800
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":24
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3194160000
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":24
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"size"
+            , "id":3194214560
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'size'"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"size"
+            , "id":3194213232
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'size'"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":3194472800
+            , "start":"1"
+            , "end":"2"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"1"
+                , "Latency":"1"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":30
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"positions"
+            , "id":3194157088
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'positions'"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3194703520
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":24
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":3194155808
+            , "start":"1"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"1"
+                , "Latency":"226"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":24
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":3194142480
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":24
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Or"
+            , "id":3194743808
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Or"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":30
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"And"
+            , "id":3191562400
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit And"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":30
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3190159616
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":32
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":3178651984
+            , "start":"227"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced cached"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"227"
+                , "Latency":"226"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":32
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3194210752
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"And"
+            , "id":3194361568
+            , "start":"227"
+            , "end":"228"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit And"
+                , "Start Cycle":"227"
+                , "Latency":"1"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Select"
+            , "id":3186367920
+            , "start":"453"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Select"
+                , "Start Cycle":"453"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":25
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"cols"
+            , "id":3194085760
+            , "start":"453"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'cols'"
+                , "Start Cycle":"453"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3194540384
+            , "start":"1"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"1"
+                , "Latency":"452"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":26
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"newCols"
+            , "id":3193405120
+            , "start":"679"
+            , "end":"679"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'newCols'"
+                , "Start Cycle":"679"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3179826400
+            , "start":"679"
+            , "end":"679"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"679"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":26
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"rows"
+            , "id":3187227488
+            , "start":"453"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'rows'"
+                , "Start Cycle":"453"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3178029648
+            , "start":"1"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"1"
+                , "Latency":"452"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":25
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"newRows"
+            , "id":3180622912
+            , "start":"679"
+            , "end":"679"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'newRows'"
+                , "Start Cycle":"679"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3172470048
+            , "start":"679"
+            , "end":"679"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"679"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":25
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"+"
+            , "id":3179597520
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Add"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":32
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"positions"
+            , "id":3173343712
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'positions'"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3186402368
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":32
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":3173548208
+            , "start":"227"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced cached"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"227"
+                , "Latency":"226"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":32
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":3177522496
+            , "start":"453"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"453"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":32
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"And"
+            , "id":3171124160
+            , "start":"453"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit And"
+                , "Start Cycle":"453"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Or"
+            , "id":3192540064
+            , "start":"453"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Or"
+                , "Start Cycle":"453"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3179585920
+            , "start":"453"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"453"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":25
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":3194171200
+            , "start":"453"
+            , "end":"679"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced cached"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"453"
+                , "Latency":"226"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":26
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"ST"
+            , "id":3191269072
+            , "start":"679"
+            , "end":"681"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Store"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"679"
+                , "Latency":"2"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":26
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":3172645952
+            , "start":"453"
+            , "end":"679"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced cached"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"453"
+                , "Latency":"226"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":25
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"ST"
+            , "id":3172471296
+            , "start":"679"
+            , "end":"681"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Store"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"679"
+                , "Latency":"2"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":25
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+        ]
+      }
+    ]
+    , "links":
+    [
+    ]
+  }
+  , "3168059448":
+  {
+    "nodes":
+    [
+      {
+        "name":"set_positions_pointers_and_rows.B0"
+        , "id":3168134688
+        , "start":"0"
+        , "end":"815"
+        , "details":
+        [
+          {
+            "type":"table"
+          }
+        ]
+        , "type":"bb"
+        , "children":
+        [
+          {
+            "name":"rows"
+            , "id":3191530544
+            , "start":"453"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'rows'"
+                , "Start Cycle":"453"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"rowsPositions"
+            , "id":3190165056
+            , "start":"453"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'rowsPositions'"
+                , "Start Cycle":"453"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"newRowsPosition"
+            , "id":3189492224
+            , "start":"545"
+            , "end":"545"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'newRowsPosition'"
+                , "Start Cycle":"545"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"old_nzr"
+            , "id":3188994032
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'old_nzr'"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":3185091808
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":50
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3172014208
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":53
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"new_nzr"
+            , "id":3184952048
+            , "start":"545"
+            , "end":"545"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'new_nzr'"
+                , "Start Cycle":"545"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3172344064
+            , "start":"545"
+            , "end":"545"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"545"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":57
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"newRowsPosition"
+            , "id":3180721984
+            , "start":"545"
+            , "end":"545"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'newRowsPosition'"
+                , "Start Cycle":"545"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"positions"
+            , "id":3180211600
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'positions'"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"nnz"
+            , "id":3178788144
+            , "start":"679"
+            , "end":"679"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'nnz'"
+                , "Start Cycle":"679"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"old_nzr"
+            , "id":3177866272
+            , "start":"226"
+            , "end":"226"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'old_nzr'"
+                , "Start Cycle":"226"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"+"
+            , "id":3184465104
+            , "start":"226"
+            , "end":"226"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Add"
+                , "Constant Operand":"-1 (0xFFFFFFFF)"
+                , "Start Cycle":"226"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":52
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":3173561312
+            , "start":"226"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"226"
+                , "Latency":"1"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":52
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3177852960
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"And"
+            , "id":3177720896
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit And"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"And"
+            , "id":3173898864
+            , "start":"453"
+            , "end":"454"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit And"
+                , "Start Cycle":"453"
+                , "Latency":"1"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":52
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"rows"
+            , "id":3177721680
+            , "start":"453"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'rows'"
+                , "Start Cycle":"453"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"rowsPositions"
+            , "id":3174777472
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'rowsPositions'"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"positions"
+            , "id":3174367392
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'positions'"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"And"
+            , "id":3173924928
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"64-bit And"
+                , "Constant Operand":"4294967295 (0xFFFFFFFF)"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":53
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3191449856
+            , "start":"1"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"1"
+                , "Latency":"452"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":63
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3177909664
+            , "start":"1"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"1"
+                , "Latency":"226"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":54
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3172040096
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":53
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":3179404640
+            , "start":"1"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"1"
+                , "Latency":"226"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":53
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3172102032
+            , "start":"545"
+            , "end":"545"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"545"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":54
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"+"
+            , "id":3172888480
+            , "start":"226"
+            , "end":"226"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Add"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"226"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":61
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3185150224
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":61
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Select"
+            , "id":3173069792
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Select"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":61
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"newRows"
+            , "id":3171351568
+            , "start":"545"
+            , "end":"545"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'newRows'"
+                , "Start Cycle":"545"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3190536320
+            , "start":"545"
+            , "end":"545"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"545"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":55
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"old_nzr"
+            , "id":3170929104
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'old_nzr'"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":3172161936
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":53
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"And"
+            , "id":3179929904
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit And"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"And"
+            , "id":3171546880
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit And"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Select"
+            , "id":3183907856
+            , "start":"545"
+            , "end":"679"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Select"
+                , "Start Cycle":"545"
+                , "Latency":"134"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":55
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Select"
+            , "id":3179689008
+            , "start":"453"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Select"
+                , "Start Cycle":"453"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":55
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3186524672
+            , "start":"1"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"1"
+                , "Latency":"452"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":55
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3172074816
+            , "start":"545"
+            , "end":"545"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"545"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":54
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Or"
+            , "id":3171442512
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Or"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3174280672
+            , "start":"227"
+            , "end":"227"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"227"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":61
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":3185972960
+            , "start":"227"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced cached"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"227"
+                , "Latency":"226"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":61
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"ST"
+            , "id":3179685648
+            , "start":"545"
+            , "end":"679"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Store"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"545"
+                , "Latency":"134"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":54
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":3173316448
+            , "start":"453"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"453"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":61
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"And"
+            , "id":3190176400
+            , "start":"453"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit And"
+                , "Start Cycle":"453"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"And"
+            , "id":3190970208
+            , "start":"453"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit And"
+                , "Start Cycle":"453"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3191475920
+            , "start":"453"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"453"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":63
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":3179120880
+            , "start":"453"
+            , "end":"679"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced cached"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"453"
+                , "Latency":"226"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":63
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Select"
+            , "id":3180177168
+            , "start":"679"
+            , "end":"680"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Select"
+                , "Start Cycle":"679"
+                , "Latency":"1"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":63
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Select"
+            , "id":3189834400
+            , "start":"545"
+            , "end":"813"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Select"
+                , "Start Cycle":"545"
+                , "Latency":"268"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":63
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Or"
+            , "id":3172317296
+            , "start":"679"
+            , "end":"680"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Or"
+                , "Start Cycle":"679"
+                , "Latency":"1"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3192270224
+            , "start":"813"
+            , "end":"813"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"813"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":63
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Or"
+            , "id":3172142096
+            , "start":"453"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Or"
+                , "Start Cycle":"453"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3191135136
+            , "start":"453"
+            , "end":"453"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"453"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":55
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":3190598832
+            , "start":"453"
+            , "end":"679"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced cached"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"453"
+                , "Latency":"226"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":55
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"ST"
+            , "id":3191184640
+            , "start":"679"
+            , "end":"813"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Store"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"679"
+                , "Latency":"134"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":55
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"ST"
+            , "id":3180659168
+            , "start":"813"
+            , "end":"815"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Store"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"813"
+                , "Latency":"2"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":63
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+        ]
+      }
+    ]
+    , "links":
+    [
+    ]
+  }
+  , "3168060392":
+  {
+    "nodes":
+    [
+      {
+        "name":"set_positions_rows.B0"
+        , "id":3168166224
+        , "start":"0"
+        , "end":"634"
+        , "details":
+        [
+          {
+            "type":"table"
+          }
+        ]
+        , "type":"bb"
+        , "children":
+        [
+          {
+            "name":"size"
+            , "id":3194150672
+            , "start":"2"
+            , "end":"2"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'size'"
+                , "Start Cycle":"2"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":3194539616
+            , "start":"2"
+            , "end":"2"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"2"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":86
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"nzr"
+            , "id":3193995088
+            , "start":"514"
+            , "end":"514"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'nzr'"
+                , "Start Cycle":"514"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"positions"
+            , "id":3193968304
+            , "start":"2"
+            , "end":"2"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'positions'"
+                , "Start Cycle":"2"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"rows_pointers"
+            , "id":3192723888
+            , "start":"514"
+            , "end":"514"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'rows_pointers'"
+                , "Start Cycle":"514"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"size"
+            , "id":3192697600
+            , "start":"632"
+            , "end":"632"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'size'"
+                , "Start Cycle":"632"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"rows_compressed"
+            , "id":3191882608
+            , "start":"514"
+            , "end":"514"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'rows_compressed'"
+                , "Start Cycle":"514"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"And"
+            , "id":3187148192
+            , "start":"1"
+            , "end":"2"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"64-bit And"
+                , "Constant Operand":"4294967295 (0xFFFFFFFF)"
+                , "Start Cycle":"1"
+                , "Latency":"1"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":78
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3193324640
+            , "start":"2"
+            , "end":"2"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"2"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":78
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"rows_pointers"
+            , "id":3186459088
+            , "start":"514"
+            , "end":"514"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'rows_pointers'"
+                , "Start Cycle":"514"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3192139280
+            , "start":"514"
+            , "end":"514"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"514"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":82
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"positions"
+            , "id":3184223408
+            , "start":"212"
+            , "end":"212"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'positions'"
+                , "Start Cycle":"212"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"size"
+            , "id":3184113904
+            , "start":"212"
+            , "end":"212"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'size'"
+                , "Start Cycle":"212"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"rows_compressed"
+            , "id":3181584000
+            , "start":"514"
+            , "end":"514"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'rows_compressed'"
+                , "Start Cycle":"514"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"+"
+            , "id":3180306704
+            , "start":"211"
+            , "end":"211"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Add"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"211"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":88
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3172901792
+            , "start":"212"
+            , "end":"212"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"212"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":88
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"rows_pointers"
+            , "id":3180081184
+            , "start":"396"
+            , "end":"396"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'rows_pointers'"
+                , "Start Cycle":"396"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"size"
+            , "id":3179323040
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'size'"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"+"
+            , "id":3177696848
+            , "start":"1"
+            , "end":"1"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Add"
+                , "Constant Operand":"-1 (0xFFFFFFFF)"
+                , "Start Cycle":"1"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":77
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":3182984080
+            , "start":"1"
+            , "end":"2"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"1"
+                , "Latency":"1"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":77
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3194541024
+            , "start":"2"
+            , "end":"2"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"2"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":78
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"And"
+            , "id":3186762464
+            , "start":"2"
+            , "end":"2"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit And"
+                , "Start Cycle":"2"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":86
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3192779472
+            , "start":"2"
+            , "end":"2"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"2"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":88
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3192150368
+            , "start":"2"
+            , "end":"2"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Start Cycle":"2"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":3186467296
+            , "start":"2"
+            , "end":"212"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"2"
+                , "Latency":"210"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":78
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3193781040
+            , "start":"396"
+            , "end":"514"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"396"
+                , "Latency":"118"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":89
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3192722672
+            , "start":"396"
+            , "end":"514"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"396"
+                , "Latency":"118"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":90
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Select"
+            , "id":3192697264
+            , "start":"514"
+            , "end":"632"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Select"
+                , "Start Cycle":"514"
+                , "Latency":"118"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":82
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":3189889424
+            , "start":"212"
+            , "end":"212"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"212"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":78
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"And"
+            , "id":3179230624
+            , "start":"212"
+            , "end":"212"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit And"
+                , "Start Cycle":"212"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3191929536
+            , "start":"396"
+            , "end":"396"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"396"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":79
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Or"
+            , "id":3179276128
+            , "start":"212"
+            , "end":"212"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Or"
+                , "Start Cycle":"212"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":80
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3179494160
+            , "start":"212"
+            , "end":"212"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"212"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":80
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3171157792
+            , "start":"396"
+            , "end":"396"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"396"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":79
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"ST"
+            , "id":3173550336
+            , "start":"396"
+            , "end":"514"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Store"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"396"
+                , "Latency":"118"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":79
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3170997584
+            , "start":"396"
+            , "end":"514"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"396"
+                , "Latency":"118"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":80
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Select"
+            , "id":3172436256
+            , "start":"514"
+            , "end":"514"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Select"
+                , "Start Cycle":"514"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":80
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"rows"
+            , "id":3172893696
+            , "start":"2"
+            , "end":"2"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Input Synchronization for 'rows'"
+                , "Start Cycle":"2"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Ptr. Comp."
+            , "id":3172063840
+            , "start":"2"
+            , "end":"212"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Pointer Computation"
+                , "Start Cycle":"2"
+                , "Latency":"210"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":80
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Select"
+            , "id":3180074768
+            , "start":"212"
+            , "end":"212"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Select"
+                , "Start Cycle":"212"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":80
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":3173448720
+            , "start":"212"
+            , "end":"422"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced cached"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"212"
+                , "Latency":"210"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":80
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Compare"
+            , "id":3193994752
+            , "start":"422"
+            , "end":"422"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Integer Compare"
+                , "Start Cycle":"422"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":88
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"And"
+            , "id":3192138096
+            , "start":"422"
+            , "end":"422"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit And"
+                , "Start Cycle":"422"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"And"
+            , "id":3192138432
+            , "start":"422"
+            , "end":"422"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit And"
+                , "Start Cycle":"422"
+                , "Latency":"0"
+              }
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3190883552
+            , "start":"422"
+            , "end":"422"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"422"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":90
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"LD"
+            , "id":3190883888
+            , "start":"422"
+            , "end":"632"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Load"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced cached"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"422"
+                , "Latency":"210"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":90
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Select"
+            , "id":3179634528
+            , "start":"632"
+            , "end":"632"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Select"
+                , "Start Cycle":"632"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":82
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Or"
+            , "id":3180746048
+            , "start":"514"
+            , "end":"514"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Or"
+                , "Start Cycle":"514"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":80
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3180746384
+            , "start":"514"
+            , "end":"514"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"514"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":80
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3179634864
+            , "start":"632"
+            , "end":"632"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Start Cycle":"632"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":82
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Xor"
+            , "id":3179635200
+            , "start":"632"
+            , "end":"632"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"1-bit Xor"
+                , "Constant Operand":"1 (0x1)"
+                , "Start Cycle":"632"
+                , "Latency":"0"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":82
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"Select"
+            , "id":3172436592
+            , "start":"422"
+            , "end":"423"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"32-bit Select"
+                , "Start Cycle":"422"
+                , "Latency":"1"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":80
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"ST"
+            , "id":3179102064
+            , "start":"514"
+            , "end":"632"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Store"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"514"
+                , "Latency":"118"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":80
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+          , {
+            "name":"ST"
+            , "id":3179635536
+            , "start":"632"
+            , "end":"634"
+            , "details":
+            [
+              {
+                "type":"table"
+                , "Instruction":"Store"
+                , "Width":"32 bits"
+                , "LSU Style":"Burst-coalesced"
+                , "Stall-free":"No"
+                , "Global Memory":"Yes"
+                , "Start Cycle":"632"
+                , "Latency":"2"
+              }
+            ]
+            , "debug":
+            [
+              [
+                {
+                  "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/set_positions.cl"
+                  , "line":82
+                }
+              ]
+            ]
+            , "type":"inst"
+          }
+        ]
+      }
+    ]
+    , "links":
+    [
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+var infoJSON={"compileInfo":{"nodes":[{"command":"aoc prefix_sum.cl","family":"Arria 10, 10AX115S2F45E2LG, euler2:line_high","id":1,"name":"prefix_sum","product":"OPENCL","quartus":"17.1.1 Build 273 Pro","time":"Sat Feb 27 07:37:31 2021","version":"20.4.0 Build 72"}]}};
