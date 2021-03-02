@@ -61,8 +61,8 @@ void test_merge() {
         time = t.elapsed();
         if (DEBUG_ENABLE) *logger << "merge on DEVICE finished in " << time << " \n";
 
-        std::vector<uint32_t> rows_cpu;
-        std::vector<uint32_t> cols_cpu;
+        cpu_buffer rows_cpu;
+        cpu_buffer cols_cpu;
 
         coo_utils::get_vectors_from_cpu_matrix(rows_cpu, cols_cpu, matrix_res_cpu);
 

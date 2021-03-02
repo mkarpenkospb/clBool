@@ -14,7 +14,6 @@
 
 const uint32_t BINS_NUM = 38;
 const uint32_t HEAP_MERGE_BLOCK_SIZE = 32;
-typedef std::vector<uint32_t> cpu_buffer;
 
 uint32_t esc_estimation(uint32_t group) {
     switch (group) {

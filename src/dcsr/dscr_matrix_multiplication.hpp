@@ -6,7 +6,6 @@
 #include "matrix_dcsr.hpp"
 #include "matrices_conversions.hpp"
 
-typedef std::vector<uint32_t> cpu_buffer;
 
 
 void prepare_positions(Controls &controls,

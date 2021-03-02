@@ -35,8 +35,8 @@ public:
                index_type nRows,
                index_type nCols,
                index_type nEntities,
-               std::vector<index_type> &rows_indices,
-               std::vector<index_type> &cols_indices,
+               cpu_buffer &rows_indices,
+               cpu_buffer &cols_indices,
                bool sorted = false);
 
     /* we assume, that all input data are sorted */

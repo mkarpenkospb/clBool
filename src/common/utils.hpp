@@ -42,7 +42,7 @@ namespace utils {
 
     template<typename T>
     void compare_buffers(Controls &controls,
-                            const cl::Buffer &buffer_g, const std::vector<T> &buffer_c, uint32_t size,
+                            const cl::Buffer &buffer_g, const std::vector<T, aligned_allocator<T, 64>> &buffer_c, uint32_t size,
                             std::string name = "") {
         using buf = std::vector<T, aligned_allocator<T, 64>>;
         static float epsilon = 0.00001;

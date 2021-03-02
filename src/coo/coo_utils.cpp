@@ -9,8 +9,6 @@
 
 namespace coo_utils {
 
-    using cpu_buffer = std::vector<uint32_t>;
-
     std::pair<matrix_dcsr_cpu, matrix_dcsr_cpu> generate_random_matrices_large(uint32_t max_size, uint32_t seed) {
         // попытаемся нагенерить штук 50 рядов по 32 - 63 элемента
         // создание второй матрицы

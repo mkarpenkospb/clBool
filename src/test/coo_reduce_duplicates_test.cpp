@@ -14,11 +14,11 @@ void testReduceDuplicates() {
 
     // -------------------- create indices ----------------------------
 
-    std::vector<uint32_t> rows_cpu(size);
-    std::vector<uint32_t> cols_cpu(size);
+    cpu_buffer rows_cpu(size);
+    cpu_buffer cols_cpu(size);
 
-    std::vector<uint32_t> rows_from_gpu(size);
-    std::vector<uint32_t> cols_from_gpu(size);
+    cpu_buffer rows_from_gpu(size);
+    cpu_buffer cols_from_gpu(size);
 
     coo_utils::fill_random_matrix(rows_cpu, cols_cpu, 1043);
 
