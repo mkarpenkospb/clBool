@@ -36,7 +36,13 @@ void prefix_sum(Controls &controls,
     uint32_t leaf_size = 1;
     update.set_needed_work_size(array_size);
     scan.set_needed_work_size(array_size);
-    scan.run(controls, a_gpu, array, local_array, total_sum_gpu, array_size);
+
+
+    timer t;
+    t.restart();
+    scan.run(controls, a_gpu, array, local_array, total_sum_gpu, array_size).wait();
+    double time = t.elapsed();
+    if (DEBUG_ENABLE) *logger << "first prescan finished in " << time << "\n";
 
     uint32_t outer = (array_size + block_size - 1) / block_size;
     cl::Buffer *a_gpu_ptr = &a_gpu;
@@ -49,8 +55,16 @@ void prefix_sum(Controls &controls,
         leaf_size *= block_size;
         scan.set_needed_work_size(outer/*(outer + work_group_size - 1) / work_group_size * work_group_size*/);
 
-        scan.run(controls, *b_gpu_ptr, *a_gpu_ptr, local_array, total_sum_gpu, outer);
-        update.run(controls, array, *a_gpu_ptr, array_size, leaf_size);
+        t.restart();
+        scan.run(controls, *b_gpu_ptr, *a_gpu_ptr, local_array, total_sum_gpu, outer).wait();
+        time = t.elapsed();
+        if (DEBUG_ENABLE) *logger << "scan finished in " << time << "\n";
+
+        t.restart();
+        update.run(controls, array, *a_gpu_ptr, array_size, leaf_size).wait();
+        time = t.elapsed();
+        if (DEBUG_ENABLE) *logger << "update finished in " << time << "\n";
+
         outer = (outer + block_size - 1) / block_size;
         std::swap(a_gpu_ptr, b_gpu_ptr);
         std::swap(a_size_ptr, b_size_ptr);
