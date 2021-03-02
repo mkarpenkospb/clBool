@@ -16,9 +16,9 @@
 
 #if DEBUG_ENABLE
     #ifdef WIN
-    inline const Logger logger/*("../log/log_GPU.txt")*/;
+    inline const Logger logger("../log/log_GPU_merge_path.txt");
     #else
-    inline const Logger logger/*("../log/log_FPGA.txt")*/;
+    inline const Logger logger("../log/log_FPGA_merge_path.txt");
     #endif
 #endif
 
