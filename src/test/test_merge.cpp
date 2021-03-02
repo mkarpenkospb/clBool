@@ -21,7 +21,7 @@ void test_merge() {
         matrix_coo_cpu_pairs matrix_b_cpu = coo_utils::generate_random_matrix_coo_cpu(j, 23341);
 
         if (DEBUG_ENABLE) *logger << "data generated for a_nnz ~ " << matrix_a_cpu.size()
-                                  << " and b_nnx ~ " << matrix_b_cpu.size() << " \n";
+                                  << " and b_nnz ~ " << matrix_b_cpu.size() << " \n";
 
         matrix_coo matrix_res_gpu;
 
@@ -56,7 +56,7 @@ void test_merge() {
                       merged_rows, merged_cols,
                       matrix_a_gpu.rows_indices_gpu(), matrix_a_gpu.cols_indices_gpu(),
                       matrix_b_gpu.rows_indices_gpu(), matrix_b_gpu.cols_indices_gpu(),
-                      matrix_a_gpu.nnz(), matrix_b_gpu.nnz());
+                      matrix_a_gpu.nnz(), matrix_b_gpu.nnz()).wait();
 
         time = t.elapsed();
         if (DEBUG_ENABLE) *logger << "merge on DEVICE finished in " << time << " \n";
