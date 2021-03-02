@@ -49,4 +49,54 @@
 [LOGGING] read buffer in 0.008 
 [LOGGING] buffers are equal
 [LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
 [LOGGING] 
+----------------------------- ITER 5 --------------------------------
+[LOGGING] data generated for a_nnz ~ 1227712 and b_nnz ~ 3733965 
+[LOGGING] merge on CPU finished in 0.272 
+[LOGGING] matrices transferred to DEVICE in 0.212 
+[LOGGING] merge on DEVICE finished in 0.017 
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] 
+----------------------------- ITER 6 --------------------------------
+[LOGGING] data generated for a_nnz ~ 1227712 and b_nnz ~ 3733965 
+[LOGGING] merge on CPU finished in 0.27 
+[LOGGING] matrices transferred to DEVICE in 0.2 
+[LOGGING] merge on DEVICE finished in 0.016 
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] 
+----------------------------- ITER 7 --------------------------------
+[LOGGING] data generated for a_nnz ~ 1227712 and b_nnz ~ 3733965 
+[LOGGING] merge on CPU finished in 0.264 
+[LOGGING] matrices transferred to DEVICE in 0.201 
+[LOGGING] merge on DEVICE finished in 0.017 
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] 
+----------------------------- ITER 8 --------------------------------
+[LOGGING] data generated for a_nnz ~ 1227712 and b_nnz ~ 3733965 
+[LOGGING] merge on CPU finished in 0.249 
+[LOGGING] matrices transferred to DEVICE in 0.195 
+[LOGGING] merge on DEVICE finished in 0.016 
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] 
+----------------------------- ITER 9 --------------------------------
+[LOGGING] data generated for a_nnz ~ 1227712 and b_nnz ~ 3733965 
+[LOGGING] merge on CPU finished in 0.251 
+[LOGGING] matrices transferred to DEVICE in 0.193 
+[LOGGING] merge on DEVICE finished in 0.016 
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.008 
+[LOGGING] buffers are equal

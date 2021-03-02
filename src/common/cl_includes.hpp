@@ -16,9 +16,9 @@
 
 #if DEBUG_ENABLE
     #ifdef WIN
-    inline const Logger logger("../log/log_GPU_merge_path.txt");
+    inline const Logger logger("../log/log_GPU_prefix_sum.txt");
     #else
-    inline const Logger logger("../log/log_FPGA_merge_path.txt");
+    inline const Logger logger("../log/log_FPGA_prefix_sum.txt");
     #endif
 #endif
 

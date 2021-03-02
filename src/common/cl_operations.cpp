@@ -50,11 +50,16 @@ void prefix_sum(Controls &controls,
         scan.set_needed_work_size(outer/*(outer + work_group_size - 1) / work_group_size * work_group_size*/);
 
         scan.run(controls, *b_gpu_ptr, *a_gpu_ptr, local_array, total_sum_gpu, outer);
-        update.run(controls, array, *a_gpu_ptr, array_size, leaf_size);
+        update.run(controls, array, *a_gpu_ptr, array_size, leaf_size).wait();
         outer = (outer + block_size - 1) / block_size;
         std::swap(a_gpu_ptr, b_gpu_ptr);
         std::swap(a_size_ptr, b_size_ptr);
     }
+#define NO_TOTAL
+#ifndef NO_TOTAL
     controls.queue.enqueueReadBuffer(total_sum_gpu, CL_TRUE, 0, sizeof(uint32_t), &total_sum);
+#else
+    std::cerr << "NO TOTAL SUM\n";
+#endif
 
 }
