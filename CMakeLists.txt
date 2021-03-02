@@ -99,8 +99,10 @@ add_executable(sparse-boolean-matrix-operations
         src/cl/headers/bitonic_esc.h
         src/cl/headers/count_workload.h
         src/cl/headers/new_merge.h
-        # -----------------------------------------------------------------------
 
+
+
+        # ------------------------------ tests ----------------------------------
         src/test/coo_addition_test.cpp
         src/test/coo_bitonic_test.cpp
         src/test/coo_reduce_duplicates_test.cpp
@@ -116,6 +118,7 @@ add_executable(sparse-boolean-matrix-operations
         src/test/test_new_merge.cpp
         src/test/test_multiplication.cpp
         src/test/test_pref_sum.cpp
+        src/test/test_merge.cpp
         )
 
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})

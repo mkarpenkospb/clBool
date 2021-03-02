@@ -15,6 +15,8 @@ void test_pref_sum() {
         int size = 10456273;
         cpu_buffer vec(size, 0);
         utils::fill_random_buffer(vec, 345232, 4);
+        if (DEBUG_ENABLE) *logger << "\n data generated for n = "<< size << "\n";
+
         cl::Buffer vec_gpu(controls.queue, vec.begin(), vec.end(), false);
         int prev = vec[0];
         int tmp;
