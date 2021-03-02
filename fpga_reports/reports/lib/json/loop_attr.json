@@ -1,0 +1,629 @@
+{
+  "name":"loop_attributes"
+  , "id":4294967295
+  , "nodes":
+  [
+    {
+      "name":"merge"
+      , "id":471526704
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+            , "line":196
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"merge.B0"
+          , "id":471626208
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"8.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B1"
+          , "id":475052192
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B3"
+          , "id":475769184
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"3.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B2"
+          , "id":475119200
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"289.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                , "line":86
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"merge.B4"
+          , "id":476011696
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B5"
+          , "id":476088432
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B10"
+          , "id":478662176
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B7"
+          , "id":476798336
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"289.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                , "line":86
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"merge.B6"
+          , "id":476158256
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"289.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                , "line":86
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"merge.B13"
+          , "id":479406656
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"156.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B12"
+          , "id":479332944
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B11"
+          , "id":479265392
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B8"
+          , "id":477453552
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"16.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                , "line":143
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"merge.B9"
+          , "id":477693952
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"20.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"scan_blelloch"
+      , "id":533133888
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+            , "line":21
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"scan_blelloch.B0"
+          , "id":533556528
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"186.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"scan_blelloch.B1"
+          , "id":532624944
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"274.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                , "line":30
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"scan_blelloch.B4"
+          , "id":534235120
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"268.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"scan_blelloch.B3"
+          , "id":533713040
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"281.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                , "line":53
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"scan_blelloch.B2"
+          , "id":531408048
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"268.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"update_pref_sum"
+      , "id":545951504
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+            , "line":80
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"update_pref_sum.B0"
+          , "id":546418608
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"196.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"prepare_array_for_positions"
+      , "id":519681120
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+            , "line":16
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"prepare_array_for_positions.B0"
+          , "id":502563328
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"391.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"prepare_array_for_rows_positions"
+      , "id":521151088
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+            , "line":34
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"prepare_array_for_rows_positions.B0"
+          , "id":523128128
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"165.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"prepare_array_for_shift"
+      , "id":525944160
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+            , "line":54
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"prepare_array_for_shift.B0"
+          , "id":526056528
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"391.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"prepare_for_shift_empty_rows"
+      , "id":531170256
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+            , "line":73
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"prepare_for_shift_empty_rows.B0"
+          , "id":530656896
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"165.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"set_positions"
+      , "id":549262912
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+            , "line":18
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"set_positions.B0"
+          , "id":547085872
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"681.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"set_positions_pointers_and_rows"
+      , "id":556997520
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+            , "line":47
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"set_positions_pointers_and_rows.B0"
+          , "id":557354416
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"835.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"set_positions_rows"
+      , "id":564534400
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+            , "line":74
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"set_positions_rows.B0"
+          , "id":564438048
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"634.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+  ]
+}

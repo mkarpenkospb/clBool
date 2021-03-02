@@ -1,0 +1,8519 @@
+{
+  "474518784":
+  {
+    "nodes":
+    [
+      {
+        "name":"Compare"
+        , "id":574188560
+        , "start":"5.00"
+        , "end":"5.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"5"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":74
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"+"
+        , "id":574188896
+        , "start":"5.00"
+        , "end":"5.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Add"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"5"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":74
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"sizeA"
+        , "id":574189232
+        , "start":"0.00"
+        , "end":"5.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'sizeA'"
+            , "Start Cycle":"0"
+            , "Latency":"5"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Select"
+        , "id":575313312
+        , "start":"5.00"
+        , "end":"5.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Select"
+            , "Start Cycle":"5"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":74
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Exit"
+        , "id":578308688
+        , "start":"5.00"
+        , "end":"8.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Start Cycle":"5"
+            , "Latency":"3"
+            , "Exit FIFO Depth":"32"
+            , "Exit FIFO Width":"384"
+            , "Details":"Exit FIFO depth is sized to accommodate all data that may be in-flight in the stall-free cluster; this depth will be equal to or greater than the latency of the cluster.  The width of the FIFO depends on the amount of data that needs to pass from the stall-free logic cluster to the stall-able logic below it."
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"sizeA"
+        , "id":594911808
+        , "start":"0.00"
+        , "end":"2.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'sizeA'"
+            , "Start Cycle":"0"
+            , "Latency":"2"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"sizeB"
+        , "id":594917712
+        , "start":"0.00"
+        , "end":"2.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'sizeB'"
+            , "Start Cycle":"0"
+            , "Latency":"2"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"+"
+        , "id":594919952
+        , "start":"2.00"
+        , "end":"2.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Add"
+            , "Start Cycle":"2"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":212
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":594920288
+        , "start":"1.00"
+        , "end":"2.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"1"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":213
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"+"
+        , "id":594920976
+        , "start":"3.00"
+        , "end":"3.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Add"
+            , "Constant Operand":"-1 (0xFFFFFFFF)"
+            , "Start Cycle":"3"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":215
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":594921312
+        , "start":"3.00"
+        , "end":"4.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"3"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":215
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Select"
+        , "id":594921648
+        , "start":"4.00"
+        , "end":"4.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Select"
+            , "Start Cycle":"4"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":215
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"sizeA"
+        , "id":594921984
+        , "start":"0.00"
+        , "end":"3.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'sizeA'"
+            , "Start Cycle":"0"
+            , "Latency":"3"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"sizeB"
+        , "id":594931152
+        , "start":"0.00"
+        , "end":"3.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'sizeB'"
+            , "Start Cycle":"0"
+            , "Latency":"3"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":594934800
+        , "start":"3.00"
+        , "end":"3.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"3"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":53
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"sizeA"
+        , "id":594935136
+        , "start":"0.00"
+        , "end":"3.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'sizeA'"
+            , "Start Cycle":"0"
+            , "Latency":"3"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Select"
+        , "id":595431952
+        , "start":"3.00"
+        , "end":"4.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Select"
+            , "Start Cycle":"3"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":53
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":595432288
+        , "start":"4.00"
+        , "end":"5.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"4"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":56
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"+"
+        , "id":595432624
+        , "start":"4.00"
+        , "end":"5.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Add"
+            , "Constant Operand":"2 (0x2)"
+            , "Start Cycle":"4"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":56
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"-"
+        , "id":595432960
+        , "start":"4.00"
+        , "end":"4.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Subtract"
+            , "Start Cycle":"4"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":54
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"sizeB"
+        , "id":601059248
+        , "start":"0.00"
+        , "end":"3.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'sizeB'"
+            , "Start Cycle":"0"
+            , "Latency":"3"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"sizeA"
+        , "id":601164448
+        , "start":"0.00"
+        , "end":"5.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'sizeA'"
+            , "Start Cycle":"0"
+            , "Latency":"5"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Entry"
+        , "id":601285712
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Cluster Entry"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"-"
+        , "id":601315520
+        , "start":"5.00"
+        , "end":"5.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Subtract"
+            , "Start Cycle":"5"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":75
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"+"
+        , "id":601315856
+        , "start":"5.00"
+        , "end":"5.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Add"
+            , "Constant Operand":"-1 (0xFFFFFFFF)"
+            , "Start Cycle":"5"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":82
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"sizeA"
+        , "id":601316192
+        , "start":"0.00"
+        , "end":"5.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'sizeA'"
+            , "Start Cycle":"0"
+            , "Latency":"5"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":603638304
+        , "start":"4.00"
+        , "end":"5.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"4"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":57
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"+"
+        , "id":603638640
+        , "start":"4.00"
+        , "end":"4.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Add"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"4"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":57
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"-"
+        , "id":603638976
+        , "start":"4.00"
+        , "end":"4.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Subtract"
+            , "Start Cycle":"4"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":57
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Select"
+        , "id":603639312
+        , "start":"5.00"
+        , "end":"5.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Select"
+            , "Start Cycle":"5"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":57
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Select"
+        , "id":603639648
+        , "start":"5.00"
+        , "end":"5.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Select"
+            , "Start Cycle":"5"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":57
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+    ]
+    , "links":
+    [
+      {
+        "from":574188560
+        , "to":575313312
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":574188560
+        , "to":578308688
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":574188896
+        , "to":575313312
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":574189232
+        , "to":601315520
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":575313312
+        , "to":578308688
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594911808
+        , "to":594919952
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594917712
+        , "to":594919952
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594919952
+        , "to":578308688
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594919952
+        , "to":594920976
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594919952
+        , "to":595432960
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594919952
+        , "to":603638976
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594920288
+        , "to":578308688
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":594920976
+        , "to":594921312
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594920976
+        , "to":594921648
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594921312
+        , "to":594921648
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":594921648
+        , "to":574188560
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594921648
+        , "to":574188896
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594921648
+        , "to":595432288
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594921648
+        , "to":595432624
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594921648
+        , "to":601315520
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594921648
+        , "to":603638304
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594921648
+        , "to":603638976
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594921984
+        , "to":594934800
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594931152
+        , "to":594934800
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594934800
+        , "to":595431952
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":594935136
+        , "to":595431952
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":595431952
+        , "to":578308688
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":595431952
+        , "to":595432288
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":595431952
+        , "to":595432960
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":595431952
+        , "to":603638640
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":595432288
+        , "to":603639648
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595432624
+        , "to":603639648
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":595432960
+        , "to":578308688
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":595432960
+        , "to":603638304
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":601059248
+        , "to":595431952
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":601164448
+        , "to":574188560
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":601285712
+        , "to":578308688
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"192"
+          }
+        ]
+      }
+      , {
+        "from":601285712
+        , "to":594920288
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"192"
+          }
+        ]
+      }
+      , {
+        "from":601315520
+        , "to":578308688
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":601315856
+        , "to":578308688
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":601316192
+        , "to":575313312
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":603638304
+        , "to":603639312
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":603638640
+        , "to":578308688
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":603638640
+        , "to":603639312
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":603638976
+        , "to":603639312
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":603639312
+        , "to":603639648
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":603639648
+        , "to":578308688
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":603639648
+        , "to":601315856
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+    ]
+  }
+  , "477692896":
+  {
+    "nodes":
+    [
+      {
+        "name":"Compare"
+        , "id":480849744
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":480850080
+        , "start":"8.00"
+        , "end":"9.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"8"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":480850416
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Ptr. Comp."
+        , "id":490611936
+        , "start":"3.00"
+        , "end":"8.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Pointer Computation"
+            , "Start Cycle":"3"
+            , "Latency":"5"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Exit"
+        , "id":491918912
+        , "start":"13.00"
+        , "end":"16.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Start Cycle":"13"
+            , "Latency":"3"
+            , "Exit FIFO Depth":"32"
+            , "Exit FIFO Width":"576"
+            , "Details":"Exit FIFO depth is sized to accommodate all data that may be in-flight in the stall-free cluster; this depth will be equal to or greater than the latency of the cluster.  The width of the FIFO depends on the amount of data that needs to pass from the stall-free logic cluster to the stall-able logic below it."
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Entry"
+        , "id":531664784
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Cluster Entry"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"-"
+        , "id":571927936
+        , "start":"2.00"
+        , "end":"2.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Subtract"
+            , "Start Cycle":"2"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":131
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"+"
+        , "id":571928272
+        , "start":"2.00"
+        , "end":"2.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Add"
+            , "Start Cycle":"2"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":132
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"+"
+        , "id":571928608
+        , "start":"2.00"
+        , "end":"2.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Add"
+            , "Constant Operand":"-1 (0xFFFFFFFF)"
+            , "Start Cycle":"2"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":134
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"+"
+        , "id":571928944
+        , "start":"2.00"
+        , "end":"2.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Add"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"2"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":135
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":571929280
+        , "start":"3.00"
+        , "end":"3.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"3"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":137
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Ptr. Comp."
+        , "id":572104512
+        , "start":"3.00"
+        , "end":"3.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Pointer Computation"
+            , "Start Cycle":"3"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"LD"
+        , "id":573723584
+        , "start":"8.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Pipelined never-stall"
+            , "Stall-free":"Yes"
+            , "Global Memory":"No"
+            , "Start Cycle":"8"
+            , "Latency":"4"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"+"
+        , "id":575043696
+        , "start":"1.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Add"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":130
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":">>"
+        , "id":575044032
+        , "start":"1.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Logical Right Shift"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":130
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Ptr. Comp."
+        , "id":575047744
+        , "start":"3.00"
+        , "end":"3.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Pointer Computation"
+            , "Start Cycle":"3"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":35
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":575324032
+        , "start":"8.00"
+        , "end":"8.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"8"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":575325536
+        , "start":"8.00"
+        , "end":"8.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"8"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":575326864
+        , "start":"8.00"
+        , "end":"8.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"8"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":262
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":575327200
+        , "start":"8.00"
+        , "end":"8.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"8"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":262
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"LD"
+        , "id":575327536
+        , "start":"8.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Pipelined never-stall"
+            , "Stall-free":"Yes"
+            , "Global Memory":"No"
+            , "Start Cycle":"8"
+            , "Latency":"4"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":575330800
+        , "start":"8.00"
+        , "end":"9.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"8"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":35
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Ptr. Comp."
+        , "id":575618800
+        , "start":"3.00"
+        , "end":"3.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Pointer Computation"
+            , "Start Cycle":"3"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":577633872
+        , "start":"8.00"
+        , "end":"8.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"8"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":262
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"LD"
+        , "id":577634208
+        , "start":"8.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Pipelined never-stall"
+            , "Stall-free":"Yes"
+            , "Global Memory":"No"
+            , "Start Cycle":"8"
+            , "Latency":"4"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"LD"
+        , "id":578294464
+        , "start":"3.00"
+        , "end":"8.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Pipelined never-stall"
+            , "Stall-free":"Yes"
+            , "Global Memory":"No"
+            , "Start Cycle":"3"
+            , "Latency":"5"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":35
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":580524512
+        , "start":"3.00"
+        , "end":"3.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"3"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":262
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":580524848
+        , "start":"3.00"
+        , "end":"3.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"3"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":262
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"LD"
+        , "id":580525184
+        , "start":"3.00"
+        , "end":"8.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Pipelined never-stall"
+            , "Stall-free":"Yes"
+            , "Global Memory":"No"
+            , "Start Cycle":"3"
+            , "Latency":"5"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":35
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Ptr. Comp."
+        , "id":585917920
+        , "start":"3.00"
+        , "end":"3.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Pointer Computation"
+            , "Start Cycle":"3"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":35
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"LD"
+        , "id":588587632
+        , "start":"3.00"
+        , "end":"8.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Pipelined never-stall"
+            , "Stall-free":"Yes"
+            , "Global Memory":"No"
+            , "Start Cycle":"3"
+            , "Latency":"5"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":35
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Ptr. Comp."
+        , "id":588678640
+        , "start":"3.00"
+        , "end":"3.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Pointer Computation"
+            , "Start Cycle":"3"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":35
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":588687472
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":588687808
+        , "start":"8.00"
+        , "end":"9.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"8"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":595172016
+        , "start":"8.00"
+        , "end":"8.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"8"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Ptr. Comp."
+        , "id":595172688
+        , "start":"3.00"
+        , "end":"3.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Pointer Computation"
+            , "Start Cycle":"3"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":35
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Or"
+        , "id":595513376
+        , "start":"12.00"
+        , "end":"13.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Or"
+            , "Start Cycle":"12"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":595513712
+        , "start":"13.00"
+        , "end":"13.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"13"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":139
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":595514048
+        , "start":"13.00"
+        , "end":"13.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Start Cycle":"13"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":143
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Select"
+        , "id":595514384
+        , "start":"13.00"
+        , "end":"13.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Select"
+            , "Start Cycle":"13"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":166
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Select"
+        , "id":595514720
+        , "start":"13.00"
+        , "end":"13.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Select"
+            , "Start Cycle":"13"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":166
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Or"
+        , "id":595515056
+        , "start":"13.00"
+        , "end":"13.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Or"
+            , "Start Cycle":"13"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":143
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":595659008
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Or"
+        , "id":595659344
+        , "start":"12.00"
+        , "end":"13.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Or"
+            , "Start Cycle":"12"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Or"
+        , "id":595659680
+        , "start":"13.00"
+        , "end":"13.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Or"
+            , "Start Cycle":"13"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":137
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":595660016
+        , "start":"1.00"
+        , "end":"2.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"1"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":139
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"LD"
+        , "id":595665872
+        , "start":"8.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Pipelined never-stall"
+            , "Stall-free":"Yes"
+            , "Global Memory":"No"
+            , "Start Cycle":"8"
+            , "Latency":"4"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":595679760
+        , "start":"8.00"
+        , "end":"8.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"8"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":595680096
+        , "start":"8.00"
+        , "end":"8.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"8"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":262
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":595710832
+        , "start":"8.00"
+        , "end":"9.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"8"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":35
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":595711168
+        , "start":"8.00"
+        , "end":"8.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"8"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Ptr. Comp."
+        , "id":595711504
+        , "start":"3.00"
+        , "end":"8.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Pointer Computation"
+            , "Start Cycle":"3"
+            , "Latency":"5"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Or"
+        , "id":598397184
+        , "start":"3.00"
+        , "end":"3.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Or"
+            , "Start Cycle":"3"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":262
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"LD"
+        , "id":598397520
+        , "start":"3.00"
+        , "end":"8.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Pipelined never-stall"
+            , "Stall-free":"Yes"
+            , "Global Memory":"No"
+            , "Start Cycle":"3"
+            , "Latency":"5"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":35
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+    ]
+    , "links":
+    [
+      {
+        "from":480849744
+        , "to":480850416
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":480850080
+        , "to":480850416
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":480850416
+        , "to":595513376
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":490611936
+        , "to":491918912
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":490611936
+        , "to":575327536
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":571927936
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":571928272
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":572104512
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":573723584
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":575043696
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":575047744
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":575326864
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":575327536
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":575618800
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":577634208
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":578294464
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":580524512
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":580525184
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":588587632
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":588678640
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":595514384
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":595514720
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":595515056
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":595660016
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":595665872
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":595680096
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":598397184
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":531664784
+        , "to":598397520
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"512"
+          }
+        ]
+      }
+      , {
+        "from":571927936
+        , "to":571928608
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":571927936
+        , "to":595172688
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":571927936
+        , "to":595711504
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":571928272
+        , "to":491918912
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":571928272
+        , "to":571928944
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":571928272
+        , "to":572104512
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":571928272
+        , "to":588678640
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":571928608
+        , "to":490611936
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":571928608
+        , "to":491918912
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":571928608
+        , "to":585917920
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":571928944
+        , "to":575047744
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":571928944
+        , "to":575618800
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":571929280
+        , "to":491918912
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":571929280
+        , "to":595172016
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":571929280
+        , "to":595659680
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":571929280
+        , "to":598397184
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":572104512
+        , "to":491918912
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":572104512
+        , "to":573723584
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":573723584
+        , "to":588687472
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":575043696
+        , "to":575044032
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":575044032
+        , "to":571927936
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":575044032
+        , "to":571928272
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":575044032
+        , "to":571929280
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":575044032
+        , "to":595514384
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":575044032
+        , "to":595514720
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":575044032
+        , "to":595660016
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":575047744
+        , "to":578294464
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":575324032
+        , "to":575325536
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575325536
+        , "to":575326864
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575326864
+        , "to":575327200
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575327200
+        , "to":575327536
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575327200
+        , "to":595665872
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575327536
+        , "to":480849744
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":575330800
+        , "to":595513376
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575618800
+        , "to":595665872
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":577633872
+        , "to":573723584
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":577633872
+        , "to":577634208
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":577634208
+        , "to":588687472
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":578294464
+        , "to":480850080
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":578294464
+        , "to":575324032
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":578294464
+        , "to":575330800
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":580524512
+        , "to":580524848
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":580524848
+        , "to":578294464
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":580524848
+        , "to":580525184
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":580525184
+        , "to":480850080
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":580525184
+        , "to":575324032
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":580525184
+        , "to":575330800
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":585917920
+        , "to":491918912
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":585917920
+        , "to":580525184
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":588587632
+        , "to":588687808
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":588587632
+        , "to":595710832
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":588587632
+        , "to":595711168
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":588678640
+        , "to":491918912
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":588678640
+        , "to":588587632
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":588687472
+        , "to":595659008
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":588687808
+        , "to":595659008
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595172016
+        , "to":595679760
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595172688
+        , "to":598397520
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":595513376
+        , "to":595513712
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595513712
+        , "to":595514048
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595514048
+        , "to":595515056
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595514384
+        , "to":491918912
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":595514720
+        , "to":491918912
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":595515056
+        , "to":491918912
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595659008
+        , "to":595659344
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595659344
+        , "to":595659680
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595659680
+        , "to":595514048
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595659680
+        , "to":595514384
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595659680
+        , "to":595514720
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595660016
+        , "to":491918912
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595660016
+        , "to":575325536
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595660016
+        , "to":580524512
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595660016
+        , "to":595513712
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595665872
+        , "to":480849744
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":595679760
+        , "to":595680096
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595680096
+        , "to":577633872
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595710832
+        , "to":595659344
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595711168
+        , "to":595679760
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":595711504
+        , "to":577634208
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":598397184
+        , "to":588587632
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":598397184
+        , "to":598397520
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":598397520
+        , "to":588687808
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":598397520
+        , "to":595710832
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":598397520
+        , "to":595711168
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+    ]
+  }
+  , "478660992":
+  {
+    "nodes":
+    [
+      {
+        "name":"Compare"
+        , "id":490613120
+        , "start":"10.00"
+        , "end":"10.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"10"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":35
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Exit"
+        , "id":492025696
+        , "start":"15.00"
+        , "end":"18.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Start Cycle":"15"
+            , "Latency":"3"
+            , "Exit FIFO Depth":"32"
+            , "Exit FIFO Width":"128"
+            , "Details":"Exit FIFO depth is sized to accommodate all data that may be in-flight in the stall-free cluster; this depth will be equal to or greater than the latency of the cluster.  The width of the FIFO depends on the amount of data that needs to pass from the stall-free logic cluster to the stall-able logic below it."
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"LD"
+        , "id":573712992
+        , "start":"6.00"
+        , "end":"10.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Pipelined never-stall"
+            , "Stall-free":"Yes"
+            , "Global Memory":"No"
+            , "Start Cycle":"6"
+            , "Latency":"4"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Or"
+        , "id":573899856
+        , "start":"11.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Or"
+            , "Start Cycle":"11"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":158
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Select"
+        , "id":573900192
+        , "start":"11.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Select"
+            , "Start Cycle":"11"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":158
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Or"
+        , "id":573900528
+        , "start":"11.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Or"
+            , "Start Cycle":"11"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":158
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":573900864
+        , "start":"10.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"10"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":573901200
+        , "start":"11.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"11"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":573901536
+        , "start":"10.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"10"
+            , "Latency":"1"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":575282128
+        , "start":"0.00"
+        , "end":"0.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"0"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":145
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":575282464
+        , "start":"0.00"
+        , "end":"0.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"0"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":145
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":575282800
+        , "start":"0.00"
+        , "end":"0.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"0"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":145
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":575283136
+        , "start":"0.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"0"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":145
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":575283472
+        , "start":"0.00"
+        , "end":"0.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"0"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Or"
+        , "id":575283808
+        , "start":"0.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Or"
+            , "Start Cycle":"0"
+            , "Latency":"1"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":575341776
+        , "start":"1.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Select"
+        , "id":575342112
+        , "start":"1.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Select"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Select"
+        , "id":575342448
+        , "start":"1.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Select"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":151
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Or"
+        , "id":575342784
+        , "start":"1.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Or"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":151
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"LD"
+        , "id":575343120
+        , "start":"1.00"
+        , "end":"6.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Pipelined never-stall"
+            , "Stall-free":"Yes"
+            , "Global Memory":"No"
+            , "Start Cycle":"1"
+            , "Latency":"5"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":151
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Entry"
+        , "id":576647936
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Cluster Entry"
+            , "Start Cycle":"0"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"wg.limiter.exit"
+        , "id":579571808
+        , "start":"1.00"
+        , "end":"2.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"wg.limiter.exit"
+            , "Start Cycle":"1"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":267
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Or"
+        , "id":583473120
+        , "start":"10.00"
+        , "end":"10.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Or"
+            , "Start Cycle":"10"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":583473456
+        , "start":"10.00"
+        , "end":"10.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"10"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Select"
+        , "id":583473792
+        , "start":"10.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Select"
+            , "Start Cycle":"10"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":158
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":583474128
+        , "start":"11.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"11"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":150
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":583474464
+        , "start":"11.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Start Cycle":"11"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Select"
+        , "id":583474800
+        , "start":"11.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Select"
+            , "Start Cycle":"11"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":587819888
+        , "start":"1.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":587820224
+        , "start":"1.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":151
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"LD"
+        , "id":587867440
+        , "start":"6.00"
+        , "end":"10.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Pipelined never-stall"
+            , "Stall-free":"Yes"
+            , "Global Memory":"No"
+            , "Start Cycle":"6"
+            , "Latency":"4"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":588257808
+        , "start":"1.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":35
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":588258144
+        , "start":"1.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":35
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"LD"
+        , "id":588258480
+        , "start":"1.00"
+        , "end":"6.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Pipelined never-stall"
+            , "Stall-free":"Yes"
+            , "Global Memory":"No"
+            , "Start Cycle":"1"
+            , "Latency":"5"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":35
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Select"
+        , "id":588616176
+        , "start":"11.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Select"
+            , "Start Cycle":"11"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":159
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Or"
+        , "id":588616512
+        , "start":"11.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Or"
+            , "Start Cycle":"11"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":159
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"LD"
+        , "id":588616848
+        , "start":"11.00"
+        , "end":"15.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Pipelined never-stall"
+            , "Stall-free":"Yes"
+            , "Global Memory":"No"
+            , "Start Cycle":"11"
+            , "Latency":"4"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":159
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":594776800
+        , "start":"0.00"
+        , "end":"0.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"0"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":150
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Or"
+        , "id":594777136
+        , "start":"0.00"
+        , "end":"0.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Or"
+            , "Start Cycle":"0"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":150
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":594777472
+        , "start":"0.00"
+        , "end":"0.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"0"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":150
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":594777808
+        , "start":"0.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"0"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":150
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":594778144
+        , "start":"1.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":594778480
+        , "start":"1.00"
+        , "end":"1.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":150
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":597670336
+        , "start":"6.00"
+        , "end":"6.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"6"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":597670672
+        , "start":"6.00"
+        , "end":"6.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"6"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":597671008
+        , "start":"6.00"
+        , "end":"6.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"6"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":597671344
+        , "start":"6.00"
+        , "end":"6.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"6"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":598153792
+        , "start":"11.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"11"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Or"
+        , "id":598154128
+        , "start":"11.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Or"
+            , "Start Cycle":"11"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Select"
+        , "id":598154464
+        , "start":"11.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Select"
+            , "Start Cycle":"11"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":159
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Or"
+        , "id":598154800
+        , "start":"11.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Or"
+            , "Start Cycle":"11"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":598155136
+        , "start":"11.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"11"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Select"
+        , "id":598155472
+        , "start":"11.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Select"
+            , "Start Cycle":"11"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":159
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Select"
+        , "id":598155808
+        , "start":"11.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Select"
+            , "Start Cycle":"11"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":601054016
+        , "start":"10.00"
+        , "end":"10.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"10"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":601054352
+        , "start":"10.00"
+        , "end":"10.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"10"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":601054688
+        , "start":"10.00"
+        , "end":"10.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"10"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":36
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+    ]
+    , "links":
+    [
+      {
+        "from":490613120
+        , "to":583473120
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":573712992
+        , "to":601054016
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":573899856
+        , "to":573900192
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":573900192
+        , "to":492025696
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":573900528
+        , "to":492025696
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":573900864
+        , "to":573901200
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":573901200
+        , "to":598154128
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":573901200
+        , "to":598154464
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":573901536
+        , "to":598153792
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575282128
+        , "to":575282464
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575282128
+        , "to":575283808
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575282464
+        , "to":575283136
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575282800
+        , "to":575283136
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575282800
+        , "to":575283472
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575283136
+        , "to":573901200
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575283136
+        , "to":575342112
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575283136
+        , "to":583474800
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575283136
+        , "to":587819888
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575283136
+        , "to":594778480
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575283136
+        , "to":598153792
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575283136
+        , "to":598155808
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575283472
+        , "to":575283808
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575283808
+        , "to":573899856
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575283808
+        , "to":575342112
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575283808
+        , "to":575342448
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575283808
+        , "to":583474800
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575283808
+        , "to":588616176
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575283808
+        , "to":598155808
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575341776
+        , "to":575342112
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575342112
+        , "to":575342784
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575342448
+        , "to":575343120
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":575342784
+        , "to":575343120
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575343120
+        , "to":490613120
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":575343120
+        , "to":573900192
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":575343120
+        , "to":583473792
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":575343120
+        , "to":597670336
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":575343120
+        , "to":601054352
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":573712992
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":573900528
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":575282128
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":575282800
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":575342448
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":575342784
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":575343120
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":579571808
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":587867440
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":588257808
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":588258480
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":588616176
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":588616512
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":588616848
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":594776800
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":594777136
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":594777472
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":597670672
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":598154464
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":576647936
+        , "to":598155472
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"704"
+          }
+        ]
+      }
+      , {
+        "from":583473120
+        , "to":573900864
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":583473120
+        , "to":583473456
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":583473120
+        , "to":583473792
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":583473456
+        , "to":573901536
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":583473792
+        , "to":573900192
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":583474128
+        , "to":583474464
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":583474464
+        , "to":583474800
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":583474800
+        , "to":573900528
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":587819888
+        , "to":583474464
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":587819888
+        , "to":587820224
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":587819888
+        , "to":598154800
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":587819888
+        , "to":598155472
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":587820224
+        , "to":575341776
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":587867440
+        , "to":601054016
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":588257808
+        , "to":588258144
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":588258144
+        , "to":588258480
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":588258480
+        , "to":490613120
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":588258480
+        , "to":583473792
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":588258480
+        , "to":597670336
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":588258480
+        , "to":601054352
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":588616176
+        , "to":588616848
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":588616512
+        , "to":588616848
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":588616848
+        , "to":492025696
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":594776800
+        , "to":594777136
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":594777136
+        , "to":594777808
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":594777472
+        , "to":594777808
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":594777808
+        , "to":573900864
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":594777808
+        , "to":573901536
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":594777808
+        , "to":594778144
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":594777808
+        , "to":594778480
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":594778144
+        , "to":573899856
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":594778144
+        , "to":587819888
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":594778480
+        , "to":575341776
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":594778480
+        , "to":583474128
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":594778480
+        , "to":588257808
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":594778480
+        , "to":597671008
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":597670336
+        , "to":597670672
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":597670672
+        , "to":597671008
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":597671008
+        , "to":597671344
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":597671344
+        , "to":573712992
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":597671344
+        , "to":587867440
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":598153792
+        , "to":598154128
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":598154128
+        , "to":598154800
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":598154464
+        , "to":598155472
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":598154800
+        , "to":598155136
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":598155136
+        , "to":598155808
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":598155472
+        , "to":588616176
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":598155808
+        , "to":588616512
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":601054016
+        , "to":601054688
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":601054352
+        , "to":601054688
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":601054688
+        , "to":583473120
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+    ]
+  }
+  , "479974000":
+  {
+    "nodes":
+    [
+      {
+        "name":"Exit"
+        , "id":525219088
+        , "start":"12.00"
+        , "end":"15.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Start Cycle":"12"
+            , "Latency":"3"
+            , "Exit FIFO Depth":"32"
+            , "Exit FIFO Width":"768"
+            , "Details":"Exit FIFO depth is sized to accommodate all data that may be in-flight in the stall-free cluster; this depth will be equal to or greater than the latency of the cluster.  The width of the FIFO depends on the amount of data that needs to pass from the stall-free logic cluster to the stall-able logic below it."
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Select"
+        , "id":565603424
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Select"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":257
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Ptr. Comp."
+        , "id":566122912
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Pointer Computation"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":257
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Or"
+        , "id":567591088
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Or"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Select"
+        , "id":567591424
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Select"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":256
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":567591760
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":256
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":567592096
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":256
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":567592432
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":256
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":567592768
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":256
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":567593104
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":256
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"colsB"
+        , "id":567593440
+        , "start":"0.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'colsB'"
+            , "Start Cycle":"0"
+            , "Latency":"12"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"colsA"
+        , "id":572075424
+        , "start":"0.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'colsA'"
+            , "Start Cycle":"0"
+            , "Latency":"12"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"-"
+        , "id":573694064
+        , "start":"11.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Subtract"
+            , "Start Cycle":"11"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":255
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":573694400
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":255
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"+"
+        , "id":573694736
+        , "start":"11.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Add"
+            , "Start Cycle":"11"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":256
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"LD"
+        , "id":573711808
+        , "start":"5.00"
+        , "end":"10.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Pipelined never-stall"
+            , "Stall-free":"Yes"
+            , "Global Memory":"No"
+            , "Start Cycle":"5"
+            , "Latency":"5"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":243
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Ptr. Comp."
+        , "id":575311856
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Pointer Computation"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":253
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"rowsB"
+        , "id":576474560
+        , "start":"0.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'rowsB'"
+            , "Start Cycle":"0"
+            , "Latency":"12"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"LD"
+        , "id":579582992
+        , "start":"6.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Pipelined never-stall"
+            , "Stall-free":"Yes"
+            , "Global Memory":"No"
+            , "Start Cycle":"6"
+            , "Latency":"5"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":244
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Ptr. Comp."
+        , "id":588260096
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Pointer Computation"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":256
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Xor"
+        , "id":588261888
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Xor"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":255
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":588262224
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit And"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":255
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Ptr. Comp."
+        , "id":588327136
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Pointer Computation"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":252
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Entry"
+        , "id":597587968
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Cluster Entry"
+            , "Start Cycle":"4"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"-"
+        , "id":598089344
+        , "start":"11.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Subtract"
+            , "Start Cycle":"11"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":244
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":598089680
+        , "start":"12.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"12"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":251
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"+"
+        , "id":598090016
+        , "start":"10.00"
+        , "end":"10.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Add"
+            , "Start Cycle":"10"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":252
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"rowsA"
+        , "id":598090688
+        , "start":"0.00"
+        , "end":"12.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'rowsA'"
+            , "Start Cycle":"0"
+            , "Latency":"12"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"LD"
+        , "id":601740416
+        , "start":"5.00"
+        , "end":"10.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Pipelined never-stall"
+            , "Stall-free":"Yes"
+            , "Global Memory":"No"
+            , "Start Cycle":"5"
+            , "Latency":"5"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":243
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"LD"
+        , "id":603353632
+        , "start":"6.00"
+        , "end":"11.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Load"
+            , "Width":"32 bits"
+            , "LSU Style":"Pipelined never-stall"
+            , "Stall-free":"Yes"
+            , "Global Memory":"No"
+            , "Start Cycle":"6"
+            , "Latency":"5"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+              , "line":244
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+    ]
+    , "links":
+    [
+      {
+        "from":565603424
+        , "to":525219088
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":566122912
+        , "to":565603424
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":567591088
+        , "to":567591760
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":567591424
+        , "to":525219088
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":567591760
+        , "to":567592096
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":567592096
+        , "to":525219088
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":567592432
+        , "to":567592768
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":567592768
+        , "to":567593104
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":567593104
+        , "to":525219088
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":567593440
+        , "to":566122912
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":572075424
+        , "to":575311856
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":573694064
+        , "to":525219088
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":573694064
+        , "to":573694400
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":573694064
+        , "to":573694736
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":573694400
+        , "to":567591088
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":573694400
+        , "to":588262224
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":573694736
+        , "to":566122912
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":573694736
+        , "to":588260096
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":573711808
+        , "to":525219088
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":573711808
+        , "to":573694064
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":573711808
+        , "to":598089680
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":573711808
+        , "to":598090016
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":575311856
+        , "to":565603424
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":576474560
+        , "to":588260096
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":579582992
+        , "to":598089344
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":588260096
+        , "to":567591424
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":588261888
+        , "to":588262224
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":588262224
+        , "to":567592432
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":588327136
+        , "to":567591424
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":597587968
+        , "to":525219088
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"368"
+          }
+        ]
+      }
+      , {
+        "from":597587968
+        , "to":567591760
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"368"
+          }
+        ]
+      }
+      , {
+        "from":597587968
+        , "to":567592768
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"368"
+          }
+        ]
+      }
+      , {
+        "from":597587968
+        , "to":567593440
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"368"
+          }
+        ]
+      }
+      , {
+        "from":597587968
+        , "to":572075424
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"368"
+          }
+        ]
+      }
+      , {
+        "from":597587968
+        , "to":573694064
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"368"
+          }
+        ]
+      }
+      , {
+        "from":597587968
+        , "to":573711808
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"368"
+          }
+        ]
+      }
+      , {
+        "from":597587968
+        , "to":576474560
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"368"
+          }
+        ]
+      }
+      , {
+        "from":597587968
+        , "to":579582992
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"368"
+          }
+        ]
+      }
+      , {
+        "from":597587968
+        , "to":598089680
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"368"
+          }
+        ]
+      }
+      , {
+        "from":597587968
+        , "to":598090016
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"368"
+          }
+        ]
+      }
+      , {
+        "from":597587968
+        , "to":598090688
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"368"
+          }
+        ]
+      }
+      , {
+        "from":597587968
+        , "to":601740416
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"368"
+          }
+        ]
+      }
+      , {
+        "from":597587968
+        , "to":603353632
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"368"
+          }
+        ]
+      }
+      , {
+        "from":598089344
+        , "to":525219088
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":598089344
+        , "to":573694400
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":598089680
+        , "to":525219088
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":598089680
+        , "to":565603424
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":598089680
+        , "to":567591088
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":598089680
+        , "to":567591424
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":598089680
+        , "to":567592432
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":598089680
+        , "to":588261888
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":598090016
+        , "to":575311856
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":598090016
+        , "to":588327136
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":598090688
+        , "to":588327136
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":601740416
+        , "to":525219088
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":601740416
+        , "to":573694064
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":601740416
+        , "to":598089680
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":603353632
+        , "to":573694736
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":603353632
+        , "to":598089344
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+    ]
+  }
+  , "533938128":
+  {
+    "nodes":
+    [
+      {
+        "name":"Entry"
+        , "id":477861824
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Cluster Entry"
+            , "Start Cycle":"252"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":">>"
+        , "id":528673568
+        , "start":"252.00"
+        , "end":"252.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Logical Right Shift"
+            , "Constant Operand":"1 (0x1)"
+            , "Start Cycle":"252"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+              , "line":55
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"*"
+        , "id":528674736
+        , "start":"252.00"
+        , "end":"255.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Multiply"
+            , "Start Cycle":"252"
+            , "Latency":"3"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+              , "line":60
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"+"
+        , "id":583186192
+        , "start":"256.00"
+        , "end":"256.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Add"
+            , "Constant Operand":"-1 (0xFFFFFFFF)"
+            , "Start Cycle":"256"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+              , "line":60
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"*"
+        , "id":583186528
+        , "start":"252.00"
+        , "end":"255.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Multiply"
+            , "Start Cycle":"252"
+            , "Latency":"3"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+              , "line":61
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"+"
+        , "id":583186864
+        , "start":"256.00"
+        , "end":"256.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Add"
+            , "Constant Operand":"-1 (0xFFFFFFFF)"
+            , "Start Cycle":"256"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+              , "line":61
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Ptr. Comp."
+        , "id":583187536
+        , "start":"256.00"
+        , "end":"256.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Pointer Computation"
+            , "Start Cycle":"256"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+              , "line":63
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Ptr. Comp."
+        , "id":594969056
+        , "start":"256.00"
+        , "end":"256.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Pointer Computation"
+            , "Start Cycle":"256"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+              , "line":64
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Exit"
+        , "id":601155712
+        , "start":"256.00"
+        , "end":"259.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Start Cycle":"256"
+            , "Latency":"3"
+            , "Exit FIFO Depth":"32"
+            , "Exit FIFO Width":"192"
+            , "Details":"Exit FIFO depth is sized to accommodate all data that may be in-flight in the stall-free cluster; this depth will be equal to or greater than the latency of the cluster.  The width of the FIFO depends on the amount of data that needs to pass from the stall-free logic cluster to the stall-able logic below it."
+          }
+        ]
+        , "type":"inst"
+      }
+    ]
+    , "links":
+    [
+      {
+        "from":477861824
+        , "to":528673568
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"128"
+          }
+        ]
+      }
+      , {
+        "from":477861824
+        , "to":528674736
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"128"
+          }
+        ]
+      }
+      , {
+        "from":477861824
+        , "to":583186528
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"128"
+          }
+        ]
+      }
+      , {
+        "from":528673568
+        , "to":528674736
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":528673568
+        , "to":583186528
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":528673568
+        , "to":601155712
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":528674736
+        , "to":583186192
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":583186192
+        , "to":594969056
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":583186528
+        , "to":583186864
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":583186864
+        , "to":583187536
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":583187536
+        , "to":601155712
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":594969056
+        , "to":601155712
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+    ]
+  }
+  , "542935744":
+  {
+    "nodes":
+    [
+      {
+        "name":"Ptr. Comp."
+        , "id":575248208
+        , "start":"29.00"
+        , "end":"29.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Pointer Computation"
+            , "Start Cycle":"29"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+              , "line":96
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Or"
+        , "id":575273968
+        , "start":"29.00"
+        , "end":"29.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"1-bit Or"
+            , "Start Cycle":"29"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+              , "line":96
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":575274304
+        , "start":"19.00"
+        , "end":"29.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"64-bit And"
+            , "Constant Operand":"4294967295 (0xFFFFFFFF)"
+            , "Start Cycle":"19"
+            , "Latency":"10"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+              , "line":96
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"pref_sum"
+        , "id":575274640
+        , "start":"0.00"
+        , "end":"29.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'pref_sum'"
+            , "Start Cycle":"0"
+            , "Latency":"29"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":579555552
+        , "start":"28.00"
+        , "end":"29.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"28"
+            , "Latency":"1"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+              , "line":83
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"leaf_size"
+        , "id":579555888
+        , "start":"0.00"
+        , "end":"2.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'leaf_size'"
+            , "Start Cycle":"0"
+            , "Latency":"2"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"/"
+        , "id":579558096
+        , "start":"2.00"
+        , "end":"29.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Unsigned Integer Divide"
+            , "Start Cycle":"2"
+            , "Latency":"27"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+              , "line":88
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Ptr. Comp."
+        , "id":587104560
+        , "start":"29.00"
+        , "end":"29.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Pointer Computation"
+            , "Start Cycle":"29"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+              , "line":96
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"n"
+        , "id":588322928
+        , "start":"0.00"
+        , "end":"28.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'n'"
+            , "Start Cycle":"0"
+            , "Latency":"28"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"And"
+        , "id":588352480
+        , "start":"29.00"
+        , "end":"29.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit And"
+            , "Constant Operand":"255 (0xFF)"
+            , "Start Cycle":"29"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+              , "line":89
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Compare"
+        , "id":588352816
+        , "start":"29.00"
+        , "end":"29.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"32-bit Integer Compare"
+            , "Start Cycle":"29"
+            , "Latency":"0"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+              , "line":92
+            }
+          ]
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"vertices"
+        , "id":588353488
+        , "start":"0.00"
+        , "end":"29.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Input Synchronization for 'vertices'"
+            , "Start Cycle":"0"
+            , "Latency":"29"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Entry"
+        , "id":594775824
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Instruction":"Cluster Entry"
+            , "Start Cycle":"1"
+            , "Latency":"0"
+          }
+        ]
+        , "type":"inst"
+      }
+      , {
+        "name":"Exit"
+        , "id":598336944
+        , "start":"29.00"
+        , "end":"32.00"
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Start Cycle":"29"
+            , "Latency":"3"
+            , "Exit FIFO Depth":"32"
+            , "Exit FIFO Width":"256"
+            , "Details":"Exit FIFO depth is sized to accommodate all data that may be in-flight in the stall-free cluster; this depth will be equal to or greater than the latency of the cluster.  The width of the FIFO depends on the amount of data that needs to pass from the stall-free logic cluster to the stall-able logic below it."
+          }
+        ]
+        , "type":"inst"
+      }
+    ]
+    , "links":
+    [
+      {
+        "from":575248208
+        , "to":598336944
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":575273968
+        , "to":598336944
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":575274304
+        , "to":587104560
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":575274640
+        , "to":587104560
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":579555552
+        , "to":575273968
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":579555888
+        , "to":579558096
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":579558096
+        , "to":575248208
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":579558096
+        , "to":588352480
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":587104560
+        , "to":598336944
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":588322928
+        , "to":579555552
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":588352480
+        , "to":588352816
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"32"
+          }
+        ]
+      }
+      , {
+        "from":588352816
+        , "to":575273968
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"1"
+          }
+        ]
+      }
+      , {
+        "from":588353488
+        , "to":575248208
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"64"
+          }
+        ]
+      }
+      , {
+        "from":594775824
+        , "to":575274304
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"128"
+          }
+        ]
+      }
+      , {
+        "from":594775824
+        , "to":579555552
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"128"
+          }
+        ]
+      }
+      , {
+        "from":594775824
+        , "to":579558096
+        , "details":
+        [
+          {
+            "type":"table"
+            , "Width":"128"
+          }
+        ]
+      }
+    ]
+  }
+}

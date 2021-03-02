@@ -1,0 +1,6875 @@
+{
+  "nodes":
+  [
+    {
+      "type":"kernel"
+      , "id":2
+      , "name":"merge"
+      , "children":
+      [
+        {
+          "type":"bb"
+          , "id":3
+          , "name":"merge.B0"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":17
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":209
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Stores to":"a_start"
+                  , "Start Cycle":"7"
+                  , "Latency":"1"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":18
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":209
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Stores to":"a_end"
+                  , "Start Cycle":"7"
+                  , "Latency":"1"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":19
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":209
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Stores to":"b_start"
+                  , "Start Cycle":"7"
+                  , "Latency":"1"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":20
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":209
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Stores to":"b_end"
+                  , "Start Cycle":"7"
+                  , "Latency":"1"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":60
+              , "name":"Begin"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":61
+              , "name":"End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"8"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"8"
+            }
+          ]
+        }
+        , {
+          "type":"bb"
+          , "id":4
+          , "name":"merge.B1"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"0"
+            }
+          ]
+        }
+        , {
+          "type":"bb"
+          , "id":5
+          , "name":"merge.B2"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":21
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":22
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"64 bits"
+                  , "Type":"Burst-coalesced non-aligned cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"2"
+                  , "Latency":"142"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":22
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":22
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"64 bits"
+                  , "Type":"Burst-coalesced non-aligned cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"2"
+                  , "Latency":"142"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":23
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":23
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"64 bits"
+                  , "Type":"Burst-coalesced non-aligned cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"145"
+                  , "Latency":"142"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":24
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":23
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"64 bits"
+                  , "Type":"Burst-coalesced non-aligned cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"145"
+                  , "Latency":"142"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":62
+              , "name":"Loop Input"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":86
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                  , "Loops To":"63"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":63
+              , "name":"Loop End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"289"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"289"
+              , "II":"0"
+              , "Subloops":"No"
+              , "Pipelined":"No"
+              , "Fmax Bottlenecks":"No"
+              , "Loop Info":"Loop is not pipelined. See Loops Analysis for more information."
+            }
+          ]
+        }
+        , {
+          "type":"bb"
+          , "id":6
+          , "name":"merge.B3"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"3"
+            }
+          ]
+        }
+        , {
+          "type":"bb"
+          , "id":7
+          , "name":"merge.B4"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"0"
+            }
+          ]
+        }
+        , {
+          "type":"bb"
+          , "id":8
+          , "name":"merge.B5"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"0"
+            }
+          ]
+        }
+        , {
+          "type":"bb"
+          , "id":9
+          , "name":"merge.B6"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":25
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":22
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"64 bits"
+                  , "Type":"Burst-coalesced non-aligned cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"2"
+                  , "Latency":"142"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":26
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":22
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"64 bits"
+                  , "Type":"Burst-coalesced non-aligned cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"2"
+                  , "Latency":"142"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":27
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":23
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"64 bits"
+                  , "Type":"Burst-coalesced non-aligned cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"145"
+                  , "Latency":"142"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":28
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":23
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"64 bits"
+                  , "Type":"Burst-coalesced non-aligned cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"145"
+                  , "Latency":"142"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":64
+              , "name":"Loop Input"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":86
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                  , "Loops To":"65"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":65
+              , "name":"Loop End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"289"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"289"
+              , "II":"0"
+              , "Subloops":"No"
+              , "Pipelined":"No"
+              , "Fmax Bottlenecks":"No"
+              , "Loop Info":"Loop is not pipelined. See Loops Analysis for more information."
+            }
+          ]
+        }
+        , {
+          "type":"bb"
+          , "id":10
+          , "name":"merge.B7"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":29
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":22
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"64 bits"
+                  , "Type":"Burst-coalesced non-aligned cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"2"
+                  , "Latency":"142"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":30
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":22
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"64 bits"
+                  , "Type":"Burst-coalesced non-aligned cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"2"
+                  , "Latency":"142"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":31
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":23
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"64 bits"
+                  , "Type":"Burst-coalesced non-aligned cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"145"
+                  , "Latency":"142"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":32
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":23
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"64 bits"
+                  , "Type":"Burst-coalesced non-aligned cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"145"
+                  , "Latency":"142"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":66
+              , "name":"Loop Input"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":86
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                  , "Loops To":"67"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":67
+              , "name":"Loop End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"289"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"289"
+              , "II":"0"
+              , "Subloops":"No"
+              , "Pipelined":"No"
+              , "Fmax Bottlenecks":"No"
+              , "Loop Info":"Loop is not pipelined. See Loops Analysis for more information."
+            }
+          ]
+        }
+        , {
+          "type":"bb"
+          , "id":11
+          , "name":"merge.B8"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":33
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":35
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Loads from":"ab_rows_local"
+                  , "Start Cycle":"3"
+                  , "Latency":"4"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":34
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":35
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Loads from":"ab_rows_local"
+                  , "Start Cycle":"3"
+                  , "Latency":"4"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":35
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":36
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Loads from":"ab_cols_local"
+                  , "Start Cycle":"8"
+                  , "Latency":"3"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":36
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":36
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Loads from":"ab_cols_local"
+                  , "Start Cycle":"8"
+                  , "Latency":"3"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":37
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":35
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Loads from":"ab_rows_local"
+                  , "Start Cycle":"3"
+                  , "Latency":"4"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":38
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":35
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Loads from":"ab_rows_local"
+                  , "Start Cycle":"3"
+                  , "Latency":"4"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":39
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":36
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Loads from":"ab_cols_local"
+                  , "Start Cycle":"8"
+                  , "Latency":"3"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":40
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":36
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Loads from":"ab_cols_local"
+                  , "Start Cycle":"8"
+                  , "Latency":"3"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":68
+              , "name":"Loop Input"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":143
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                  , "Loops To":"69"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":69
+              , "name":"Loop End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"16"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"16"
+              , "II":"0"
+              , "Subloops":"No"
+              , "Pipelined":"No"
+              , "Fmax Bottlenecks":"No"
+              , "Loop Info":"Loop is not pipelined. See Loops Analysis for more information."
+            }
+          ]
+        }
+        , {
+          "type":"bb"
+          , "id":12
+          , "name":"merge.B9"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":41
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":35
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Loads from":"ab_rows_local"
+                  , "Start Cycle":"1"
+                  , "Latency":"4"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":42
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":151
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Loads from":"ab_rows_local"
+                  , "Start Cycle":"1"
+                  , "Latency":"4"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":43
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":36
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Loads from":"ab_cols_local"
+                  , "Start Cycle":"6"
+                  , "Latency":"3"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":44
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":36
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Loads from":"ab_cols_local"
+                  , "Start Cycle":"6"
+                  , "Latency":"3"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":45
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":159
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Loads from":"ab_cols_local"
+                  , "Start Cycle":"11"
+                  , "Latency":"3"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":46
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":158
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"18"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":47
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":147
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"18"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":70
+              , "name":"Begin"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":71
+              , "name":"End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"20"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"20"
+            }
+          ]
+        }
+        , {
+          "type":"bb"
+          , "id":13
+          , "name":"merge.B10"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"0"
+            }
+          ]
+        }
+        , {
+          "type":"bb"
+          , "id":14
+          , "name":"merge.B11"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"0"
+            }
+          ]
+        }
+        , {
+          "type":"bb"
+          , "id":15
+          , "name":"merge.B12"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"0"
+            }
+          ]
+        }
+        , {
+          "type":"bb"
+          , "id":16
+          , "name":"merge.B13"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":48
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":217
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Stores to":"a_end"
+                  , "Start Cycle":"1"
+                  , "Latency":"1"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":49
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":218
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Stores to":"b_end"
+                  , "Start Cycle":"1"
+                  , "Latency":"1"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":50
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":232
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Stores to":"a_start"
+                  , "Start Cycle":"1"
+                  , "Latency":"1"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":51
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":233
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Stores to":"b_start"
+                  , "Start Cycle":"1"
+                  , "Latency":"1"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":52
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":243
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Loads from":"a_end"
+                  , "Start Cycle":"5"
+                  , "Latency":"4"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":53
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":243
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Loads from":"a_start"
+                  , "Start Cycle":"5"
+                  , "Latency":"4"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":54
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":244
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Loads from":"b_end"
+                  , "Start Cycle":"6"
+                  , "Latency":"4"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":55
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":244
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Loads from":"b_start"
+                  , "Start Cycle":"6"
+                  , "Latency":"4"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":56
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":256
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"15"
+                  , "Latency":"135"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":57
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":257
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"15"
+                  , "Latency":"135"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":58
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":256
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Stores to":"ab_rows_local"
+                  , "Start Cycle":"151"
+                  , "Latency":"1"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":59
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/merge_path.cl"
+                    , "line":257
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined never-stall"
+                  , "Stall-free":"Yes"
+                  , "Stores to":"ab_cols_local"
+                  , "Start Cycle":"151"
+                  , "Latency":"1"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":72
+              , "name":"Begin"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":73
+              , "name":"End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"156"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"156"
+            }
+          ]
+        }
+        , {
+          "type":"memtype"
+          , "id":74
+          , "name":"Local Memory"
+          , "children":
+          [
+            {
+              "type":"memsys"
+              , "id":75
+              , "name":"a_start"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"merge_path.cl"
+                    , "line":207
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Requested size":"4 bytes"
+                  , "Implemented size":"4 bytes"
+                  , "Number of banks":"1"
+                  , "Bank width":"32 bits"
+                  , "Bank depth":"1 word"
+                  , "Number of replicates":"1"
+                  , "Number of private copies":"8"
+                  , "Additional Information":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"For each replicate, 8 private copies were created to efficiently support multiple simultaneous workgroups"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"Running memory at 2x clock to support more concurrent ports"
+                    }
+                  ]
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Local Memory"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/chn1469549457114.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"memsys"
+              , "id":80
+              , "name":"a_end"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"merge_path.cl"
+                    , "line":207
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Requested size":"4 bytes"
+                  , "Implemented size":"4 bytes"
+                  , "Number of banks":"1"
+                  , "Bank width":"32 bits"
+                  , "Bank depth":"1 word"
+                  , "Number of replicates":"1"
+                  , "Number of private copies":"8"
+                  , "Additional Information":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"For each replicate, 8 private copies were created to efficiently support multiple simultaneous workgroups"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"Running memory at 2x clock to support more concurrent ports"
+                    }
+                  ]
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Local Memory"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/chn1469549457114.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"memsys"
+              , "id":85
+              , "name":"b_start"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"merge_path.cl"
+                    , "line":207
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Requested size":"4 bytes"
+                  , "Implemented size":"4 bytes"
+                  , "Number of banks":"1"
+                  , "Bank width":"32 bits"
+                  , "Bank depth":"1 word"
+                  , "Number of replicates":"1"
+                  , "Number of private copies":"8"
+                  , "Additional Information":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"For each replicate, 8 private copies were created to efficiently support multiple simultaneous workgroups"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"Running memory at 2x clock to support more concurrent ports"
+                    }
+                  ]
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Local Memory"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/chn1469549457114.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"memsys"
+              , "id":90
+              , "name":"b_end"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"merge_path.cl"
+                    , "line":207
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Requested size":"4 bytes"
+                  , "Implemented size":"4 bytes"
+                  , "Number of banks":"1"
+                  , "Bank width":"32 bits"
+                  , "Bank depth":"1 word"
+                  , "Number of replicates":"1"
+                  , "Number of private copies":"8"
+                  , "Additional Information":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"For each replicate, 8 private copies were created to efficiently support multiple simultaneous workgroups"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"Running memory at 2x clock to support more concurrent ports"
+                    }
+                  ]
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Local Memory"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/chn1469549457114.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"memsys"
+              , "id":95
+              , "name":"ab_cols_local"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"merge_path.cl"
+                    , "line":204
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Requested size":"1024 bytes"
+                  , "Implemented size":"7168 bytes"
+                  , "Number of banks":"1"
+                  , "Bank width":"32 bits"
+                  , "Bank depth":"256 words"
+                  , "Number of replicates":"7"
+                  , "Number of private copies":"8"
+                  , "Additional Information":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"For each replicate, 8 private copies were created to efficiently support multiple simultaneous workgroups"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"For each bank, 7 replicates were created to efficiently support multiple accesses"
+                    }
+                  ]
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Local Memory"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/chn1469549457114.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"memsys"
+              , "id":105
+              , "name":"ab_rows_local"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"merge_path.cl"
+                    , "line":205
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Requested size":"1024 bytes"
+                  , "Implemented size":"2048 bytes"
+                  , "Number of banks":"1"
+                  , "Bank width":"32 bits"
+                  , "Bank depth":"256 words"
+                  , "Number of replicates":"2"
+                  , "Number of private copies":"8"
+                  , "Additional Information":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"For each replicate, 8 private copies were created to efficiently support multiple simultaneous workgroups"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"For each bank, 2 replicates were created to efficiently support multiple accesses"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"Running memory at 2x clock to support more concurrent ports"
+                    }
+                  ]
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Local Memory"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/chn1469549457114.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+    , {
+      "type":"kernel"
+      , "id":115
+      , "name":"prepare_array_for_positions"
+      , "children":
+      [
+        {
+          "type":"bb"
+          , "id":116
+          , "name":"prepare_array_for_positions.B0"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":117
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+                    , "line":26
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"1"
+                  , "Latency":"193"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":118
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+                    , "line":26
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Prefetching"
+                  , "Stall-free":"No"
+                  , "Loads from":"global_id"
+                  , "Start Cycle":"192"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":119
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+                    , "line":26
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"195"
+                  , "Latency":"193"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":120
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+                    , "line":26
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Prefetching"
+                  , "Stall-free":"No"
+                  , "Loads from":"global_id"
+                  , "Start Cycle":"195"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":121
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+                    , "line":25
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"389"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":122
+              , "name":"Begin"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":123
+              , "name":"End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"391"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"391"
+            }
+          ]
+        }
+      ]
+    }
+    , {
+      "type":"kernel"
+      , "id":124
+      , "name":"prepare_array_for_rows_positions"
+      , "children":
+      [
+        {
+          "type":"bb"
+          , "id":125
+          , "name":"prepare_array_for_rows_positions.B0"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":126
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+                    , "line":43
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"1"
+                  , "Latency":"161"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":127
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+                    , "line":43
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Prefetching"
+                  , "Stall-free":"No"
+                  , "Loads from":"global_id"
+                  , "Start Cycle":"1"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":128
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+                    , "line":43
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"163"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":129
+              , "name":"Begin"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":130
+              , "name":"End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"165"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"165"
+            }
+          ]
+        }
+      ]
+    }
+    , {
+      "type":"kernel"
+      , "id":131
+      , "name":"prepare_array_for_shift"
+      , "children":
+      [
+        {
+          "type":"bb"
+          , "id":132
+          , "name":"prepare_array_for_shift.B0"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":133
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+                    , "line":65
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"1"
+                  , "Latency":"193"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":134
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+                    , "line":65
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Prefetching"
+                  , "Stall-free":"No"
+                  , "Loads from":"global_id"
+                  , "Start Cycle":"192"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":135
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+                    , "line":65
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"195"
+                  , "Latency":"193"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":136
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+                    , "line":65
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Prefetching"
+                  , "Stall-free":"No"
+                  , "Loads from":"global_id"
+                  , "Start Cycle":"195"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":137
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+                    , "line":64
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"389"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":138
+              , "name":"Begin"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":139
+              , "name":"End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"391"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"391"
+            }
+          ]
+        }
+      ]
+    }
+    , {
+      "type":"kernel"
+      , "id":140
+      , "name":"prepare_for_shift_empty_rows"
+      , "children":
+      [
+        {
+          "type":"bb"
+          , "id":141
+          , "name":"prepare_for_shift_empty_rows.B0"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":142
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+                    , "line":81
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"1"
+                  , "Latency":"161"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":143
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+                    , "line":81
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Prefetching"
+                  , "Stall-free":"No"
+                  , "Loads from":"global_id"
+                  , "Start Cycle":"1"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":144
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prepare_positions.cl"
+                    , "line":81
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"163"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":145
+              , "name":"Begin"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":146
+              , "name":"End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"165"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"165"
+            }
+          ]
+        }
+      ]
+    }
+    , {
+      "type":"kernel"
+      , "id":147
+      , "name":"scan_blelloch"
+      , "children":
+      [
+        {
+          "type":"bb"
+          , "id":148
+          , "name":"scan_blelloch.B0"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":153
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":28
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"1"
+                  , "Latency":"177"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":154
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":28
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined"
+                  , "Stall-free":"No"
+                  , "Stores to":"tmp"
+                  , "Start Cycle":"179"
+                  , "Latency":"7"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":168
+              , "name":"Begin"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":169
+              , "name":"End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"186"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"186"
+            }
+          ]
+        }
+        , {
+          "type":"bb"
+          , "id":149
+          , "name":"scan_blelloch.B1"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":155
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":37
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined"
+                  , "Stall-free":"No"
+                  , "Loads from":"tmp"
+                  , "Start Cycle":"259"
+                  , "Latency":"7"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":156
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":37
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined"
+                  , "Stall-free":"No"
+                  , "Loads from":"tmp"
+                  , "Start Cycle":"259"
+                  , "Latency":"7"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":157
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":37
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined"
+                  , "Stall-free":"No"
+                  , "Stores to":"tmp"
+                  , "Start Cycle":"267"
+                  , "Latency":"7"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":170
+              , "name":"Loop Input"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":30
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                  , "Loops To":"171"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":171
+              , "name":"Loop End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"274"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"274"
+              , "II":"0"
+              , "Subloops":"No"
+              , "Pipelined":"No"
+              , "Fmax Bottlenecks":"No"
+              , "Loop Info":"Loop is not pipelined. See Loops Analysis for more information."
+            }
+          ]
+        }
+        , {
+          "type":"bb"
+          , "id":150
+          , "name":"scan_blelloch.B2"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":158
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":72
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined"
+                  , "Stall-free":"No"
+                  , "Loads from":"tmp"
+                  , "Start Cycle":"258"
+                  , "Latency":"7"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":159
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":72
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"266"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":172
+              , "name":"Begin"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":173
+              , "name":"End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"268"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"268"
+            }
+          ]
+        }
+        , {
+          "type":"bb"
+          , "id":151
+          , "name":"scan_blelloch.B3"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":160
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":63
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined"
+                  , "Stall-free":"No"
+                  , "Loads from":"tmp"
+                  , "Start Cycle":"259"
+                  , "Latency":"7"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":161
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":64
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined"
+                  , "Stall-free":"No"
+                  , "Loads from":"tmp"
+                  , "Start Cycle":"259"
+                  , "Latency":"7"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":162
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":64
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined"
+                  , "Stall-free":"No"
+                  , "Stores to":"tmp"
+                  , "Start Cycle":"267"
+                  , "Latency":"7"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":163
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":65
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined"
+                  , "Stall-free":"No"
+                  , "Stores to":"tmp"
+                  , "Start Cycle":"274"
+                  , "Latency":"7"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":174
+              , "name":"Loop Input"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":53
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                  , "Loops To":"175"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":175
+              , "name":"Loop End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"281"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"281"
+              , "II":"0"
+              , "Subloops":"No"
+              , "Pipelined":"No"
+              , "Fmax Bottlenecks":"No"
+              , "Loop Info":"Loop is not pipelined. See Loops Analysis for more information."
+            }
+          ]
+        }
+        , {
+          "type":"bb"
+          , "id":152
+          , "name":"scan_blelloch.B4"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":164
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":46
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined"
+                  , "Stall-free":"No"
+                  , "Loads from":"tmp"
+                  , "Start Cycle":"0"
+                  , "Latency":"7"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":165
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":46
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"8"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":166
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":47
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Stores to":"total_sum"
+                  , "Start Cycle":"8"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":167
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":48
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Pipelined"
+                  , "Stall-free":"No"
+                  , "Stores to":"tmp"
+                  , "Start Cycle":"8"
+                  , "Latency":"7"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":176
+              , "name":"Begin"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":177
+              , "name":"End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"268"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"268"
+            }
+          ]
+        }
+        , {
+          "type":"memtype"
+          , "id":178
+          , "name":"Local Memory"
+          , "children":
+          [
+            {
+              "type":"memsys"
+              , "id":179
+              , "name":"tmp"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"prefix_sum.cl"
+                    , "line":15
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Requested size":"16384 bytes"
+                  , "Implemented size":"16384 bytes"
+                  , "Number of banks":"4"
+                  , "Bank width":"32 bits"
+                  , "Bank depth":"1024 words"
+                  , "Number of replicates":"1"
+                  , "Number of private copies":"6"
+                  , "Additional Information":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"For each replicate, 6 private copies were created to efficiently support multiple simultaneous workgroups"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"Running memory at 2x clock to support more concurrent ports"
+                    }
+                  ]
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Local Memory"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/chn1469549457114.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+    , {
+      "type":"kernel"
+      , "id":214
+      , "name":"update_pref_sum"
+      , "children":
+      [
+        {
+          "type":"bb"
+          , "id":215
+          , "name":"update_pref_sum.B0"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":216
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":96
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"32"
+                  , "Latency":"161"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":217
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":96
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"32"
+                  , "Latency":"161"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":218
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/prefix_sum.cl"
+                    , "line":96
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"194"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":219
+              , "name":"Begin"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":220
+              , "name":"End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"196"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"196"
+            }
+          ]
+        }
+      ]
+    }
+    , {
+      "type":"kernel"
+      , "id":221
+      , "name":"set_positions"
+      , "children":
+      [
+        {
+          "type":"bb"
+          , "id":222
+          , "name":"set_positions.B0"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":223
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":24
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"1"
+                  , "Latency":"225"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":224
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":32
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"227"
+                  , "Latency":"225"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":225
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":32
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced cached"
+                  , "Stall-free":"No"
+                  , "Loads from":"global_id"
+                  , "Start Cycle":"227"
+                  , "Latency":"225"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":226
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":25
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"453"
+                  , "Latency":"225"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":227
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":25
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"679"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":228
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":26
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"453"
+                  , "Latency":"225"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":229
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":26
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"679"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":230
+              , "name":"Begin"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":231
+              , "name":"End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"681"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"681"
+            }
+          ]
+        }
+      ]
+    }
+    , {
+      "type":"kernel"
+      , "id":232
+      , "name":"set_positions_pointers_and_rows"
+      , "children":
+      [
+        {
+          "type":"bb"
+          , "id":233
+          , "name":"set_positions_pointers_and_rows.B0"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":234
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":53
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"1"
+                  , "Latency":"225"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":235
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":61
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"227"
+                  , "Latency":"225"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":236
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":54
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"525"
+                  , "Latency":"154"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":237
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":55
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"453"
+                  , "Latency":"225"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":238
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":55
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"679"
+                  , "Latency":"154"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":239
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":63
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"453"
+                  , "Latency":"225"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":240
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":63
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"833"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":241
+              , "name":"Begin"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":242
+              , "name":"End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"835"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"835"
+            }
+          ]
+        }
+      ]
+    }
+    , {
+      "type":"kernel"
+      , "id":243
+      , "name":"set_positions_rows"
+      , "children":
+      [
+        {
+          "type":"bb"
+          , "id":244
+          , "name":"set_positions_rows.B0"
+          , "children":
+          [
+            {
+              "type":"inst"
+              , "id":245
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":78
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"2"
+                  , "Latency":"209"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":246
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":79
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"356"
+                  , "Latency":"138"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":247
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":80
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"212"
+                  , "Latency":"209"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":248
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":80
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"494"
+                  , "Latency":"138"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":249
+              , "name":"Load"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":90
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced cached"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"422"
+                  , "Latency":"209"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":250
+              , "name":"Store"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/compile_single_command/set_positions.cl"
+                    , "line":82
+                  }
+                ]
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Width":"32 bits"
+                  , "Type":"Burst-coalesced"
+                  , "Stall-free":"No"
+                  , "Start Cycle":"632"
+                  , "Latency":"2"
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Load-Store Units"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":251
+              , "name":"Begin"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"0"
+                  , "Latency":"1"
+                }
+              ]
+            }
+            , {
+              "type":"inst"
+              , "id":252
+              , "name":"End"
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Start Cycle":"634"
+                  , "Latency":"1"
+                }
+              ]
+            }
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Latency":"634"
+            }
+          ]
+        }
+      ]
+    }
+    , {
+      "type":"memtype"
+      , "id":1
+      , "name":"Global Memory"
+      , "children":
+      [
+        {
+          "type":"memsys"
+          , "id":114
+          , "name":"DDR"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Number of banks":"1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  , "links":
+  [
+    {
+      "from":75
+      , "to":53
+    }
+    , {
+      "from":17
+      , "to":75
+    }
+    , {
+      "from":50
+      , "to":75
+    }
+    , {
+      "from":80
+      , "to":52
+    }
+    , {
+      "from":18
+      , "to":80
+    }
+    , {
+      "from":48
+      , "to":80
+    }
+    , {
+      "from":85
+      , "to":55
+    }
+    , {
+      "from":19
+      , "to":85
+    }
+    , {
+      "from":51
+      , "to":85
+    }
+    , {
+      "from":90
+      , "to":54
+    }
+    , {
+      "from":20
+      , "to":90
+    }
+    , {
+      "from":49
+      , "to":90
+    }
+    , {
+      "from":95
+      , "to":35
+    }
+    , {
+      "from":95
+      , "to":36
+    }
+    , {
+      "from":95
+      , "to":39
+    }
+    , {
+      "from":95
+      , "to":40
+    }
+    , {
+      "from":95
+      , "to":43
+    }
+    , {
+      "from":95
+      , "to":44
+    }
+    , {
+      "from":95
+      , "to":45
+    }
+    , {
+      "from":59
+      , "to":95
+    }
+    , {
+      "from":105
+      , "to":33
+    }
+    , {
+      "from":105
+      , "to":34
+    }
+    , {
+      "from":105
+      , "to":37
+    }
+    , {
+      "from":105
+      , "to":38
+    }
+    , {
+      "from":105
+      , "to":41
+    }
+    , {
+      "from":105
+      , "to":42
+    }
+    , {
+      "from":58
+      , "to":105
+    }
+    , {
+      "from":17
+      , "to":61
+    }
+    , {
+      "from":18
+      , "to":61
+    }
+    , {
+      "from":19
+      , "to":61
+    }
+    , {
+      "from":20
+      , "to":61
+    }
+    , {
+      "from":61
+      , "to":4
+    }
+    , {
+      "from":63
+      , "to":62
+    }
+    , {
+      "from":4
+      , "to":62
+    }
+    , {
+      "from":21
+      , "to":63
+    }
+    , {
+      "from":22
+      , "to":63
+    }
+    , {
+      "from":23
+      , "to":63
+    }
+    , {
+      "from":24
+      , "to":63
+    }
+    , {
+      "from":61
+      , "to":6
+    }
+    , {
+      "from":6
+      , "to":7
+    }
+    , {
+      "from":6
+      , "to":8
+    }
+    , {
+      "from":65
+      , "to":64
+    }
+    , {
+      "from":8
+      , "to":64
+    }
+    , {
+      "from":25
+      , "to":65
+    }
+    , {
+      "from":26
+      , "to":65
+    }
+    , {
+      "from":27
+      , "to":65
+    }
+    , {
+      "from":28
+      , "to":65
+    }
+    , {
+      "from":67
+      , "to":66
+    }
+    , {
+      "from":7
+      , "to":66
+    }
+    , {
+      "from":29
+      , "to":67
+    }
+    , {
+      "from":30
+      , "to":67
+    }
+    , {
+      "from":31
+      , "to":67
+    }
+    , {
+      "from":32
+      , "to":67
+    }
+    , {
+      "from":69
+      , "to":68
+    }
+    , {
+      "from":73
+      , "to":68
+    }
+    , {
+      "from":35
+      , "to":69
+    }
+    , {
+      "from":36
+      , "to":69
+    }
+    , {
+      "from":39
+      , "to":69
+    }
+    , {
+      "from":40
+      , "to":69
+    }
+    , {
+      "from":69
+      , "to":70
+    }
+    , {
+      "from":45
+      , "to":71
+    }
+    , {
+      "from":46
+      , "to":71
+    }
+    , {
+      "from":47
+      , "to":71
+    }
+    , {
+      "from":63
+      , "to":13
+    }
+    , {
+      "from":65
+      , "to":14
+    }
+    , {
+      "from":67
+      , "to":15
+    }
+    , {
+      "from":15
+      , "to":72
+    }
+    , {
+      "from":14
+      , "to":72
+    }
+    , {
+      "from":13
+      , "to":72
+    }
+    , {
+      "from":48
+      , "to":73
+    }
+    , {
+      "from":49
+      , "to":73
+    }
+    , {
+      "from":50
+      , "to":73
+    }
+    , {
+      "from":51
+      , "to":73
+    }
+    , {
+      "from":52
+      , "to":73
+    }
+    , {
+      "from":53
+      , "to":73
+    }
+    , {
+      "from":54
+      , "to":73
+    }
+    , {
+      "from":55
+      , "to":73
+    }
+    , {
+      "from":56
+      , "to":73
+    }
+    , {
+      "from":57
+      , "to":73
+    }
+    , {
+      "from":58
+      , "to":73
+    }
+    , {
+      "from":59
+      , "to":73
+    }
+    , {
+      "from":60
+      , "to":17
+    }
+    , {
+      "from":60
+      , "to":18
+    }
+    , {
+      "from":60
+      , "to":19
+    }
+    , {
+      "from":60
+      , "to":20
+    }
+    , {
+      "from":62
+      , "to":21
+    }
+    , {
+      "from":62
+      , "to":22
+    }
+    , {
+      "from":21
+      , "to":23
+    }
+    , {
+      "from":22
+      , "to":23
+    }
+    , {
+      "from":21
+      , "to":24
+    }
+    , {
+      "from":22
+      , "to":24
+    }
+    , {
+      "from":64
+      , "to":25
+    }
+    , {
+      "from":64
+      , "to":26
+    }
+    , {
+      "from":25
+      , "to":27
+    }
+    , {
+      "from":26
+      , "to":27
+    }
+    , {
+      "from":25
+      , "to":28
+    }
+    , {
+      "from":26
+      , "to":28
+    }
+    , {
+      "from":66
+      , "to":29
+    }
+    , {
+      "from":66
+      , "to":30
+    }
+    , {
+      "from":29
+      , "to":31
+    }
+    , {
+      "from":30
+      , "to":31
+    }
+    , {
+      "from":29
+      , "to":32
+    }
+    , {
+      "from":30
+      , "to":32
+    }
+    , {
+      "from":68
+      , "to":33
+    }
+    , {
+      "from":68
+      , "to":34
+    }
+    , {
+      "from":33
+      , "to":35
+    }
+    , {
+      "from":34
+      , "to":35
+    }
+    , {
+      "from":33
+      , "to":36
+    }
+    , {
+      "from":34
+      , "to":36
+    }
+    , {
+      "from":68
+      , "to":37
+    }
+    , {
+      "from":68
+      , "to":38
+    }
+    , {
+      "from":37
+      , "to":39
+    }
+    , {
+      "from":38
+      , "to":39
+    }
+    , {
+      "from":37
+      , "to":40
+    }
+    , {
+      "from":38
+      , "to":40
+    }
+    , {
+      "from":70
+      , "to":41
+    }
+    , {
+      "from":70
+      , "to":42
+    }
+    , {
+      "from":41
+      , "to":43
+    }
+    , {
+      "from":42
+      , "to":43
+    }
+    , {
+      "from":41
+      , "to":44
+    }
+    , {
+      "from":42
+      , "to":44
+    }
+    , {
+      "from":41
+      , "to":45
+    }
+    , {
+      "from":42
+      , "to":45
+    }
+    , {
+      "from":43
+      , "to":45
+    }
+    , {
+      "from":44
+      , "to":45
+    }
+    , {
+      "from":45
+      , "to":46
+    }
+    , {
+      "from":45
+      , "to":47
+    }
+    , {
+      "from":72
+      , "to":48
+    }
+    , {
+      "from":72
+      , "to":49
+    }
+    , {
+      "from":72
+      , "to":50
+    }
+    , {
+      "from":72
+      , "to":51
+    }
+    , {
+      "from":48
+      , "to":52
+    }
+    , {
+      "from":49
+      , "to":52
+    }
+    , {
+      "from":50
+      , "to":52
+    }
+    , {
+      "from":51
+      , "to":52
+    }
+    , {
+      "from":48
+      , "to":53
+    }
+    , {
+      "from":49
+      , "to":53
+    }
+    , {
+      "from":50
+      , "to":53
+    }
+    , {
+      "from":51
+      , "to":53
+    }
+    , {
+      "from":48
+      , "to":54
+    }
+    , {
+      "from":49
+      , "to":54
+    }
+    , {
+      "from":50
+      , "to":54
+    }
+    , {
+      "from":51
+      , "to":54
+    }
+    , {
+      "from":48
+      , "to":55
+    }
+    , {
+      "from":49
+      , "to":55
+    }
+    , {
+      "from":50
+      , "to":55
+    }
+    , {
+      "from":51
+      , "to":55
+    }
+    , {
+      "from":52
+      , "to":56
+    }
+    , {
+      "from":53
+      , "to":56
+    }
+    , {
+      "from":54
+      , "to":56
+    }
+    , {
+      "from":55
+      , "to":56
+    }
+    , {
+      "from":52
+      , "to":57
+    }
+    , {
+      "from":53
+      , "to":57
+    }
+    , {
+      "from":54
+      , "to":57
+    }
+    , {
+      "from":55
+      , "to":57
+    }
+    , {
+      "from":52
+      , "to":58
+    }
+    , {
+      "from":53
+      , "to":58
+    }
+    , {
+      "from":54
+      , "to":58
+    }
+    , {
+      "from":55
+      , "to":58
+    }
+    , {
+      "from":56
+      , "to":58
+    }
+    , {
+      "from":52
+      , "to":59
+    }
+    , {
+      "from":53
+      , "to":59
+    }
+    , {
+      "from":54
+      , "to":59
+    }
+    , {
+      "from":55
+      , "to":59
+    }
+    , {
+      "from":57
+      , "to":59
+    }
+    , {
+      "from":114
+      , "to":27
+    }
+    , {
+      "from":46
+      , "to":114
+    }
+    , {
+      "from":114
+      , "to":56
+    }
+    , {
+      "from":114
+      , "to":29
+    }
+    , {
+      "from":47
+      , "to":114
+    }
+    , {
+      "from":114
+      , "to":31
+    }
+    , {
+      "from":114
+      , "to":57
+    }
+    , {
+      "from":114
+      , "to":22
+    }
+    , {
+      "from":114
+      , "to":30
+    }
+    , {
+      "from":114
+      , "to":32
+    }
+    , {
+      "from":114
+      , "to":21
+    }
+    , {
+      "from":114
+      , "to":25
+    }
+    , {
+      "from":114
+      , "to":24
+    }
+    , {
+      "from":114
+      , "to":23
+    }
+    , {
+      "from":114
+      , "to":28
+    }
+    , {
+      "from":114
+      , "to":26
+    }
+    , {
+      "from":117
+      , "to":123
+    }
+    , {
+      "from":118
+      , "to":123
+    }
+    , {
+      "from":119
+      , "to":123
+    }
+    , {
+      "from":120
+      , "to":123
+    }
+    , {
+      "from":121
+      , "to":123
+    }
+    , {
+      "from":122
+      , "to":117
+    }
+    , {
+      "from":122
+      , "to":118
+    }
+    , {
+      "from":117
+      , "to":119
+    }
+    , {
+      "from":118
+      , "to":119
+    }
+    , {
+      "from":117
+      , "to":120
+    }
+    , {
+      "from":118
+      , "to":120
+    }
+    , {
+      "from":117
+      , "to":121
+    }
+    , {
+      "from":118
+      , "to":121
+    }
+    , {
+      "from":119
+      , "to":121
+    }
+    , {
+      "from":120
+      , "to":121
+    }
+    , {
+      "from":114
+      , "to":119
+    }
+    , {
+      "from":121
+      , "to":114
+    }
+    , {
+      "from":114
+      , "to":117
+    }
+    , {
+      "from":114
+      , "to":120
+    }
+    , {
+      "from":114
+      , "to":118
+    }
+    , {
+      "from":126
+      , "to":130
+    }
+    , {
+      "from":127
+      , "to":130
+    }
+    , {
+      "from":128
+      , "to":130
+    }
+    , {
+      "from":129
+      , "to":126
+    }
+    , {
+      "from":129
+      , "to":127
+    }
+    , {
+      "from":126
+      , "to":128
+    }
+    , {
+      "from":127
+      , "to":128
+    }
+    , {
+      "from":114
+      , "to":126
+    }
+    , {
+      "from":114
+      , "to":127
+    }
+    , {
+      "from":128
+      , "to":114
+    }
+    , {
+      "from":133
+      , "to":139
+    }
+    , {
+      "from":134
+      , "to":139
+    }
+    , {
+      "from":135
+      , "to":139
+    }
+    , {
+      "from":136
+      , "to":139
+    }
+    , {
+      "from":137
+      , "to":139
+    }
+    , {
+      "from":138
+      , "to":133
+    }
+    , {
+      "from":138
+      , "to":134
+    }
+    , {
+      "from":133
+      , "to":135
+    }
+    , {
+      "from":134
+      , "to":135
+    }
+    , {
+      "from":133
+      , "to":136
+    }
+    , {
+      "from":134
+      , "to":136
+    }
+    , {
+      "from":133
+      , "to":137
+    }
+    , {
+      "from":134
+      , "to":137
+    }
+    , {
+      "from":135
+      , "to":137
+    }
+    , {
+      "from":136
+      , "to":137
+    }
+    , {
+      "from":114
+      , "to":135
+    }
+    , {
+      "from":114
+      , "to":134
+    }
+    , {
+      "from":137
+      , "to":114
+    }
+    , {
+      "from":114
+      , "to":133
+    }
+    , {
+      "from":114
+      , "to":136
+    }
+    , {
+      "from":142
+      , "to":146
+    }
+    , {
+      "from":143
+      , "to":146
+    }
+    , {
+      "from":144
+      , "to":146
+    }
+    , {
+      "from":145
+      , "to":142
+    }
+    , {
+      "from":145
+      , "to":143
+    }
+    , {
+      "from":142
+      , "to":144
+    }
+    , {
+      "from":143
+      , "to":144
+    }
+    , {
+      "from":114
+      , "to":142
+    }
+    , {
+      "from":114
+      , "to":143
+    }
+    , {
+      "from":144
+      , "to":114
+    }
+    , {
+      "from":179
+      , "to":155
+    }
+    , {
+      "from":157
+      , "to":179
+    }
+    , {
+      "from":179
+      , "to":161
+    }
+    , {
+      "from":179
+      , "to":156
+    }
+    , {
+      "from":162
+      , "to":179
+    }
+    , {
+      "from":179
+      , "to":164
+    }
+    , {
+      "from":154
+      , "to":179
+    }
+    , {
+      "from":179
+      , "to":158
+    }
+    , {
+      "from":163
+      , "to":179
+    }
+    , {
+      "from":179
+      , "to":160
+    }
+    , {
+      "from":167
+      , "to":179
+    }
+    , {
+      "from":153
+      , "to":169
+    }
+    , {
+      "from":154
+      , "to":169
+    }
+    , {
+      "from":171
+      , "to":170
+    }
+    , {
+      "from":169
+      , "to":170
+    }
+    , {
+      "from":155
+      , "to":171
+    }
+    , {
+      "from":156
+      , "to":171
+    }
+    , {
+      "from":157
+      , "to":171
+    }
+    , {
+      "from":175
+      , "to":172
+    }
+    , {
+      "from":158
+      , "to":173
+    }
+    , {
+      "from":159
+      , "to":173
+    }
+    , {
+      "from":175
+      , "to":174
+    }
+    , {
+      "from":177
+      , "to":174
+    }
+    , {
+      "from":160
+      , "to":175
+    }
+    , {
+      "from":161
+      , "to":175
+    }
+    , {
+      "from":162
+      , "to":175
+    }
+    , {
+      "from":163
+      , "to":175
+    }
+    , {
+      "from":171
+      , "to":176
+    }
+    , {
+      "from":164
+      , "to":177
+    }
+    , {
+      "from":165
+      , "to":177
+    }
+    , {
+      "from":166
+      , "to":177
+    }
+    , {
+      "from":167
+      , "to":177
+    }
+    , {
+      "from":168
+      , "to":153
+    }
+    , {
+      "from":153
+      , "to":154
+    }
+    , {
+      "from":170
+      , "to":155
+    }
+    , {
+      "from":170
+      , "to":156
+    }
+    , {
+      "from":155
+      , "to":157
+    }
+    , {
+      "from":156
+      , "to":157
+    }
+    , {
+      "from":172
+      , "to":158
+    }
+    , {
+      "from":158
+      , "to":159
+    }
+    , {
+      "from":174
+      , "to":160
+    }
+    , {
+      "from":174
+      , "to":161
+    }
+    , {
+      "from":160
+      , "to":162
+    }
+    , {
+      "from":161
+      , "to":162
+    }
+    , {
+      "from":160
+      , "to":163
+    }
+    , {
+      "from":162
+      , "to":163
+    }
+    , {
+      "from":176
+      , "to":164
+    }
+    , {
+      "from":164
+      , "to":165
+    }
+    , {
+      "from":164
+      , "to":166
+    }
+    , {
+      "from":164
+      , "to":167
+    }
+    , {
+      "from":159
+      , "to":114
+    }
+    , {
+      "from":165
+      , "to":114
+    }
+    , {
+      "from":114
+      , "to":153
+    }
+    , {
+      "from":166
+      , "to":114
+    }
+    , {
+      "from":216
+      , "to":220
+    }
+    , {
+      "from":217
+      , "to":220
+    }
+    , {
+      "from":218
+      , "to":220
+    }
+    , {
+      "from":219
+      , "to":216
+    }
+    , {
+      "from":219
+      , "to":217
+    }
+    , {
+      "from":216
+      , "to":218
+    }
+    , {
+      "from":217
+      , "to":218
+    }
+    , {
+      "from":114
+      , "to":217
+    }
+    , {
+      "from":114
+      , "to":216
+    }
+    , {
+      "from":218
+      , "to":114
+    }
+    , {
+      "from":223
+      , "to":231
+    }
+    , {
+      "from":224
+      , "to":231
+    }
+    , {
+      "from":225
+      , "to":231
+    }
+    , {
+      "from":226
+      , "to":231
+    }
+    , {
+      "from":227
+      , "to":231
+    }
+    , {
+      "from":228
+      , "to":231
+    }
+    , {
+      "from":229
+      , "to":231
+    }
+    , {
+      "from":230
+      , "to":223
+    }
+    , {
+      "from":223
+      , "to":224
+    }
+    , {
+      "from":223
+      , "to":225
+    }
+    , {
+      "from":223
+      , "to":226
+    }
+    , {
+      "from":224
+      , "to":226
+    }
+    , {
+      "from":225
+      , "to":226
+    }
+    , {
+      "from":223
+      , "to":227
+    }
+    , {
+      "from":224
+      , "to":227
+    }
+    , {
+      "from":225
+      , "to":227
+    }
+    , {
+      "from":226
+      , "to":227
+    }
+    , {
+      "from":223
+      , "to":228
+    }
+    , {
+      "from":224
+      , "to":228
+    }
+    , {
+      "from":225
+      , "to":228
+    }
+    , {
+      "from":223
+      , "to":229
+    }
+    , {
+      "from":224
+      , "to":229
+    }
+    , {
+      "from":225
+      , "to":229
+    }
+    , {
+      "from":228
+      , "to":229
+    }
+    , {
+      "from":229
+      , "to":114
+    }
+    , {
+      "from":114
+      , "to":226
+    }
+    , {
+      "from":114
+      , "to":224
+    }
+    , {
+      "from":114
+      , "to":225
+    }
+    , {
+      "from":114
+      , "to":228
+    }
+    , {
+      "from":114
+      , "to":223
+    }
+    , {
+      "from":227
+      , "to":114
+    }
+    , {
+      "from":234
+      , "to":242
+    }
+    , {
+      "from":235
+      , "to":242
+    }
+    , {
+      "from":236
+      , "to":242
+    }
+    , {
+      "from":237
+      , "to":242
+    }
+    , {
+      "from":238
+      , "to":242
+    }
+    , {
+      "from":239
+      , "to":242
+    }
+    , {
+      "from":240
+      , "to":242
+    }
+    , {
+      "from":241
+      , "to":234
+    }
+    , {
+      "from":234
+      , "to":235
+    }
+    , {
+      "from":235
+      , "to":236
+    }
+    , {
+      "from":234
+      , "to":236
+    }
+    , {
+      "from":234
+      , "to":237
+    }
+    , {
+      "from":235
+      , "to":237
+    }
+    , {
+      "from":236
+      , "to":238
+    }
+    , {
+      "from":234
+      , "to":238
+    }
+    , {
+      "from":235
+      , "to":238
+    }
+    , {
+      "from":237
+      , "to":238
+    }
+    , {
+      "from":234
+      , "to":239
+    }
+    , {
+      "from":235
+      , "to":239
+    }
+    , {
+      "from":238
+      , "to":240
+    }
+    , {
+      "from":234
+      , "to":240
+    }
+    , {
+      "from":235
+      , "to":240
+    }
+    , {
+      "from":239
+      , "to":240
+    }
+    , {
+      "from":114
+      , "to":235
+    }
+    , {
+      "from":114
+      , "to":237
+    }
+    , {
+      "from":114
+      , "to":234
+    }
+    , {
+      "from":238
+      , "to":114
+    }
+    , {
+      "from":114
+      , "to":239
+    }
+    , {
+      "from":236
+      , "to":114
+    }
+    , {
+      "from":240
+      , "to":114
+    }
+    , {
+      "from":245
+      , "to":252
+    }
+    , {
+      "from":246
+      , "to":252
+    }
+    , {
+      "from":247
+      , "to":252
+    }
+    , {
+      "from":248
+      , "to":252
+    }
+    , {
+      "from":249
+      , "to":252
+    }
+    , {
+      "from":250
+      , "to":252
+    }
+    , {
+      "from":251
+      , "to":245
+    }
+    , {
+      "from":245
+      , "to":246
+    }
+    , {
+      "from":245
+      , "to":247
+    }
+    , {
+      "from":246
+      , "to":248
+    }
+    , {
+      "from":245
+      , "to":248
+    }
+    , {
+      "from":247
+      , "to":248
+    }
+    , {
+      "from":245
+      , "to":249
+    }
+    , {
+      "from":247
+      , "to":249
+    }
+    , {
+      "from":248
+      , "to":250
+    }
+    , {
+      "from":249
+      , "to":250
+    }
+    , {
+      "from":245
+      , "to":250
+    }
+    , {
+      "from":247
+      , "to":250
+    }
+    , {
+      "from":246
+      , "to":114
+    }
+    , {
+      "from":248
+      , "to":114
+    }
+    , {
+      "from":114
+      , "to":247
+    }
+    , {
+      "from":114
+      , "to":249
+    }
+    , {
+      "from":114
+      , "to":245
+    }
+    , {
+      "from":250
+      , "to":114
+    }
+  ]
+}

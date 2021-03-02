@@ -1,0 +1,271 @@
+{
+  "nodes":
+  [
+    {
+      "name":"merge"
+      , "id":468699336
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"merge.B6"
+          , "id":468729296
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B5"
+          , "id":468729216
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B7"
+          , "id":468729376
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B3"
+          , "id":468548320
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B2"
+          , "id":468548240
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B8"
+          , "id":468825600
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 1"
+              , "id":477692896
+              , "type":"cluster"
+            }
+          ]
+        }
+        , {
+          "name":"merge.B11"
+          , "id":468825840
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B10"
+          , "id":468825760
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B12"
+          , "id":468825920
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B4"
+          , "id":468729136
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B9"
+          , "id":468825680
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 2"
+              , "id":478660992
+              , "type":"cluster"
+            }
+          ]
+        }
+        , {
+          "name":"merge.B13"
+          , "id":468725744
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 3"
+              , "id":479974000
+              , "type":"cluster"
+            }
+          ]
+        }
+        , {
+          "name":"merge.B0"
+          , "id":468826336
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 0"
+              , "id":474518784
+              , "type":"cluster"
+            }
+          ]
+        }
+        , {
+          "name":"merge.B1"
+          , "id":468838176
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"prepare_array_for_shift"
+      , "id":468714888
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"prepare_array_for_shift.B0"
+          , "id":469176384
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"set_positions_pointers_and_rows"
+      , "id":468722760
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"set_positions_pointers_and_rows.B0"
+          , "id":469069632
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"prepare_array_for_positions"
+      , "id":468713800
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"prepare_array_for_positions.B0"
+          , "id":469016640
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"set_positions"
+      , "id":468722520
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"set_positions.B0"
+          , "id":469067600
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"prepare_array_for_rows_positions"
+      , "id":468714584
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"prepare_array_for_rows_positions.B0"
+          , "id":469206736
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"prepare_for_shift_empty_rows"
+      , "id":468696184
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"prepare_for_shift_empty_rows.B0"
+          , "id":469186256
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"set_positions_rows"
+      , "id":468723448
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"set_positions_rows.B0"
+          , "id":469386992
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"scan_blelloch"
+      , "id":468707160
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"scan_blelloch.B3"
+          , "id":469268272
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 4"
+              , "id":533938128
+              , "type":"cluster"
+            }
+          ]
+        }
+        , {
+          "name":"scan_blelloch.B2"
+          , "id":469268192
+          , "type":"bb"
+        }
+        , {
+          "name":"scan_blelloch.B4"
+          , "id":469269568
+          , "type":"bb"
+        }
+        , {
+          "name":"scan_blelloch.B1"
+          , "id":469268064
+          , "type":"bb"
+        }
+        , {
+          "name":"scan_blelloch.B0"
+          , "id":469261232
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"update_pref_sum"
+      , "id":468700328
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"update_pref_sum.B0"
+          , "id":469317312
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 5"
+              , "id":542935744
+              , "type":"cluster"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  , "links":
+  [
+  ]
+}
