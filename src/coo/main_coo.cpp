@@ -3,7 +3,7 @@
 int main() {
 //    testBitonicSort();
 //    testReduceDuplicates();
-    testMatrixAddition();
+//    testMatrixAddition();
 //    testKronecker();
 //    testCOOtoDCSR();
 //    testCountWorkload();
@@ -18,6 +18,7 @@ int main() {
 //    test_new_merge_full();
 //    largeRowsTest();
 //    utils::show_devices();
+      test_pref_sum();
 //    test_multiplication();
 }
 

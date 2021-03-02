@@ -115,6 +115,7 @@ add_executable(sparse-boolean-matrix-operations
         src/test/esc_kernels_test.cpp
         src/test/test_new_merge.cpp
         src/test/test_multiplication.cpp
+        src/test/test_pref_sum.cpp
         )
 
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})

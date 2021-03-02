@@ -2,6 +2,23 @@
 #include "fast_random.h"
 
 namespace utils {
+    void compare_buffers(Controls &controls, const cl::Buffer &buffer_g, const cpu_buffer &buffer_c, uint32_t size, std::string name) {
+        cpu_buffer cpu_copy(size);
+        controls.queue.enqueueReadBuffer(buffer_g, CL_TRUE, 0, sizeof(uint32_t) * cpu_copy.size(), cpu_copy.data());
+        for (uint32_t i = 0; i < size; ++i) {
+            if (cpu_copy[i] != buffer_c[i]) {
+                uint32_t start = std::max(0, (int) i - 10);
+                uint32_t stop = std::min(size, i + 10);
+                for (uint32_t j = start; j < stop; ++j) {
+                    std::cout << j << ": (" << cpu_copy[j] << ", " << buffer_c[j] << "), ";
+                }
+                std::cout << std::endl;
+                throw std::runtime_error("buffers for " + name + " are different");
+            }
+        }
+        std::cout << "buffers are equal" << std::endl;
+    }
+
     void compare_matrices(Controls &controls, matrix_dcsr m_gpu, matrix_dcsr_cpu m_cpu) {
         if (m_gpu.nnz() != m_cpu.cols_indices().size()) {
             std::cout << "diff nnz, gpu: " << m_gpu.nnz() << " vs cpu: " << m_cpu.cols_indices().size() << std::endl;
@@ -42,10 +59,14 @@ namespace utils {
         std::vector<cl::Platform> platforms;
         std::vector<cl::Device> devices;
         std::vector<cl::Kernel> kernels;
+        cl::Program program;
+        cl::Device device;
         try {
             cl::Platform::get(&platforms);
-            platforms[0].getDevices(CL_DEVICE_TYPE_ALL, &devices);
+            platforms[0].getDevices(CL_DEVICE_TYPE_GPU, &devices);
+            std::cout << devices[0].getInfo<CL_DEVICE_MAX_WORK_GROUP_SIZE>() << std::endl;
             return Controls(devices[0]);
+
         } catch (const cl::Error &e) {
             std::stringstream exception;
             exception << "\n" << e.what() << " : " << e.err() << "\n";
