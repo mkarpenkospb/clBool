@@ -1,0 +1,118 @@
+{
+  "nodes":
+  [
+    {
+      "name":"merge"
+      , "id":522500760
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"merge.B6"
+          , "id":522584960
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B10"
+          , "id":522588800
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B12"
+          , "id":522588960
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B0"
+          , "id":522517712
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 0"
+              , "id":527550032
+              , "type":"cluster"
+            }
+          ]
+        }
+        , {
+          "name":"merge.B1"
+          , "id":522603104
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B5"
+          , "id":522584880
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B9"
+          , "id":522585200
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 2"
+              , "id":531651824
+              , "type":"cluster"
+            }
+          ]
+        }
+        , {
+          "name":"merge.B8"
+          , "id":522585120
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 1"
+              , "id":530683776
+              , "type":"cluster"
+            }
+          ]
+        }
+        , {
+          "name":"merge.B2"
+          , "id":522517792
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B3"
+          , "id":522584720
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B11"
+          , "id":522588880
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B4"
+          , "id":522584800
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B7"
+          , "id":522585040
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B13"
+          , "id":522589040
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 3"
+              , "id":532964800
+              , "type":"cluster"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  , "links":
+  [
+  ]
+}

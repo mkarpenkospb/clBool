@@ -1,0 +1,642 @@
+{
+  "performanceSummary":
+  {
+    "name":"Kernel Summary"
+    , "columns":
+    ["Kernel Name", "Kernel Type", "Autorun", "Workgroup Size", "# Compute Units"]
+    , "children":
+    [
+      {
+        "name":"merge"
+        , "data":
+        [
+          "NDRange"
+          , "No"
+          , [256, 1, 1]
+          , 1
+        ]
+        , "details":
+        [
+          {
+            "type":"text"
+            , "text":"Kernel type: NDRange"
+          }
+          , {
+            "type":"text"
+            , "text":"Required workgroup size: (256, 1, 1)"
+          }
+          , {
+            "type":"text"
+            , "text":"Maximum workgroup size: 256"
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":189
+            }
+          ]
+        ]
+      }
+    ]
+  }
+  , "estimatedResources":
+  {
+    "name":"Estimated Resource Usage"
+    , "columns":
+    ["Kernel Name", "ALUTs ", "FFs  ", "RAMs ", "DSPs ", "MLABs"]
+    , "children":
+    [
+      {
+        "name":"merge"
+        , "data":
+        [59469, 73229, 1053, 0, 320]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":189
+            }
+          ]
+        ]
+      }
+      , {
+        "name":"Global Interconnect"
+        , "classes":
+        ["summary-highlight", "nohover"]
+        , "data":
+        [1620, 9736, 18, 0, 0]
+      }
+      , {
+        "name":"Board Interface"
+        , "classes":
+        ["summary-highlight", "nohover"]
+        , "data":
+        [66800, 133600, 182, 0, 0]
+      }
+      , {
+        "name":"System description ROM"
+        , "classes":
+        ["summary-highlight", "nohover"]
+        , "data":
+        [0, 67, 2, 0, 0]
+      }
+      , {
+        "name":"Total"
+        , "classes":
+        ["summary-highlight", "nohover"]
+        , "data":
+        [127889, 216631, 1255, 0, 320]
+        , "data_percent":
+        [14.9683, 12.6774, 46.2588, 0]
+      }
+      , {
+        "name":"Available"
+        , "classes":
+        ["summary-highlight", "nohover"]
+        , "data":
+        [854400, 1708800, 2713, 1518, 0]
+      }
+    ]
+  }
+  , "compileWarnings":
+  {
+    "name":"Compile Warnings"
+    , "children":
+    [
+      {
+        "name":"Load uses a Burst-coalesced non-aligned cached LSU"
+        , "details":
+        [
+          {
+            "type":"text"
+            , "text":"Load with a private 512 kilobit cache. Cache is not shared with any other load. It is flushed on kernel start. Use Dynamic Profiler to verify cache effectiveness. Other kernels should not be updating the data in global memory while this kernel is using it. Cache is created when memory access pattern is data-dependent or appears to be repetitive. Simplify access pattern or mark pointer as 'volatile' to disable generation of this cache."
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":216
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":80
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":22
+            }
+          ]
+          , [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":216
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":82
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":22
+            }
+          ]
+        ]
+      }
+      , {
+        "name":"Load uses a Burst-coalesced non-aligned cached LSU"
+        , "details":
+        [
+          {
+            "type":"text"
+            , "text":"Load with a private 512 kilobit cache. Cache is not shared with any other load. It is flushed on kernel start. Use Dynamic Profiler to verify cache effectiveness. Other kernels should not be updating the data in global memory while this kernel is using it. Cache is created when memory access pattern is data-dependent or appears to be repetitive. Simplify access pattern or mark pointer as 'volatile' to disable generation of this cache."
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":216
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":80
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":22
+            }
+          ]
+          , [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":216
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":82
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":22
+            }
+          ]
+        ]
+      }
+      , {
+        "name":"Load uses a Burst-coalesced non-aligned cached LSU"
+        , "details":
+        [
+          {
+            "type":"text"
+            , "text":"Load with a private 512 kilobit cache. Cache is not shared with any other load. It is flushed on kernel start. Use Dynamic Profiler to verify cache effectiveness. Other kernels should not be updating the data in global memory while this kernel is using it. Cache is created when memory access pattern is data-dependent or appears to be repetitive. Simplify access pattern or mark pointer as 'volatile' to disable generation of this cache."
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":216
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":80
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":23
+            }
+          ]
+          , [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":216
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":82
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":23
+            }
+          ]
+        ]
+      }
+      , {
+        "name":"Load uses a Burst-coalesced non-aligned cached LSU"
+        , "details":
+        [
+          {
+            "type":"text"
+            , "text":"Load with a private 512 kilobit cache. Cache is not shared with any other load. It is flushed on kernel start. Use Dynamic Profiler to verify cache effectiveness. Other kernels should not be updating the data in global memory while this kernel is using it. Cache is created when memory access pattern is data-dependent or appears to be repetitive. Simplify access pattern or mark pointer as 'volatile' to disable generation of this cache."
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":216
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":80
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":23
+            }
+          ]
+          , [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":216
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":82
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":23
+            }
+          ]
+        ]
+      }
+      , {
+        "name":"Load uses a Burst-coalesced non-aligned cached LSU"
+        , "details":
+        [
+          {
+            "type":"text"
+            , "text":"Load with a private 512 kilobit cache. Cache is not shared with any other load. It is flushed on kernel start. Use Dynamic Profiler to verify cache effectiveness. Other kernels should not be updating the data in global memory while this kernel is using it. Cache is created when memory access pattern is data-dependent or appears to be repetitive. Simplify access pattern or mark pointer as 'volatile' to disable generation of this cache."
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":223
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":80
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":22
+            }
+          ]
+          , [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":223
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":82
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":22
+            }
+          ]
+        ]
+      }
+      , {
+        "name":"Load uses a Burst-coalesced non-aligned cached LSU"
+        , "details":
+        [
+          {
+            "type":"text"
+            , "text":"Load with a private 512 kilobit cache. Cache is not shared with any other load. It is flushed on kernel start. Use Dynamic Profiler to verify cache effectiveness. Other kernels should not be updating the data in global memory while this kernel is using it. Cache is created when memory access pattern is data-dependent or appears to be repetitive. Simplify access pattern or mark pointer as 'volatile' to disable generation of this cache."
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":223
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":80
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":22
+            }
+          ]
+          , [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":223
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":82
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":22
+            }
+          ]
+        ]
+      }
+      , {
+        "name":"Load uses a Burst-coalesced non-aligned cached LSU"
+        , "details":
+        [
+          {
+            "type":"text"
+            , "text":"Load with a private 512 kilobit cache. Cache is not shared with any other load. It is flushed on kernel start. Use Dynamic Profiler to verify cache effectiveness. Other kernels should not be updating the data in global memory while this kernel is using it. Cache is created when memory access pattern is data-dependent or appears to be repetitive. Simplify access pattern or mark pointer as 'volatile' to disable generation of this cache."
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":223
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":80
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":23
+            }
+          ]
+          , [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":223
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":82
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":23
+            }
+          ]
+        ]
+      }
+      , {
+        "name":"Load uses a Burst-coalesced non-aligned cached LSU"
+        , "details":
+        [
+          {
+            "type":"text"
+            , "text":"Load with a private 512 kilobit cache. Cache is not shared with any other load. It is flushed on kernel start. Use Dynamic Profiler to verify cache effectiveness. Other kernels should not be updating the data in global memory while this kernel is using it. Cache is created when memory access pattern is data-dependent or appears to be repetitive. Simplify access pattern or mark pointer as 'volatile' to disable generation of this cache."
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":223
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":80
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":23
+            }
+          ]
+          , [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":223
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":82
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":23
+            }
+          ]
+        ]
+      }
+      , {
+        "name":"Load uses a Burst-coalesced non-aligned cached LSU"
+        , "details":
+        [
+          {
+            "type":"text"
+            , "text":"Load with a private 512 kilobit cache. Cache is not shared with any other load. It is flushed on kernel start. Use Dynamic Profiler to verify cache effectiveness. Other kernels should not be updating the data in global memory while this kernel is using it. Cache is created when memory access pattern is data-dependent or appears to be repetitive. Simplify access pattern or mark pointer as 'volatile' to disable generation of this cache."
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":230
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":80
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":22
+            }
+          ]
+          , [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":230
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":82
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":22
+            }
+          ]
+        ]
+      }
+      , {
+        "name":"Load uses a Burst-coalesced non-aligned cached LSU"
+        , "details":
+        [
+          {
+            "type":"text"
+            , "text":"Load with a private 512 kilobit cache. Cache is not shared with any other load. It is flushed on kernel start. Use Dynamic Profiler to verify cache effectiveness. Other kernels should not be updating the data in global memory while this kernel is using it. Cache is created when memory access pattern is data-dependent or appears to be repetitive. Simplify access pattern or mark pointer as 'volatile' to disable generation of this cache."
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":230
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":80
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":22
+            }
+          ]
+          , [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":230
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":82
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":22
+            }
+          ]
+        ]
+      }
+      , {
+        "name":"Load uses a Burst-coalesced non-aligned cached LSU"
+        , "details":
+        [
+          {
+            "type":"text"
+            , "text":"Load with a private 512 kilobit cache. Cache is not shared with any other load. It is flushed on kernel start. Use Dynamic Profiler to verify cache effectiveness. Other kernels should not be updating the data in global memory while this kernel is using it. Cache is created when memory access pattern is data-dependent or appears to be repetitive. Simplify access pattern or mark pointer as 'volatile' to disable generation of this cache."
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":230
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":80
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":23
+            }
+          ]
+          , [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":230
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":82
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":23
+            }
+          ]
+        ]
+      }
+      , {
+        "name":"Load uses a Burst-coalesced non-aligned cached LSU"
+        , "details":
+        [
+          {
+            "type":"text"
+            , "text":"Load with a private 512 kilobit cache. Cache is not shared with any other load. It is flushed on kernel start. Use Dynamic Profiler to verify cache effectiveness. Other kernels should not be updating the data in global memory while this kernel is using it. Cache is created when memory access pattern is data-dependent or appears to be repetitive. Simplify access pattern or mark pointer as 'volatile' to disable generation of this cache."
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":230
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":80
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":23
+            }
+          ]
+          , [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":230
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":82
+            }
+            , {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":23
+            }
+          ]
+        ]
+      }
+      , {
+        "name":"Load uses a Burst-coalesced cached LSU"
+        , "details":
+        [
+          {
+            "type":"text"
+            , "text":"Load with a private 512 kilobit cache. Cache is not shared with any other load. It is flushed on kernel start. Use Dynamic Profiler to verify cache effectiveness. Other kernels should not be updating the data in global memory while this kernel is using it. Cache is created when memory access pattern is data-dependent or appears to be repetitive. Simplify access pattern or mark pointer as 'volatile' to disable generation of this cache."
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":256
+            }
+          ]
+        ]
+      }
+      , {
+        "name":"Load uses a Burst-coalesced cached LSU"
+        , "details":
+        [
+          {
+            "type":"text"
+            , "text":"Load with a private 512 kilobit cache. Cache is not shared with any other load. It is flushed on kernel start. Use Dynamic Profiler to verify cache effectiveness. Other kernels should not be updating the data in global memory while this kernel is using it. Cache is created when memory access pattern is data-dependent or appears to be repetitive. Simplify access pattern or mark pointer as 'volatile' to disable generation of this cache."
+          }
+        ]
+        , "debug":
+        [
+          [
+            {
+              "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/merge_path.cl"
+              , "line":257
+            }
+          ]
+        ]
+      }
+    ]
+  }
+}
