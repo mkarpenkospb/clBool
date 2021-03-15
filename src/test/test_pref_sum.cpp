@@ -36,9 +36,9 @@ void test_pref_sum() {
         prefix_sum(controls, vec_gpu, total, size);
         time = t.elapsed();
         if (DEBUG_ENABLE) *logger << "DEVICE scan finished in " << time << "\n";
-//        if (total != prev) {
-//            throw std::runtime_error("sums are different!");
-//        }
+        if (total != prev) {
+            throw std::runtime_error("sums are different!");
+        }
 
         compare_buffers(controls, vec_gpu, vec, size);
     }
