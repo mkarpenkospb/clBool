@@ -2,7 +2,7 @@
 #include "coo_tests.hpp"
 
 #include "../coo/coo_utils.hpp"
-#include "../dcsr/dscr_matrix_multiplication.hpp"
+#include "../dcsr/dcsr_matrix_multiplication.hpp"
 
 using namespace coo_utils;
 using namespace utils;

@@ -43,7 +43,7 @@ add_executable(sparse-boolean-matrix-operations
         src/coo/coo_initialization.cpp
         src/coo/coo_utils.cpp
         src/coo/coo_kronecker_product.cpp
-        src/dcsr/dscr_matrix_multiplication.cpp
+        src/dcsr/dcsr_matrix_multiplication.cpp
         src/common/matrices_conversions.cpp
         src/common/cl_operations.cpp
         src/common/utils.cpp

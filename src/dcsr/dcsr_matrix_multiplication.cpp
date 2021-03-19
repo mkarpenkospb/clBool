@@ -1,5 +1,5 @@
 #include <numeric>
-#include "dscr_matrix_multiplication.hpp"
+#include "dcsr_matrix_multiplication.hpp"
 #include "../coo/coo_matrix_addition.hpp"
 #include "../coo/coo_utils.hpp"
 #include "../cl/headers/to_result_matrix_single_thread.h"
