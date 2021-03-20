@@ -21,7 +21,7 @@ __kernel void update_pref_sum(__global uint* restrict pref_sum,
     uint leaves_in_crown = block_size;
 
     uint global_leaf_id = global_id / leaf_size;
-    uint local_leaf_id = global_leaf_id % leaves_in_crown;
+    uint local_leaf_id = global_leaf_id & (leaves_in_crown - 1);
 
 
     if (local_leaf_id == 0 || global_id >= n) return;
