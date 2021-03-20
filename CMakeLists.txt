@@ -53,6 +53,7 @@ add_executable(sparse-boolean-matrix-operations
         src/common/cl_operations.cpp
         src/common/utils.cpp
         src/dcsr/dcsr_matrix_addition.cpp
+        src/dcsr/dcsr_matrix_multiplication_hash.cpp
 
         #  ------------------------------ cl files -----------------------------
         src/cl/prepare_positions.cl
@@ -72,6 +73,7 @@ add_executable(sparse-boolean-matrix-operations
         src/cl/dscr_to_coo.cl
         src/cl/dcsr_addition_count.cl
         src/cl/merge_path1d.cl
+        src/cl/hash/hash_pwarp.cl
         # -----------------------------------------------------------------------
 
         # ----------------------------- test cl ---------------------------------
