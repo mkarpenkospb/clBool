@@ -17,8 +17,11 @@ link_directories(${OpenCL_LIBRARY})
 #add_executable (sparse-boolean-matrix-operations src/example/cl/clion_defines.cl src/example/convolution.cpp)
 #target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})
 
-
+# !!!!!!!!!!!! To male it work, headers should be in executables too
 convertIntoHeader(src/cl/merge_path.cl src/cl/headers/merge_path.h merge_path_kernel)
+convertIntoHeader(src/cl/merge_path1d.cl src/cl/headers/merge_path1d.h merge_path1d_kernel)
+convertIntoHeader(src/cl/dcsr_addition_count.cl src/cl/headers/dcsr_addition_count.h dcsr_addition_count_kernel)
+
 convertIntoHeader(src/cl/prepare_positions.cl src/cl/headers/prepare_positions.h prepare_positions_kernel)
 convertIntoHeader(src/cl/coo_bitonic_sort.cl src/cl/headers/coo_bitonic_sort.h coo_bitonic_sort_kernel)
 convertIntoHeader(src/cl/set_positions.cl src/cl/headers/set_positions.h set_positions_kernel)
@@ -36,6 +39,8 @@ convertIntoHeader(src/cl/count_workload.cl src/cl/headers/count_workload.h count
 convertIntoHeader(src/cl/for_test/new_merge.cl src/cl/headers/new_merge.h new_merge_kernel)
 
 add_executable(sparse-boolean-matrix-operations
+
+        # ------------------------ cpp files -------------------------------
         src/library_classes/matrix_coo.cpp
 
         src/coo/main_coo.cpp
@@ -47,7 +52,7 @@ add_executable(sparse-boolean-matrix-operations
         src/common/matrices_conversions.cpp
         src/common/cl_operations.cpp
         src/common/utils.cpp
-
+        src/dcsr/dcsr_matrix_addition.cpp
 
         #  ------------------------------ cl files -----------------------------
         src/cl/prepare_positions.cl
@@ -65,6 +70,8 @@ add_executable(sparse-boolean-matrix-operations
         src/cl/to_result_matrix_single_thread.cl
         src/cl/merge_large_rows.cl
         src/cl/dscr_to_coo.cl
+        src/cl/dcsr_addition_count.cl
+        src/cl/merge_path1d.cl
         # -----------------------------------------------------------------------
 
         # ----------------------------- test cl ---------------------------------
@@ -90,6 +97,8 @@ add_executable(sparse-boolean-matrix-operations
         src/cl/headers/bitonic_esc.h
         src/cl/headers/count_workload.h
         src/cl/headers/new_merge.h
+        src/cl/headers/merge_path1d.h
+        src/cl/headers/dcsr_addition_count.h
         # -----------------------------------------------------------------------
 
         src/test/coo_addition_test.cpp

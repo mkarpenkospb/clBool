@@ -5,10 +5,10 @@
 
 #endif
 
-__kernel void prepare_array_for_positions(__global unsigned int* result,
-                                          __global const unsigned int* rows,
-                                          __global const unsigned int* cols,
-                                          unsigned int size
+__kernel void prepare_array_for_positions(__global uint* result,
+                                          __global const uint* rows,
+                                          __global const uint* cols,
+                                          uint size
                                           ) {
 
     unsigned int global_id = get_global_id(0);
@@ -24,9 +24,9 @@ __kernel void prepare_array_for_positions(__global unsigned int* result,
 }
 
 
-__kernel void prepare_array_for_rows_positions(__global unsigned int* result,
-                                               __global const unsigned int* rows,
-                                               unsigned int size
+__kernel void prepare_array_for_rows_positions(__global uint* result,
+                                               __global const uint* rows,
+                                               uint size
 ) {
 
     unsigned int global_id = get_global_id(0);
@@ -43,10 +43,10 @@ __kernel void prepare_array_for_rows_positions(__global unsigned int* result,
 
 
 
-__kernel void prepare_array_for_shift(__global unsigned int* result,
-                                      __global const unsigned int* rows,
-                                      __global const unsigned int* cols,
-                                      unsigned int size
+__kernel void prepare_array_for_shift(__global uint* result,
+                                      __global const uint* rows,
+                                      __global const uint* cols,
+                                      uint size
                                       ) {
 
     unsigned int global_id = get_global_id(0);
