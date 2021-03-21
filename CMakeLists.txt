@@ -73,7 +73,14 @@ add_executable(sparse-boolean-matrix-operations
         src/cl/dscr_to_coo.cl
         src/cl/dcsr_addition_count.cl
         src/cl/merge_path1d.cl
+
+            # hash
+
         src/cl/hash/hash_pwarp.cl
+        src/cl/hash/hash_tb.cl
+        src/cl/hash/hash_large.cl
+        src/cl/hash/hash_global.cl
+
         # -----------------------------------------------------------------------
 
         # ----------------------------- test cl ---------------------------------
