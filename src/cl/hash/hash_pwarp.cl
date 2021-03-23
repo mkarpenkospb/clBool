@@ -13,7 +13,7 @@
 #define ROWS_PER_TB (GROUP_SIZE / PWARP)
 #define HASH_SCAL 107
 
-uint search_global(__global const unsigned int *array, uint value, uint size) {
+uint search_global(__global const uint *array, uint value, uint size) {
     uint l = 0;
     uint r = size;
     uint m = l + ((r - l) / 2);
@@ -34,23 +34,19 @@ uint search_global(__global const unsigned int *array, uint value, uint size) {
     return size;
 }
 
-__kernel void hash_symbolic_pwarp(__global const unsigned int *indices,
-                                  unsigned int group_start,
-                                  unsigned int group_length,
+__kernel void hash_symbolic_pwarp(__global const uint *indices,
+                                  uint group_start,
+                                  uint group_length,
 
-                                  __global
-                                  const unsigned int *pre_matrix_rows_pointers, // указатели, куда записывать, или преф сумма по nnz_estimation
-                                  __global unsigned int *pre_matrix_cols_indices, // указатели сюда, записываем сюда
+                                  __global uint *nnz_estimation,
 
-                                  __global unsigned int *nnz_estimation, // это нужно обновлять
+                                  __global const uint *a_rows_pointers,
+                                  __global const uint *a_cols,
 
-                                  __global const unsigned int *a_rows_pointers,
-                                  __global const unsigned int *a_cols,
-
-                                  __global const unsigned int *b_rows_pointers,
-                                  __global const unsigned int *b_rows_compressed,
-                                  __global const unsigned int *b_cols,
-                                  const unsigned int b_nzr
+                                  __global const uint *b_rows_pointers,
+                                  __global const uint *b_rows_compressed,
+                                  __global const uint *b_cols,
+                                  const uint b_nzr
 ) {
 
     uint hash, old, row_index, a_start, a_end, col_index, b_col, b_rpt;
@@ -86,7 +82,7 @@ __kernel void hash_symbolic_pwarp(__global const unsigned int *indices,
                 continue;
             }
 
-            for (uint k = b_rows_pointers[b_rpt]; k < b_rows_pointers[b_rpt + 1]; ++k ) {
+            for (uint k = b_rows_pointers[b_rpt]; k < b_rows_pointers[b_rpt + 1]; ++k) {
                 b_col = b_cols[k];
                 // Now go to hashtable and search for b_col
                 hash = (b_col * HASH_SCAL) & (TABLE_SIZE - 1);
@@ -112,6 +108,109 @@ __kernel void hash_symbolic_pwarp(__global const unsigned int *indices,
 
 
     if (id_in_pwarp == 0) {
-        nnz_estimation[0] = thread_nz[0] + thread_nz[1] + thread_nz[2] + thread_nz[3];
+        nnz_estimation[row_index] = thread_nz[0] + thread_nz[1] + thread_nz[2] + thread_nz[3];
     }
+}
+
+__kernel void hash_numeric_pwarp(__global const uint *indices,
+                                 uint group_start,
+                                 uint group_length,
+
+                                 __global
+                                 const uint *pre_matrix_rows_pointers,
+                                 __global uint *c_cols,
+
+                                 __global const uint *a_rows_pointers,
+                                 __global const uint *a_cols,
+
+                                 __global const uint *b_rows_pointers,
+                                 __global const uint *b_rows_compressed,
+                                 __global const uint *b_cols,
+                                 const uint b_nzr
+) {
+
+    uint hash, old, row_index, a_start, a_end, col_index, b_col, b_rpt, index;
+
+    uint row_id_bin = get_global_id(0) / PWARP;
+    uint local_row_id = row_id_bin & (ROWS_PER_TB - 1); // row_id_bin & (ROWS_PER_TB - 1) == row_id_bin % ROWS_PER_TB
+    uint id_in_pwarp = get_global_id(0) & (PWARP - 1); // get_global_id(0) & (PWARP - 1) == get_global_id(0) % PWARP
+    uint row_pos = group_start + row_id_bin; // row for pwarp
+
+    __local uint hash_table[ROWS_PER_TB * TABLE_SIZE];
+    __local uint c_cols_local[ROWS_PER_TB * TABLE_SIZE];
+    __local uint nz_count[ROWS_PER_TB];
+    __local uint *local_table = hash_table + (TABLE_SIZE * local_row_id);
+    __local uint *c_cols_cur_local = c_cols_local + (TABLE_SIZE * local_row_id);
+
+    // init hash_table
+
+    for (uint i = id_in_pwarp; i < TABLE_SIZE; i += PWARP) {
+        local_table[i] = -1;
+    }
+
+    barrier(CLK_LOCAL_MEM_FENCE);
+
+    // if (pwarp_id >= group_start + group_length) return; -- cannot return because of barrier later
+    if (row_pos < group_start + group_length) {
+        row_index = indices[row_pos];
+        a_start = a_rows_pointers[row_index];
+        a_end = a_rows_pointers[row_index + 1];
+
+        for (uint a_prt = a_start + id_in_pwarp; a_prt < a_end; a_prt += PWARP) {
+            col_index = a_cols[a_prt]; // позицию этого будем искать в матрице B
+            b_rpt = search_global(b_rows_compressed, col_index, b_nzr);
+            if (b_rpt == b_nzr) {
+                continue;
+            }
+
+            for (uint k = b_rows_pointers[b_rpt]; k < b_rows_pointers[b_rpt + 1]; ++k) {
+                b_col = b_cols[k];
+                // Now go to hashtable and search for b_col
+                hash = (b_col * HASH_SCAL) & (TABLE_SIZE - 1);
+                while (true) {
+                    if (local_table[hash] == b_col) {
+                        break;
+                    } else if (local_table[hash] == -1) {
+                        old = atom_cmpxchg(local_table + hash, -1, b_col);
+                        if (old == -1) {
+                            break;
+                        }
+                    } else {
+                        hash = (hash + 1) & (TABLE_SIZE - 1);
+                    }
+                }
+            }
+        }
+    }
+
+    barrier(CLK_LOCAL_MEM_FENCE);
+    if (row_pos < group_start + group_length) {
+
+        // only 4 threads per row, not enough for goof prefix sum
+
+        for (uint i = id_in_pwarp; i < TABLE_SIZE; i += PWARP) {
+            if (local_table[i] != -1) {
+                index = atomic_add(nz_count + local_row_id, 1);
+                c_cols_cur_local[index] = local_table[i];
+            }
+        }
+    }
+
+    barrier(CLK_LOCAL_MEM_FENCE);
+    if (row_pos >= group_start + group_length) return;
+
+    __global uint *c_cols_cur_global = c_cols + pre_matrix_rows_pointers[row_index];
+    // Sorting
+    // TODO добавить if ?
+    uint nz = nz_count[local_row_id];
+    uint count, target;
+    for (int i = 0; i < nz_count[local_row_id]; i += PWARP) {
+        target = c_cols_local[i];
+        count = 0;
+        for (uint k = 0; k < nz; ++k) {
+            count += (uint) (c_cols_local[k] - target) >> 31;
+        }
+        c_cols_cur_global[count] = target;
+    }
+
 }

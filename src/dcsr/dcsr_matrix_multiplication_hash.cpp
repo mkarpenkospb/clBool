@@ -1,35 +1,51 @@
 #include <numeric>
 #include "dcsr_matrix_multiplication.hpp"
+#include "dcsr_matrix_multiplication_hash.hpp"
 #include "../coo/coo_matrix_addition.hpp"
 #include "../coo/coo_utils.hpp"
-#include "../cl/headers/to_result_matrix_single_thread.h"
-#include "../cl/headers/to_result_matrix_work_group.h"
-#include "../cl/headers/heap_merge.h"
-#include "../cl/headers/copy_one_value.h"
-#include "../cl/headers/merge_large_rows.h"
-#include "../cl/headers/bitonic_esc.h"
 #include "../cl/headers/count_workload.h"
 #include "../cl/headers/prepare_positions.h"
 #include "../cl/headers/set_positions.h"
+#include "../cl/headers/hash_pwarp.h"
+#include "../cl/headers/hash_tb.h"
+#include "../cl/headers/hash_global.h"
 
 const uint32_t BINS_NUM = 7;
+#define PWARP 4
 
+namespace hash_details {
+    uint32_t get_block_size(uint32_t bin_id) {
+        if (bin_id == 0) return 256;
+        if (bin_id == 1) return 64;
+        if (bin_id == 2) return 128;
+        if (bin_id == 3) return 256;
+        if (bin_id == 4) return 256;
+        if (bin_id == 5) return 256;
+        if (bin_id == 6) return 256;
+        throw std::runtime_error("Unknown bin id. error 24642342152");
+    }
 
-// --------------------------- TO HEADER ------------------------------
-void build_groups_and_allocate_hash(Controls& controls,
-                                    matrix_dcsr &pre,
-                                    std::vector<cpu_buffer>& cpu_workload_groups,
-                                    cl::Buffer& nnz_estimation,
-                                    const matrix_dcsr &a,
-                                    uint32_t b_cols,
+    uint32_t get_group(uint32_t size) {
+        if (size <= 32) return 0;
+        if (size <= 512u) return 1;
+        if (size <= (512u << 1u)) return 2;
+        if (size <= (512u << 2u)) return 3;
+        if (size <= (512u << 3u)) return 4;
+        if (size <= (512u << 4u)) return 5;
+        return 6;
+    }
 
-                                    cl::Buffer &aux_pointers,
-                                    cl::Buffer &aux_mem
-);
-//----------------------------------------------------------------------------
+    uint32_t get_table_size(uint32_t bin_id) {
+        if (bin_id == 1) return 512;
+        if (bin_id == 2) return 1024;
+        if (bin_id == 3) return 2048;
+        if (bin_id == 4) return 4096;
+        if (bin_id == 5) return 8192;
+        throw std::runtime_error("Table size is only valid for 1 - 5 bin. error 34422334");
+    }
+}
 
-
-void matrix_multiplication(Controls &controls,
+void matrix_multiplication_hash(Controls &controls,
                            matrix_dcsr &matrix_out,
                            const matrix_dcsr &a,
                            const matrix_dcsr &b) {
@@ -38,7 +54,6 @@ void matrix_multiplication(Controls &controls,
         return;
     }
     // TODO добавтиь rassert на размеры
-
     cl::Buffer nnz_estimation;
     count_workload(controls, nnz_estimation, a, b);
 
@@ -47,258 +62,93 @@ void matrix_multiplication(Controls &controls,
     cpu_buffer groups_length(BINS_NUM);
 
 
-    cl::Buffer aux_37_group_mem_pointers;
-    cl::Buffer aux_37_group_mem;
+    cl::Buffer global_hash_tables;
+    cl::Buffer global_hash_tables_offset;
 
-    matrix_dcsr pre;
-    build_groups_and_allocate_hash(controls, pre, cpu_workload_groups, nnz_estimation, a, b.nCols(),
-                                         aux_37_group_mem_pointers, aux_37_group_mem);
+    build_groups_and_allocate_hash(controls, cpu_workload_groups, nnz_estimation, a,
+                                   global_hash_tables, global_hash_tables_offset);
 
     cl::Buffer gpu_workload_groups(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a.nzr());
 
     write_bins_info(controls, gpu_workload_groups, cpu_workload_groups, groups_pointers, groups_length);
 
+    count_nnz(controls, groups_length, groups_pointers, gpu_workload_groups, nnz_estimation,
+              a, b, global_hash_tables, global_hash_tables_offset);
 
-
-    run_kernels(controls, cpu_workload_groups, groups_length, groups_pointers,
-                gpu_workload_groups, nnz_estimation,
-                pre, a, b,
-                aux_37_group_mem_pointers, aux_37_group_mem
-                );
-
-
-    create_final_matrix(controls, matrix_out,
-                        nnz_estimation, pre,
-                        gpu_workload_groups, groups_pointers, groups_length,
-                        a
-                        );
+    fill_nnz(controls, groups_length, groups_pointers, gpu_workload_groups, nnz_estimation,
+             matrix_out, a, b, global_hash_tables, global_hash_tables_offset);
 }
 
 
-void create_final_matrix(Controls &controls,
-                         matrix_dcsr &c,
-                         cl::Buffer &nnz_estimation,
-                         const matrix_dcsr &pre,
+void count_nnz(Controls &controls,
+               const cpu_buffer &groups_length,
+               const cpu_buffer &groups_pointers,
 
-                         const cl::Buffer &gpu_workload_groups,
-                         const cpu_buffer &groups_pointers,
-                         const cpu_buffer &groups_length,
+               const cl::Buffer &gpu_workload_groups,
+               cl::Buffer &nnz_estimation,
 
-                         const matrix_dcsr &a
-                         ) {
-    cl::Buffer c_rows_pointers;
-    cl::Buffer c_rows_compressed;
-    cl::Buffer c_cols_indices;
+               const matrix_dcsr &a,
+               const matrix_dcsr &b,
 
-    uint32_t c_nnz;
-    uint32_t c_nzr;
-
-    prefix_sum(controls, nnz_estimation, c_nnz, a.nzr());
-
-    c_cols_indices = cl::Buffer(controls.context, CL_TRUE, sizeof(uint32_t) * c_nnz);
-
-//    cl::Event write;
-    controls.queue.enqueueWriteBuffer(nnz_estimation, CL_TRUE, sizeof(uint32_t) * a.nzr(), sizeof(uint32_t), &c_nnz
-                                      /*,nullptr, &write*/);
-//    write.wait();
-    cl::Event e1;
-    cl::Event e2;
-    if (groups_length[1] != 0) {
-        auto single_value_rows = program<cl::Buffer, uint32_t, uint32_t,
-                cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer>
-                (to_result_matrix_single_thread_kernel, to_result_matrix_single_thread_kernel_length)
-                .set_block_size(std::min(controls.block_size, std::max(32u, utils::ceil_to_power2(groups_length[1]))))
-                .set_needed_work_size(groups_length[1])
-                .set_async(true)
-                .set_kernel_name("to_result");
-
-        e1 = single_value_rows.run(controls, gpu_workload_groups, groups_pointers[1], groups_length[1],
-                                       nnz_estimation, c_cols_indices, pre.rows_pointers_gpu(), pre.cols_indices_gpu());
-    }
-
-    uint32_t second_group_length = std::accumulate(groups_length.begin() + 2, groups_length.end(), 0u);
-
-    if (second_group_length != 0) {
-        auto ordinary_rows = program<cl::Buffer, uint32_t,
-                cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer>
-                (to_result_matrix_work_group_kernel, to_result_matrix_work_group_kernel_length)
-                .set_needed_work_size(controls.block_size * second_group_length)
-                .set_async(true)
-                .set_kernel_name("to_result");
-
-        e2 = ordinary_rows.run(controls,
-                          gpu_workload_groups, groups_length[0] + groups_length[1],
-                          nnz_estimation, c_cols_indices, pre.rows_pointers_gpu(), pre.cols_indices_gpu());
-    }
-
-    try {
-        if (groups_length[1] != 0) e1.wait();
-        if (second_group_length != 0) e2.wait();
-    } catch (const cl::Error &e) {
-        std::stringstream exception;
-        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << " in " << "create_final_matrix" << " \n";
-        throw std::runtime_error(exception.str());
-    }
-
-    cl::Buffer positions(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a.nzr());
-
-    prepare_positions(controls, positions, nnz_estimation, a.nzr(), "prepare_for_shift_empty_rows");
-
-
-    // ------------------------------------  get rid of empty rows -------------------------------
-
-    prefix_sum(controls, positions, c_nzr, a.nzr());
-    c_rows_pointers = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (c_nzr + 1));
-    c_rows_compressed = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * c_nzr);
-    set_positions(controls, c_rows_pointers, c_rows_compressed, nnz_estimation, a.rows_compressed_gpu(), positions,
-                  c_nnz, a.nzr(), c_nzr);
-
-    c = matrix_dcsr(c_rows_pointers, c_rows_compressed, c_cols_indices, pre.nCols(), pre.nRows(), c_nnz, c_nzr);
-}
-
-void write_bins_info(Controls &controls,
-                     cl::Buffer &gpu_workload_groups,
-                     const std::vector<cpu_buffer> &cpu_workload_groups,
-                     cpu_buffer &groups_pointers,
-                     cpu_buffer &groups_length
-                     ) {
-
-    unsigned int offset = 0;
-//    cl::Event end_write_buffer;
-    for (uint32_t workload_group_id = 0; workload_group_id < BINS_NUM; ++workload_group_id) {
-        const auto group = cpu_workload_groups[workload_group_id];
-        if (group.empty()) continue;
-        groups_pointers[workload_group_id] = offset;
-        groups_length[workload_group_id] = group.size();
-        controls.queue.enqueueWriteBuffer(gpu_workload_groups, CL_TRUE, sizeof(uint32_t) * offset,
-                                          sizeof(uint32_t) * group.size(), group.data()
-                                         /* , nullptr, &end_write_buffer*/);
-        offset += group.size();
-    }
-
-    groups_pointers[BINS_NUM] = offset;
-//    end_write_buffer.wait();
-}
-
-void run_kernels(Controls &controls,
-                 const std::vector<cpu_buffer> &cpu_workload_groups,
-                 const cpu_buffer &groups_length,
-                 const cpu_buffer &groups_pointers,
-
-                 const cl::Buffer &gpu_workload_groups,
-                 cl::Buffer &nnz_estimation,
-
-                 const matrix_dcsr &pre,
-                 const matrix_dcsr &a,
-                 const matrix_dcsr &b,
-
-                 const cl::Buffer &aux_mem_pointers,
-                 cl::Buffer &aux_mem
+               cl::Buffer &global_hash_tables,
+               const cl::Buffer &global_hash_tables_offset
 
 ) {
-    auto heap_merge = program<cl::Buffer, uint32_t, uint32_t,
-        cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-        cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-        uint32_t>(heap_merge_kernel, heap_merge_kernel_length)
-        .set_kernel_name("heap_merge")
-        .set_block_size(HEAP_MERGE_BLOCK_SIZE)
-        .set_async(true);
-
-    auto copy_one_value = program<cl::Buffer, uint32_t, uint32_t,
-        cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-        cl::Buffer, cl::Buffer, cl::Buffer,
-        uint32_t>(copy_one_value_kernel, copy_one_value_kernel_length)
-        .set_kernel_name("copy_one_value")
-        .set_async(true);
-
-    auto merge_large_rows = program<cl::Buffer, uint32_t, cl::Buffer,
-        cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-        cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-        uint32_t>(merge_large_rows_kernel, merge_large_rows_kernel_length)
-        .set_kernel_name("merge_large_rows")
-        .set_block_size(controls.block_size)
-        .set_async(true);
-
-    auto esc_kernel = program<cl::Buffer, uint32_t, uint32_t,
-            cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-            cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-            uint32_t>(bitonic_esc_kernel, bitonic_esc_kernel_length)
-            .set_kernel_name("bitonic_esc")
-            .set_block_size(controls.block_size)
+    auto hash_pwarp = program<cl::Buffer, uint32_t, uint32_t, cl::Buffer,
+             cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+            uint32_t>(hash_pwarp_kernel, hash_pwarp_kernel_length)
+            .set_kernel_name("hash_symbolic_pwarp")
+            .set_async(true);
+    auto hash_tb = program<cl::Buffer, uint32_t, uint32_t,
+             cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+            uint32_t>(hash_tb_kernel, hash_tb_kernel_length)
+            .set_kernel_name("hash_symbolic_tb")
+            .set_async(true);
+    auto hash_global = program<cl::Buffer, uint32_t, uint32_t,
+            cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+            uint32_t, cl::Buffer, cl::Buffer>(hash_global_kernel, hash_global_kernel_length)
+            .set_kernel_name("hash_symbolic_global")
             .set_async(true);
 
 
     std::vector<cl::Event> events;
-    for (uint32_t workload_group_id = 1; workload_group_id < BINS_NUM; ++workload_group_id) {
-        const auto group = cpu_workload_groups[workload_group_id];
-        if (group.empty()) continue;
+    for (uint32_t bin_id = 0; bin_id < BINS_NUM; ++bin_id) {
+        if (groups_length[bin_id] == 0) continue;
 
+        uint32_t block_size = hash_details::get_block_size(bin_id);
 
-
-        if (workload_group_id == 1) {
-            std::cout << "first group!\n";
-            copy_one_value.set_needed_work_size(groups_length[workload_group_id])
-            .set_block_size(std::min(controls.block_size,
-                                     std::max(32u, utils::ceil_to_power2(groups_length[workload_group_id]))));
-            events.push_back(
-                    copy_one_value.run(controls,
-                                       gpu_workload_groups, groups_pointers[workload_group_id], groups_length[workload_group_id],
-                                       pre.rows_pointers_gpu(), pre.cols_indices_gpu(),
-                                       a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                                       b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
-                                       b.nzr()
-                             )
-            );
-            continue;
-        }
-
-
-
-        if (workload_group_id < 33 ) {
-            std::cout << "2 - 32!: " << workload_group_id << "\n";
-            heap_merge.set_needed_work_size(groups_length[workload_group_id])
-                        .add_option("NNZ_ESTIMATION", workload_group_id);
-            events.push_back(heap_merge.run(controls, gpu_workload_groups, groups_pointers[workload_group_id], groups_length[workload_group_id],
-                                            pre.rows_pointers_gpu(), pre.cols_indices_gpu(),
-                                            nnz_estimation,
-                                            a.rows_pointers_gpu(), a.cols_indices_gpu(),
+        if (bin_id == 0) {
+            hash_pwarp.set_needed_work_size(groups_length[bin_id] * PWARP);
+            events.push_back(hash_pwarp.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
+                                            nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
                                             b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
-                                            b.nzr()));
-
+                                            b.nzr()
+                                            ));
             continue;
         }
 
-        if (workload_group_id < 37 ) {
-            std::cout << "33 - 36!\n";
-            uint32_t block_size = std::max(32u, esc_estimation(workload_group_id) / 2);
-            esc_kernel.add_option("NNZ_ESTIMATION", esc_estimation(workload_group_id))
-            .set_block_size(block_size)
-            .set_needed_work_size(block_size * groups_length[workload_group_id]);
-            events.push_back(esc_kernel.run(
-                    controls,
-                    gpu_workload_groups, groups_pointers[workload_group_id], groups_length[workload_group_id],
-                    pre.rows_pointers_gpu(), pre.cols_indices_gpu(),
-                    nnz_estimation,
-                    a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                    b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
-                    b.nzr()
-            ));
+        if (bin_id != 6) {
+            hash_tb.set_block_size(block_size);
+            hash_tb.add_option("TABLE_SIZE", hash_details::get_table_size(bin_id));
+            hash_tb.set_needed_work_size(block_size * groups_length[bin_id]);
+            events.push_back(hash_tb.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
+                                         nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
+                                         b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+                                         b.nzr()
+                                         ));
             continue;
         }
 
-
-        std::cout << "37!\n";
-        merge_large_rows.set_needed_work_size(groups_length[workload_group_id] * controls.block_size);
-        events.push_back(merge_large_rows.run(controls,
-                                              gpu_workload_groups, groups_pointers[workload_group_id],
-                                              aux_mem_pointers, aux_mem,
-                                              pre.rows_pointers_gpu(), pre.cols_indices_gpu(),
-                                              nnz_estimation,
-                                              a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                                              b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
-                                              b.nzr()
-                            ));
+        hash_global.set_block_size(block_size);
+        hash_global.set_needed_work_size(block_size * groups_length[bin_id]);
+        events.push_back(hash_global.run(controls,  gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
+                                         nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
+                                         b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+                                         b.nzr(),
+                                         global_hash_tables, global_hash_tables_offset
+                                         ));
     }
+
     try {
         cl::Event::waitForEvents(events);
     } catch (const cl::Error &e) {
@@ -306,41 +156,128 @@ void run_kernels(Controls &controls,
         exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << " in " << "run_kernels" << " \n";
         throw std::runtime_error(exception.str());
     }
+
+
 }
 
-void build_groups_and_allocate_hash(Controls& controls,
-                                          matrix_dcsr &pre,
-                                          std::vector<cpu_buffer>& cpu_workload_groups,
-                                          cl::Buffer& nnz_estimation,
-                                          const matrix_dcsr &a,
-                                          uint32_t b_cols,
+void fill_nnz(Controls &controls,
+              const cpu_buffer &groups_length,
+              const cpu_buffer &groups_pointers,
 
-                                          cl::Buffer &aux_pointers,
-                                          cl::Buffer &aux_mem
-                                          ) {
+              const cl::Buffer &gpu_workload_groups,
+              cl::Buffer &pre_matrix_rows_pointers,
 
-    cpu_buffer aux_pointers_cpu;
-    uint32_t aux = 0;
+              matrix_dcsr &c,
+              const matrix_dcsr &a,
+              const matrix_dcsr &b,
+
+              const cl::Buffer &global_hash_tables,
+              cl::Buffer &global_hash_tables_offset
+) {
+    uint32_t c_nnz;
+    prefix_sum(controls, pre_matrix_rows_pointers, c_nnz, a.nzr() + 1);
+    cl::Buffer c_cols(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * c_nnz);
+
+    auto hash_pwarp = program<cl::Buffer, uint32_t, uint32_t, cl::Buffer,
+            cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+            uint32_t>(hash_pwarp_kernel, hash_pwarp_kernel_length)
+            .set_kernel_name("hash_numeric_pwarp")
+            .set_async(true);
+    auto hash_tb = program<cl::Buffer, uint32_t, cl::Buffer,
+            cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+            uint32_t>(hash_tb_kernel, hash_tb_kernel_length)
+            .set_kernel_name("hash_numeric_tb")
+            .set_async(true);
+    auto hash_global = program<cl::Buffer, uint32_t,
+            cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer>(hash_global_kernel, hash_global_kernel_length)
+            .set_kernel_name("hash_numeric_global")
+            .set_async(true);
+
+
+    std::vector<cl::Event> events;
+    for (uint32_t bin_id = 0; bin_id < BINS_NUM; ++bin_id) {
+        if (groups_length[bin_id] == 0) continue;
+
+        uint32_t block_size = hash_details::get_block_size(bin_id);
+
+        if (bin_id == 0) {
+            hash_pwarp.set_needed_work_size(groups_length[bin_id] * PWARP);
+            events.push_back(hash_pwarp.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
+                                            pre_matrix_rows_pointers, c_cols, a.rows_pointers_gpu(), a.cols_indices_gpu(),
+                                            b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+                                            b.nzr()
+            ));
+            continue;
+        }
+
+        if (bin_id != 6) {
+            hash_tb.set_block_size(block_size);
+            hash_tb.add_option("TABLE_SIZE", hash_details::get_table_size(bin_id));
+            hash_tb.set_needed_work_size(block_size * groups_length[bin_id]);
+            events.push_back(hash_tb.run(controls, gpu_workload_groups, groups_pointers[bin_id],
+                                         pre_matrix_rows_pointers, c_cols, a.rows_pointers_gpu(), a.cols_indices_gpu(),
+                                         b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+                                         b.nzr()
+            ));
+            continue;
+        }
+
+        hash_global.set_block_size(block_size);
+        hash_global.set_needed_work_size(block_size * groups_length[bin_id]);
+        events.push_back(hash_global.run(controls,  gpu_workload_groups, groups_pointers[bin_id],
+                                         pre_matrix_rows_pointers, c_cols,
+                                         global_hash_tables, global_hash_tables_offset
+        ));
+    }
+
+    try {
+        cl::Event::waitForEvents(events);
+    } catch (const cl::Error &e) {
+        std::stringstream exception;
+        exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << " in " << "run_kernels" << " \n";
+        throw std::runtime_error(exception.str());
+    }
+
+    cl::Buffer positions(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a.nzr());
+    prepare_positions(controls, positions, pre_matrix_rows_pointers, a.nzr(), "prepare_for_shift_empty_rows");
+
+    uint32_t c_nzr;
+    prefix_sum(controls, positions, c_nzr, a.nzr());
+
+    cl::Buffer c_rpt = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (c_nzr + 1));
+    cl::Buffer c_rows = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * c_nzr);
+
+    set_positions(controls, c_rpt, c_rows, pre_matrix_rows_pointers, a.rows_compressed_gpu(), positions,
+                  c_nnz, a.nzr(), c_nzr);
+
+    c = matrix_dcsr(c_rpt, c_rows, c_cols, a.nRows(), b.nCols(), c_nnz, c_nzr);
+}
+
+void build_groups_and_allocate_hash(Controls &controls,
+                                    std::vector<cpu_buffer> &cpu_workload_groups,
+                                    cl::Buffer &nnz_estimation,
+                                    const matrix_dcsr &a,
+
+                                    cl::Buffer &global_hash_tables,
+                                    cl::Buffer &global_hash_tables_offset
+) {
+
+    cpu_buffer global_hash_tables_offset_cpu;
+    uint32_t global_hash_mem_size = 0;
 
     cpu_buffer cpu_workload(a.nzr());
     controls.queue.enqueueReadBuffer(nnz_estimation, CL_TRUE, 0, sizeof(uint32_t) * a.nzr(), cpu_workload.data()
-                                     /*, nullptr, &event*/);
-
-    uint32_t pre_nnz = 0;
-    cpu_buffer rows_pointers_cpu(a.nzr() + 1);
-
-    pre_nnz = 0;
+            /*, nullptr, &event*/);
+    uint32_t pre_nnz;
     for (uint32_t i = 0; i < a.nzr(); ++i) {
-
         uint32_t current_workload = cpu_workload[i];
-        uint32_t group = get_group(current_workload);
+        uint32_t group = hash_details::get_group(current_workload);
         cpu_workload_groups[group].push_back(i);
-        rows_pointers_cpu[i] = pre_nnz;
 
         pre_nnz += current_workload;
-        if (group == 7) {
-            aux_pointers_cpu.push_back(aux);
-            aux += current_workload;
+        if (group == 6) {
+            global_hash_tables_offset_cpu.push_back(global_hash_mem_size);
+            global_hash_mem_size += current_workload;
         }
     }
 
@@ -349,88 +286,14 @@ void build_groups_and_allocate_hash(Controls& controls,
         return;
     }
 
-    aux_pointers_cpu.push_back(aux);
-    rows_pointers_cpu[a.nzr()] = pre_nnz;
+    global_hash_tables_offset_cpu.push_back(global_hash_mem_size);
 
-    cl::Buffer pre_rows_pointers = cl::Buffer(controls.queue, rows_pointers_cpu.begin(), rows_pointers_cpu.end(), false);
-    cl::Buffer pre_cols_indices_gpu = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * pre_nnz);
-
-    if (aux != 0) {
-        aux_pointers = cl::Buffer(controls.queue, aux_pointers_cpu.begin(), aux_pointers_cpu.end(),
-                                  true);
-        aux_mem = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * aux);
+    if (global_hash_mem_size != 0) {
+        global_hash_tables = cl::Buffer(controls.queue, global_hash_tables_offset_cpu.begin(),
+                                        global_hash_tables_offset_cpu.end(), true);
+        global_hash_tables_offset = cl::Buffer(controls.context, CL_MEM_READ_WRITE,
+                                               sizeof(uint32_t) * global_hash_mem_size);
     }
 
-
-    pre = matrix_dcsr(pre_rows_pointers, a.rows_compressed_gpu(), pre_cols_indices_gpu,
-                      a.nRows(), b_cols, pre_nnz, a.nzr());
 }
 
-
-uint32_t get_group(uint32_t size) {
-    if (size <= 32) return 0;
-    if (size <= (512u << 1u)) return 1;
-    if (size <= (512u << 2u)) return 2;
-    if (size <= (512u << 3u)) return 3;
-    if (size <= (512u << 4u)) return 4;
-    if (size <= (512u << 5u)) return 5;
-    return 6;
-}
-
-
-void count_workload(Controls &controls,
-                    cl::Buffer &nnz_estimation_out,
-                    const matrix_dcsr &a,
-                    const matrix_dcsr &b) {
-
-    auto count_workload = program<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-        uint32_t, uint32_t>(count_workload_kernel, count_workload_kernel_length)
-        .set_needed_work_size(a.nzr())
-        .set_kernel_name("count_workload");
-
-    cl::Buffer nnz_estimation(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (a.nzr() + 1));
-
-    count_workload.run(controls, nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                       b.rows_compressed_gpu(), b.rows_pointers_gpu(), a.nzr(), b.nzr());
-//                       .wait();
-    nnz_estimation_out = std::move(nnz_estimation);
-}
-
-
-void prepare_positions(Controls &controls,
-                       cl::Buffer &positions,
-                       const cl::Buffer &array,
-                       uint32_t size,
-                       const std::string &program_name
-) {
-    auto prepare_positions = program<cl::Buffer, cl::Buffer, uint32_t>
-            (prepare_positions_kernel, prepare_positions_kernel_length)
-            .set_kernel_name(program_name)
-            .set_needed_work_size(size);
-
-    prepare_positions.run(controls, positions, array, size);//.wait();
-//    event.wait();
-}
-
-
-void set_positions(Controls &controls,
-                   cl::Buffer &c_rows_pointers,
-                   cl::Buffer &c_rows_compressed,
-                   const cl::Buffer &nnz_estimation,
-                   const cl::Buffer &a_rows_compressed,
-                   const cl::Buffer &positions,
-                   uint32_t c_nnz,
-                   uint32_t old_nzr,
-                   uint32_t c_nzr
-) {
-    auto set_positions = program<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-            uint32_t, uint32_t, uint32_t>
-            (set_positions_kernel, set_positions_kernel_length)
-            .set_kernel_name("set_positions_pointers_and_rows")
-            .set_needed_work_size(old_nzr);
-
-    set_positions.run(controls, c_rows_pointers, c_rows_compressed,
-                  nnz_estimation, a_rows_compressed, positions,
-                  c_nnz, old_nzr, c_nzr);//.wait();
-//    event.wait();
-}

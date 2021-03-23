@@ -159,9 +159,10 @@ void write_bins_info(Controls &controls,
                      cpu_buffer &groups_length
                      ) {
 
-    unsigned int offset = 0;
+    uint32_t offset = 0;
+    uint32_t bins = cpu_workload_groups.size();
 //    cl::Event end_write_buffer;
-    for (uint32_t workload_group_id = 0; workload_group_id < BINS_NUM; ++workload_group_id) {
+    for (uint32_t workload_group_id = 0; workload_group_id < bins; ++workload_group_id) {
         const cpu_buffer& group = cpu_workload_groups[workload_group_id];
         if (group.empty()) continue;
         groups_pointers[workload_group_id] = offset;
@@ -172,7 +173,7 @@ void write_bins_info(Controls &controls,
         offset += group.size();
     }
 
-    groups_pointers[BINS_NUM] = offset;
+    groups_pointers[bins] = offset;
 //    end_write_buffer.wait();
 }
 

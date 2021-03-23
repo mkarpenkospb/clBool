@@ -9,10 +9,11 @@ namespace utils {
             if (cpu_copy[i] != buffer_c[i]) {
                 uint32_t start = std::max(0, (int) i - 10);
                 uint32_t stop = std::min(size, i + 10);
+                std::cerr << "{ i: (gpu[i], cpu[i]) }" << std::endl;
                 for (uint32_t j = start; j < stop; ++j) {
-                    std::cout << j << ": (" << cpu_copy[j] << ", " << buffer_c[j] << "), ";
+                    std::cerr << j << ": (" << cpu_copy[j] << ", " << buffer_c[j] << "), ";
                 }
-                std::cout << std::endl;
+                std::cerr  << std::endl;
                 throw std::runtime_error("buffers for " + name + " are different");
             }
         }
@@ -21,7 +22,7 @@ namespace utils {
 
     void compare_matrices(Controls &controls, matrix_dcsr m_gpu, matrix_dcsr_cpu m_cpu) {
         if (m_gpu.nnz() != m_cpu.cols_indices().size()) {
-            std::cout << "diff nnz, gpu: " << m_gpu.nnz() << " vs cpu: " << m_cpu.cols_indices().size() << std::endl;
+            std::cerr << "diff nnz, gpu: " << m_gpu.nnz() << " vs cpu: " << m_cpu.cols_indices().size() << std::endl;
         }
         compare_buffers(controls, m_gpu.rows_pointers_gpu(), m_cpu.rows_pointers(), m_gpu.nzr() + 1, "rows_pointers");
         compare_buffers(controls, m_gpu.rows_compressed_gpu(), m_cpu.rows_compressed(), m_gpu.nzr(), "rows_compressed");
@@ -76,7 +77,7 @@ namespace utils {
 
     void printDeviceInfo(const cl::Device &device) {
         std::cout << "        CL_DEVICE_AVAILABLE: " << device.getInfo<CL_DEVICE_AVAILABLE>() << std::endl;
-        std::cout << "        CL_DEVICE_LOCAL_MEM_SIZE: " <<  device.getInfo<CL_DEVICE_LOCAL_MEM_SIZE>() / (1024 * 1024) << std::endl;
+        std::cout << "        CL_DEVICE_LOCAL_MEM_SIZE: " <<  device.getInfo<CL_DEVICE_LOCAL_MEM_SIZE>() << std::endl;
         std::cout << "        CL_DEVICE_GLOBAL_MEM_SIZE: " <<  device.getInfo<CL_DEVICE_GLOBAL_MEM_SIZE>() / (1024 * 1024) << std::endl;
         std::cout << "        CL_DEVICE_MAX_WORK_GROUP_SIZE: " <<  device.getInfo<CL_DEVICE_MAX_WORK_GROUP_SIZE>() << std::endl;
         std::cout << "        CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS: " <<  device.getInfo<CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS>() << std::endl;

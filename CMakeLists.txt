@@ -22,6 +22,11 @@ convertIntoHeader(src/cl/merge_path.cl src/cl/headers/merge_path.h merge_path_ke
 convertIntoHeader(src/cl/merge_path1d.cl src/cl/headers/merge_path1d.h merge_path1d_kernel)
 convertIntoHeader(src/cl/dcsr_addition_count.cl src/cl/headers/dcsr_addition_count.h dcsr_addition_count_kernel)
 
+convertIntoHeader(src/cl/hash/bitonic_sort.cl src/cl/headers/bitonic_sort_new.h bitonic_sort_new_kernel)
+convertIntoHeader(src/cl/hash/hash_global.cl src/cl/headers/hash_global.h hash_global_kernel)
+convertIntoHeader(src/cl/hash/hash_pwarp.cl src/cl/headers/hash_pwarp.h hash_pwarp_kernel)
+convertIntoHeader(src/cl/hash/hash_tb.cl src/cl/headers/hash_tb.h hash_tb_kernel)
+
 convertIntoHeader(src/cl/prepare_positions.cl src/cl/headers/prepare_positions.h prepare_positions_kernel)
 convertIntoHeader(src/cl/coo_bitonic_sort.cl src/cl/headers/coo_bitonic_sort.h coo_bitonic_sort_kernel)
 convertIntoHeader(src/cl/set_positions.cl src/cl/headers/set_positions.h set_positions_kernel)
@@ -80,6 +85,7 @@ add_executable(sparse-boolean-matrix-operations
         src/cl/hash/hash_tb.cl
         src/cl/hash/hash_large.cl
         src/cl/hash/hash_global.cl
+        src/cl/hash/bitonic_sort.cl
 
         # -----------------------------------------------------------------------
 
@@ -108,7 +114,11 @@ add_executable(sparse-boolean-matrix-operations
         src/cl/headers/new_merge.h
         src/cl/headers/merge_path1d.h
         src/cl/headers/dcsr_addition_count.h
-        # -----------------------------------------------------------------------
+        src/cl/headers/bitonic_sort_new.h
+        src/cl/headers/hash_global.h
+        src/cl/headers/hash_pwarp.h
+        src/cl/headers/hash_tb.h
+        # -------------------------------     test      ----------------------------------------
 
         src/test/coo_addition_test.cpp
         src/test/coo_bitonic_test.cpp
@@ -125,6 +135,7 @@ add_executable(sparse-boolean-matrix-operations
         src/test/test_new_merge.cpp
         src/test/test_multiplication.cpp
         src/test/test_pref_sum.cpp
+        src/test/coo_new_bitonic_sort_test.cpp
         )
 
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})

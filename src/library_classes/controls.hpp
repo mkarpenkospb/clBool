@@ -6,8 +6,6 @@
 #include <sstream>
 #include <fstream>
 
-// TODO: in opencl 2.0 we have DeviceCommandQueue class so what about opencl 2.0?
-
 struct Controls {
     const cl::Device device;
     const cl::Context context;

@@ -12,6 +12,7 @@ void test_pref_sum() {
     for (int size = 20; size < 300000; size += 100) {
         utils::cpu_buffer vec(size, 0);
         utils::fill_random_buffer(vec, 3);
+        vec.push_back(0);
         cl::Buffer vec_gpu(controls.queue, vec.begin(), vec.end(), false);
         int prev = vec[0];
         int tmp;
@@ -22,12 +23,12 @@ void test_pref_sum() {
             prev += tmp;
         }
         uint32_t total;
-        prefix_sum(controls, vec_gpu, total, size);
+        prefix_sum(controls, vec_gpu, total, size + 1);
 
         if (total != prev) {
             throw std::runtime_error("sums are different!");
         }
 
-        compare_buffers(controls, vec_gpu, vec, size);
+        compare_buffers(controls, vec_gpu, vec, size + 1);
     }
 }

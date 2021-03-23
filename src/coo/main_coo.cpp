@@ -17,9 +17,11 @@ int main() {
 //    test_new_merge();
 //    test_new_merge_full();
 //    largeRowsTest();
-    utils::show_devices();
+//    utils::show_devices();
 //      test_pref_sum();
 //    test_multiplication();
+    test_multiplication_hash();
+//    testNewBitonicSort();
 }
 
 

@@ -6,6 +6,10 @@
 #include "../library_classes/matrix_dcsr.hpp"
 #include "../common/matrices_conversions.hpp"
 
+#define MERGE_ALGORITHM 1
+#define HASH_ALGORITHM 2
+
+
 typedef std::vector<uint32_t> cpu_buffer;
 
 
