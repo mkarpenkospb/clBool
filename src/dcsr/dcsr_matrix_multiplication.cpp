@@ -149,7 +149,7 @@ void create_final_matrix(Controls &controls,
     set_positions(controls, c_rows_pointers, c_rows_compressed, nnz_estimation, a.rows_compressed_gpu(), positions,
                   c_nnz, a.nzr(), c_nzr);
 
-    c = matrix_dcsr(c_rows_pointers, c_rows_compressed, c_cols_indices, pre.nCols(), pre.nRows(), c_nnz, c_nzr);
+    c = matrix_dcsr(c_rows_pointers, c_rows_compressed, c_cols_indices, pre.nRows(), pre.nCols(), c_nnz, c_nzr);
 }
 
 void write_bins_info(Controls &controls,

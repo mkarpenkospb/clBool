@@ -22,7 +22,7 @@ void matrix_addition(Controls &controls,
 
     reduce_duplicates(controls, merged_rows, merged_cols, new_size, a.nnz() + b.nnz());
 
-    matrix_out = matrix_coo(controls, a.nRows(), a.nCols(), new_size, merged_rows, merged_cols, true);
+    matrix_out = matrix_coo(a.nRows(), a.nCols(), new_size, merged_rows, merged_cols);
 }
 
 
