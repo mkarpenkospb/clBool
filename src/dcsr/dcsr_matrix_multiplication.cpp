@@ -230,10 +230,8 @@ void run_kernels(Controls &controls,
 
     std::vector<cl::Event> events;
     for (uint32_t workload_group_id = 1; workload_group_id < BINS_NUM; ++workload_group_id) {
-        const auto group = cpu_workload_groups[workload_group_id];
+        const cpu_buffer& group = cpu_workload_groups[workload_group_id];
         if (group.empty()) continue;
-
-
 
         if (workload_group_id == 1) {
             std::cout << "first group!\n";
