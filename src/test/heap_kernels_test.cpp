@@ -51,7 +51,7 @@ void testHeapAndCopyKernels() {
     cl::Buffer a;
     cl::Buffer b;
 
-    run_kernels(controls, cpu_workload_groups, groups_length, groups_pointers,
+    run_kernels(controls, groups_length, groups_pointers,
                 gpu_workload_groups, nnz_estimation,
                 pre, a_gpu, b_gpu,
                 a, b

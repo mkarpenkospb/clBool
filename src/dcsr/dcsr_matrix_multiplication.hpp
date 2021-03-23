@@ -37,7 +37,6 @@ uint32_t get_group(uint32_t size);
 
 
 void run_kernels(Controls &controls,
-                 const std::vector<cpu_buffer> &cpu_workload_groups,
                  const cpu_buffer &groups_length,
                  const cpu_buffer &groups_pointers,
 

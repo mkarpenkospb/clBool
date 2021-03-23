@@ -60,7 +60,7 @@ void matrix_multiplication(Controls &controls,
 
 
 
-    run_kernels(controls, cpu_workload_groups, groups_length, groups_pointers,
+    run_kernels(controls, groups_length, groups_pointers,
                 gpu_workload_groups, nnz_estimation,
                 pre, a, b,
                 aux_37_group_mem_pointers, aux_37_group_mem
@@ -181,7 +181,6 @@ void write_bins_info(Controls &controls,
 }
 
 void run_kernels(Controls &controls,
-                 const std::vector<cpu_buffer> &cpu_workload_groups,
                  const cpu_buffer &groups_length,
                  const cpu_buffer &groups_pointers,
 
@@ -230,8 +229,7 @@ void run_kernels(Controls &controls,
 
     std::vector<cl::Event> events;
     for (uint32_t workload_group_id = 1; workload_group_id < BINS_NUM; ++workload_group_id) {
-        const cpu_buffer& group = cpu_workload_groups[workload_group_id];
-        if (group.empty()) continue;
+        if (groups_length[workload_group_id] == 0) continue;
 
         if (workload_group_id == 1) {
             std::cout << "first group!\n";
