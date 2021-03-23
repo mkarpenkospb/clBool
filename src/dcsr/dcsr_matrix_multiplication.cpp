@@ -93,14 +93,10 @@ void create_final_matrix(Controls &controls,
     uint32_t c_nnz;
     uint32_t c_nzr;
 
-    prefix_sum(controls, nnz_estimation, c_nnz, a.nzr());
+    prefix_sum(controls, nnz_estimation, c_nnz, a.nzr() + 1);
 
     c_cols_indices = cl::Buffer(controls.context, CL_TRUE, sizeof(uint32_t) * c_nnz);
 
-//    cl::Event write;
-    controls.queue.enqueueWriteBuffer(nnz_estimation, CL_TRUE, sizeof(uint32_t) * a.nzr(), sizeof(uint32_t), &c_nnz
-                                      /*,nullptr, &write*/);
-//    write.wait();
     cl::Event e1;
     cl::Event e2;
     if (groups_length[1] != 0) {
