@@ -117,6 +117,8 @@ void count_nnz(Controls &controls,
 
         uint32_t block_size = hash_details::get_block_size(bin_id);
 
+        std::cout << "\ngroup " << bin_id << std::endl;
+
         if (bin_id == 0) {
             hash_pwarp.set_needed_work_size(groups_length[bin_id] * PWARP);
             events.push_back(hash_pwarp.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],

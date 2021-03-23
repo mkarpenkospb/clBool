@@ -42,13 +42,15 @@ void test_multiplication() {
 
 void test_multiplication_hash() {
     Controls controls = utils::create_controls();
-    for (uint32_t k = 14; k < 20; ++k) {
-        for (uint32_t i = 100; i < 2000; i += 5) {
-            std::cout << "iter = " << i <<  ", i = " << 1035 << ", k = " << k << std::endl;
+//    for (uint32_t k = 14; k < 20; ++k) {
+//        for (uint32_t i = 100; i < 2000; i += 5) {
+            uint32_t i = 185, k = 14;
+            std::cout << "i = " << i <<  ", k = " << k << std::endl;
             uint32_t max_size = i;
             uint32_t nnz_max = std::max(10u, max_size * k);
 
             matrix_dcsr_cpu a_cpu = coo_to_dcsr_cpu(generate_random_matrix_coo_cpu(nnz_max, max_size));
+
 //        print_cpu_buffer()
 //        matrix_dcsr_cpu b_cpu = coo_to_dcsr_cpu(generate_random_matrix_coo_cpu(nnz_max, max_size - 5));
             matrix_dcsr_cpu c_cpu;
@@ -66,6 +68,6 @@ void test_multiplication_hash() {
             std::cout << "e\n";
 //        print_matrix(controls, c_gpu, 69);
             compare_matrices(controls, c_gpu, c_cpu);
-        }
-    }
+//        }
+//    }
 }

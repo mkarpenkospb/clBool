@@ -112,6 +112,15 @@ __kernel void hash_symbolic_pwarp(__global const uint *indices,
     }
 }
 
+
+void print_array(__local uint *data, uint size) {
+    printf("\n");
+    for (uint i = 0; i < size; ++i) {
+        printf("%d: %d, ", i, data[i]);
+    }
+    printf("\n");
+}
+
 __kernel void hash_numeric_pwarp(__global const uint *indices,
                                  uint group_start,
                                  uint group_length,
@@ -142,7 +151,9 @@ __kernel void hash_numeric_pwarp(__global const uint *indices,
     __local uint *local_table = hash_table + (TABLE_SIZE * local_row_id);
     __local uint *c_cols_cur_local = c_cols_local + (TABLE_SIZE * local_row_id);
 
-    // init hash_table
+    if (id_in_pwarp == 0) {
+        nz_count[local_row_id] = 0;
+    }
 
     for (uint i = id_in_pwarp; i < TABLE_SIZE; i += PWARP) {
         local_table[i] = -1;
@@ -184,6 +195,11 @@ __kernel void hash_numeric_pwarp(__global const uint *indices,
     }
 
     barrier(CLK_LOCAL_MEM_FENCE);
+//    if (get_global_id(0) == 0) {
+//        print_array(local_table, TABLE_SIZE);
+//    }
+//    barrier(CLK_LOCAL_MEM_FENCE);
+
     if (row_pos < group_start + group_length) {
 
         // only 4 threads per row, not enough for goof prefix sum
@@ -197,6 +213,11 @@ __kernel void hash_numeric_pwarp(__global const uint *indices,
     }
 
     barrier(CLK_LOCAL_MEM_FENCE);
+//    if (get_global_id(0) == 0) {
+//        print_array(c_cols_cur_local, nz_count[local_row_id]);
+//    }
+//    barrier(CLK_LOCAL_MEM_FENCE);
+
     if (row_pos >= group_start + group_length) return;
 
     __global uint *c_cols_cur_global = c_cols + pre_matrix_rows_pointers[row_index];
@@ -204,11 +225,11 @@ __kernel void hash_numeric_pwarp(__global const uint *indices,
     // TODO добавить if ?
     uint nz = nz_count[local_row_id];
     uint count, target;
-    for (int i = 0; i < nz_count[local_row_id]; i += PWARP) {
-        target = c_cols_local[i];
+    for (int i = id_in_pwarp; i < nz; i += PWARP) {
+        target = c_cols_cur_local[i];
         count = 0;
         for (uint k = 0; k < nz; ++k) {
-            count += (uint) (c_cols_local[k] - target) >> 31;
+            count += (uint) (c_cols_cur_local[k] - target) >> 31;
         }
         c_cols_cur_global[count] = target;
     }
