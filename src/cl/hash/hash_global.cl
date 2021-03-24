@@ -6,7 +6,6 @@
 #define NNZ_ESTIMATION 32
 
 #endif
-#define TABLE_SIZE 32
 // 4 threads for 4 roes
 #define WARP 32 // TODO add define for amd to 64
 // how many rows (tables) can wo process by one threadblock
@@ -115,11 +114,8 @@ __kernel void hash_symbolic_global(__global const uint *indices, // indices -- a
                                   __global const uint *b_rows_compressed,
                                   __global const uint *b_cols,
                                   const uint b_nzr,
-
-                                  // to monitor fails
-
                                   __global uint *hash_table_data,
-                                   __global const uint *hash_table_offset
+                                  __global const uint *hash_table_offset
 
 ) {
     uint hash, old, row_index, a_start, a_end, col_index, b_col, b_rpt;
@@ -133,12 +129,15 @@ __kernel void hash_symbolic_global(__global const uint *indices, // indices -- a
 
     uint group_id = get_group_id(0);
     uint table_size = hash_table_offset[group_id + 1] - hash_table_offset[group_id];
+//    if (get_global_id(0) == 0) {
+//        printf("\ntable_size: %d\n", table_size);
+//    }
     __global uint *hash_table = hash_table_data + hash_table_data[group_id];
     __local uint nz_count[GROUP_SIZE];
     __local uint *thread_nz = nz_count + local_id;
     thread_nz[0] = 0;
 
-    for (uint i = local_id; i < TABLE_SIZE; i += GROUP_SIZE) {
+    for (uint i = local_id; i < table_size; i += GROUP_SIZE) {
         hash_table[i] = -1;
     }
 
@@ -157,7 +156,7 @@ __kernel void hash_symbolic_global(__global const uint *indices, // indices -- a
         for (uint k = b_rows_pointers[b_rpt] + id_in_warp; k < b_rows_pointers[b_rpt + 1]; k += WARP) {
             b_col = b_cols[k];
             // Now go to hashtable and search for b_col
-            hash = (b_col * HASH_SCAL) & (TABLE_SIZE - 1);
+            hash = (b_col * HASH_SCAL) & (table_size - 1);
             while (true) {
                 if (hash_table[hash] == b_col) {
                     break;

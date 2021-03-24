@@ -11,10 +11,13 @@
 #include "../cl/headers/hash_global.h"
 
 const uint32_t BINS_NUM = 7;
+const uint32_t MAX_GROUP_ID = BINS_NUM - 1;
 #define PWARP 4
 
 namespace hash_details {
+
     uint32_t get_block_size(uint32_t bin_id) {
+        // NOTE: NVIDIA can operate more than 256 threads per group, but AMD cannot
         if (bin_id == 0) return 256;
         if (bin_id == 1) return 64;
         if (bin_id == 2) return 128;
@@ -27,28 +30,28 @@ namespace hash_details {
 
     uint32_t get_group(uint32_t size) {
         if (size <= 32) return 0;
-        if (size <= 512u) return 1;
-        if (size <= (512u << 1u)) return 2;
-        if (size <= (512u << 2u)) return 3;
-        if (size <= (512u << 3u)) return 4;
-        if (size <= (512u << 4u)) return 5;
+        if (size <= 128) return 1;
+        if (size <= 256) return 2;
+        if (size <= 512) return 3;
+        if (size <= 1024) return 4;
+        if (size <= 2048) return 5;
         return 6;
     }
 
     uint32_t get_table_size(uint32_t bin_id) {
-        if (bin_id == 1) return 512;
-        if (bin_id == 2) return 1024;
-        if (bin_id == 3) return 2048;
-        if (bin_id == 4) return 4096;
-        if (bin_id == 5) return 8192;
+        if (bin_id == 1) return 128;
+        if (bin_id == 2) return 256;
+        if (bin_id == 3) return 512;
+        if (bin_id == 4) return 1024;
+        if (bin_id == 5) return 2048;
         throw std::runtime_error("Table size is only valid for 1 - 5 bin. error 34422334");
     }
 }
 
 void matrix_multiplication_hash(Controls &controls,
-                           matrix_dcsr &matrix_out,
-                           const matrix_dcsr &a,
-                           const matrix_dcsr &b) {
+                                matrix_dcsr &matrix_out,
+                                const matrix_dcsr &a,
+                                const matrix_dcsr &b) {
     if (a.nnz() == 0 || b.nnz() == 0) {
         std::cout << "empty result\n";
         return;
@@ -95,12 +98,12 @@ void count_nnz(Controls &controls,
 
 ) {
     auto hash_pwarp = program<cl::Buffer, uint32_t, uint32_t, cl::Buffer,
-             cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+            cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
             uint32_t>(hash_pwarp_kernel, hash_pwarp_kernel_length)
             .set_kernel_name("hash_symbolic_pwarp")
             .set_async(true);
     auto hash_tb = program<cl::Buffer, uint32_t, uint32_t,
-             cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+            cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
             uint32_t>(hash_tb_kernel, hash_tb_kernel_length)
             .set_kernel_name("hash_symbolic_tb")
             .set_async(true);
@@ -117,19 +120,20 @@ void count_nnz(Controls &controls,
 
         uint32_t block_size = hash_details::get_block_size(bin_id);
 
-        std::cout << "\ngroup " << bin_id << std::endl;
+        std::cout << "\n[count_nnz] group " << bin_id << ", size " << groups_length[bin_id] << std::endl;
 
         if (bin_id == 0) {
             hash_pwarp.set_needed_work_size(groups_length[bin_id] * PWARP);
-            events.push_back(hash_pwarp.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
-                                            nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                                            b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
-                                            b.nzr()
-                                            ));
+            events.push_back(
+                    hash_pwarp.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
+                                   nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
+                                   b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+                                   b.nzr()
+                    ));
             continue;
         }
 
-        if (bin_id != 6) {
+        if (bin_id != MAX_GROUP_ID) {
             hash_tb.set_block_size(block_size);
             hash_tb.add_option("TABLE_SIZE", hash_details::get_table_size(bin_id));
             hash_tb.set_needed_work_size(block_size * groups_length[bin_id]);
@@ -137,18 +141,18 @@ void count_nnz(Controls &controls,
                                          nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
                                          b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
                                          b.nzr()
-                                         ));
+            ));
             continue;
         }
 
         hash_global.set_block_size(block_size);
         hash_global.set_needed_work_size(block_size * groups_length[bin_id]);
-        events.push_back(hash_global.run(controls,  gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
+        events.push_back(hash_global.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
                                          nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
                                          b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
                                          b.nzr(),
                                          global_hash_tables, global_hash_tables_offset
-                                         ));
+        ));
     }
 
     try {
@@ -201,18 +205,19 @@ void fill_nnz(Controls &controls,
         if (groups_length[bin_id] == 0) continue;
 
         uint32_t block_size = hash_details::get_block_size(bin_id);
-
+//        std::cout << "\n[fill_nnz] group " << bin_id << ", size " << groups_length[bin_id] << std::endl;
         if (bin_id == 0) {
             hash_pwarp.set_needed_work_size(groups_length[bin_id] * PWARP);
-            events.push_back(hash_pwarp.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
-                                            pre_matrix_rows_pointers, c_cols, a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                                            b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
-                                            b.nzr()
-            ));
+            events.push_back(
+                    hash_pwarp.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
+                                   pre_matrix_rows_pointers, c_cols, a.rows_pointers_gpu(), a.cols_indices_gpu(),
+                                   b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+                                   b.nzr()
+                    ));
             continue;
         }
 
-        if (bin_id != 6) {
+        if (bin_id != MAX_GROUP_ID) {
             hash_tb.set_block_size(block_size);
             hash_tb.add_option("TABLE_SIZE", hash_details::get_table_size(bin_id));
             hash_tb.set_needed_work_size(block_size * groups_length[bin_id]);
@@ -226,7 +231,7 @@ void fill_nnz(Controls &controls,
 
         hash_global.set_block_size(block_size);
         hash_global.set_needed_work_size(block_size * groups_length[bin_id]);
-        events.push_back(hash_global.run(controls,  gpu_workload_groups, groups_pointers[bin_id],
+        events.push_back(hash_global.run(controls, gpu_workload_groups, groups_pointers[bin_id],
                                          pre_matrix_rows_pointers, c_cols,
                                          global_hash_tables, global_hash_tables_offset
         ));
@@ -277,7 +282,7 @@ void build_groups_and_allocate_hash(Controls &controls,
         cpu_workload_groups[group].push_back(i);
 
         pre_nnz += current_workload;
-        if (group == 6) {
+        if (group == MAX_GROUP_ID) {
             global_hash_tables_offset_cpu.push_back(global_hash_mem_size);
             global_hash_mem_size += current_workload;
         }
@@ -291,9 +296,9 @@ void build_groups_and_allocate_hash(Controls &controls,
     global_hash_tables_offset_cpu.push_back(global_hash_mem_size);
 
     if (global_hash_mem_size != 0) {
-        global_hash_tables = cl::Buffer(controls.queue, global_hash_tables_offset_cpu.begin(),
+        global_hash_tables_offset = cl::Buffer(controls.queue, global_hash_tables_offset_cpu.begin(),
                                         global_hash_tables_offset_cpu.end(), true);
-        global_hash_tables_offset = cl::Buffer(controls.context, CL_MEM_READ_WRITE,
+        global_hash_tables = cl::Buffer(controls.context, CL_MEM_READ_WRITE,
                                                sizeof(uint32_t) * global_hash_mem_size);
     }
 
