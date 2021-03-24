@@ -42,9 +42,9 @@ void test_multiplication() {
 
 void test_multiplication_hash() {
     Controls controls = utils::create_controls();
-//    for (uint32_t k = 30; k < 40; ++k) {
-//        for (uint32_t i = 2000; i < 3000; i += 500) {
-            uint32_t i = 2500, k = 36;
+    for (uint32_t k = 30; k < 40; ++k) {
+        for (uint32_t i = 2000; i < 3000; i += 500) {
+//            uint32_t i = 2500, k = 36;
             std::cout << "i = " << i <<  ", k = " << k << std::endl;
             uint32_t max_size = i;
             uint32_t nnz_max = std::max(10u, max_size * k);
@@ -68,6 +68,6 @@ void test_multiplication_hash() {
             std::cout << "e\n";
 //        print_matrix(controls, c_gpu, 69);
             compare_matrices(controls, c_gpu, c_cpu);
-//        }
-//    }
+        }
+    }
 }
