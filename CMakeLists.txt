@@ -2,20 +2,26 @@ cmake_minimum_required (VERSION 3.1)
 project(sparse-boolean-matrix-operations)
 
 add_subdirectory(libs)
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17")
 
-#set(OpenCL_LIBRARY "C:/Windows/System32/OpenCL.dll")
-#set(OpenCL_INCLUDE_DIR_LIBRARY "C:/Windows/System32/")
-
+if (WIN32)
+    set(OpenCL_LIBRARY "C:/Windows/System32/OpenCL.dll")
+endif(WIN32)
+if(UNIX)
+    set(OpenCL_LIBRARY "/opt/intelFPGA_pro/20.4/hld/host/linux64/lib/libOpenCL.so.1")
+endif(UNIX)
 set(OpenCL_INCLUDE_DIR "libs/clew")
-
-set(Library_classes "src/library_classes")
+set(LIB_CLASSES "src/library_classes")
+set(COMMON "src/common")
+set(HEADERS "src/cl/headers")
+set(TESTS "src/test")
+set(COO "src/coo")
+set(UTILS "libs/utils")
 
 # Handle OpenCL
 find_package(OpenCL REQUIRED)
-include_directories(${OpenCL_INCLUDE_DIRS})
-link_directories(${OpenCL_LIBRARY})
-#add_executable (sparse-boolean-matrix-operations src/example/cl/clion_defines.cl src/example/convolution.cpp)
-#target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})
+include_directories(${OpenCL_INCLUDE_DIR} ${LIB_CLASSES} ${COMMON} ${HEADERS} ${TESTS} ${COO} ${UTILS})
+#link_directories(${OpenCL_LIBRARY} ${BOARD_LIB})
 
 # !!!!!!!!!!!! To male it work, headers should be in executables too
 convertIntoHeader(src/cl/merge_path.cl src/cl/headers/merge_path.h merge_path_kernel)

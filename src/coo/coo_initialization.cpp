@@ -4,7 +4,7 @@
 
 
 #include "../common/utils.hpp"
-#include "../common/fast_random.h"
+#include "libutils/fast_random.h"
 #include "coo_initialization.hpp"
 
 #include <string>

@@ -1,7 +1,7 @@
 #include <cstdint>
 #include "coo_utils.hpp"
 #include "../library_classes/matrix_coo.hpp"
-#include "../common/fast_random.h"
+#include "libutils/fast_random.h"
 #include "../library_classes/matrix_dcsr.hpp"
 #include <vector>
 #include <iostream>

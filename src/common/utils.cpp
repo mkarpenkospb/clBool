@@ -1,5 +1,5 @@
 #include "utils.hpp"
-#include "fast_random.h"
+#include "libutils/fast_random.h"
 
 namespace utils {
     void compare_buffers(Controls &controls, const cl::Buffer &buffer_g, const cpu_buffer &buffer_c, uint32_t size, std::string name) {
@@ -17,7 +17,7 @@ namespace utils {
                 throw std::runtime_error("buffers for " + name + " are different");
             }
         }
-        std::cout << "buffers are equal" << std::endl;
+        if (DEBUG_ENABLE) *logger << "buffers are equal";
     }
 
     void compare_matrices(Controls &controls, matrix_dcsr m_gpu, matrix_dcsr_cpu m_cpu) {

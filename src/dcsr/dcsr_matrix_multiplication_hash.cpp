@@ -10,7 +10,7 @@
 #include "../cl/headers/hash_tb.h"
 #include "../cl/headers/hash_global.h"
 
-const uint32_t BINS_NUM = 7;
+const uint32_t BINS_NUM = 8;
 const uint32_t MAX_GROUP_ID = BINS_NUM - 1;
 #define PWARP 4
 
@@ -25,6 +25,7 @@ namespace hash_details {
         if (bin_id == 4) return 256;
         if (bin_id == 5) return 256;
         if (bin_id == 6) return 256;
+        if (bin_id == 7) return 256;
         throw std::runtime_error("Unknown bin id. error 24642342152");
     }
 
@@ -35,7 +36,8 @@ namespace hash_details {
         if (size <= 512) return 3;
         if (size <= 1024) return 4;
         if (size <= 2048) return 5;
-        return 6;
+        if (size <= 4096) return 6;
+        return 7;
     }
 
     uint32_t get_table_size(uint32_t bin_id) {
@@ -44,6 +46,7 @@ namespace hash_details {
         if (bin_id == 3) return 512;
         if (bin_id == 4) return 1024;
         if (bin_id == 5) return 2048;
+        if (bin_id == 6) return 4096;
         throw std::runtime_error("Table size is only valid for 1 - 5 bin. error 34422334");
     }
 }
@@ -58,7 +61,11 @@ void matrix_multiplication_hash(Controls &controls,
     }
     // TODO добавтиь rassert на размеры
     cl::Buffer nnz_estimation;
+    timer t;
+    t.restart();
     count_workload(controls, nnz_estimation, a, b);
+    t.elapsed();
+    if (DEBUG_ENABLE) *logger << "count_workload in " << t.last_elapsed();
 
     std::vector<cpu_buffer> cpu_workload_groups(BINS_NUM, cpu_buffer());
     cpu_buffer groups_pointers(BINS_NUM + 1);
@@ -68,18 +75,31 @@ void matrix_multiplication_hash(Controls &controls,
     cl::Buffer global_hash_tables;
     cl::Buffer global_hash_tables_offset;
 
+    t.restart();
     build_groups_and_allocate_hash(controls, cpu_workload_groups, nnz_estimation, a,
                                    global_hash_tables, global_hash_tables_offset);
+    t.elapsed();
+    if (DEBUG_ENABLE) *logger << "build_groups_and_allocate_hash in " << t.last_elapsed();
+
 
     cl::Buffer gpu_workload_groups(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a.nzr());
 
+    t.restart();
     write_bins_info(controls, gpu_workload_groups, cpu_workload_groups, groups_pointers, groups_length);
+    t.elapsed();
+    if (DEBUG_ENABLE) *logger << "write_bins_info in " << t.last_elapsed();
 
+    t.restart();
     count_nnz(controls, groups_length, groups_pointers, gpu_workload_groups, nnz_estimation,
               a, b, global_hash_tables, global_hash_tables_offset);
+    t.elapsed();
+    if (DEBUG_ENABLE) *logger << "count_nnz in " << t.last_elapsed();
 
+    t.restart();
     fill_nnz(controls, groups_length, groups_pointers, gpu_workload_groups, nnz_estimation,
              matrix_out, a, b, global_hash_tables, global_hash_tables_offset);
+    t.elapsed();
+    if (DEBUG_ENABLE) *logger << "fill_nnz in " << t.last_elapsed();
 }
 
 
@@ -120,7 +140,7 @@ void count_nnz(Controls &controls,
 
         uint32_t block_size = hash_details::get_block_size(bin_id);
 
-        std::cout << "\n[count_nnz] group " << bin_id << ", size " << groups_length[bin_id] << std::endl;
+        if (DEBUG_ENABLE) *logger << "\n[count_nnz] group " << bin_id << ", size " << groups_length[bin_id];
 
         if (bin_id == 0) {
             hash_pwarp.set_needed_work_size(groups_length[bin_id] * PWARP);
@@ -205,7 +225,7 @@ void fill_nnz(Controls &controls,
         if (groups_length[bin_id] == 0) continue;
 
         uint32_t block_size = hash_details::get_block_size(bin_id);
-        std::cout << "\n[fill_nnz] group " << bin_id << ", size " << groups_length[bin_id] << std::endl;
+//        std::cout << "\n[fill_nnz] group " << bin_id << ", size " << groups_length[bin_id] << std::endl;
         if (bin_id == 0) {
             hash_pwarp.set_needed_work_size(groups_length[bin_id] * PWARP);
             events.push_back(
