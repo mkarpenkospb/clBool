@@ -129,10 +129,7 @@ __kernel void hash_symbolic_global(__global const uint *indices, // indices -- a
 
     uint group_id = get_group_id(0);
     uint table_size = hash_table_offset[group_id + 1] - hash_table_offset[group_id];
-//    if (get_global_id(0) == 0) {
-//        printf("\ntable_size: %d\n", table_size);
-//    }
-    __global uint *hash_table = hash_table_data + hash_table_data[group_id];
+    __global uint *hash_table = hash_table_data + hash_table_offset[group_id];
     __local uint nz_count[GROUP_SIZE];
     __local uint *thread_nz = nz_count + local_id;
     thread_nz[0] = 0;
@@ -185,7 +182,7 @@ __kernel void hash_symbolic_global(__global const uint *indices, // indices -- a
         step /= 2;
     }
     bitonic_sort(hash_table, table_size);
-    if (id_in_warp == 0) {
+    if (local_id == 0) {
         nnz_estimation[row_index] = nz_count[0];
     }
 }

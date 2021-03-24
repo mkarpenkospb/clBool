@@ -205,7 +205,7 @@ void fill_nnz(Controls &controls,
         if (groups_length[bin_id] == 0) continue;
 
         uint32_t block_size = hash_details::get_block_size(bin_id);
-//        std::cout << "\n[fill_nnz] group " << bin_id << ", size " << groups_length[bin_id] << std::endl;
+        std::cout << "\n[fill_nnz] group " << bin_id << ", size " << groups_length[bin_id] << std::endl;
         if (bin_id == 0) {
             hash_pwarp.set_needed_work_size(groups_length[bin_id] * PWARP);
             events.push_back(
