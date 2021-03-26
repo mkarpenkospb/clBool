@@ -23,9 +23,16 @@ find_package(OpenCL REQUIRED)
 include_directories(${OpenCL_INCLUDE_DIR} ${LIB_CLASSES} ${COMMON} ${HEADERS} ${TESTS} ${COO} ${UTILS})
 #link_directories(${OpenCL_LIBRARY} ${BOARD_LIB})
 
-MESSAGE("${OpenCL_INCLUDE_DIR}")
-
+# !!!!!!!!!!!! To male it work, headers should be in executables too
 convertIntoHeader(src/cl/merge_path.cl src/cl/headers/merge_path.h merge_path_kernel)
+convertIntoHeader(src/cl/merge_path1d.cl src/cl/headers/merge_path1d.h merge_path1d_kernel)
+convertIntoHeader(src/cl/dcsr_addition_count.cl src/cl/headers/dcsr_addition_count.h dcsr_addition_count_kernel)
+
+convertIntoHeader(src/cl/hash/bitonic_sort.cl src/cl/headers/bitonic_sort_new.h bitonic_sort_new_kernel)
+convertIntoHeader(src/cl/hash/hash_global.cl src/cl/headers/hash_global.h hash_global_kernel)
+convertIntoHeader(src/cl/hash/hash_pwarp.cl src/cl/headers/hash_pwarp.h hash_pwarp_kernel)
+convertIntoHeader(src/cl/hash/hash_tb.cl src/cl/headers/hash_tb.h hash_tb_kernel)
+
 convertIntoHeader(src/cl/prepare_positions.cl src/cl/headers/prepare_positions.h prepare_positions_kernel)
 convertIntoHeader(src/cl/coo_bitonic_sort.cl src/cl/headers/coo_bitonic_sort.h coo_bitonic_sort_kernel)
 convertIntoHeader(src/cl/set_positions.cl src/cl/headers/set_positions.h set_positions_kernel)
@@ -42,8 +49,9 @@ convertIntoHeader(src/cl/bitonic_esc.cl src/cl/headers/bitonic_esc.h bitonic_esc
 convertIntoHeader(src/cl/count_workload.cl src/cl/headers/count_workload.h count_workload_kernel)
 convertIntoHeader(src/cl/for_test/new_merge.cl src/cl/headers/new_merge.h new_merge_kernel)
 
-
 add_executable(sparse-boolean-matrix-operations
+
+        # ------------------------ cpp files -------------------------------
         src/library_classes/matrix_coo.cpp
 
         src/coo/main_coo.cpp
@@ -51,11 +59,12 @@ add_executable(sparse-boolean-matrix-operations
         src/coo/coo_initialization.cpp
         src/coo/coo_utils.cpp
         src/coo/coo_kronecker_product.cpp
-        src/dcsr/dscr_matrix_multiplication.cpp
+        src/dcsr/dcsr_matrix_multiplication.cpp
         src/common/matrices_conversions.cpp
         src/common/cl_operations.cpp
         src/common/utils.cpp
-
+        src/dcsr/dcsr_matrix_addition.cpp
+        src/dcsr/dcsr_matrix_multiplication_hash.cpp
 
         #  ------------------------------ cl files -----------------------------
         src/cl/prepare_positions.cl
@@ -73,6 +82,16 @@ add_executable(sparse-boolean-matrix-operations
         src/cl/to_result_matrix_single_thread.cl
         src/cl/merge_large_rows.cl
         src/cl/dscr_to_coo.cl
+        src/cl/dcsr_addition_count.cl
+        src/cl/merge_path1d.cl
+
+            # hash
+
+        src/cl/hash/hash_pwarp.cl
+        src/cl/hash/hash_tb.cl
+        src/cl/hash/hash_large.cl
+        src/cl/hash/hash_global.cl
+        src/cl/hash/bitonic_sort.cl
 
         # -----------------------------------------------------------------------
 
@@ -99,10 +118,14 @@ add_executable(sparse-boolean-matrix-operations
         src/cl/headers/bitonic_esc.h
         src/cl/headers/count_workload.h
         src/cl/headers/new_merge.h
+        src/cl/headers/merge_path1d.h
+        src/cl/headers/dcsr_addition_count.h
+        src/cl/headers/bitonic_sort_new.h
+        src/cl/headers/hash_global.h
+        src/cl/headers/hash_pwarp.h
+        src/cl/headers/hash_tb.h
+        # -------------------------------     test      ----------------------------------------
 
-
-
-        # ------------------------------ tests ----------------------------------
         src/test/coo_addition_test.cpp
         src/test/coo_bitonic_test.cpp
         src/test/coo_reduce_duplicates_test.cpp
@@ -118,6 +141,7 @@ add_executable(sparse-boolean-matrix-operations
         src/test/test_new_merge.cpp
         src/test/test_multiplication.cpp
         src/test/test_pref_sum.cpp
+        src/test/coo_new_bitonic_sort_test.cpp
         src/test/test_merge.cpp
         )
 

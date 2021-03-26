@@ -25,7 +25,7 @@ public:
     }
 
     const Logger& operator*() const {
-        stream << "[LOGGING] ";
+        stream << "\n[LOGGING] ";
         return *this;
     }
 
@@ -39,6 +39,4 @@ public:
         stream << str;
         return *this;
     }
-
-
 };

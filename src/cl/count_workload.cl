@@ -38,8 +38,8 @@ __kernel void count_workload(__global unsigned int* nnz_estimation,
 ) {
     uint global_id = get_global_id(0);
     if (global_id >= a_nzr) return;
-
-
+    // important zeroe value!!!!
+    if (global_id == 0) nnz_estimation[a_nzr] = 0;
     nnz_estimation[global_id] = 0;
     uint start = a_rows_pointers[global_id];
     uint end = a_rows_pointers[global_id + 1];

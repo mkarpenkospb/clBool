@@ -23,7 +23,7 @@ protected:
     double counter_;
     timer_type start_;
     int is_running_;
-    
+    double last_elapsed_;
     std::vector<double> laps_;
 
 public:
@@ -71,7 +71,7 @@ public:
         start();
     }
 
-    double elapsed() const
+    double elapsed()
     {
         double tm = counter_;
 
@@ -80,10 +80,15 @@ public:
 
         if (tm < 0)
             tm = 0;
-
+        last_elapsed_ = tm;
         return tm;
     }
-    
+
+    double last_elapsed() const
+    {
+        return last_elapsed_;
+    }
+
     const std::vector<double>& laps() const
     {
         return laps_;

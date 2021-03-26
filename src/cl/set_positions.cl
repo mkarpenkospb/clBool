@@ -6,17 +6,14 @@
 #endif
 
 
-__kernel void set_positions(__global unsigned int* newRows,
-                            __global unsigned int* newCols,
-                            __global const unsigned int* rows,
-                            __global const unsigned int* cols,
-                            __global const unsigned int* positions,
-                            unsigned int size
+__kernel void set_positions(__global uint* newRows,
+                            __global uint* newCols,
+                            __global const uint* rows,
+                            __global const uint* cols,
+                            __global const uint* positions,
+                            uint size
                             ) {
-
-    unsigned int local_id = get_local_id(0);
-    unsigned int group_id = get_group_id(0);
-    unsigned int global_id = get_global_id(0);
+    uint global_id = get_global_id(0);
 
     if (global_id == size - 1 && positions[global_id] != size) {
         newRows[positions[global_id]] = rows[global_id];
@@ -32,6 +29,25 @@ __kernel void set_positions(__global unsigned int* newRows,
     }
 }
 
+__kernel void set_positions1d(__global uint* output,
+                            __global const uint* input,
+                            __global const uint* positions,
+                            uint size
+) {
+    uint global_id = get_global_id(0);
+
+    if (global_id == size - 1 && positions[global_id] != size) {
+        output[positions[global_id]] = input[global_id];
+        return;
+    }
+
+    if (global_id >= size) return;
+
+    if (positions[global_id] != positions[global_id + 1]) {
+        output[positions[global_id]] = input[global_id];
+    }
+}
+
 
 __kernel void set_positions_pointers_and_rows(__global uint* newRowsPosition,
                                               __global uint* newRows,
@@ -42,7 +58,7 @@ __kernel void set_positions_pointers_and_rows(__global uint* newRowsPosition,
                                               uint old_nzr,
                                               uint new_nzr
 ) {
-    unsigned int global_id = get_global_id(0);
+    uint global_id = get_global_id(0);
 
     if (global_id >= old_nzr) return;
 
@@ -69,7 +85,7 @@ __kernel void set_positions_rows(__global uint* rows_pointers,
                                  uint size,
                                  uint nzr
 ) {
-    unsigned int global_id = get_global_id(0);
+    uint global_id = get_global_id(0);
 
     if (global_id == size - 1) {
         if (positions[global_id] != size) {

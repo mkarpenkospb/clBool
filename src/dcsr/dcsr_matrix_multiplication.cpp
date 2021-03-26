@@ -65,7 +65,7 @@ void matrix_multiplication(Controls &controls,
     if (DEBUG_ENABLE) *logger << "Bins written in " << time << "\n";
 
 
-    run_kernels(controls, cpu_workload_groups, groups_length, groups_pointers,
+    run_kernels(controls, groups_length, groups_pointers,
                 gpu_workload_groups, nnz_estimation,
                 pre, a, b,
                 aux_37_group_mem_pointers, aux_37_group_mem
@@ -98,14 +98,10 @@ void create_final_matrix(Controls &controls,
     uint32_t c_nnz;
     uint32_t c_nzr;
 
-    prefix_sum(controls, nnz_estimation, c_nnz, a.nzr());
+    prefix_sum(controls, nnz_estimation, c_nnz, a.nzr() + 1);
 
     c_cols_indices = cl::Buffer(controls.context, CL_TRUE, sizeof(uint32_t) * c_nnz);
 
-//    cl::Event write;
-    controls.queue.enqueueWriteBuffer(nnz_estimation, CL_TRUE, sizeof(uint32_t) * a.nzr(), sizeof(uint32_t), &c_nnz
-                                      /*,nullptr, &write*/);
-//    write.wait();
     cl::Event e1;
     cl::Event e2;
     if (groups_length[1] != 0) {
@@ -166,7 +162,7 @@ void create_final_matrix(Controls &controls,
     set_positions(controls, c_rows_pointers, c_rows_compressed, nnz_estimation, a.rows_compressed_gpu(), positions,
                   c_nnz, a.nzr(), c_nzr);
 
-    c = matrix_dcsr(c_rows_pointers, c_rows_compressed, c_cols_indices, pre.nCols(), pre.nRows(), c_nnz, c_nzr);
+    c = matrix_dcsr(c_rows_pointers, c_rows_compressed, c_cols_indices, pre.nRows(), pre.nCols(), c_nnz, c_nzr);
 }
 
 void write_bins_info(Controls &controls,
@@ -176,10 +172,11 @@ void write_bins_info(Controls &controls,
                      cpu_buffer &groups_length
                      ) {
 
-    unsigned int offset = 0;
+    uint32_t offset = 0;
+    uint32_t bins = cpu_workload_groups.size();
 //    cl::Event end_write_buffer;
-    for (uint32_t workload_group_id = 0; workload_group_id < BINS_NUM; ++workload_group_id) {
-        const auto group = cpu_workload_groups[workload_group_id];
+    for (uint32_t workload_group_id = 0; workload_group_id < bins; ++workload_group_id) {
+        const cpu_buffer& group = cpu_workload_groups[workload_group_id];
         if (group.empty()) continue;
         groups_pointers[workload_group_id] = offset;
         groups_length[workload_group_id] = group.size();
@@ -189,12 +186,11 @@ void write_bins_info(Controls &controls,
         offset += group.size();
     }
 
-    groups_pointers[BINS_NUM] = offset;
+    groups_pointers[bins] = offset;
 //    end_write_buffer.wait();
 }
 
 void run_kernels(Controls &controls,
-                 const std::vector<cpu_buffer> &cpu_workload_groups,
                  const cpu_buffer &groups_length,
                  const cpu_buffer &groups_pointers,
 
@@ -277,10 +273,7 @@ void run_kernels(Controls &controls,
 
     std::vector<cl::Event> events;
     for (uint32_t workload_group_id = 1; workload_group_id < BINS_NUM; ++workload_group_id) {
-        const auto group = cpu_workload_groups[workload_group_id];
-        if (group.empty()) continue;
-
-
+        if (groups_length[workload_group_id] == 0) continue;
 
         if (workload_group_id == 1) {
             std::cout << "first group!\n";

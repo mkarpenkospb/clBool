@@ -6,6 +6,11 @@
 #include "matrix_dcsr.hpp"
 #include "matrices_conversions.hpp"
 
+#define MERGE_ALGORITHM 1
+#define HASH_ALGORITHM 2
+
+
+typedef std::vector<uint32_t> cpu_buffer;
 
 
 void prepare_positions(Controls &controls,
@@ -36,7 +41,6 @@ uint32_t get_group(uint32_t size);
 
 
 void run_kernels(Controls &controls,
-                 const std::vector<cpu_buffer> &cpu_workload_groups,
                  const cpu_buffer &groups_length,
                  const cpu_buffer &groups_pointers,
 

@@ -1,4 +1,4 @@
-#include "coo_tests.hpp"
+#include "../test/coo_tests.hpp"
 
 int main() {
 //    testBitonicSort();
@@ -18,9 +18,10 @@ int main() {
 //    test_new_merge_full();
 //    largeRowsTest();
 //    utils::show_devices();
-      test_pref_sum();
-//    test_merge();
+//      test_pref_sum();
 //    test_multiplication();
+    test_multiplication_hash();
+//    testNewBitonicSort();
 }
 
 

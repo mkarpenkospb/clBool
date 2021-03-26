@@ -20,4 +20,5 @@ void test_new_merge();
 void test_new_merge_full();
 void test_multiplication();
 void test_pref_sum();
-void test_merge();
+void testNewBitonicSort();
+void test_multiplication_hash();
