@@ -10,7 +10,7 @@ using namespace utils;
 void test_pref_sum() {
     Controls controls = create_controls();
     for (int size = 20; size < 300000; size += 100) {
-        utils::cpu_buffer vec(size, 0);
+        cpu_buffer vec(size, 0);
         utils::fill_random_buffer(vec, 3);
         vec.push_back(0);
         cl::Buffer vec_gpu(controls.queue, vec.begin(), vec.end(), false);

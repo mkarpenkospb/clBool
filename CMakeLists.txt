@@ -89,9 +89,29 @@ add_executable(sparse-boolean-matrix-operations
 
         src/cl/hash/hash_pwarp.cl
         src/cl/hash/hash_tb.cl
-        src/cl/hash/hash_large.cl
         src/cl/hash/hash_global.cl
         src/cl/hash/bitonic_sort.cl
+
+            # hash FPGA
+
+        src/cl/fpga/multiplication_hash_kernels/count_workload.cl
+        src/cl/fpga/multiplication_hash_kernels/prefix_sum.cl
+        src/cl/fpga/multiplication_hash_kernels/prepare_positions.cl
+        src/cl/fpga/multiplication_hash_kernels/set_positions.cl
+
+        src/cl/fpga/multiplication_hash_kernels/hash_pwarp.cl
+        src/cl/fpga/multiplication_hash_kernels/hash_tb_128.cl
+        src/cl/fpga/multiplication_hash_kernels/hash_tb_256.cl
+        src/cl/fpga/multiplication_hash_kernels/hash_tb_512.cl
+        src/cl/fpga/multiplication_hash_kernels/hash_tb_1024.cl
+        src/cl/fpga/multiplication_hash_kernels/hash_tb_2048.cl
+        src/cl/fpga/multiplication_hash_kernels/hash_tb_4096.cl
+
+
+        src/cl/fpga/multiplication_hash_kernels/hash_symbolic_global.cl
+        src/cl/fpga/multiplication_hash_kernels/hash_numeric_global.cl
+
+
 
         # -----------------------------------------------------------------------
 
@@ -154,7 +174,7 @@ add_executable(fpga_hello src/fpga/hello_world.cpp
         src/coo/coo_initialization.cpp
         src/coo/coo_utils.cpp
         src/coo/coo_kronecker_product.cpp
-        src/dcsr/dscr_matrix_multiplication.cpp
+        src/dcsr/dcsr_matrix_multiplication.cpp
         src/common/matrices_conversions.cpp
         src/common/cl_operations.cpp
         src/common/utils.cpp

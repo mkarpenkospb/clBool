@@ -10,9 +10,6 @@
 #define HASH_ALGORITHM 2
 
 
-typedef std::vector<uint32_t> cpu_buffer;
-
-
 void prepare_positions(Controls &controls,
                        cl::Buffer &positions,
                        const cl::Buffer &array,

@@ -1,13 +1,12 @@
-#ifndef RUN
-
-#include "../clion_defines.cl"
-
-#define GROUP_SIZE 32
-#define NNZ_ESTIMATION 32
-
+#define __local local
+#define TABLE_SIZE 1024
+#ifndef GPU
+#define GROUP_SIZE 1024
+#else
+#define GROUP_SIZE 256
 #endif
 // 4 threads for 4 roes
-#define WARP 32 // TODO add define for amd to 64, for fpga unknown
+#define WARP 32 // TODO add define for amd to 64
 // how many rows (tables) can wo process by one threadblock
 #define ROWS_PER_TB (GROUP_SIZE / PWARP)
 #define HASH_SCAL 107
@@ -24,7 +23,7 @@ uint ceil_to_power2(uint v) {
     return v;
 }
 
-void bitonic_sort(__global uint *data,
+void bitonic_sort(__local uint *data,
                            uint size) {
 
     uint half_segment_length, local_line_id, local_twin_id, group_line_id, line_id, twin_id;
@@ -54,7 +53,7 @@ void bitonic_sort(__global uint *data,
                 data[twin_id] = tmp;
             }
         }
-        barrier(CLK_GLOBAL_MEM_FENCE);
+        barrier(CLK_LOCAL_MEM_FENCE);
         for (uint j = half_segment_length; j > 1; j >>= 1) {
             for (uint local_id = local_id_real; local_id < threads_needed; local_id += GROUP_SIZE) {
                 uint half_j = j / 2;
@@ -99,25 +98,22 @@ uint search_global(__global const uint *array, uint value, uint size) {
     return size;
 }
 
-// need to monitor table_size
+__attribute__((reqd_work_group_size(GROUP_SIZE,1,1)))
+__kernel void hash_symbolic_tb(__global const uint * restrict indices, // indices -- aka premutation
+                               uint group_start,
+                               uint group_length,
 
-__kernel void hash_symbolic_global(__global const uint *indices, // indices -- aka premutation
-                                  uint group_start,
-                                  uint group_length,
+                               __global uint * restrict nnz_estimation, // это нужно обновлять
 
-                                  __global uint *nnz_estimation,
+                               __global const uint * restrict a_rows_pointers,
+                               __global const uint * restrict a_cols,
 
-                                  __global const uint *a_rows_pointers,
-                                  __global const uint *a_cols,
-
-                                  __global const uint *b_rows_pointers,
-                                  __global const uint *b_rows_compressed,
-                                  __global const uint *b_cols,
-                                  const uint b_nzr,
-                                  __global uint *hash_table_data,
-                                  __global const uint *hash_table_offset
-
+                               __global const uint * restrict b_rows_pointers,
+                               __global const uint * restrict b_rows_compressed,
+                               __global const uint * restrict b_cols,
+                               const uint b_nzr
 ) {
+
     uint hash, old, row_index, a_start, a_end, col_index, b_col, b_rpt;
     uint local_id = get_local_id(0); // 0 - 255
     uint row_id_bin = get_group_id(0); // 0, 1, ...
@@ -127,22 +123,22 @@ __kernel void hash_symbolic_global(__global const uint *indices, // indices -- a
     uint warp_id = local_id / WARP; // (0 - 255) / 32 -- warp id of thread
     uint row_pos = group_start + row_id_bin; //
 
-    uint group_id = get_group_id(0);
-    uint table_size = hash_table_offset[group_id + 1] - hash_table_offset[group_id];
-    __global uint *hash_table = hash_table_data + hash_table_offset[group_id];
+    __local uint hash_table[TABLE_SIZE];
     __local uint nz_count[GROUP_SIZE];
     __local uint *thread_nz = nz_count + local_id;
     thread_nz[0] = 0;
 
-    for (uint i = local_id; i < table_size; i += GROUP_SIZE) {
+    for (uint i = local_id; i < TABLE_SIZE; i += GROUP_SIZE) {
         hash_table[i] = -1;
     }
 
-    barrier(CLK_GLOBAL_MEM_FENCE);
+    barrier(CLK_LOCAL_MEM_FENCE);
+
 
     row_index = indices[row_pos];
     a_start = a_rows_pointers[row_index];
     a_end = a_rows_pointers[row_index + 1];
+
     for (uint a_prt = a_start + warp_id; a_prt < a_end; a_prt += warps_per_group) {
         col_index = a_cols[a_prt]; // позицию этого будем искать в матрице B
         b_rpt = search_global(b_rows_compressed, col_index, b_nzr);
@@ -153,25 +149,24 @@ __kernel void hash_symbolic_global(__global const uint *indices, // indices -- a
         for (uint k = b_rows_pointers[b_rpt] + id_in_warp; k < b_rows_pointers[b_rpt + 1]; k += WARP) {
             b_col = b_cols[k];
             // Now go to hashtable and search for b_col
-            hash = (b_col * HASH_SCAL) & (table_size - 1);
+            hash = (b_col * HASH_SCAL) & (TABLE_SIZE - 1);
             while (true) {
                 if (hash_table[hash] == b_col) {
                     break;
                 } else if (hash_table[hash] == -1) {
                     old = atom_cmpxchg(hash_table + hash, -1, b_col);
                     if (old == -1) {
-                        thread_nz[0] ++;
+                        thread_nz[0]++;
                         break;
                     }
                 } else {
-                    hash = (hash + 1) % table_size;
+                    hash = (hash + 1) & (TABLE_SIZE - 1);
                 }
             }
         }
     }
 
-    barrier(CLK_GLOBAL_MEM_FENCE);
-
+    barrier(CLK_LOCAL_MEM_FENCE);
     // reduce nz values
     int step = GROUP_SIZE / 2;
     while (step > 0) {
@@ -181,37 +176,93 @@ __kernel void hash_symbolic_global(__global const uint *indices, // indices -- a
         barrier(CLK_LOCAL_MEM_FENCE);
         step /= 2;
     }
-    bitonic_sort(hash_table, table_size);
+
     if (local_id == 0) {
         nnz_estimation[row_index] = nz_count[0];
     }
 }
 
-__kernel void hash_numeric_global(__global const uint *indices, // indices -- aka premutation
-                                   uint group_start,
+__attribute__((reqd_work_group_size(GROUP_SIZE,1,1)))
+__kernel void hash_numeric_tb(__global const uint * restrict indices, // indices -- aka premutation
+                              uint group_start,
 
-                                   __global
-                                   const uint *pre_matrix_rows_pointers,
-                                  __global uint *c_cols,
+                              __global
+                              const uint *pre_matrix_rows_pointers,
+                              __global uint * restrict c_cols,
 
-                                  __global uint *hash_table_data,
-                                  __global const uint *hash_table_offset
+                              __global const uint * restrict a_rows_pointers,
+                              __global const uint * restrict a_cols,
 
+                              __global const uint * restrict b_rows_pointers,
+                              __global const uint * restrict b_rows_compressed,
+                              __global const uint * restrict b_cols,
+                              const uint b_nzr
 ) {
-    // all data for large rows is already in a global memory,
-    // we only need to copy values to the final matrix
-    uint row_pos = group_start + get_group_id(0);
-    uint row_index = indices[row_pos];
-    uint group_id = get_group_id(0);
-    uint row_start = pre_matrix_rows_pointers[row_index];
-    uint row_end = pre_matrix_rows_pointers[row_index + 1];
-    uint row_length = row_end - row_start;
-    if (row_length == 0) return;
-    uint group_size = get_local_size(0);
-    uint local_id = get_local_id(0);
-    __global uint* hash_table = hash_table_data + hash_table_offset[group_id];
-    __global uint* current_row = c_cols + row_start;
-    for (uint i = local_id; i < row_length; i += group_size) {
-        current_row[i] = hash_table[i];
+
+    uint hash, old, row_index, a_start, a_end, col_index, b_col, b_rpt;
+    uint local_id = get_local_id(0); // 0 - 255
+    uint row_id_bin = get_group_id(0); // 0, 1, ...
+    uint warps_per_group = GROUP_SIZE / WARP; // 256 / 32 -- how many vals of A row you can process in ones
+    // от 0 до 31
+    uint id_in_warp = get_local_id(0) & (WARP - 1); // 0 - 31 , get_global_id(0) & (WARP - 1) == get_global_id(0) % WARP
+    uint warp_id = local_id / WARP; // (0 - 255) / 32 -- warp id of thread
+    uint row_pos = group_start + row_id_bin; //
+
+
+    row_index = indices[row_pos];
+    a_start = a_rows_pointers[row_index];
+    a_end = a_rows_pointers[row_index + 1];
+
+    uint c_row_start = pre_matrix_rows_pointers[row_index];
+    uint c_row_end = pre_matrix_rows_pointers[row_index + 1];
+    uint c_row_length = c_row_end - c_row_start;
+
+    if(c_row_length == 0) return;
+
+    __local uint hash_table[TABLE_SIZE];
+
+    for (uint i = local_id; i < TABLE_SIZE; i += GROUP_SIZE) {
+        hash_table[i] = -1;
     }
+
+    barrier(CLK_LOCAL_MEM_FENCE);
+
+    for (uint a_prt = a_start + warp_id; a_prt < a_end; a_prt += warps_per_group) {
+        col_index = a_cols[a_prt]; // позицию этого будем искать в матрице B
+        b_rpt = search_global(b_rows_compressed, col_index, b_nzr);
+        if (b_rpt == b_nzr) {
+            continue;
+        }
+
+        for (uint k = b_rows_pointers[b_rpt] + id_in_warp; k < b_rows_pointers[b_rpt + 1]; k += WARP) {
+            b_col = b_cols[k];
+            // Now go to hashtable and search for b_col
+            hash = (b_col * HASH_SCAL) & (TABLE_SIZE - 1);
+            while (true) {
+                if (hash_table[hash] == b_col) {
+                    break;
+                } else if (hash_table[hash] == -1) {
+                    old = atom_cmpxchg(hash_table + hash, -1, b_col);
+                    if (old == -1) {
+                        hash_table[hash] = b_col;
+                        break;
+                    }
+                } else {
+                    hash = (hash + 1) & (TABLE_SIZE - 1);
+                }
+            }
+        }
+    }
+
+
+    barrier(CLK_LOCAL_MEM_FENCE);
+    __global uint *c_cols_cur_global = c_cols + pre_matrix_rows_pointers[row_index];
+    // sort values and save
+    barrier(CLK_LOCAL_MEM_FENCE);
+    bitonic_sort(hash_table, TABLE_SIZE);
+    barrier(CLK_LOCAL_MEM_FENCE);
+    for (uint i = local_id; i < c_row_length; i += GROUP_SIZE) {
+        c_cols_cur_global[i] = hash_table[i];
+    }
+
 }

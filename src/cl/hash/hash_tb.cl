@@ -25,7 +25,7 @@ uint ceil_to_power2(uint v) {
     return v;
 }
 
-__kernel void bitonic_sort(__local uint *data,
+void bitonic_sort(__local uint *data,
                            uint size) {
 
     uint half_segment_length, local_line_id, local_twin_id, group_line_id, line_id, twin_id;

@@ -1,6 +1,6 @@
 #include <numeric>
 #include <program.hpp>
-#include "dscr_matrix_multiplication.hpp"
+#include "dcsr_matrix_multiplication.hpp"
 #include "coo_matrix_addition.hpp"
 #include "to_result_matrix_single_thread.h"
 #include "to_result_matrix_work_group.h"
@@ -439,11 +439,7 @@ void count_workload(Controls &controls,
 
     auto count_workload = program<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
         uint32_t, uint32_t>
-#ifndef FPGA
-        (count_workload_kernel, count_workload_kernel_length)
-#else
         ("count_workload")
-#endif
         .set_needed_work_size(a.nzr())
         .set_kernel_name("count_workload");
 
@@ -463,7 +459,7 @@ void prepare_positions(Controls &controls,
                        const std::string &program_name
 ) {
     auto prepare_positions = program<cl::Buffer, cl::Buffer, uint32_t>
-            (prepare_positions_kernel, prepare_positions_kernel_length)
+            ("prepare_positions")
             .set_kernel_name(program_name)
             .set_needed_work_size(size);
 
@@ -486,11 +482,7 @@ void set_positions(Controls &controls,
     t.restart();
     auto set_positions = program<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
             uint32_t, uint32_t, uint32_t>
-#ifndef FPGA
-            (set_positions_kernel, set_positions_kernel_length)
-#else
             ("set_positions")
-#endif
             .set_kernel_name("set_positions_pointers_and_rows")
             .set_needed_work_size(old_nzr);
 

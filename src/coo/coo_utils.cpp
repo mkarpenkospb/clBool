@@ -4,7 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
-#include <fast_random.h>
+#include <libutils/fast_random.h>
 
 
 namespace coo_utils {

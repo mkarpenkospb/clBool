@@ -1,15 +1,10 @@
-#ifndef RUN
-
-#include "../clion_defines.cl"
-
-#define GROUP_SIZE 32
-#define NNZ_ESTIMATION 32
-
+#define __local local
+#ifndef GPU
+#define GROUP_SIZE 80192
+#else
+#define GROUP_SIZE 256
 #endif
-// 4 threads for 4 roes
 #define WARP 32 // TODO add define for amd to 64, for fpga unknown
-// how many rows (tables) can wo process by one threadblock
-#define ROWS_PER_TB (GROUP_SIZE / PWARP)
 #define HASH_SCAL 107
 
 
@@ -101,21 +96,22 @@ uint search_global(__global const uint *array, uint value, uint size) {
 
 // need to monitor table_size
 
-__kernel void hash_symbolic_global(__global const uint *indices, // indices -- aka premutation
+__attribute__((reqd_work_group_size(GROUP_SIZE,1,1)))
+__kernel void hash_symbolic_global(__global const uint * restrict indices, // indices -- aka premutation
                                   uint group_start,
                                   uint group_length,
 
-                                  __global uint *nnz_estimation,
+                                  __global uint * restrict nnz_estimation,
 
-                                  __global const uint *a_rows_pointers,
-                                  __global const uint *a_cols,
+                                  __global const uint * restrict a_rows_pointers,
+                                  __global const uint * restrict a_cols,
 
-                                  __global const uint *b_rows_pointers,
-                                  __global const uint *b_rows_compressed,
-                                  __global const uint *b_cols,
+                                  __global const uint * restrict b_rows_pointers,
+                                  __global const uint * restrict b_rows_compressed,
+                                  __global const uint * restrict b_cols,
                                   const uint b_nzr,
-                                  __global uint *hash_table_data,
-                                  __global const uint *hash_table_offset
+                                  __global uint * restrict hash_table_data,
+                                  __global const uint * restrict hash_table_offset
 
 ) {
     uint hash, old, row_index, a_start, a_end, col_index, b_col, b_rpt;
@@ -184,34 +180,5 @@ __kernel void hash_symbolic_global(__global const uint *indices, // indices -- a
     bitonic_sort(hash_table, table_size);
     if (local_id == 0) {
         nnz_estimation[row_index] = nz_count[0];
-    }
-}
-
-__kernel void hash_numeric_global(__global const uint *indices, // indices -- aka premutation
-                                   uint group_start,
-
-                                   __global
-                                   const uint *pre_matrix_rows_pointers,
-                                  __global uint *c_cols,
-
-                                  __global uint *hash_table_data,
-                                  __global const uint *hash_table_offset
-
-) {
-    // all data for large rows is already in a global memory,
-    // we only need to copy values to the final matrix
-    uint row_pos = group_start + get_group_id(0);
-    uint row_index = indices[row_pos];
-    uint group_id = get_group_id(0);
-    uint row_start = pre_matrix_rows_pointers[row_index];
-    uint row_end = pre_matrix_rows_pointers[row_index + 1];
-    uint row_length = row_end - row_start;
-    if (row_length == 0) return;
-    uint group_size = get_local_size(0);
-    uint local_id = get_local_id(0);
-    __global uint* hash_table = hash_table_data + hash_table_offset[group_id];
-    __global uint* current_row = c_cols + row_start;
-    for (uint i = local_id; i < row_length; i += group_size) {
-        current_row[i] = hash_table[i];
     }
 }

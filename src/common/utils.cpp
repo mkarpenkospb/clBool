@@ -1,5 +1,5 @@
 #include "utils.hpp"
-#include "fast_random.h"
+#include "libutils/fast_random.h"
 
 namespace utils {
     void compare_matrices(Controls &controls, matrix_dcsr m_gpu, matrix_dcsr_cpu m_cpu) {

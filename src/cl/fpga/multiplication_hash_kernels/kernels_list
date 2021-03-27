@@ -1,0 +1,25 @@
+count for grouping:
+
+    count_workload.cl
+
+
+
+count nnz:
+
+    hash_pwarp_symbolic.cl
+
+
+
+fill nnz:
+
+
+
+
+
+!!!!!!!!!!!!! посмотерть максимальный размер локальной памяти!!!!!!!!!!!!!
+!!!!!!!!!!!!!!! оптимизировать под единичные кернелы, например, count workload!
+
+
+
+
+

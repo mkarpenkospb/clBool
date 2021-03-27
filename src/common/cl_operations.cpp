@@ -8,20 +8,14 @@ void prefix_sum(Controls &controls,
                 cl::Buffer &array,
                 uint32_t &total_sum,
                 uint32_t array_size) {
-    #ifndef WIN
-    #ifdef FPGA
+
     auto scan = program<cl::Buffer, cl::Buffer, cl::LocalSpaceArg, cl::Buffer, unsigned int>
-            ("compile_single_command/set_positions").set_kernel_name("scan_blelloch");
-    auto update = program<cl::Buffer, cl::Buffer, unsigned int, unsigned int>
-            ("compile_single_command/set_positions").set_kernel_name("update_pref_sum");
-    #endif
-    #else
-    auto scan = program<cl::Buffer, cl::Buffer, cl::LocalSpaceArg, cl::Buffer, unsigned int>("prefix_sum")
+            ("prefix_sum")
             .set_kernel_name("scan_blelloch");
 
-    auto update = program<cl::Buffer, cl::Buffer, unsigned int, unsigned int>("update_pref_sum")
+    auto update = program<cl::Buffer, cl::Buffer, unsigned int, unsigned int>
+            ("update_pref_sum")
             .set_kernel_name("update_pref_sum");
-    #endif
 
     uint32_t block_size = controls.block_size;
 

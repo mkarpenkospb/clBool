@@ -20,7 +20,8 @@ struct KernelCache {
     static inline std::unordered_map<program_id, cl::Program> programs{};
     static inline std::unordered_map<kernel_id, cl::Kernel, pair_hash> kernels{};
 
-    static const cl::Program &get_program(const Controls &controls, const std::string &_program_name) {
+    static const cl::Program &get_program(const Controls &controls, const std::string &_program_name,
+                                          const std::string options = "") {
         cl::Program cl_program;
         try {
             if (KernelCache::programs.find(_program_name) != KernelCache::programs.end()) {
@@ -34,7 +35,7 @@ struct KernelCache {
             #else
             timer t;
             cl_program = controls.create_program_from_binaries(_program_name);
-            cl_program.build();
+            cl_program.build(options.c_str());
             KernelCache::programs[_program_name] = cl_program;
             double time = t.elapsed();
             if (DEBUG_ENABLE) *logger << "program " << _program_name << " created in " << time << " \n";
@@ -45,8 +46,8 @@ struct KernelCache {
         }
     }
 
-    static const cl::Kernel &get_kernel(const Controls &controls, const kernel_id &id) {
-        cl::Program cl_program = get_program(controls, id.first);
+    static const cl::Kernel &get_kernel(const Controls &controls, const kernel_id &id, const std::string& options = "") {
+        cl::Program cl_program = get_program(controls, id.first, options);
         if (kernels.find(id) != kernels.end()) {
             return kernels[id];
         }
@@ -76,9 +77,11 @@ private:
     uint32_t _needed_work_size = 0;
     cl::Program cl_program;
     bool _async = false;
+    bool _is_spec_queue = false;
+    cl::CommandQueue* _queue;
 
-    #ifndef FPGA
-    std::string options_str;
+    #ifdef WIN
+    std::string options_str = "-D GPU=1";
     #endif
 
     void check_completeness(const Controls &controls) {
@@ -140,6 +143,11 @@ public:
         return *this;
     }
 
+    program &set_queue(cl::CommandQueue& queue) {
+        _is_spec_queue = true;
+        _queue = &queue;
+    }
+
 //    void build(Controls &controls) {
 //        build_cl_program(controls);
 //        _built = true;
@@ -148,15 +156,23 @@ public:
     cl::Event run(Controls &controls, Args ... args) {
         check_completeness(controls);
         try {
-            cl::Kernel kernel = KernelCache::get_kernel(controls, {_program_name, _kernel_name});
+            cl::Kernel kernel = KernelCache::get_kernel(controls, {_program_name, _kernel_name}, options_str);
             kernel_type functor(kernel);
+#ifndef FPGA
             cl::EnqueueArgs eargs(_async ? controls.async_queue : controls.queue,
                                   cl::NDRange(utils::calculate_global_size(_block_size, _needed_work_size)),
                                   cl::NDRange(_block_size));
+#else
+            cl::EnqueueArgs eargs(_is_spec_queue ? *_queue : controls.queue,
+                                  cl::NDRange(utils::calculate_global_size(_block_size, _needed_work_size)),
+                                  cl::NDRange(_block_size));
+#endif
 
             return functor(eargs, args...);
         } catch (const cl::Error &e) {
             utils::program_handler(e, cl_program, controls.device, _kernel_name);
         }
     }
+
+
 };
