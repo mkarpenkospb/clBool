@@ -1,6 +1,6 @@
 #define __local local
 #ifndef GPU
-#define GROUP_SIZE 80192
+#define GROUP_SIZE 8192
 #else
 #define GROUP_SIZE 256
 #endif
