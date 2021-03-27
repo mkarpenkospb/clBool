@@ -124,7 +124,7 @@ namespace hash_details {
         if (bin_id == 4) return 1024;
         if (bin_id == 5) return 2048;
         if (bin_id == 6) return 4096;
-        if (bin_id == 7) return 8096;
+        if (bin_id == 7) return 8192;
 #endif
         throw std::runtime_error("Unknown bin id. error 24642342152");
     }
