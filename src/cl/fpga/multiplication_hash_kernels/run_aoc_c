@@ -1,0 +1,6 @@
+ aoc -c count_workload.cl hash_numeric_global.cl hash_pwarp.cl hash_symbolic_global.cl hash_tb_128.cl hash_tb_256.cl hash_tb_512.cl hash_tb_1024.cl hash_tb_2048.cl hash_tb_4096.cl prefix_sum.cl update_pref_sum.cl set_positions.cl prepare_positions.cl --report
+
+
+
+
+
