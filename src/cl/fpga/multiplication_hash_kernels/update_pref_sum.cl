@@ -1,10 +1,4 @@
-//#ifndef RUN
-//
-//#include "../clion_defines.cl"
-//#define GROUP_SIZE 256
-//#define restrict
-//#define local
-//#endif
+
 
 #define __local local
 

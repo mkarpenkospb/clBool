@@ -1,9 +1,5 @@
 #define __local local
-#ifndef GPU
-#define GROUP_SIZE 8192
-#else
 #define GROUP_SIZE 256
-#endif
 #define WARP 32 // TODO add define for amd to 64, for fpga unknown
 #define HASH_SCAL 107
 
@@ -19,7 +15,7 @@ uint ceil_to_power2(uint v) {
     return v;
 }
 
-void bitonic_sort(__global uint *data,
+void bitonic_sort_global(__global uint *data,
                            uint size) {
 
     uint half_segment_length, local_line_id, local_twin_id, group_line_id, line_id, twin_id;
@@ -64,7 +60,7 @@ void bitonic_sort(__global uint *data,
                     data[line_id] = data[twin_id];
                     data[twin_id] = tmp;
                 }
-                barrier(CLK_LOCAL_MEM_FENCE);
+                barrier(CLK_GLOBAL_MEM_FENCE);
             }
         }
         outer >>= 1;
@@ -176,7 +172,7 @@ __kernel void hash_symbolic_global(__global const uint * restrict indices, // in
         barrier(CLK_LOCAL_MEM_FENCE);
         step /= 2;
     }
-    bitonic_sort(hash_table, table_size);
+    bitonic_sort_global(hash_table, table_size);
     if (local_id == 0) {
         nnz_estimation[row_index] = nz_count[0];
     }

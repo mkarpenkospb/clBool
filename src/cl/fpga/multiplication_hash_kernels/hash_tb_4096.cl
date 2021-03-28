@@ -7,7 +7,9 @@
 #define HASH_SCAL 107
 
 
-uint ceil_to_power2(uint v) {
+uint ceil_to_power2(uint v)
+#ifdef GPU
+{
     v--;
     v |= v >> 1;
     v |= v >> 2;
@@ -17,9 +19,13 @@ uint ceil_to_power2(uint v) {
     v++;
     return v;
 }
+#endif
+;
 
 void bitonic_sort(__local uint *data,
-                           uint size) {
+                           uint size)
+#ifdef GPU
+                           {
 
     uint half_segment_length, local_line_id, local_twin_id, group_line_id, line_id, twin_id;
     uint local_id_real = get_local_id(0);
@@ -70,7 +76,8 @@ void bitonic_sort(__local uint *data,
         segment_length <<= 1;
     }
 }
-
+#endif
+;
 
 uint search_global(__global const uint *array, uint value, uint size) {
     uint l = 0;
