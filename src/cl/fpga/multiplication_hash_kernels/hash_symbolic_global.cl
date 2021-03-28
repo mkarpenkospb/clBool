@@ -69,7 +69,9 @@ void bitonic_sort_global(__global uint *data,
 }
 
 
-uint search_global(__global const uint *array, uint value, uint size) {
+uint search_global(__global const uint *array, uint value, uint size)
+#ifdef GPU
+{
     uint l = 0;
     uint r = size;
     uint m = l + ((r - l) / 2);
@@ -89,6 +91,8 @@ uint search_global(__global const uint *array, uint value, uint size) {
 
     return size;
 }
+#endif
+;
 
 // need to monitor table_size
 

@@ -7,7 +7,9 @@
 #define ROWS_PER_TB (GROUP_SIZE / PWARP)
 #define HASH_SCAL 107
 
-uint search_global(__global const uint *array, uint value, uint size) {
+uint search_global(__global const uint *array, uint value, uint size)
+#ifdef GPU
+{
     uint l = 0;
     uint r = size;
     uint m = l + ((r - l) / 2);
@@ -27,6 +29,8 @@ uint search_global(__global const uint *array, uint value, uint size) {
 
     return size;
 }
+#endif
+;
 
 __attribute__((reqd_work_group_size(GROUP_SIZE,1,1)))
 __kernel void hash_symbolic_pwarp(__global const uint * restrict indices,

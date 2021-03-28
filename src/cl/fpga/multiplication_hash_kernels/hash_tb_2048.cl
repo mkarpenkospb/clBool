@@ -80,7 +80,9 @@ void bitonic_sort(__local uint *data,
 #endif
 ;
 
-uint search_global(__global const uint *array, uint value, uint size) {
+uint search_global(__global const uint *array, uint value, uint size)
+#ifdef GPU
+{
     uint l = 0;
     uint r = size;
     uint m = l + ((r - l) / 2);
@@ -100,6 +102,8 @@ uint search_global(__global const uint *array, uint value, uint size) {
 
     return size;
 }
+#endif
+;
 
 __attribute__((reqd_work_group_size(GROUP_SIZE,1,1)))
 __kernel void hash_tb_2048(__global const uint * restrict indices, // indices -- aka premutation
