@@ -25,7 +25,6 @@ uint ceil_to_power2(uint v)
 
 void bitonic_sort(__local uint *data,
                            uint size)
-#ifdef GPU
                            {
 
     uint half_segment_length, local_line_id, local_twin_id, group_line_id, line_id, twin_id;
@@ -77,8 +76,6 @@ void bitonic_sort(__local uint *data,
         segment_length <<= 1;
     }
 }
-#endif
-;
 
 uint search_global(__global const uint *array, uint value, uint size)
 #ifdef GPU
