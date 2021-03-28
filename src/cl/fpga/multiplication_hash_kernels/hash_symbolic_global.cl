@@ -99,7 +99,6 @@ uint search_global(__global const uint *array, uint value, uint size) {
 __attribute__((reqd_work_group_size(GROUP_SIZE,1,1)))
 __kernel void hash_symbolic_global(__global const uint * restrict indices, // indices -- aka premutation
                                   uint group_start,
-                                  uint group_length,
 
                                   __global uint * restrict nnz_estimation,
 

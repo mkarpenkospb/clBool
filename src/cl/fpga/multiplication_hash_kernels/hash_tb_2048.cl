@@ -1,10 +1,6 @@
 #define __local local
 #define TABLE_SIZE 2048
-#ifndef GPU
-#define GROUP_SIZE 2048
-#else
 #define GROUP_SIZE 256
-#endif
 // 4 threads for 4 roes
 #define WARP 32 // TODO add define for amd to 64
 // how many rows (tables) can wo process by one threadblock
@@ -99,19 +95,19 @@ uint search_global(__global const uint *array, uint value, uint size) {
 }
 
 __attribute__((reqd_work_group_size(GROUP_SIZE,1,1)))
-__kernel void hash_symbolic_tb(__global const uint * restrict indices, // indices -- aka premutation
+__kernel void hash_tb_2048(__global const uint * restrict indices, // indices -- aka premutation
                                uint group_start,
-                               uint group_length,
 
                                __global uint * restrict nnz_estimation, // это нужно обновлять
-
+                               __global uint * restrict c_cols, // empty if numeric is true
                                __global const uint * restrict a_rows_pointers,
                                __global const uint * restrict a_cols,
 
                                __global const uint * restrict b_rows_pointers,
                                __global const uint * restrict b_rows_compressed,
                                __global const uint * restrict b_cols,
-                               const uint b_nzr
+                               const uint b_nzr,
+                               uint numeric
 ) {
 
     uint hash, old, row_index, a_start, a_end, col_index, b_col, b_rpt;
@@ -156,7 +152,12 @@ __kernel void hash_symbolic_tb(__global const uint * restrict indices, // indice
                 } else if (hash_table[hash] == -1) {
                     old = atom_cmpxchg(hash_table + hash, -1, b_col);
                     if (old == -1) {
-                        thread_nz[0]++;
+                        if (numeric) {
+                            // TODO убрать это присвоение????
+                            hash_table[hash] = b_col;
+                        } else {
+                            thread_nz[0]++;
+                        }
                         break;
                     }
                 } else {
@@ -167,102 +168,30 @@ __kernel void hash_symbolic_tb(__global const uint * restrict indices, // indice
     }
 
     barrier(CLK_LOCAL_MEM_FENCE);
+    if (numeric == 0) {
     // reduce nz values
-    int step = GROUP_SIZE / 2;
-    while (step > 0) {
-        if (local_id < step) {
-            nz_count[local_id] = nz_count[local_id] + nz_count[local_id + step];
-        }
-        barrier(CLK_LOCAL_MEM_FENCE);
-        step /= 2;
-    }
-
-    if (local_id == 0) {
-        nnz_estimation[row_index] = nz_count[0];
-    }
-}
-
-__attribute__((reqd_work_group_size(GROUP_SIZE,1,1)))
-__kernel void hash_numeric_tb(__global const uint * restrict indices, // indices -- aka premutation
-                              uint group_start,
-
-                              __global
-                              const uint *pre_matrix_rows_pointers,
-                              __global uint * restrict c_cols,
-
-                              __global const uint * restrict a_rows_pointers,
-                              __global const uint * restrict a_cols,
-
-                              __global const uint * restrict b_rows_pointers,
-                              __global const uint * restrict b_rows_compressed,
-                              __global const uint * restrict b_cols,
-                              const uint b_nzr
-) {
-
-    uint hash, old, row_index, a_start, a_end, col_index, b_col, b_rpt;
-    uint local_id = get_local_id(0); // 0 - 255
-    uint row_id_bin = get_group_id(0); // 0, 1, ...
-    uint warps_per_group = GROUP_SIZE / WARP; // 256 / 32 -- how many vals of A row you can process in ones
-    // от 0 до 31
-    uint id_in_warp = get_local_id(0) & (WARP - 1); // 0 - 31 , get_global_id(0) & (WARP - 1) == get_global_id(0) % WARP
-    uint warp_id = local_id / WARP; // (0 - 255) / 32 -- warp id of thread
-    uint row_pos = group_start + row_id_bin; //
-
-
-    row_index = indices[row_pos];
-    a_start = a_rows_pointers[row_index];
-    a_end = a_rows_pointers[row_index + 1];
-
-    uint c_row_start = pre_matrix_rows_pointers[row_index];
-    uint c_row_end = pre_matrix_rows_pointers[row_index + 1];
-    uint c_row_length = c_row_end - c_row_start;
-
-    if(c_row_length == 0) return;
-
-    __local uint hash_table[TABLE_SIZE];
-
-    for (uint i = local_id; i < TABLE_SIZE; i += GROUP_SIZE) {
-        hash_table[i] = -1;
-    }
-
-    barrier(CLK_LOCAL_MEM_FENCE);
-
-    for (uint a_prt = a_start + warp_id; a_prt < a_end; a_prt += warps_per_group) {
-        col_index = a_cols[a_prt]; // позицию этого будем искать в матрице B
-        b_rpt = search_global(b_rows_compressed, col_index, b_nzr);
-        if (b_rpt == b_nzr) {
-            continue;
-        }
-
-        for (uint k = b_rows_pointers[b_rpt] + id_in_warp; k < b_rows_pointers[b_rpt + 1]; k += WARP) {
-            b_col = b_cols[k];
-            // Now go to hashtable and search for b_col
-            hash = (b_col * HASH_SCAL) & (TABLE_SIZE - 1);
-            while (true) {
-                if (hash_table[hash] == b_col) {
-                    break;
-                } else if (hash_table[hash] == -1) {
-                    old = atom_cmpxchg(hash_table + hash, -1, b_col);
-                    if (old == -1) {
-                        hash_table[hash] = b_col;
-                        break;
-                    }
-                } else {
-                    hash = (hash + 1) & (TABLE_SIZE - 1);
-                }
+        int step = GROUP_SIZE / 2;
+        while (step > 0) {
+            if (local_id < step) {
+                nz_count[local_id] = nz_count[local_id] + nz_count[local_id + step];
             }
+            barrier(CLK_LOCAL_MEM_FENCE);
+            step /= 2;
+        }
+
+        if (local_id == 0) {
+            nnz_estimation[row_index] = nz_count[0];
+        }
+    } else {
+        uint c_row_start = nnz_estimation[row_index];
+        uint c_row_end = nnz_estimation[row_index + 1];
+        uint c_row_length = c_row_end - c_row_start;
+        __global uint *c_cols_cur_global = c_cols + c_row_start;
+        // sort values and save
+        bitonic_sort(hash_table, TABLE_SIZE);
+        barrier(CLK_LOCAL_MEM_FENCE);
+        for (uint i = local_id; i < c_row_length; i += GROUP_SIZE) {
+            c_cols_cur_global[i] = hash_table[i];
         }
     }
-
-
-    barrier(CLK_LOCAL_MEM_FENCE);
-    __global uint *c_cols_cur_global = c_cols + pre_matrix_rows_pointers[row_index];
-    // sort values and save
-    barrier(CLK_LOCAL_MEM_FENCE);
-    bitonic_sort(hash_table, TABLE_SIZE);
-    barrier(CLK_LOCAL_MEM_FENCE);
-    for (uint i = local_id; i < c_row_length; i += GROUP_SIZE) {
-        c_cols_cur_global[i] = hash_table[i];
-    }
-
 }

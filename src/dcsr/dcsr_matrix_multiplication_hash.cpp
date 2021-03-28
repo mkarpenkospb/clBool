@@ -35,62 +35,28 @@ namespace hash_details {
         throw std::runtime_error("Unknown bin id. error 22231");
     }
 
-    auto &get_symbolic_program(const cl::Context& context, uint32_t bin_id) {
-        using symbolic_program_t = program<cl::Buffer, uint32_t, uint32_t,
+    auto &get_program(const cl::Context& context, uint32_t bin_id) {
+        using program_t = program<cl::Buffer, uint32_t, cl::Buffer,
                 cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-                uint32_t>;
-        static auto hash_tb_128 = symbolic_program_t("hash_tb_128")
-                .set_kernel_name("hash_symbolic_tb")
+                uint32_t, uint32_t>;
+
+        static auto hash_tb_128 = program_t("hash_tb_128")
+                .set_kernel_name("hash_tb_128")
                 .set_queue(get_queue(context, 1));
-        static auto hash_tb_256 = symbolic_program_t("hash_tb_256")
-                .set_kernel_name("hash_symbolic_tb")
+        static auto hash_tb_256 = program_t("hash_tb_256")
+                .set_kernel_name("hash_tb_256")
                 .set_queue(get_queue(context, 2));
-        static auto hash_tb_512 = symbolic_program_t("hash_tb_512")
-                .set_kernel_name("hash_symbolic_tb")
+        static auto hash_tb_512 = program_t("hash_tb_512")
+                .set_kernel_name("hash_tb_512")
                 .set_queue(get_queue(context, 3));
-        static auto hash_tb_1024 = symbolic_program_t("hash_tb_1024")
-                .set_kernel_name("hash_symbolic_tb")
+        static auto hash_tb_1024 = program_t("hash_tb_1024")
+                .set_kernel_name("hash_tb_1024")
                 .set_queue(get_queue(context, 4));
-        static auto hash_tb_2048 = symbolic_program_t("hash_tb_2048")
-                .set_kernel_name("hash_symbolic_tb")
+        static auto hash_tb_2048 = program_t("hash_tb_2048")
+                .set_kernel_name("hash_tb_2048")
                 .set_queue(get_queue(context, 5));
-        static auto hash_tb_4096 = symbolic_program_t("hash_tb_4096")
-                .set_kernel_name("hash_symbolic_tb")
-                .set_queue(get_queue(context, 6));
-
-
-        if (bin_id == 1) return hash_tb_128;
-        if (bin_id == 2) return hash_tb_256;
-        if (bin_id == 3) return hash_tb_512;
-        if (bin_id == 4) return hash_tb_1024;
-        if (bin_id == 5) return hash_tb_2048;
-        if (bin_id == 6) return hash_tb_4096;
-        throw std::runtime_error("Unknown bin id. error 22231");
-    }
-
-
-    auto &get_numeric_program(const cl::Context& context, uint32_t bin_id) {
-        using numeric_program_t = program<cl::Buffer, uint32_t, cl::Buffer,
-                cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-                uint32_t>;
-
-        static auto hash_tb_128 = numeric_program_t("hash_tb_128")
-                .set_kernel_name("hash_numeric_tb")
-                .set_queue(get_queue(context, 1));
-        static auto hash_tb_256 = numeric_program_t("hash_tb_256")
-                .set_kernel_name("hash_numeric_tb")
-                .set_queue(get_queue(context, 2));
-        static auto hash_tb_512 = numeric_program_t("hash_tb_512")
-                .set_kernel_name("hash_numeric_tb")
-                .set_queue(get_queue(context, 3));
-        static auto hash_tb_1024 = numeric_program_t("hash_tb_1024")
-                .set_kernel_name("hash_numeric_tb")
-                .set_queue(get_queue(context, 4));
-        static auto hash_tb_2048 = numeric_program_t("hash_tb_2048")
-                .set_kernel_name("hash_numeric_tb")
-                .set_queue(get_queue(context, 5));
-        static auto hash_tb_4096 = numeric_program_t("hash_tb_4096")
-                .set_kernel_name("hash_numeric_tb")
+        static auto hash_tb_4096 = program_t("hash_tb_4096")
+                .set_kernel_name("hash_tb_4096")
                 .set_queue(get_queue(context, 6));
 
         if (bin_id == 1) return hash_tb_128;
@@ -228,7 +194,7 @@ void count_nnz(Controls &controls,
             .set_kernel_name("hash_symbolic_pwarp")
             .set_queue(hash_details::get_queue(controls.context, 0));
 
-    static auto hash_global = program<cl::Buffer, uint32_t, uint32_t,
+    static auto hash_global = program<cl::Buffer, uint32_t,
             cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
             uint32_t, cl::Buffer, cl::Buffer>
             ("hash_symbolic_global")
@@ -257,20 +223,21 @@ void count_nnz(Controls &controls,
         }
 
         if (bin_id != MAX_GROUP_ID) {
-            auto &program = hash_details::get_symbolic_program(controls.context, bin_id);
+            auto &program = hash_details::get_program(controls.context, bin_id);
             program.set_block_size(block_size);
             program.set_needed_work_size(block_size * groups_length[bin_id]);
-            events.push_back(program.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
-                                         nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
+            events.push_back(program.run(controls, gpu_workload_groups, groups_pointers[bin_id],
+                                         nnz_estimation, cl::Buffer(),
+                                         a.rows_pointers_gpu(), a.cols_indices_gpu(),
                                          b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
-                                         b.nzr()
+                                         b.nzr(), 0
             ));
             continue;
         }
 
         hash_global.set_block_size(block_size);
         hash_global.set_needed_work_size(block_size * groups_length[bin_id]);
-        events.push_back(hash_global.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
+        events.push_back(hash_global.run(controls, gpu_workload_groups, groups_pointers[bin_id],
                                          nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
                                          b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
                                          b.nzr(),
@@ -306,7 +273,6 @@ void fill_nnz(Controls &controls,
     uint32_t c_nnz;
     prefix_sum(controls, pre_matrix_rows_pointers, c_nnz, a.nzr() + 1);
     cl::Buffer c_cols(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * c_nnz);
-
     static auto hash_pwarp = program<cl::Buffer, uint32_t, uint32_t, cl::Buffer,
             cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
             uint32_t>
@@ -339,13 +305,14 @@ void fill_nnz(Controls &controls,
         }
 
         if (bin_id != MAX_GROUP_ID) {
-            auto &program = hash_details::get_numeric_program(controls.context, bin_id);
+            auto &program = hash_details::get_program(controls.context, bin_id);
             program.set_block_size(block_size);
             program.set_needed_work_size(block_size * groups_length[bin_id]);
             events.push_back(program.run(controls, gpu_workload_groups, groups_pointers[bin_id],
-                                         pre_matrix_rows_pointers, c_cols, a.rows_pointers_gpu(), a.cols_indices_gpu(),
+                                         pre_matrix_rows_pointers, c_cols,
+                                         a.rows_pointers_gpu(), a.cols_indices_gpu(),
                                          b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
-                                         b.nzr()
+                                         b.nzr(), 1
             ));
             continue;
         }
