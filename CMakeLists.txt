@@ -100,10 +100,8 @@ add_executable(sparse-boolean-matrix-operations
         src/cl/fpga/multiplication_hash_kernels/set_positions.cl
 
         src/cl/fpga/multiplication_hash_kernels/hash_pwarp.cl
-        src/cl/fpga/multiplication_hash_kernels/hash_tb_128.cl
         src/cl/fpga/multiplication_hash_kernels/hash_tb_512.cl
         src/cl/fpga/multiplication_hash_kernels/hash_tb_1024.cl
-        src/cl/fpga/multiplication_hash_kernels/hash_tb_4096.cl
 
 
         src/cl/fpga/multiplication_hash_kernels/hash_symbolic_global.cl
