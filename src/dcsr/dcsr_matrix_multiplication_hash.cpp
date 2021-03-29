@@ -5,7 +5,7 @@
 #include "../coo/coo_matrix_addition.hpp"
 
 
-const uint32_t BINS_NUM = 8;
+const uint32_t BINS_NUM = 3;
 const uint32_t MAX_GROUP_ID = BINS_NUM - 1;
 #define PWARP 4
 #define SYMBOLIC 0
@@ -14,23 +14,23 @@ const uint32_t MAX_GROUP_ID = BINS_NUM - 1;
 namespace hash_details {
 
     auto &get_queue(const cl::Context& context, uint32_t bin_id) {
-        static cl::CommandQueue hash_pwarp_queue(context);
-        static cl::CommandQueue hash_tb_128(context);
-        static cl::CommandQueue hash_tb_256(context);
+//        static cl::CommandQueue hash_pwarp_queue(context);
+//        static cl::CommandQueue hash_tb_128(context);
+//        static cl::CommandQueue hash_tb_256(context);
         static cl::CommandQueue hash_tb_512(context);
         static cl::CommandQueue hash_tb_1024(context);
-        static cl::CommandQueue hash_tb_2048(context);
-        static cl::CommandQueue hash_tb_4096(context);
+//        static cl::CommandQueue hash_tb_2048(context);
+//        static cl::CommandQueue hash_tb_4096(context);
         static cl::CommandQueue hash_global_queue(context);
 
-        if (bin_id == 0) return hash_pwarp_queue;
-        if (bin_id == 1) return hash_tb_128;
-        if (bin_id == 2) return hash_tb_256;
-        if (bin_id == 3) return hash_tb_512;
-        if (bin_id == 4) return hash_tb_1024;
-        if (bin_id == 5) return hash_tb_2048;
-        if (bin_id == 6) return hash_tb_4096;
-        if (bin_id == 7) return hash_global_queue;
+//        if (bin_id == 0) return hash_pwarp_queue;
+//        if (bin_id == 1) return hash_tb_128;
+//        if (bin_id == 2) return hash_tb_256;
+        if (bin_id == 0) return hash_tb_512;
+        if (bin_id == 1) return hash_tb_1024;
+//        if (bin_id == 5) return hash_tb_2048;
+//        if (bin_id == 6) return hash_tb_4096;
+        if (bin_id == 2) return hash_global_queue;
 
         throw std::runtime_error("Unknown bin id. error 22231");
     }
@@ -40,31 +40,31 @@ namespace hash_details {
                 cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
                 uint32_t, uint32_t>;
 
-        static auto hash_tb_128 = program_t("hash_tb_128")
-                .set_kernel_name("hash_tb_128")
-                .set_queue(get_queue(context, 1));
-        static auto hash_tb_256 = program_t("hash_tb_256")
-                .set_kernel_name("hash_tb_256")
-                .set_queue(get_queue(context, 2));
+//        static auto hash_tb_128 = program_t("hash_tb_128")
+//                .set_kernel_name("hash_tb_128")
+//                .set_queue(get_queue(context, 1));
+//        static auto hash_tb_256 = program_t("hash_tb_256")
+//                .set_kernel_name("hash_tb_256")
+//                .set_queue(get_queue(context, 2));
         static auto hash_tb_512 = program_t("hash_tb_512")
                 .set_kernel_name("hash_tb_512")
-                .set_queue(get_queue(context, 3));
+                .set_queue(get_queue(context, 1));
         static auto hash_tb_1024 = program_t("hash_tb_1024")
                 .set_kernel_name("hash_tb_1024")
-                .set_queue(get_queue(context, 4));
-        static auto hash_tb_2048 = program_t("hash_tb_2048")
-                .set_kernel_name("hash_tb_2048")
-                .set_queue(get_queue(context, 5));
-        static auto hash_tb_4096 = program_t("hash_tb_4096")
-                .set_kernel_name("hash_tb_4096")
-                .set_queue(get_queue(context, 6));
+                .set_queue(get_queue(context, 2));
+//        static auto hash_tb_2048 = program_t("hash_tb_2048")
+//                .set_kernel_name("hash_tb_2048")
+//                .set_queue(get_queue(context, 5));
+//        static auto hash_tb_4096 = program_t("hash_tb_4096")
+//                .set_kernel_name("hash_tb_4096")
+//                .set_queue(get_queue(context, 6));
 
-        if (bin_id == 1) return hash_tb_128;
-        if (bin_id == 2) return hash_tb_256;
-        if (bin_id == 3) return hash_tb_512;
-        if (bin_id == 4) return hash_tb_1024;
-        if (bin_id == 5) return hash_tb_2048;
-        if (bin_id == 6) return hash_tb_4096;
+        if (bin_id == 0) return hash_tb_512;
+        if (bin_id == 1) return hash_tb_1024;
+//        if (bin_id == 3) return hash_tb_512;
+//        if (bin_id == 4) return hash_tb_1024;
+//        if (bin_id == 5) return hash_tb_2048;
+//        if (bin_id == 6) return hash_tb_4096;
         throw std::runtime_error("Unknown bin id. error 212421");
     }
 
@@ -75,35 +75,25 @@ namespace hash_details {
 #ifdef WIN
         // NOTE: NVIDIA can operate more than 256 threads per group, but AMD cannot
         if (bin_id == 0) return 256;
-        if (bin_id == 1) return 64;
-        if (bin_id == 2) return 128;
-        if (bin_id == 3) return 256;
-        if (bin_id == 4) return 256;
-        if (bin_id == 5) return 256;
-        if (bin_id == 6) return 256;
-        if (bin_id == 7) return 256;
+        if (bin_id == 1) return 256;
+        if (bin_id == 2) return 256;
+//        if (bin_id == 3) return 256;
+//        if (bin_id == 4) return 256;
+//        if (bin_id == 5) return 256;
+//        if (bin_id == 6) return 256;
+//        if (bin_id == 7) return 256;
 #else
         if (bin_id == 0) return 256;
-        if (bin_id == 1) return 128;
+        if (bin_id == 1) return 256;
         if (bin_id == 2) return 256;
-        if (bin_id == 3) return 512;
-        if (bin_id == 4) return 1024;
-        if (bin_id == 5) return 2048;
-        if (bin_id == 6) return 4096;
-        if (bin_id == 7) return 8192;
 #endif
         throw std::runtime_error("Unknown bin id. error 24642342152");
     }
 
     uint32_t get_group(uint32_t size) {
-        if (size <= 32) return 0;
-        if (size <= 128) return 1;
-        if (size <= 256) return 2;
-        if (size <= 512) return 3;
-        if (size <= 1024) return 4;
-        if (size <= 2048) return 5;
-        if (size <= 4096) return 6;
-        return 7;
+        if (size <= 512) return 0;
+        if (size <= 1024) return 1;
+        return 2;
     }
 
 #ifndef FPGA
@@ -187,12 +177,12 @@ void count_nnz(Controls &controls,
 
 ) {
 
-    static auto hash_pwarp = program<cl::Buffer, uint32_t, uint32_t, cl::Buffer,
-            cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-            uint32_t>
-            ("hash_pwarp")
-            .set_kernel_name("hash_symbolic_pwarp")
-            .set_queue(hash_details::get_queue(controls.context, 0));
+//    static auto hash_pwarp = program<cl::Buffer, uint32_t, uint32_t, cl::Buffer,
+//            cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+//            uint32_t>
+//            ("hash_pwarp")
+//            .set_kernel_name("hash_symbolic_pwarp")
+//            .set_queue(hash_details::get_queue(controls.context, 0));
 
     static auto hash_global = program<cl::Buffer, uint32_t,
             cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
@@ -210,17 +200,17 @@ void count_nnz(Controls &controls,
 
         if (DEBUG_ENABLE) *logger << "\n[count_nnz] group " << bin_id << ", size " << groups_length[bin_id];
 
-        if (bin_id == 0) {
-            hash_pwarp.set_needed_work_size(groups_length[bin_id] * PWARP);
-            hash_pwarp.set_block_size(block_size);
-            events.push_back(
-                    hash_pwarp.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
-                                   nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                                   b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
-                                   b.nzr()
-                    ));
-            continue;
-        }
+//        if (bin_id == 0) {
+//            hash_pwarp.set_needed_work_size(groups_length[bin_id] * PWARP);
+//            hash_pwarp.set_block_size(block_size);
+//            events.push_back(
+//                    hash_pwarp.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
+//                                   nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
+//                                   b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+//                                   b.nzr()
+//                    ));
+//            continue;
+//        }
 
         if (bin_id != MAX_GROUP_ID) {
             auto &program = hash_details::get_program(controls.context, bin_id);
@@ -273,12 +263,12 @@ void fill_nnz(Controls &controls,
     uint32_t c_nnz;
     prefix_sum(controls, pre_matrix_rows_pointers, c_nnz, a.nzr() + 1);
     cl::Buffer c_cols(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * c_nnz);
-    static auto hash_pwarp = program<cl::Buffer, uint32_t, uint32_t, cl::Buffer,
-            cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-            uint32_t>
-            ("hash_pwarp")
-            .set_kernel_name("hash_numeric_pwarp")
-            .set_queue(hash_details::get_queue(controls.context, 0));
+//    static auto hash_pwarp = program<cl::Buffer, uint32_t, uint32_t, cl::Buffer,
+//            cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+//            uint32_t>
+//            ("hash_pwarp")
+//            .set_kernel_name("hash_numeric_pwarp")
+//            .set_queue(hash_details::get_queue(controls.context, 0));
 
 
     static auto hash_global = program<cl::Buffer, uint32_t,
@@ -292,17 +282,17 @@ void fill_nnz(Controls &controls,
         if (groups_length[bin_id] == 0) continue;
 
         uint32_t block_size = hash_details::get_block_size(bin_id);
-        if (bin_id == 0) {
-            hash_pwarp.set_needed_work_size(groups_length[bin_id] * PWARP);
-            hash_pwarp.set_block_size(bin_id);
-            events.push_back(
-                    hash_pwarp.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
-                                   pre_matrix_rows_pointers, c_cols, a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                                   b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
-                                   b.nzr()
-                    ));
-            continue;
-        }
+//        if (bin_id == 0) {
+//            hash_pwarp.set_needed_work_size(groups_length[bin_id] * PWARP);
+//            hash_pwarp.set_block_size(bin_id);
+//            events.push_back(
+//                    hash_pwarp.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
+//                                   pre_matrix_rows_pointers, c_cols, a.rows_pointers_gpu(), a.cols_indices_gpu(),
+//                                   b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+//                                   b.nzr()
+//                    ));
+//            continue;
+//        }
 
         if (bin_id != MAX_GROUP_ID) {
             auto &program = hash_details::get_program(controls.context, bin_id);

@@ -49,8 +49,8 @@ struct Controls {
 #else
         timer localt;
         program_name += ".aocx";
-        std::cout << program_name << std::endl;
-        std::string file = FPGA_BINARIES +  program_name;
+        std::cout << "prepare_positions.aocx" << std::endl;
+        std::string file = FPGA_BINARIES +  "prepare_positions.aocx";
 
 
         localt.start();
