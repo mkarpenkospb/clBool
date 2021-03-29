@@ -82,6 +82,8 @@ private:
 
     #ifdef WIN
     std::string options_str = "-D GPU=1";
+    #else
+    std::string options_str = "";
     #endif
 
     void check_completeness(const Controls &controls) {
