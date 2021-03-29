@@ -43,7 +43,7 @@ void test_multiplication() {
 void test_multiplication_hash() {
     Controls controls = utils::create_controls();
     timer t;
-    for (uint32_t k = 5; k < 50; ++k) {
+    for (uint32_t k = 40; k < 50; ++k) {
         for (uint32_t i = 2000; i < 5000; i += 100) {
 //            uint32_t i = 2500, k = 36;
             if (DEBUG_ENABLE) *logger << "\n\nITER ------------------------ i = " << i <<
