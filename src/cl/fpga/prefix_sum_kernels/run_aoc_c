@@ -1,0 +1,6 @@
+aoc -c prefix_sum.cl update_pref_sum.cl --report
+
+
+
+
+

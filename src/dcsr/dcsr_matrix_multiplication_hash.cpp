@@ -375,8 +375,12 @@ void build_groups_and_allocate_hash(Controls &controls,
     global_hash_tables_offset_cpu.push_back(global_hash_mem_size);
 
     if (global_hash_mem_size != 0) {
+
+//        global_hash_tables_offset = cl::Buffer(controls.queue, global_hash_tables_offset_cpu.begin(),
+//                                               global_hash_tables_offset_cpu.end(), true);
         global_hash_tables_offset = cl::Buffer(controls.queue, global_hash_tables_offset_cpu.begin(),
                                                global_hash_tables_offset_cpu.end(), true);
+
         global_hash_tables = cl::Buffer(controls.context, CL_MEM_READ_WRITE,
                                         sizeof(uint32_t) * global_hash_mem_size);
     }

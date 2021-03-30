@@ -15,7 +15,7 @@ struct Controls {
 #else
     std::string WORKING_DIR = "/root/Desktop/GitReps/sparse_boolean_matrix_operations";
 #endif
-    std::string FPGA_BINARIES = "src/cl/fpga/multiplication_hash_kernels/";
+    std::string FPGA_BINARIES = "src/cl/fpga/prefix_sum_kernels/";
     const cl::Device device;
     const cl::Context context;
     cl::CommandQueue queue;

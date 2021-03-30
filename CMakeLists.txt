@@ -106,6 +106,10 @@ add_executable(sparse-boolean-matrix-operations
         src/cl/fpga/multiplication_hash_kernels/hash_symbolic_global.cl
         src/cl/fpga/multiplication_hash_kernels/hash_numeric_global.cl
 
+        # prefix sum fpga
+
+        src/cl/fpga/prefix_sum_kernels/prefix_sum.cl
+        src/cl/fpga/prefix_sum_kernels/update_pref_sum.cl
 
 
         # -----------------------------------------------------------------------
