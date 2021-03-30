@@ -1,4 +1,4 @@
-nohup aoc prefix_sum.cl update_pref_sum.cl &
+nohup aoc prefix_sum.cl update_pref_sum_v2.cl &
 
 
 

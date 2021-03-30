@@ -12,8 +12,9 @@ void prefix_sum(Controls &controls,
             .set_kernel_name("scan_blelloch");
 
     auto update = program<cl::Buffer, cl::Buffer, unsigned int, unsigned int>
-            ("update_pref_sum")
-            .set_kernel_name("update_pref_sum");
+            ("update_pref_sum_v2")
+            .set_kernel_name("update_pref_sum")
+            .set_task(true);
 
     uint32_t block_size = controls.block_size;
     uint32_t d_block_size = 2 * block_size;
@@ -54,7 +55,7 @@ void prefix_sum(Controls &controls,
 //        if (DEBUG_ENABLE) *logger << "scan finished in " << time << "\n";
 
         t.restart();
-        update.set_needed_work_size(array_size - leaf_size);
+        update.set_block_size(array_size - leaf_size);
         update.run(controls, array, *a_gpu_ptr, array_size, leaf_size).wait();
         time = t.elapsed();
 //        if (DEBUG_ENABLE) *logger << "update finished in " << time << "\n";

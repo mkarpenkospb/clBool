@@ -78,6 +78,7 @@ private:
     cl::Program cl_program;
     bool _async = false;
     bool _is_spec_queue = false;
+    bool _task = false;
     cl::CommandQueue* _queue;
 
     #ifdef WIN
@@ -150,6 +151,11 @@ public:
         _queue = &queue;
     }
 
+    program &set_task(bool flag) {
+        this->_task = flag;
+        return *this;
+    }
+
 //    void build(Controls &controls) {
 //        build_cl_program(controls);
 //        _built = true;
@@ -162,7 +168,9 @@ public:
             kernel_type functor(kernel);
 #ifndef FPGA
             cl::EnqueueArgs eargs(_async ? controls.async_queue : controls.queue,
-                                  cl::NDRange(utils::calculate_global_size(_block_size, _needed_work_size)),
+                                  cl::NDRange(
+                                          _task ? _block_size :
+                                          utils::calculate_global_size(_block_size, _needed_work_size)),
                                   cl::NDRange(_block_size));
 #else
             cl::EnqueueArgs eargs(_is_spec_queue ? *_queue : controls.queue,

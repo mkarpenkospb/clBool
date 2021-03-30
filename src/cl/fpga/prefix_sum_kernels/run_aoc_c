@@ -1,4 +1,4 @@
-aoc -c prefix_sum.cl update_pref_sum.cl --report
+aoc -c prefix_sum.cl update_pref_sum_v2.cl --report
 
 
 
