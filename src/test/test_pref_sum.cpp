@@ -32,7 +32,7 @@ void test_pref_sum() {
         uint32_t total;
         prefix_sum(controls, vec_gpu, total, size + 1);
         t.elapsed();
-        if (DEBUG_ENABLE) *logger << "GPU pref sum finished in " << t.last_elapsed();
+        if (DEBUG_ENABLE) *logger << "DEVICE pref sum finished in " << t.last_elapsed();
 
         if (total != prev) {
             throw std::runtime_error("sums are different!");
