@@ -49,7 +49,7 @@ struct Controls {
 #else
         timer localt;
         program_name += ".aocx";
-        std::cout << "prepare_positions.aocx" << std::endl;
+        std::cout << "update_pref_sum.aocx" << std::endl;
         std::string file = FPGA_BINARIES +  "prepare_positions.aocx";
 
 
