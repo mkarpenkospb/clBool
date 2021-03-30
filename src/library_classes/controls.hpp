@@ -49,8 +49,8 @@ struct Controls {
 #else
         timer localt;
         program_name += ".aocx";
-        std::cout << "update_pref_sum.aocx" << std::endl;
-        std::string file = FPGA_BINARIES +  "prepare_positions.aocx";
+        if (DEBUG_ENABLE) *logger << "update_pref_sum.aocx";
+        std::string file = FPGA_BINARIES +  "update_pref_sum.aocx";
 
 
         localt.start();
