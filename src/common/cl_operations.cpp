@@ -36,7 +36,7 @@ void prefix_sum(Controls &controls,
     scan.run(controls, a_gpu, array, total_sum_gpu, array_size);
 
     double time = t.elapsed();
-//    if (DEBUG_ENABLE) *logger << "first prescan finished in " << time << "\n";
+    if (DEBUG_ENABLE) *logger << "first prescan finished in " << time << "\n";
 
     uint32_t outer = (array_size + d_block_size - 1) / d_block_size;
     cl::Buffer *a_gpu_ptr = &a_gpu;
