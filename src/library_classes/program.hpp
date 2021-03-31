@@ -167,6 +167,10 @@ public:
             cl::Kernel kernel = KernelCache::get_kernel(controls, {_program_name, _kernel_name}, options_str);
             kernel_type functor(kernel);
 #ifndef FPGA
+            uint32_t gs =  _task ? _block_size :
+                                          utils::calculate_global_size(_block_size, _needed_work_size);
+            if (DEBUG_ENABLE) *logger << "global size: " << gs;
+            if (DEBUG_ENABLE) *logger << "_block_size: " << _block_size;
             cl::EnqueueArgs eargs(_async ? controls.async_queue : controls.queue,
                                   cl::NDRange(
                                           _task ? _block_size :
