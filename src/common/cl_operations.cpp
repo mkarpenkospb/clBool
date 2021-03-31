@@ -52,7 +52,7 @@ void prefix_sum(Controls &controls,
         t.restart();
         scan.run(controls, *b_gpu_ptr, *a_gpu_ptr, total_sum_gpu, outer);
         time = t.elapsed();
-//        if (DEBUG_ENABLE) *logger << "scan finished in " << time << "\n";
+        if (DEBUG_ENABLE) *logger << "scan finished in " << time << "\n";
 
         t.restart();
         update.set_block_size(array_size - leaf_size);
