@@ -33,7 +33,7 @@ void prefix_sum(Controls &controls,
 
     timer t;
     t.restart();
-    scan.run(controls, a_gpu, array, total_sum_gpu, array_size);
+    scan.run(controls, a_gpu, array, total_sum_gpu, array_size).wait();
 
     double time = t.elapsed();
     if (DEBUG_ENABLE) *logger << "first prescan finished in " << time << "\n";
