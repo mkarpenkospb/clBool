@@ -17,7 +17,7 @@ void prefix_sum(Controls &controls,
             .set_task(true)
             ;
 
-    uint32_t block_size = controls.block_size;
+    uint32_t block_size = 128;//controls.block_size;
     uint32_t d_block_size = 2 * block_size;
     uint32_t n = (array_size + 1) / 2;
 
