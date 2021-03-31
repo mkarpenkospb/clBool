@@ -20,7 +20,7 @@ void prefix_sum(Controls &controls,
     uint32_t block_size = 128;//controls.block_size;
     uint32_t d_block_size = 2 * block_size;
     uint32_t n = (array_size + 1) / 2;
-
+    scan.set_block_size(block_size);
     uint32_t a_size = (array_size + d_block_size - 1) / d_block_size; // max to save first roots
     uint32_t b_size = (a_size + d_block_size - 1) / d_block_size; // max to save second roots
 
