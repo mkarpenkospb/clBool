@@ -50,7 +50,7 @@ void prefix_sum(Controls &controls,
         scan.set_needed_work_size((outer + 1) / 2/*(outer + work_group_size - 1) / work_group_size * work_group_size*/);
 
         t.restart();
-        scan.run(controls, *b_gpu_ptr, *a_gpu_ptr, total_sum_gpu, outer);
+        scan.run(controls, *b_gpu_ptr, *a_gpu_ptr, total_sum_gpu, outer).wait();
         time = t.elapsed();
         if (DEBUG_ENABLE) *logger << "scan finished in " << time << "\n";
 
@@ -58,7 +58,7 @@ void prefix_sum(Controls &controls,
         update.set_block_size(array_size - leaf_size);
         update.run(controls, array, *a_gpu_ptr, array_size, leaf_size).wait();
         time = t.elapsed();
-//        if (DEBUG_ENABLE) *logger << "update finished in " << time << "\n";
+        if (DEBUG_ENABLE) *logger << "update finished in " << time << "\n";
 
         outer = (outer + d_block_size - 1) / d_block_size;
         std::swap(a_gpu_ptr, b_gpu_ptr);
