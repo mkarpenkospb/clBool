@@ -1,0 +1,1 @@
+nohup sh -c '../addition_kernels/run_aoc_c >add && ../multiplication_hash_kernels/run_aoc_c >mult ' &
