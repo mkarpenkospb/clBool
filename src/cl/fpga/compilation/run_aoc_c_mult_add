@@ -1,4 +1,4 @@
 rm nohup.out
-add="../addition_kernels"
-mult="../multiplication_hash_kernels"
+add=../addition_kernels
+mult=../multiplication_hash_kernels
 nohup sh -c 'aoc -c $add/merge_path.cl ../addition_kernels/prefix_sum_256.cl ../addition_kernels/prepare_positions.cl ../addition_kernels/set_positions.cl ../addition_kernels/update_pref_sum.cl -report &&  aoc -c ../multiplication_hash_kernels/count_workload.cl ../multiplication_hash_kernels/hash_numeric_global.cl ../multiplication_hash_kernels/hash_symbolic_global.cl ../multiplication_hash_kernels/hash_tb_512.cl ../multiplication_hash_kernels/hash_tb_1024.cl ../multiplication_hash_kernels/prefix_sum_256.cl ../multiplication_hash_kernels/update_pref_sum.cl ../multiplication_hash_kernels/set_positions.cl ../multiplication_hash_kernels/prepare_positions.cl -report' &
