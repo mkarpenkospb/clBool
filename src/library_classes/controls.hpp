@@ -15,17 +15,19 @@ struct Controls {
 #else
     std::string WORKING_DIR = "/root/Desktop/GitReps/sparse_boolean_matrix_operations";
 #endif
-    std::string FPGA_BINARIES = "src/cl/fpga/prefix_sum_kernels/";
+    std::string FPGA_BINARIES = "src/cl/fpga/";
+    std::string AOCX_NAME;
     const cl::Device device;
     const cl::Context context;
     cl::CommandQueue queue;
     cl::CommandQueue async_queue;
     const uint32_t block_size = uint32_t(256);
 
-    Controls(cl::Device& device) :
+    Controls(cl::Device& device, std::string aocx) :
             device(device)
     , context(cl::Context(device))
     , queue(cl::CommandQueue(context))
+    , AOCX_NAME(std::move(aocx))
 #ifdef WIN
     , async_queue(cl::CommandQueue(context, CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE))
 #else
@@ -48,10 +50,8 @@ struct Controls {
 
 #else
         timer localt;
-        program_name += ".aocx";
-        if (DEBUG_ENABLE) *logger << "update_pref_sum_v2.aocx";
-        std::string file = FPGA_BINARIES +  "update_pref_sum_v2.aocx";
-
+        if (DEBUG_ENABLE) *logger << AOCX_NAME;
+        std::string file = FPGA_BINARIES + AOCX_NAME;
 
         localt.start();
 

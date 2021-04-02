@@ -38,7 +38,7 @@ namespace utils {
         return (n + work_group_size - 1) / work_group_size * work_group_size;
     }
 
-    Controls create_controls() {
+    Controls create_controls(std::string aosx_name = "") {
         std::vector<cl::Platform> platforms;
         std::vector<cl::Device> devices;
         std::vector<cl::Kernel> kernels;

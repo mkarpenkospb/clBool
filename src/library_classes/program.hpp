@@ -163,6 +163,7 @@ public:
 
     cl::Event run(Controls &controls, Args ... args) {
         if (_task) _needed_work_size = _block_size;
+        if (_program_name == "") _program_name = controls.AOCX_NAME;
         check_completeness(controls);
         try {
             cl::Kernel kernel = KernelCache::get_kernel(controls, {_program_name, _kernel_name}, options_str);
