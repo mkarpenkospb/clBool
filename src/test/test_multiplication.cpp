@@ -41,7 +41,7 @@ void test_multiplication() {
 }
 
 void test_multiplication_hash() {
-    Controls controls = utils::create_controls();
+    Controls controls = utils::create_controls("multiplication_hash_kernels/prepare_positions.aocx");
     timer t;
     for (uint32_t k = 40; k < 50; ++k) {
         for (uint32_t i = 2000; i < 5000; i += 100) {
