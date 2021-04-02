@@ -8,7 +8,7 @@ using namespace coo_utils;
 using namespace utils;
 
 void test_pref_sum() {
-    Controls controls = create_controls();
+    Controls controls = create_controls("prefix_sum_kernels/update_pref_sum_v2");
     for (int size = 10'000'000; size < 10'200'000; size += 100) {
         if (DEBUG_ENABLE) *logger << "-------------- PREFIX SUM OF ARRAY OF SIZE " << size << " --------------";
         cpu_buffer vec(size, 0);

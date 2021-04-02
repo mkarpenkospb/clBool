@@ -23,7 +23,7 @@ namespace utils {
 
     uint32_t calculate_global_size(uint32_t work_group_size, uint32_t n);
 
-    Controls create_controls();
+    Controls create_controls(const std::string& aosx_name = "");
 
     std::string error_name(cl_int error);
 

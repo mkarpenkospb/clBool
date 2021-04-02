@@ -38,14 +38,14 @@ namespace utils {
         return (n + work_group_size - 1) / work_group_size * work_group_size;
     }
 
-    Controls create_controls(std::string aosx_name = "") {
+    Controls create_controls(const std::string& aosx_name) {
         std::vector<cl::Platform> platforms;
         std::vector<cl::Device> devices;
         std::vector<cl::Kernel> kernels;
         try {
             cl::Platform::get(&platforms);
             platforms[0].getDevices(CL_DEVICE_TYPE_ALL, &devices);
-            return Controls(devices[0]);
+            return Controls(devices[0], aosx_name);
         } catch (const cl::Error &e) {
             std::stringstream exception;
             exception << "\n" << e.what() << " : " << e.err() << "\n";
