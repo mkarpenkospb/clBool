@@ -1,6 +1,3 @@
-#define __local local
-
-__attribute__((reqd_work_group_size(256,1,1)))
 __kernel void set_positions_pointers_and_rows(__global uint* restrict newRowsPosition,
                                               __global uint* restrict newRows,
                                               __global const uint* restrict rowsPositions,

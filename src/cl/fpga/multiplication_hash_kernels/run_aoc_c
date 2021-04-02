@@ -1,4 +1,4 @@
- aoc -c count_workload.cl hash_numeric_global.cl hash_symbolic_global.cl hash_tb_512.cl hash_tb_1024.cl prefix_sum.cl update_pref_sum.cl set_positions.cl prepare_positions.cl --report
+ aoc -c count_workload.cl hash_numeric_global.cl hash_symbolic_global.cl hash_tb_512.cl hash_tb_1024.cl prefix_sum_256.cl update_pref_sum.cl set_positions.cl prepare_positions.cl --report
 
 
 

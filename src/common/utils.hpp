@@ -50,12 +50,17 @@ namespace utils {
         timer t;
         t.restart();
         cl::Event ev;
-
+        try {
         controls.queue.enqueueReadBuffer(buffer_g, CL_TRUE, 0, sizeof(typename buf::value_type) * cpu_copy.size(),
                                          cpu_copy.data(), nullptr, &ev);
+        } catch (const cl::Error& e) {
+            std::stringstream exception;
+            exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << " in " << name << " \n";
+            throw std::runtime_error(exception.str());
+        }
         ev.wait();
-        double time = t.elapsed();
-        if (DEBUG_ENABLE) *logger << "read buffer in " << time << " \n";
+        t.elapsed();
+        if (DEBUG_ENABLE) *logger << "read buffer in " << t.last_elapsed();
 
         for (uint32_t i = 0; i < size; ++i) {
             typename buf::value_type d = cpu_copy[i] - buffer_c[i];
@@ -69,7 +74,7 @@ namespace utils {
                 throw std::runtime_error("buffers for " + name + " are different");
             }
         }
-        if (DEBUG_ENABLE) *logger << "buffers are equal\n";
+        if (DEBUG_ENABLE) *logger << "buffers are equal";
     }
 
     void program_handler(const cl::Error &e, const cl::Program &program,

@@ -21,7 +21,6 @@ uint search_global(__global const uint* array, uint value, uint size) {
     return size;
 }
 
-__attribute__((reqd_work_group_size(256,1,1)))
 __kernel void count_workload(__global uint* restrict nnz_estimation,
                              __global const uint* restrict a_rows_pointers,
                              __global const uint* restrict a_cols,
