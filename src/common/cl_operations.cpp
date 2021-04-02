@@ -14,8 +14,7 @@ void prefix_sum(Controls &controls,
     auto update = program<cl::Buffer, cl::Buffer, unsigned int, unsigned int>
             ("update_pref_sum")
             .set_kernel_name("update_pref_sum")
-            .set_task(true)
-            ;
+            .set_task(true);
 
     uint32_t block_size = 128;//controls.block_size;
     uint32_t d_block_size = 2 * block_size;

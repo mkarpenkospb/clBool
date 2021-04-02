@@ -7,11 +7,11 @@
 
 void testMatrixAddition() {
     timer t;
-    Controls controls = utils::create_controls();
+    Controls controls = utils::create_controls("compile_single_command/set_positions.aocx");
     for (int iter = 0; iter < 20; iter++) {
         if (DEBUG_ENABLE)
             *logger << "\n----------------------------- ITER " << iter << " --------------------------------\n";
-        std::cout << "\n----------------------------- ITER " << iter << " --------------------------------\n";
+
         int i = 1234234;
         int j = 3746761;
 
