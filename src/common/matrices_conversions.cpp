@@ -28,7 +28,8 @@ namespace {
 
         cl::Buffer positions(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * size);
 
-        auto prepare_positions = program<cl::Buffer, cl::Buffer, uint32_t>(prepare_positions_kernel, prepare_positions_kernel_length)
+        auto prepare_positions = program<cl::Buffer, cl::Buffer, uint32_t>(prepare_positions_kernel,
+                                                                           prepare_positions_kernel_length)
                 .set_kernel_name("prepare_array_for_rows_positions")
                 .set_needed_work_size(size);
         prepare_positions.run(controls, positions, rows, size);
@@ -39,7 +40,7 @@ namespace {
         cl::Buffer rows_compressed(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * nzr);
 
         auto set_positions = program<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, uint32_t, uint32_t>(
-                 set_positions_kernel, set_positions_kernel_length)
+                set_positions_kernel, set_positions_kernel_length)
                 .set_kernel_name("set_positions_rows")
                 .set_needed_work_size(size);
 
@@ -63,9 +64,21 @@ matrix_dcsr coo_to_dcsr_gpu(Controls &controls, const matrix_coo &a) {
 
 matrix_dcsr matrix_dcsr_from_cpu(Controls &controls, matrix_dcsr_cpu &m, uint32_t size) {
 
-    cl::Buffer rows_pointers(controls.context, m.rows_pointers().begin(), m.rows_pointers().end(), false);
-    cl::Buffer rows_compressed(controls.context, m.rows_compressed().begin(), m.rows_compressed().end(), false);
-    cl::Buffer cols_indices(controls.context, m.cols_indices().begin(), m.cols_indices().end(), false);
+    cl::Buffer rows_pointers(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * m.rows_pointers().size());
+    cl::Buffer rows_compressed(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * m.rows_compressed().size());
+    cl::Buffer cols_indices(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * m.cols_indices().size());
+
+    controls.queue.enqueueWriteBuffer(rows_pointers, true, 0,
+                                      sizeof(uint32_t) * m.rows_pointers().size(), m.rows_pointers().data());
+    controls.queue.enqueueWriteBuffer(rows_compressed, true, 0,
+                                      sizeof(uint32_t) * m.rows_compressed().size(), m.rows_compressed().data());
+    controls.queue.enqueueWriteBuffer(cols_indices, true, 0,
+                                      sizeof(uint32_t) * m.cols_indices().size(), m.cols_indices().data());
+
+// we cannot use "iter-based" initialisation because it creates not aligned buffers on the device
+//    cl::Buffer rows_pointers(controls.context, m.rows_pointers().begin(), m.rows_pointers().end(), false);
+//    cl::Buffer rows_compressed(controls.context, m.rows_compressed().begin(), m.rows_compressed().end(), false);
+//    cl::Buffer cols_indices(controls.context, m.cols_indices().begin(), m.cols_indices().end(), false);
 
     return matrix_dcsr(rows_pointers, rows_compressed, cols_indices,
                        size, size, m.cols_indices().size(), m.rows_compressed().size());
