@@ -441,7 +441,11 @@ void count_workload(Controls &controls,
         uint32_t, uint32_t>
         ("count_workload")
         .set_needed_work_size(a.nzr())
-        .set_kernel_name("count_workload");
+        .set_kernel_name("count_workload")
+#ifndef WIN
+        .set_task(true)
+#endif
+        ;
 
     cl::Buffer nnz_estimation(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (a.nzr() + 1));
 
@@ -458,13 +462,19 @@ void prepare_positions(Controls &controls,
                        uint32_t size,
                        const std::string &program_name
 ) {
+    timer t;
     auto prepare_positions = program<cl::Buffer, cl::Buffer, uint32_t>
             ("prepare_positions")
             .set_kernel_name(program_name)
-            .set_needed_work_size(size);
-
+            .set_needed_work_size(size)
+#ifndef WIN
+            .set_task(true)
+#endif
+            ;
+    t.restart();
     prepare_positions.run(controls, positions, array, size);//.wait();
-//    event.wait();
+    t.elapsed();
+    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) *logger << "Set positions routine finished in " << t.last_elapsed();
 }
 
 
@@ -479,17 +489,20 @@ void set_positions(Controls &controls,
                    uint32_t c_nzr
 ) {
     timer t;
-    t.restart();
     auto set_positions = program<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
             uint32_t, uint32_t, uint32_t>
             ("set_positions")
             .set_kernel_name("set_positions_pointers_and_rows")
-            .set_needed_work_size(old_nzr);
-
+            .set_needed_work_size(old_nzr)
+#ifndef WIN
+            .set_task(true)
+#endif
+            ;
+    t.restart();
     set_positions.run(controls, c_rows_pointers, c_rows_compressed,
                   nnz_estimation, a_rows_compressed, positions,
                   c_nnz, old_nzr, c_nzr);//.wait();
-    double time = t.elapsed();
-    if (DEBUG_ENABLE) *logger << "Set positions routine finished in " << time << "\n";
+    t.elapsed();
+    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) *logger << "Set positions routine finished in " << t.last_elapsed();
 //    event.wait();
 }

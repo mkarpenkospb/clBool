@@ -162,7 +162,9 @@ public:
 //    }
 
     cl::Event run(Controls &controls, Args ... args) {
-        if (_task) _needed_work_size = _block_size;
+        // FPGA kernel can be run with one work group for all threads
+        // These kernels are the "task kernels"
+        if (_task) _block_size = _needed_work_size;
         if (_program_name == "") _program_name = controls.AOCX_NAME;
         check_completeness(controls);
         try {

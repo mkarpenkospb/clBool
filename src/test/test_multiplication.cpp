@@ -41,12 +41,11 @@ void test_multiplication() {
 }
 
 void test_multiplication_hash() {
-    Controls controls = utils::create_controls("prepare_positions.aocx");
+    Controls controls = utils::create_controls("../compilation/prepare_positions.aocx");
     controls.FPGA_BINARIES = "src/cl/fpga/multiplication_hash_kernels/";
     timer t;
     for (uint32_t k = 40; k < 50; ++k) {
         for (uint32_t i = 2000; i < 5000; i += 100) {
-//            uint32_t i = 2500, k = 36;
             if (DEBUG_ENABLE) *logger << "\n\nITER ------------------------ i = " << i <<
             ", k = " << k << "-----------------------------\n";
             uint32_t max_size = i;
