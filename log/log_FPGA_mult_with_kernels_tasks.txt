@@ -1,0 +1,143 @@
+
+[LOGGING] 
+
+ITER ------------------------ i = 2000, k = 40-----------------------------
+
+[LOGGING] a_cpu created in 0.118051
+[LOGGING] matrix_multiplication_cpu in 1.78737
+[LOGGING] matrix_dcsr_from_cpu in 0.0008
+[LOGGING] src/cl/fpga/multiplication_hash_kernels/prepare_positions.aocx
+[LOGGING] create buffer with binaries in 0.154674
+[LOGGING] program count_workload created in 0.474351
+[LOGGING] kernel count_workload created in 2.1e-05
+[LOGGING] count_workload in 0.478729
+[LOGGING] build_groups_and_allocate_hash in 0.000894
+[LOGGING] write_bins_info in 0.000277
+[LOGGING] 
+[count_nnz] group 1, size 27
+[LOGGING] src/cl/fpga/multiplication_hash_kernels/prepare_positions.aocx
+[LOGGING] create buffer with binaries in 0.115612
+[LOGGING] program hash_tb_1024 created in 0.403383
+[LOGGING] kernel hash_tb_1024 created in 1e-05
+[LOGGING] 
+[count_nnz] group 2, size 1973
+[LOGGING] src/cl/fpga/multiplication_hash_kernels/prepare_positions.aocx
+[LOGGING] create buffer with binaries in 0.091611
+[LOGGING] program hash_symbolic_global created in 0.338719
+[LOGGING] kernel hash_symbolic_global created in 1.1e-05
+[LOGGING] count_nnz in 5.22335
+[LOGGING] src/cl/fpga/multiplication_hash_kernels/prepare_positions.aocx
+[LOGGING] create buffer with binaries in 0.152154
+[LOGGING] program prefix_sum_256 created in 0.466498
+[LOGGING] kernel scan_blelloch created in 1.3e-05
+[LOGGING] first prescan finished in 0.466886
+[LOGGING] scan finished in 0.000138
+
+[LOGGING] src/cl/fpga/multiplication_hash_kernels/prepare_positions.aocx
+[LOGGING] create buffer with binaries in 0.115775
+[LOGGING] program update_pref_sum created in 0.407006
+[LOGGING] kernel update_pref_sum created in 1e-05
+[LOGGING] update finished in 0.407226
+
+[LOGGING] src/cl/fpga/multiplication_hash_kernels/prepare_positions.aocx
+[LOGGING] create buffer with binaries in 0.091182
+[LOGGING] program hash_numeric_global created in 0.337709
+[LOGGING] kernel hash_numeric_global created in 1.2e-05
+[LOGGING] src/cl/fpga/multiplication_hash_kernels/prepare_positions.aocx
+[LOGGING] create buffer with binaries in 0.091327
+[LOGGING] program prepare_positions created in 0.33776
+[LOGGING] kernel prepare_for_shift_empty_rows created in 1.1e-05
+[LOGGING] Set positions routine finished in 0.337971
+[LOGGING] first prescan finished in 0.000243
+[LOGGING] scan finished in 0.000117
+
+[LOGGING] update finished in 8.7e-05
+
+[LOGGING] src/cl/fpga/multiplication_hash_kernels/prepare_positions.aocx
+[LOGGING] create buffer with binaries in 0.091261
+[LOGGING] program set_positions created in 0.338509
+[LOGGING] kernel set_positions_pointers_and_rows created in 1e-05
+[LOGGING] Set positions routine finished in 0.33871
+[LOGGING] fill_nnz in 1.90064
+[LOGGING] matrix_multiplication_hash in 7.604
+[LOGGING] read buffer in 0.000228
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.000125
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.001734
+[LOGGING] buffers are equal
+[LOGGING] 
+
+ITER ------------------------ i = 2100, k = 40-----------------------------
+
+[LOGGING] a_cpu created in 0.063211
+[LOGGING] matrix_multiplication_cpu in 1.72337
+[LOGGING] matrix_dcsr_from_cpu in 0.000624
+[LOGGING] count_workload in 0.004324
+[LOGGING] build_groups_and_allocate_hash in 0.000884
+[LOGGING] write_bins_info in 0.000213
+[LOGGING] 
+[count_nnz] group 0, size 1
+[LOGGING] src/cl/fpga/multiplication_hash_kernels/prepare_positions.aocx
+[LOGGING] create buffer with binaries in 0.091733
+[LOGGING] program hash_tb_512 created in 0.343717
+[LOGGING] kernel hash_tb_512 created in 1.1e-05
+[LOGGING] 
+[count_nnz] group 1, size 19
+[LOGGING] 
+[count_nnz] group 2, size 2080
+[LOGGING] count_nnz in 5.16522
+[LOGGING] first prescan finished in 0.000387
+[LOGGING] scan finished in 0.000194
+
+[LOGGING] update finished in 0.000149
+
+[LOGGING] Set positions routine finished in 0.000157
+[LOGGING] first prescan finished in 0.000315
+[LOGGING] scan finished in 0.000185
+
+[LOGGING] update finished in 0.000165
+
+[LOGGING] Set positions routine finished in 0.00021
+[LOGGING] fill_nnz in 0.018111
+[LOGGING] matrix_multiplication_hash in 5.18884
+[LOGGING] read buffer in 0.000225
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.00014
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.00188
+[LOGGING] buffers are equal
+[LOGGING] 
+
+ITER ------------------------ i = 2200, k = 40-----------------------------
+
+[LOGGING] a_cpu created in 0.088225
+[LOGGING] matrix_multiplication_cpu in 1.8819
+[LOGGING] matrix_dcsr_from_cpu in 0.000601
+[LOGGING] count_workload in 0.004562
+[LOGGING] build_groups_and_allocate_hash in 0.000884
+[LOGGING] write_bins_info in 0.000227
+[LOGGING] 
+[count_nnz] group 1, size 15
+[LOGGING] 
+[count_nnz] group 2, size 2185
+[LOGGING] count_nnz in 5.28294
+[LOGGING] first prescan finished in 0.000352
+[LOGGING] scan finished in 0.000191
+
+[LOGGING] update finished in 0.000149
+
+[LOGGING] Set positions routine finished in 0.000153
+[LOGGING] first prescan finished in 0.000315
+[LOGGING] scan finished in 0.000185
+
+[LOGGING] update finished in 0.000161
+
+[LOGGING] Set positions routine finished in 0.000221
+[LOGGING] fill_nnz in 0.017723
+[LOGGING] matrix_multiplication_hash in 5.30644
+[LOGGING] read buffer in 0.000223
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.000108
+[LOGGING] buffers are equal
+[LOGGING] read buffer in 0.001923
