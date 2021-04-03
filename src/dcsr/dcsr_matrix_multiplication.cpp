@@ -174,17 +174,27 @@ void write_bins_info(Controls &controls,
 
     uint32_t offset = 0;
     uint32_t bins = cpu_workload_groups.size();
+    cpu_buffer cpu_workload_groups_for_copy;
 //    cl::Event end_write_buffer;
     for (uint32_t workload_group_id = 0; workload_group_id < bins; ++workload_group_id) {
         const cpu_buffer& group = cpu_workload_groups[workload_group_id];
         if (group.empty()) continue;
         groups_pointers[workload_group_id] = offset;
         groups_length[workload_group_id] = group.size();
-        controls.queue.enqueueWriteBuffer(gpu_workload_groups, CL_TRUE, sizeof(uint32_t) * offset,
-                                          sizeof(uint32_t) * group.size(), group.data()
-                                         /* , nullptr, &end_write_buffer*/);
+        cpu_workload_groups_for_copy.insert(
+                cpu_workload_groups_for_copy.end(),
+                group.begin(),
+                group.end()
+                );
+//        controls.queue.enqueueWriteBuffer(gpu_workload_groups, CL_TRUE, sizeof(uint32_t) * offset,
+//                                          sizeof(uint32_t) * group.size(), group.data()
+//                                         /* , nullptr, &end_write_buffer*/);
         offset += group.size();
     }
+    controls.queue.enqueueWriteBuffer(gpu_workload_groups, CL_TRUE, 0,
+                                      sizeof(uint32_t) * cpu_workload_groups_for_copy.size(),
+                                      cpu_workload_groups_for_copy.data());
+
 
     groups_pointers[bins] = offset;
 //    end_write_buffer.wait();
@@ -450,8 +460,8 @@ void count_workload(Controls &controls,
     cl::Buffer nnz_estimation(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (a.nzr() + 1));
 
     count_workload.run(controls, nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                       b.rows_compressed_gpu(), b.rows_pointers_gpu(), a.nzr(), b.nzr());
-//                       .wait();
+                       b.rows_compressed_gpu(), b.rows_pointers_gpu(), a.nzr(), b.nzr())
+                       .wait();
     nnz_estimation_out = std::move(nnz_estimation);
 }
 
@@ -472,7 +482,7 @@ void prepare_positions(Controls &controls,
 #endif
             ;
     t.restart();
-    prepare_positions.run(controls, positions, array, size);//.wait();
+    prepare_positions.run(controls, positions, array, size).wait();
     t.elapsed();
     if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) *logger << "Set positions routine finished in " << t.last_elapsed();
 }
@@ -501,7 +511,7 @@ void set_positions(Controls &controls,
     t.restart();
     set_positions.run(controls, c_rows_pointers, c_rows_compressed,
                   nnz_estimation, a_rows_compressed, positions,
-                  c_nnz, old_nzr, c_nzr);//.wait();
+                  c_nnz, old_nzr, c_nzr).wait();
     t.elapsed();
     if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) *logger << "Set positions routine finished in " << t.last_elapsed();
 //    event.wait();

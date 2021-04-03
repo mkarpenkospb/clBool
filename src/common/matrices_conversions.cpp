@@ -68,11 +68,11 @@ matrix_dcsr matrix_dcsr_from_cpu(Controls &controls, matrix_dcsr_cpu &m, uint32_
     cl::Buffer rows_compressed(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * m.rows_compressed().size());
     cl::Buffer cols_indices(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * m.cols_indices().size());
 
-    controls.queue.enqueueWriteBuffer(rows_pointers, true, 0,
+    controls.queue.enqueueWriteBuffer(rows_pointers, CL_TRUE, 0,
                                       sizeof(uint32_t) * m.rows_pointers().size(), m.rows_pointers().data());
-    controls.queue.enqueueWriteBuffer(rows_compressed, true, 0,
+    controls.queue.enqueueWriteBuffer(rows_compressed, CL_TRUE, 0,
                                       sizeof(uint32_t) * m.rows_compressed().size(), m.rows_compressed().data());
-    controls.queue.enqueueWriteBuffer(cols_indices, true, 0,
+    controls.queue.enqueueWriteBuffer(cols_indices, CL_TRUE, 0,
                                       sizeof(uint32_t) * m.cols_indices().size(), m.cols_indices().data());
 
 // we cannot use "iter-based" initialisation because it creates not aligned buffers on the device
