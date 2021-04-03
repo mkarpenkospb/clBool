@@ -7,7 +7,7 @@
 
 void testMatrixAddition() {
     timer t;
-    Controls controls = utils::create_controls("set_positions.aocx");
+    Controls controls = utils::create_controls("update_pref_sum.aocx");
     controls.FPGA_BINARIES = "src/cl/fpga/addition_kernels/";
     for (int iter = 0; iter < 20; iter++) {
         if (DEBUG_ENABLE)
