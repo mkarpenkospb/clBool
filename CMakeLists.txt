@@ -95,7 +95,7 @@ add_executable(sparse-boolean-matrix-operations
             # hash FPGA
 
         src/cl/fpga/multiplication_hash_kernels/count_workload.cl
-        src/cl/fpga/multiplication_hash_kernels/prefix_sum.cl
+        src/cl/fpga/multiplication_hash_kernels/prefix_sum_256.cl
         src/cl/fpga/multiplication_hash_kernels/prepare_positions.cl
         src/cl/fpga/multiplication_hash_kernels/set_positions.cl
 
