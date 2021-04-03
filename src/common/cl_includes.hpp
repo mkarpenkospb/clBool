@@ -19,7 +19,7 @@
     #ifdef WIN
     inline const Logger logger;/*("../log/log_GPU_merge_path.txt")*/;
     #else
-    inline const Logger logger;/*("../log/log_FPGA_merge_path.txt")*/;
+    inline const Logger logger("../log/log_FPGA_mult_with_kernels_tasks.txt");
     #endif
 #endif
 
