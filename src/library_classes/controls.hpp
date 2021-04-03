@@ -49,11 +49,11 @@ struct Controls {
         return cl::Program(context, {{buffer.data(), buffer.size()}});
 
 #else
-        timer localt;
+        timer t;
         if (DEBUG_ENABLE) *logger << AOCX_NAME;
         std::string file = FPGA_BINARIES + AOCX_NAME;
 
-        localt.start();
+        t.start();
 
         //https://stackoverflow.com/a/6755132
         std::ifstream is(file);
@@ -65,9 +65,8 @@ struct Controls {
         // Close the file
         is.close();
 
-
-        double time = localt.elapsed();
-        if (DEBUG_ENABLE) *logger << "create buffer with binaries in " << time << "\n";
+        t.elapsed();
+        if (DEBUG_ENABLE) *logger << "create buffer with binaries in " << t.last_elapsed();
 
         return cl::Program(context, {device}, {buffer});
 #endif
