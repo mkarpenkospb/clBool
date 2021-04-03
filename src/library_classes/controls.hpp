@@ -50,7 +50,7 @@ struct Controls {
 
 #else
         timer t;
-        if (DEBUG_ENABLE) *logger << FPGA_BINARIES + AOCX_NAME;
+        if (DEBUG_ENABLE) Log() << FPGA_BINARIES + AOCX_NAME;
         std::string file = FPGA_BINARIES + AOCX_NAME;
 
         t.start();
@@ -66,7 +66,7 @@ struct Controls {
         is.close();
 
         t.elapsed();
-        if (DEBUG_ENABLE) *logger << "create buffer with binaries in " << t.last_elapsed();
+        if (DEBUG_ENABLE) Log() << "create buffer with binaries in " << t.last_elapsed();
 
         return cl::Program(context, {device}, {buffer});
 #endif
