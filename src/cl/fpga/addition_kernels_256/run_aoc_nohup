@@ -1,0 +1,7 @@
+nohup aoc merge_path.cl prefix_sum_256.cl prepare_positions.cl set_positions.cl update_pref_sum.cl &
+
+
+
+
+
+

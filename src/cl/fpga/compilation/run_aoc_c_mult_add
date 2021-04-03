@@ -1,6 +1,6 @@
 rm nohup.out
-add='../addition_kernels'
-mult='../multiplication_hash_kernels'
+add='../addition_kernels_256'
+mult='../multiplication_hash_kernels_256'
 nohup sh -c "aoc -c \
 ${add}/merge_path.cl \
 ${add}/prefix_sum_256.cl \
