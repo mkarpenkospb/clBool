@@ -43,7 +43,7 @@ void matrix_multiplication(Controls &controls,
     t.restart();
     count_workload(controls, nnz_estimation, a, b);
     double time = t.elapsed();
-    if (DEBUG_ENABLE) *logger << "Workload counted in " << time << "\n";
+    if (DEBUG_ENABLE) Log() << "Workload counted in " << time << "\n";
 
     std::vector<cpu_buffer> cpu_workload_groups(BINS_NUM, cpu_buffer());
     cpu_buffer groups_pointers(BINS_NUM + 1);
@@ -62,7 +62,7 @@ void matrix_multiplication(Controls &controls,
     t.restart();
     write_bins_info(controls, gpu_workload_groups, cpu_workload_groups, groups_pointers, groups_length);
     time = t.elapsed();
-    if (DEBUG_ENABLE) *logger << "Bins written in " << time << "\n";
+    if (DEBUG_ENABLE) Log() << "Bins written in " << time << "\n";
 
 
     run_kernels(controls, groups_length, groups_pointers,
@@ -356,7 +356,7 @@ void run_kernels(Controls &controls,
     try {
         cl::Event::waitForEvents(events);
         double time = t.elapsed();
-        if (DEBUG_ENABLE) *logger << "kernels run in " << time << "\n";
+        if (DEBUG_ENABLE) Log() << "kernels run in " << time << "\n";
     } catch (const cl::Error &e) {
         std::stringstream exception;
         exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << " in " << "run_kernels" << " \n";
@@ -412,7 +412,7 @@ void build_groups_and_allocate_new_matrix(Controls& controls,
     rows_pointers_cpu[a.nzr()] = pre_nnz;
 
     double time = t.elapsed();
-    if (DEBUG_ENABLE) *logger << "Groups formed in " << time << "\n";
+    if (DEBUG_ENABLE) Log() << "Groups formed in " << time << "\n";
 
     t.restart();
     cl::Buffer pre_rows_pointers = cl::Buffer(controls.queue, rows_pointers_cpu.begin(), rows_pointers_cpu.end(), false);
@@ -428,7 +428,7 @@ void build_groups_and_allocate_new_matrix(Controls& controls,
     pre = matrix_dcsr(pre_rows_pointers, a.rows_compressed_gpu(), pre_cols_indices_gpu,
                       a.nRows(), b_cols, pre_nnz, a.nzr());
     time = t.elapsed();
-    if (DEBUG_ENABLE) *logger << "Temporary matrix formed in " << time << "\n";
+    if (DEBUG_ENABLE) Log() << "Temporary matrix formed in " << time << "\n";
 }
 
 
@@ -452,9 +452,9 @@ void count_workload(Controls &controls,
         ("count_workload")
         .set_needed_work_size(a.nzr())
         .set_kernel_name("count_workload")
-#ifndef WIN
-        .set_task(true)
-#endif
+//#ifndef WIN
+//        .set_task(true)
+//#endif
         ;
 
     cl::Buffer nnz_estimation(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (a.nzr() + 1));
@@ -477,14 +477,14 @@ void prepare_positions(Controls &controls,
             ("prepare_positions")
             .set_kernel_name(program_name)
             .set_needed_work_size(size)
-#ifndef WIN
-            .set_task(true)
-#endif
+//#ifndef WIN
+//            .set_task(true)
+//#endif
             ;
     t.restart();
     prepare_positions.run(controls, positions, array, size).wait();
     t.elapsed();
-    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) *logger << "Set positions routine finished in " << t.last_elapsed();
+    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) Log() << "Set positions routine finished in " << t.last_elapsed();
 }
 
 
@@ -504,15 +504,15 @@ void set_positions(Controls &controls,
             ("set_positions")
             .set_kernel_name("set_positions_pointers_and_rows")
             .set_needed_work_size(old_nzr)
-#ifndef WIN
-            .set_task(true)
-#endif
+//#ifndef WIN
+//            .set_task(true)
+//#endif
             ;
     t.restart();
     set_positions.run(controls, c_rows_pointers, c_rows_compressed,
                   nnz_estimation, a_rows_compressed, positions,
                   c_nnz, old_nzr, c_nzr).wait();
     t.elapsed();
-    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) *logger << "Set positions routine finished in " << t.last_elapsed();
+    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) Log() << "Set positions routine finished in " << t.last_elapsed();
 //    event.wait();
 }

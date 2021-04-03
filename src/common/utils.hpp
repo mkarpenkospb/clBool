@@ -60,7 +60,7 @@ namespace utils {
         }
         ev.wait();
         t.elapsed();
-        if (DEBUG_ENABLE) *logger << "read buffer in " << t.last_elapsed();
+        if (DEBUG_ENABLE) Log() << "read buffer in " << t.last_elapsed();
 
         for (uint32_t i = 0; i < size; ++i) {
             typename buf::value_type d = cpu_copy[i] - buffer_c[i];
@@ -74,7 +74,7 @@ namespace utils {
                 throw std::runtime_error("buffers for " + name + " are different");
             }
         }
-        if (DEBUG_ENABLE) *logger << "buffers are equal";
+        if (DEBUG_ENABLE) Log() << "buffers are equal";
     }
 
     void program_handler(const cl::Error &e, const cl::Program &program,

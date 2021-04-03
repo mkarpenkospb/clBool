@@ -38,7 +38,7 @@ struct KernelCache {
             cl_program.build(options.c_str());
             KernelCache::programs[_program_name] = cl_program;
             t.elapsed();
-            if (DEBUG_ENABLE) *logger << "program " << _program_name << " created in " << t.last_elapsed();
+            if (DEBUG_ENABLE) Log() << "program " << _program_name << " created in " << t.last_elapsed();
             return KernelCache::programs[_program_name];
             #endif
         } catch (const cl::Error &e) {
@@ -54,7 +54,7 @@ struct KernelCache {
         timer t;
         kernels[id] = cl::Kernel(cl_program, id.second.c_str());
         t.elapsed();
-        if (DEBUG_ENABLE) *logger << "kernel " << id.second << " created in " << t.last_elapsed();
+        if (DEBUG_ENABLE) Log() << "kernel " << id.second << " created in " << t.last_elapsed();
         return kernels[id];
     }
 

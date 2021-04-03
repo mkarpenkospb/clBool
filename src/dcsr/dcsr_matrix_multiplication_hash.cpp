@@ -78,7 +78,7 @@ void matrix_multiplication_hash(Controls &controls,
     t.restart();
     count_workload(controls, nnz_estimation, a, b);
     t.elapsed();
-    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) *logger << "count_workload in " << t.last_elapsed();
+    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) Log() << "count_workload in " << t.last_elapsed();
 
     std::vector<cpu_buffer> cpu_workload_groups(BINS_NUM, cpu_buffer());
     cpu_buffer groups_pointers(BINS_NUM + 1);
@@ -92,7 +92,7 @@ void matrix_multiplication_hash(Controls &controls,
     build_groups_and_allocate_hash(controls, cpu_workload_groups, nnz_estimation, a,
                                    global_hash_tables, global_hash_tables_offset);
     t.elapsed();
-    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) *logger << "build_groups_and_allocate_hash in " << t.last_elapsed();
+    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) Log() << "build_groups_and_allocate_hash in " << t.last_elapsed();
 
 
     cl::Buffer gpu_workload_groups(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a.nzr());
@@ -100,19 +100,19 @@ void matrix_multiplication_hash(Controls &controls,
     t.restart();
     write_bins_info(controls, gpu_workload_groups, cpu_workload_groups, groups_pointers, groups_length);
     t.elapsed();
-    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) *logger << "write_bins_info in " << t.last_elapsed();
+    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) Log() << "write_bins_info in " << t.last_elapsed();
 
     t.restart();
     count_nnz(controls, groups_length, groups_pointers, gpu_workload_groups, nnz_estimation,
               a, b, global_hash_tables, global_hash_tables_offset);
     t.elapsed();
-    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) *logger << "count_nnz in " << t.last_elapsed();
+    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) Log() << "count_nnz in " << t.last_elapsed();
 
     t.restart();
     fill_nnz(controls, groups_length, groups_pointers, gpu_workload_groups, nnz_estimation,
              matrix_out, a, b, global_hash_tables, global_hash_tables_offset);
     t.elapsed();
-    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) *logger << "fill_nnz in " << t.last_elapsed();
+    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) Log() << "fill_nnz in " << t.last_elapsed();
 }
 
 
@@ -144,7 +144,7 @@ void count_nnz(Controls &controls,
 
         uint32_t block_size = hash_details::get_block_size(bin_id);
 
-        if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) *logger << "\n[count_nnz] group " << bin_id << ", size " << groups_length[bin_id];
+        if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) Log() << "\n[count_nnz] group " << bin_id << ", size " << groups_length[bin_id];
 
         if (bin_id != MAX_GROUP_ID) {
             auto &program = hash_details::get_program(controls.context, bin_id);

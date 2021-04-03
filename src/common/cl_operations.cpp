@@ -22,9 +22,9 @@ void prefix_sum(Controls &controls,
     static auto update = program<cl::Buffer, cl::Buffer, unsigned int, unsigned int>
             ("update_pref_sum")
             .set_kernel_name("update_pref_sum")
-#ifndef WIN
-            .set_task(true)
-#endif
+//#ifndef WIN
+//            .set_task(true)
+//#endif
             ;
 
 
@@ -33,7 +33,6 @@ void prefix_sum(Controls &controls,
     // на каждом цикле wile число элементов, которые нужно обработать, сократится в times раз
     static auto reduce_array_size = [](uint32_t size, uint32_t times) -> uint32_t
             {return (size + times - 1) / times;};
-
 
 
     uint32_t block_size = controls.block_size; //controls.block_size;
@@ -55,7 +54,6 @@ void prefix_sum(Controls &controls,
     unsigned int *b_size_ptr = &b_size;
 
 
-
     uint32_t leaf_size = 1;
 
     scan.set_needed_work_size(threads_for_array(array_size));
@@ -63,7 +61,7 @@ void prefix_sum(Controls &controls,
     t.restart();
     scan.run(controls, a_gpu, array, total_sum_gpu, array_size).wait();
     t.elapsed();
-    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) *logger << "first prescan finished in " << t.last_elapsed();
+    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) Log() << "first prescan finished in " << t.last_elapsed();
 
 
     while (outer > 1) {
@@ -74,13 +72,13 @@ void prefix_sum(Controls &controls,
         t.restart();
         scan.run(controls, *b_gpu_ptr, *a_gpu_ptr, total_sum_gpu, outer).wait();
         t.elapsed();
-        if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) *logger << "scan finished in " << t.last_elapsed() << "\n";
+        if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) Log() << "scan finished in " << t.last_elapsed() << "\n";
 
         update.set_needed_work_size(array_size - leaf_size);
         t.restart();
         update.run(controls, array, *a_gpu_ptr, array_size, leaf_size).wait();
         t.elapsed();
-        if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) *logger << "update finished in " << t.last_elapsed() << "\n";
+        if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) Log() << "update finished in " << t.last_elapsed() << "\n";
 
         outer = reduce_array_size(outer, d_block_size);
         std::swap(a_gpu_ptr, b_gpu_ptr);

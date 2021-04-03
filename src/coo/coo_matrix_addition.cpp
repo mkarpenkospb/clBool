@@ -18,12 +18,12 @@ void matrix_addition(Controls &controls,
     t.restart();
     merge(controls, merged_rows, merged_cols, a, b);
     t.elapsed();
-    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE)  *logger << "merge routine finished in " <<  t.last_elapsed();
+    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE)  Log() << "merge routine finished in " <<  t.last_elapsed();
 
     t.restart();
     reduce_duplicates(controls, merged_rows, merged_cols, new_size, a.nnz() + b.nnz());
     t.elapsed();
-    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE)  *logger << "reduce_duplicates routine finished in " <<  t.last_elapsed();
+    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE)  Log() << "reduce_duplicates routine finished in " <<  t.last_elapsed();
 
     matrix_out = matrix_coo(a.nRows(), a.nCols(), new_size, merged_rows, merged_cols);
 }
@@ -78,7 +78,7 @@ void reduce_duplicates(Controls &controls,
     t.restart();
     prepare_positions(controls, positions, merged_rows, merged_cols, merged_size);
     t.elapsed();
-    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) *logger << "reduce_duplicates -> prepare_positions routine finished in " << t.last_elapsed();
+    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) Log() << "reduce_duplicates -> prepare_positions routine finished in " << t.last_elapsed();
 
 
     // ------------------------------------ calculate positions, get new_size -----------------------------------
@@ -87,7 +87,7 @@ void reduce_duplicates(Controls &controls,
     t.restart();
     prefix_sum(controls, positions, new_size, merged_size);
     t.elapsed();
-    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) *logger << "reduce_duplicates -> prefix_sum routine finished in " << t.last_elapsed();
+    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) Log() << "reduce_duplicates -> prefix_sum routine finished in " << t.last_elapsed();
 
 
     cl::Buffer new_rows(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * new_size);
@@ -96,7 +96,7 @@ void reduce_duplicates(Controls &controls,
     t.restart();
     set_positions(controls, new_rows, new_cols, merged_rows, merged_cols, positions, merged_size);
     t.elapsed();
-    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) *logger << "reduce_duplicates -> set_positions routine finished in " << t.last_elapsed();
+    if (DEBUG_ENABLE && DETAIL_DEBUG_ENABLE) Log() << "reduce_duplicates -> set_positions routine finished in " << t.last_elapsed();
 
 
     merged_rows = std::move(new_rows);
