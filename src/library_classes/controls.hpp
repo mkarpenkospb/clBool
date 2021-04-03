@@ -50,7 +50,7 @@ struct Controls {
 
 #else
         timer t;
-        if (DEBUG_ENABLE) *logger << AOCX_NAME;
+        if (DEBUG_ENABLE) *logger << FPGA_BINARIES + AOCX_NAME;
         std::string file = FPGA_BINARIES + AOCX_NAME;
 
         t.start();
