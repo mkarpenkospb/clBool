@@ -1,0 +1,1711 @@
+{
+  "name":"loop_attributes"
+  , "id":4294967295
+  , "nodes":
+  [
+    {
+      "name":"count_workload"
+      , "id":1686426464
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/count_workload.cl"
+            , "line":34
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"count_workload.B0"
+          , "id":1686454672
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"133.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"count_workload.B1"
+          , "id":1688948720
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"269.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/count_workload.cl"
+                , "line":43
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"count_workload.B2"
+          , "id":1689643472
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"2.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"hash_numeric_global"
+      , "id":1698108336
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_numeric_global.cl"
+            , "line":17
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"hash_numeric_global.B0"
+          , "id":1694812176
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"264.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_numeric_global.B1"
+          , "id":1698598208
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"265.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_numeric_global.cl"
+                , "line":31
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"hash_numeric_global.B2"
+          , "id":1698380752
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"hash_symbolic_global"
+      , "id":1700591952
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_symbolic_global.cl"
+            , "line":115
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"hash_symbolic_global.B0"
+          , "id":1700188640
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"146.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_symbolic_global.B2"
+          , "id":1704901936
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"73.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_symbolic_global.cl"
+                , "line":132
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"hash_symbolic_global.B1"
+          , "id":1704471360
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"284.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_symbolic_global.B4"
+          , "id":1705310640
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"138.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_symbolic_global.cl"
+                , "line":141
+              }
+            ]
+          ]
+          , "type":"loop"
+          , "children":
+          [
+            {
+              "name":"hash_symbolic_global.B5"
+              , "id":1705567152
+              , "af":"240.00"
+              , "br":"1"
+              , "ci":"0"
+              , "ii":"n/a"
+              , "ll":"2"
+              , "lt":"140.000000"
+              , "mi":"n/a"
+              , "pl":"No"
+              , "tc":"0"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/count_workload.cl"
+                    , "line":8
+                  }
+                ]
+              ]
+              , "type":"loop"
+            }
+            , {
+              "name":"hash_symbolic_global.B21"
+              , "id":1710365328
+              , "af":"240.00"
+              , "br":"0"
+              , "ci":"0"
+              , "ii":"1"
+              , "ll":"2"
+              , "lt":"421.000000"
+              , "mi":"n/a"
+              , "pl":"Yes"
+              , "tc":"0"
+              , "type":"bb"
+            }
+            , {
+              "name":"hash_symbolic_global.B6"
+              , "id":1705922672
+              , "af":"240.00"
+              , "br":"0"
+              , "ci":"0"
+              , "ii":"n/a"
+              , "ll":"2"
+              , "lt":"1.000000"
+              , "mi":"n/a"
+              , "pl":"No"
+              , "tc":"0"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_symbolic_global.cl"
+                    , "line":148
+                  }
+                ]
+              ]
+              , "type":"loop"
+              , "children":
+              [
+                {
+                  "name":"hash_symbolic_global.B7"
+                  , "id":1706161328
+                  , "af":"240.00"
+                  , "br":"1"
+                  , "ci":"0"
+                  , "ii":"n/a"
+                  , "ll":"3"
+                  , "lt":"241.000000"
+                  , "mi":"n/a"
+                  , "pl":"No"
+                  , "tc":"0"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_symbolic_global.cl"
+                        , "line":153
+                      }
+                    ]
+                  ]
+                  , "type":"loop"
+                }
+              ]
+            }
+            , {
+              "name":"hash_symbolic_global.B22"
+              , "id":1710743376
+              , "af":"240.00"
+              , "br":"1"
+              , "ci":"0"
+              , "ii":"1"
+              , "ll":"2"
+              , "lt":"277.000000"
+              , "mi":"n/a"
+              , "pl":"Yes"
+              , "tc":"0"
+              , "type":"bb"
+            }
+          ]
+        }
+        , {
+          "name":"hash_symbolic_global.B8"
+          , "id":1706561776
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"1.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_symbolic_global.B3"
+          , "id":1705128256
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"2.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_symbolic_global.B9"
+          , "id":1707430736
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"14.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_symbolic_global.cl"
+                , "line":172
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"hash_symbolic_global.B10"
+          , "id":1707933552
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"2.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_symbolic_global.B11"
+          , "id":1708086416
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_symbolic_global.B20"
+          , "id":1710081280
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"13.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_symbolic_global.B12"
+          , "id":1708144160
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"1.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_symbolic_global.cl"
+                , "line":29
+              }
+            ]
+          ]
+          , "type":"loop"
+          , "children":
+          [
+            {
+              "name":"hash_symbolic_global.B15"
+              , "id":1708664800
+              , "af":"240.00"
+              , "br":"1"
+              , "ci":"0"
+              , "ii":"n/a"
+              , "ll":"2"
+              , "lt":"316.000000"
+              , "mi":"n/a"
+              , "pl":"No"
+              , "tc":"0"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_symbolic_global.cl"
+                    , "line":30
+                  }
+                ]
+              ]
+              , "type":"loop"
+            }
+            , {
+              "name":"hash_symbolic_global.B13"
+              , "id":1708292384
+              , "af":"240.00"
+              , "br":"1"
+              , "ci":"0"
+              , "ii":"1"
+              , "ll":"2"
+              , "lt":"3.000000"
+              , "mi":"n/a"
+              , "pl":"Yes"
+              , "tc":"0"
+              , "type":"bb"
+            }
+            , {
+              "name":"hash_symbolic_global.B14"
+              , "id":1708601232
+              , "af":"240.00"
+              , "br":"0"
+              , "ci":"0"
+              , "ii":"1"
+              , "ll":"2"
+              , "lt":"0.000000"
+              , "mi":"n/a"
+              , "pl":"Yes"
+              , "tc":"0"
+              , "type":"bb"
+            }
+            , {
+              "name":"hash_symbolic_global.B16"
+              , "id":1709161712
+              , "af":"240.00"
+              , "br":"1"
+              , "ci":"0"
+              , "ii":"n/a"
+              , "ll":"2"
+              , "lt":"319.000000"
+              , "mi":"n/a"
+              , "pl":"No"
+              , "tc":"0"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_symbolic_global.cl"
+                    , "line":49
+                  }
+                ]
+              ]
+              , "type":"loop"
+            }
+            , {
+              "name":"hash_symbolic_global.B17"
+              , "id":1709779680
+              , "af":"240.00"
+              , "br":"0"
+              , "ci":"0"
+              , "ii":"1"
+              , "ll":"2"
+              , "lt":"0.000000"
+              , "mi":"n/a"
+              , "pl":"Yes"
+              , "tc":"0"
+              , "type":"bb"
+            }
+          ]
+        }
+        , {
+          "name":"hash_symbolic_global.B18"
+          , "id":1709842528
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"1.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_symbolic_global.B19"
+          , "id":1710043152
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"hash_tb_1024"
+      , "id":1764127920
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+            , "line":121
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"hash_tb_1024.B0"
+          , "id":1791586608
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"3.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_1024.B2"
+          , "id":1794345792
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"8.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                , "line":137
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"hash_tb_1024.B1"
+          , "id":1793948640
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"314.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_1024.B6"
+          , "id":1794850240
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"132.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                , "line":148
+              }
+            ]
+          ]
+          , "type":"loop"
+          , "children":
+          [
+            {
+              "name":"hash_tb_1024.B7"
+              , "id":1795096448
+              , "af":"240.00"
+              , "br":"1"
+              , "ci":"0"
+              , "ii":"n/a"
+              , "ll":"2"
+              , "lt":"134.000000"
+              , "mi":"n/a"
+              , "pl":"No"
+              , "tc":"0"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/count_workload.cl"
+                    , "line":8
+                  }
+                ]
+              ]
+              , "type":"loop"
+            }
+            , {
+              "name":"hash_tb_1024.B24"
+              , "id":1799475504
+              , "af":"240.00"
+              , "br":"0"
+              , "ci":"0"
+              , "ii":"1"
+              , "ll":"2"
+              , "lt":"321.000000"
+              , "mi":"n/a"
+              , "pl":"Yes"
+              , "tc":"0"
+              , "type":"bb"
+            }
+            , {
+              "name":"hash_tb_1024.B8"
+              , "id":1795440528
+              , "af":"240.00"
+              , "br":"0"
+              , "ci":"0"
+              , "ii":"n/a"
+              , "ll":"2"
+              , "lt":"1.000000"
+              , "mi":"n/a"
+              , "pl":"No"
+              , "tc":"0"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                    , "line":155
+                  }
+                ]
+              ]
+              , "type":"loop"
+              , "children":
+              [
+                {
+                  "name":"hash_tb_1024.B9"
+                  , "id":1795672800
+                  , "af":"240.00"
+                  , "br":"1"
+                  , "ci":"0"
+                  , "ii":"n/a"
+                  , "ll":"3"
+                  , "lt":"60.000000"
+                  , "mi":"n/a"
+                  , "pl":"No"
+                  , "tc":"0"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                        , "line":160
+                      }
+                    ]
+                  ]
+                  , "type":"loop"
+                }
+              ]
+            }
+            , {
+              "name":"hash_tb_1024.B25"
+              , "id":1799851760
+              , "af":"240.00"
+              , "br":"1"
+              , "ci":"0"
+              , "ii":"1"
+              , "ll":"2"
+              , "lt":"141.000000"
+              , "mi":"n/a"
+              , "pl":"Yes"
+              , "tc":"0"
+              , "type":"bb"
+            }
+          ]
+        }
+        , {
+          "name":"hash_tb_1024.B10"
+          , "id":1796163968
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"1.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_1024.B3"
+          , "id":1794543664
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"2.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_1024.B4"
+          , "id":1794757440
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_1024.B5"
+          , "id":1794806992
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_1024.B15"
+          , "id":1797073328
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"181.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":38
+              }
+            ]
+          ]
+          , "type":"loop"
+          , "children":
+          [
+            {
+              "name":"hash_tb_1024.B18"
+              , "id":1797629664
+              , "af":"240.00"
+              , "br":"1"
+              , "ci":"0"
+              , "ii":"n/a"
+              , "ll":"2"
+              , "lt":"57.000000"
+              , "mi":"n/a"
+              , "pl":"No"
+              , "tc":"0"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                    , "line":39
+                  }
+                ]
+              ]
+              , "type":"loop"
+            }
+            , {
+              "name":"hash_tb_1024.B16"
+              , "id":1797273712
+              , "af":"240.00"
+              , "br":"1"
+              , "ci":"0"
+              , "ii":"1"
+              , "ll":"2"
+              , "lt":"3.000000"
+              , "mi":"n/a"
+              , "pl":"Yes"
+              , "tc":"0"
+              , "type":"bb"
+            }
+            , {
+              "name":"hash_tb_1024.B17"
+              , "id":1797568752
+              , "af":"240.00"
+              , "br":"0"
+              , "ci":"0"
+              , "ii":"1"
+              , "ll":"2"
+              , "lt":"0.000000"
+              , "mi":"n/a"
+              , "pl":"Yes"
+              , "tc":"0"
+              , "type":"bb"
+            }
+            , {
+              "name":"hash_tb_1024.B19"
+              , "id":1798140640
+              , "af":"240.00"
+              , "br":"1"
+              , "ci":"0"
+              , "ii":"n/a"
+              , "ll":"2"
+              , "lt":"60.000000"
+              , "mi":"n/a"
+              , "pl":"No"
+              , "tc":"0"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                    , "line":58
+                  }
+                ]
+              ]
+              , "type":"loop"
+            }
+            , {
+              "name":"hash_tb_1024.B20"
+              , "id":1798774752
+              , "af":"240.00"
+              , "br":"0"
+              , "ci":"0"
+              , "ii":"1"
+              , "ll":"2"
+              , "lt":"0.000000"
+              , "mi":"n/a"
+              , "pl":"Yes"
+              , "tc":"0"
+              , "type":"bb"
+            }
+          ]
+        }
+        , {
+          "name":"hash_tb_1024.B11"
+          , "id":1796286176
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"14.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                , "line":184
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"hash_tb_1024.B12"
+          , "id":1796739568
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_1024.B14"
+          , "id":1796816976
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"13.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_1024.B21"
+          , "id":1798834896
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"1.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_1024.B22"
+          , "id":1799026000
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"2.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_1024.B23"
+          , "id":1799191376
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"11.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                , "line":203
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"hash_tb_1024.B13"
+          , "id":1796776384
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"hash_tb_512"
+      , "id":1749323808
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+            , "line":119
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"hash_tb_512.B0"
+          , "id":1749206288
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"3.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_512.B2"
+          , "id":1750767648
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"8.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":135
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"hash_tb_512.B1"
+          , "id":1750351136
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"314.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_512.B6"
+          , "id":1751309616
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"132.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":146
+              }
+            ]
+          ]
+          , "type":"loop"
+          , "children":
+          [
+            {
+              "name":"hash_tb_512.B7"
+              , "id":1751564416
+              , "af":"240.00"
+              , "br":"1"
+              , "ci":"0"
+              , "ii":"n/a"
+              , "ll":"2"
+              , "lt":"134.000000"
+              , "mi":"n/a"
+              , "pl":"No"
+              , "tc":"0"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/count_workload.cl"
+                    , "line":8
+                  }
+                ]
+              ]
+              , "type":"loop"
+            }
+            , {
+              "name":"hash_tb_512.B22"
+              , "id":1755635136
+              , "af":"240.00"
+              , "br":"0"
+              , "ci":"0"
+              , "ii":"1"
+              , "ll":"2"
+              , "lt":"321.000000"
+              , "mi":"n/a"
+              , "pl":"Yes"
+              , "tc":"0"
+              , "type":"bb"
+            }
+            , {
+              "name":"hash_tb_512.B8"
+              , "id":1751917088
+              , "af":"240.00"
+              , "br":"0"
+              , "ci":"0"
+              , "ii":"n/a"
+              , "ll":"2"
+              , "lt":"1.000000"
+              , "mi":"n/a"
+              , "pl":"No"
+              , "tc":"0"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                    , "line":153
+                  }
+                ]
+              ]
+              , "type":"loop"
+              , "children":
+              [
+                {
+                  "name":"hash_tb_512.B9"
+                  , "id":1752154384
+                  , "af":"240.00"
+                  , "br":"1"
+                  , "ci":"0"
+                  , "ii":"n/a"
+                  , "ll":"3"
+                  , "lt":"60.000000"
+                  , "mi":"n/a"
+                  , "pl":"No"
+                  , "tc":"0"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                        , "line":158
+                      }
+                    ]
+                  ]
+                  , "type":"loop"
+                }
+              ]
+            }
+            , {
+              "name":"hash_tb_512.B23"
+              , "id":1756015584
+              , "af":"240.00"
+              , "br":"1"
+              , "ci":"0"
+              , "ii":"1"
+              , "ll":"2"
+              , "lt":"141.000000"
+              , "mi":"n/a"
+              , "pl":"Yes"
+              , "tc":"0"
+              , "type":"bb"
+            }
+          ]
+        }
+        , {
+          "name":"hash_tb_512.B10"
+          , "id":1752656896
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"1.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_512.B3"
+          , "id":1750987232
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"2.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_512.B4"
+          , "id":1751216512
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_512.B5"
+          , "id":1751266896
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_512.B15"
+          , "id":1753576336
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"184.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":38
+              }
+            ]
+          ]
+          , "type":"loop"
+          , "children":
+          [
+            {
+              "name":"hash_tb_512.B16"
+              , "id":1754235296
+              , "af":"240.00"
+              , "br":"0"
+              , "ci":"0"
+              , "ii":"1"
+              , "ll":"2"
+              , "lt":"0.000000"
+              , "mi":"n/a"
+              , "pl":"Yes"
+              , "tc":"0"
+              , "type":"bb"
+            }
+            , {
+              "name":"hash_tb_512.B17"
+              , "id":1754295392
+              , "af":"240.00"
+              , "br":"1"
+              , "ci":"0"
+              , "ii":"n/a"
+              , "ll":"2"
+              , "lt":"59.000000"
+              , "mi":"n/a"
+              , "pl":"No"
+              , "tc":"0"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                    , "line":58
+                  }
+                ]
+              ]
+              , "type":"loop"
+            }
+            , {
+              "name":"hash_tb_512.B18"
+              , "id":1754907616
+              , "af":"240.00"
+              , "br":"0"
+              , "ci":"0"
+              , "ii":"1"
+              , "ll":"2"
+              , "lt":"0.000000"
+              , "mi":"n/a"
+              , "pl":"Yes"
+              , "tc":"0"
+              , "type":"bb"
+            }
+          ]
+        }
+        , {
+          "name":"hash_tb_512.B11"
+          , "id":1752785248
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"14.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":182
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"hash_tb_512.B19"
+          , "id":1754967648
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"1.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_512.B12"
+          , "id":1753241280
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_512.B20"
+          , "id":1755159776
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"2.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_512.B14"
+          , "id":1753319184
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"13.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"hash_tb_512.B21"
+          , "id":1755342624
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"11.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":201
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"hash_tb_512.B13"
+          , "id":1753278432
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"0.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"scan_blelloch"
+      , "id":1836950752
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/prefix_sum_256.cl"
+            , "line":13
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"scan_blelloch.B0"
+          , "id":1837618000
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"160.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"scan_blelloch.B1"
+          , "id":1837947360
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"274.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/prefix_sum_256.cl"
+                , "line":23
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"scan_blelloch.B4"
+          , "id":1835319872
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"268.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+        , {
+          "name":"scan_blelloch.B3"
+          , "id":1837487952
+          , "af":"240.00"
+          , "br":"1"
+          , "ci":"0"
+          , "ii":"n/a"
+          , "ll":"1"
+          , "lt":"281.000000"
+          , "mi":"n/a"
+          , "pl":"No"
+          , "tc":"0"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/prefix_sum_256.cl"
+                , "line":46
+              }
+            ]
+          ]
+          , "type":"loop"
+        }
+        , {
+          "name":"scan_blelloch.B2"
+          , "id":1838635888
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"274.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"prepare_for_shift_empty_rows"
+      , "id":1868712944
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/prepare_positions.cl"
+            , "line":7
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"prepare_for_shift_empty_rows.B0"
+          , "id":1863344512
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"166.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"set_positions_pointers_and_rows"
+      , "id":1855261776
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/set_positions.cl"
+            , "line":12
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"set_positions_pointers_and_rows.B0"
+          , "id":1859031568
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"846.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"update_pref_sum"
+      , "id":1852074816
+      , "clk":"No"
+      , "fmax":"240.00"
+      , "debug":
+      [
+        [
+          {
+            "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/update_pref_sum.cl"
+            , "line":8
+          }
+        ]
+      ]
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"update_pref_sum.B0"
+          , "id":1853300512
+          , "af":"240.00"
+          , "br":"0"
+          , "ci":"0"
+          , "ii":"1"
+          , "ll":"1"
+          , "lt":"197.000000"
+          , "mi":"n/a"
+          , "pl":"Yes"
+          , "tc":"0"
+          , "type":"bb"
+        }
+      ]
+    }
+  ]
+}

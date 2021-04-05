@@ -1,0 +1,219 @@
+{
+  "nodes":
+  [
+    {
+      "name":"update_pref_sum"
+      , "id":2457013032
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"update_pref_sum.B0"
+          , "id":2457584624
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 7"
+              , "id":2533586384
+              , "type":"cluster"
+            }
+          ]
+        }
+      ]
+    }
+    , {
+      "name":"merge"
+      , "id":2456988856
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"merge.B4"
+          , "id":2457050352
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B5"
+          , "id":2457050432
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B6"
+          , "id":2457018592
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B7"
+          , "id":2457018672
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B8"
+          , "id":2457018752
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 1"
+              , "id":2465403136
+              , "type":"cluster"
+            }
+          ]
+        }
+        , {
+          "name":"merge.B11"
+          , "id":2457110160
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B10"
+          , "id":2457018912
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B9"
+          , "id":2457018832
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 2"
+              , "id":2466371312
+              , "type":"cluster"
+            }
+          ]
+        }
+        , {
+          "name":"merge.B13"
+          , "id":2457110320
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 3"
+              , "id":2467684224
+              , "type":"cluster"
+            }
+          ]
+        }
+        , {
+          "name":"merge.B12"
+          , "id":2457110240
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B3"
+          , "id":2457050272
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B2"
+          , "id":2456985488
+          , "type":"bb"
+        }
+        , {
+          "name":"merge.B0"
+          , "id":2457028496
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 0"
+              , "id":2458094032
+              , "type":"cluster"
+            }
+          ]
+        }
+        , {
+          "name":"merge.B1"
+          , "id":2457126336
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"prepare_array_for_positions"
+      , "id":2456989800
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"prepare_array_for_positions.B0"
+          , "id":2457545536
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"scan_blelloch"
+      , "id":2457003128
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"scan_blelloch.B0"
+          , "id":2457305504
+          , "type":"bb"
+        }
+        , {
+          "name":"scan_blelloch.B4"
+          , "id":2457495760
+          , "type":"bb"
+        }
+        , {
+          "name":"scan_blelloch.B2"
+          , "id":2457495600
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 5"
+              , "id":2503310592
+              , "type":"cluster"
+            }
+            , {
+              "name":"Cluster 4"
+              , "id":2507129952
+              , "type":"cluster"
+            }
+          ]
+        }
+        , {
+          "name":"scan_blelloch.B3"
+          , "id":2457495680
+          , "type":"bb"
+          , "children":
+          [
+            {
+              "name":"Cluster 6"
+              , "id":2501138672
+              , "type":"cluster"
+            }
+          ]
+        }
+        , {
+          "name":"scan_blelloch.B1"
+          , "id":2457495520
+          , "type":"bb"
+        }
+      ]
+    }
+    , {
+      "name":"set_positions"
+      , "id":2457012792
+      , "type":"kernel"
+      , "children":
+      [
+        {
+          "name":"set_positions.B0"
+          , "id":2457471584
+          , "type":"bb"
+        }
+      ]
+    }
+  ]
+  , "links":
+  [
+  ]
+}

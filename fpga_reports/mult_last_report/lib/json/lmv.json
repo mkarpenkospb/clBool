@@ -1,0 +1,5367 @@
+{
+  "nodes":
+  [
+    {
+      "type":"kernel"
+      , "id":34
+      , "name":"hash_symbolic_global"
+      , "children":
+      [
+        {
+          "type":"inst"
+          , "id":59
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_symbolic_global.cl"
+                , "line":130
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Stores to":"nz_count"
+              , "Start Cycle":"145"
+              , "Latency":"1"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":67
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_symbolic_global.cl"
+                , "line":174
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Loads from":"nz_count"
+              , "Start Cycle":"2"
+              , "Latency":"4"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":68
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_symbolic_global.cl"
+                , "line":174
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Loads from":"nz_count"
+              , "Start Cycle":"2"
+              , "Latency":"4"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":69
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_symbolic_global.cl"
+                , "line":174
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Stores to":"nz_count"
+              , "Start Cycle":"7"
+              , "Latency":"1"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":78
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_symbolic_global.cl"
+                , "line":181
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Loads from":"nz_count"
+              , "Start Cycle":"2"
+              , "Latency":"4"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":83
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_symbolic_global.cl"
+                , "line":158
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Loads from":"nz_count"
+              , "Start Cycle":"1"
+              , "Latency":"4"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":84
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_symbolic_global.cl"
+                , "line":158
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Stores to":"nz_count"
+              , "Start Cycle":"6"
+              , "Latency":"1"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"memtype"
+          , "id":111
+          , "name":"Local Memory"
+          , "children":
+          [
+            {
+              "type":"memsys"
+              , "id":112
+              , "name":"nz_count"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"multiplication_hash_kernels_256/hash_symbolic_global.cl"
+                    , "line":128
+                  }
+                ]
+              ]
+              , "children":
+              [
+                {
+                  "type":"bank"
+                  , "id":113
+                  , "name":"Bank 0"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"multiplication_hash_kernels_256/hash_symbolic_global.cl"
+                        , "line":128
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":114
+                      , "name":"R"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":115
+                      , "name":"R"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":116
+                      , "name":"R"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":117
+                      , "name":"R"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":118
+                      , "name":"W"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":119
+                      , "name":"W"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":120
+                      , "name":"W"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"7 total ports/bank\n4 read ports/bank\n3 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"7"
+                      , "Number of read ports per bank":"4"
+                      , "Number of write ports per bank":"3"
+                      , "Total replication":"8"
+                    }
+                  ]
+                }
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Requested size":"1024 bytes"
+                  , "Implemented size":"4096 bytes"
+                  , "Number of banks":"1"
+                  , "Bank width":"32 bits"
+                  , "Bank depth":"256 words"
+                  , "Number of replicates":"4"
+                  , "Number of private copies":"2"
+                  , "Additional Information":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"For each replicate, 2 private copies were created to efficiently support multiple simultaneous workgroups"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"For each bank, 4 replicates were created to efficiently support multiple accesses"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"Running memory at 2x clock to support more concurrent ports"
+                    }
+                  ]
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Local Memory"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/chn1469549457114.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+    , {
+      "type":"kernel"
+      , "id":121
+      , "name":"hash_tb_512"
+      , "children":
+      [
+        {
+          "type":"inst"
+          , "id":146
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":133
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Stores to":"nz_count"
+              , "Start Cycle":"2"
+              , "Latency":"1"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":149
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":136
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"hash_table"
+              , "Start Cycle":"1"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":152
+          , "name":"atomic_cmpxchg"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":161
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Stall-free":"No"
+              , "Performs atomic operation on":"hash_table"
+              , "Start Cycle":"1"
+              , "Latency":"50"
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":153
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":158
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"hash_table"
+              , "Start Cycle":"52"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":154
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":184
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Loads from":"nz_count"
+              , "Start Cycle":"2"
+              , "Latency":"4"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":155
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":184
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Loads from":"nz_count"
+              , "Start Cycle":"2"
+              , "Latency":"4"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":156
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":184
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Stores to":"nz_count"
+              , "Start Cycle":"7"
+              , "Latency":"1"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":157
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":191
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Loads from":"nz_count"
+              , "Start Cycle":"2"
+              , "Latency":"4"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":160
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":51
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"hash_table"
+              , "Start Cycle":"160"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":161
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":51
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"hash_table"
+              , "Start Cycle":"160"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":162
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":53
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"hash_table"
+              , "Start Cycle":"168"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":163
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":54
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"hash_table"
+              , "Start Cycle":"175"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":164
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":67
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"hash_table"
+              , "Start Cycle":"35"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":165
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":67
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"hash_table"
+              , "Start Cycle":"35"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":166
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":69
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"hash_table"
+              , "Start Cycle":"43"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":167
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":70
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"hash_table"
+              , "Start Cycle":"50"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":168
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":202
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"hash_table"
+              , "Start Cycle":"1"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":172
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":158
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"hash_table"
+              , "Start Cycle":"313"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":173
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":167
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Loads from":"nz_count"
+              , "Start Cycle":"1"
+              , "Latency":"4"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":174
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":167
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Stores to":"nz_count"
+              , "Start Cycle":"6"
+              , "Latency":"1"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":175
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":165
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"hash_table"
+              , "Start Cycle":"10"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":177
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":158
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"hash_table"
+              , "Start Cycle":"133"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"memtype"
+          , "id":204
+          , "name":"Local Memory"
+          , "children":
+          [
+            {
+              "type":"memsys"
+              , "id":205
+              , "name":"nz_count"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"multiplication_hash_kernels_256/hash_tb_512.cl"
+                    , "line":131
+                  }
+                ]
+              ]
+              , "children":
+              [
+                {
+                  "type":"bank"
+                  , "id":206
+                  , "name":"Bank 0"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"multiplication_hash_kernels_256/hash_tb_512.cl"
+                        , "line":131
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":207
+                      , "name":"R"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":208
+                      , "name":"R"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":209
+                      , "name":"R"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":210
+                      , "name":"R"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":211
+                      , "name":"W"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":212
+                      , "name":"W"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":213
+                      , "name":"W"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"7 total ports/bank\n4 read ports/bank\n3 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"7"
+                      , "Number of read ports per bank":"4"
+                      , "Number of write ports per bank":"3"
+                      , "Total replication":"8"
+                    }
+                  ]
+                }
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Requested size":"1024 bytes"
+                  , "Implemented size":"4096 bytes"
+                  , "Number of banks":"1"
+                  , "Bank width":"32 bits"
+                  , "Bank depth":"256 words"
+                  , "Number of replicates":"4"
+                  , "Number of private copies":"2"
+                  , "Additional Information":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"For each replicate, 2 private copies were created to efficiently support multiple simultaneous workgroups"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"For each bank, 4 replicates were created to efficiently support multiple accesses"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"Running memory at 2x clock to support more concurrent ports"
+                    }
+                  ]
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Local Memory"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/chn1469549457114.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"memsys"
+              , "id":214
+              , "name":"hash_table"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"multiplication_hash_kernels_256/hash_tb_512.cl"
+                    , "line":130
+                  }
+                ]
+              ]
+              , "children":
+              [
+                {
+                  "type":"bank"
+                  , "id":215
+                  , "name":"Bank 0"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"multiplication_hash_kernels_256/hash_tb_512.cl"
+                        , "line":130
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":219
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":227
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":235
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":243
+                      , "name":"RW"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"4 total ports/bank\n0 read ports/bank\n0 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"4"
+                      , "Number of read ports per bank":"0"
+                      , "Number of write ports per bank":"0"
+                      , "Number of shared ports per bank":"4"
+                      , "Total replication":"2"
+                    }
+                  ]
+                }
+                , {
+                  "type":"bank"
+                  , "id":216
+                  , "name":"Bank 1"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"multiplication_hash_kernels_256/hash_tb_512.cl"
+                        , "line":130
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":221
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":229
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":237
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":245
+                      , "name":"RW"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"4 total ports/bank\n0 read ports/bank\n0 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"4"
+                      , "Number of read ports per bank":"0"
+                      , "Number of write ports per bank":"0"
+                      , "Number of shared ports per bank":"4"
+                      , "Total replication":"2"
+                    }
+                  ]
+                }
+                , {
+                  "type":"bank"
+                  , "id":217
+                  , "name":"Bank 2"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"multiplication_hash_kernels_256/hash_tb_512.cl"
+                        , "line":130
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":223
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":231
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":239
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":247
+                      , "name":"RW"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"4 total ports/bank\n0 read ports/bank\n0 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"4"
+                      , "Number of read ports per bank":"0"
+                      , "Number of write ports per bank":"0"
+                      , "Number of shared ports per bank":"4"
+                      , "Total replication":"2"
+                    }
+                  ]
+                }
+                , {
+                  "type":"bank"
+                  , "id":218
+                  , "name":"Bank 3"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"multiplication_hash_kernels_256/hash_tb_512.cl"
+                        , "line":130
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":225
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":233
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":241
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":249
+                      , "name":"RW"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"4 total ports/bank\n0 read ports/bank\n0 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"4"
+                      , "Number of read ports per bank":"0"
+                      , "Number of write ports per bank":"0"
+                      , "Number of shared ports per bank":"4"
+                      , "Total replication":"2"
+                    }
+                  ]
+                }
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Requested size":"2048 bytes"
+                  , "Implemented size":"2048 bytes"
+                  , "Number of banks":"4"
+                  , "Bank width":"32 bits"
+                  , "Bank depth":"128 words"
+                  , "Number of replicates":"1"
+                  , "Number of private copies":"2"
+                  , "Additional Information":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"For each replicate, 2 private copies were created to efficiently support multiple simultaneous workgroups"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"Running memory at 2x clock to support more concurrent ports"
+                    }
+                  ]
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Local Memory"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/chn1469549457114.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":220
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":222
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":224
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":226
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":228
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":230
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":232
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":234
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":236
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":238
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":240
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":242
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":244
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":246
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":248
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":250
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+      ]
+    }
+    , {
+      "type":"kernel"
+      , "id":251
+      , "name":"hash_tb_1024"
+      , "children":
+      [
+        {
+          "type":"inst"
+          , "id":278
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                , "line":135
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Stores to":"nz_count"
+              , "Start Cycle":"2"
+              , "Latency":"1"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":281
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                , "line":138
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"hash_table"
+              , "Start Cycle":"1"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":284
+          , "name":"atomic_cmpxchg"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                , "line":163
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Stall-free":"No"
+              , "Performs atomic operation on":"hash_table"
+              , "Start Cycle":"1"
+              , "Latency":"50"
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":285
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                , "line":160
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"hash_table"
+              , "Start Cycle":"52"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":286
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                , "line":186
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Loads from":"nz_count"
+              , "Start Cycle":"2"
+              , "Latency":"4"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":287
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                , "line":186
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Loads from":"nz_count"
+              , "Start Cycle":"2"
+              , "Latency":"4"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":288
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                , "line":186
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Stores to":"nz_count"
+              , "Start Cycle":"7"
+              , "Latency":"1"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":289
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                , "line":193
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Loads from":"nz_count"
+              , "Start Cycle":"2"
+              , "Latency":"4"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":292
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":51
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"hash_table"
+              , "Start Cycle":"35"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":293
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":51
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"hash_table"
+              , "Start Cycle":"35"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":294
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":53
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"hash_table"
+              , "Start Cycle":"43"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":295
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":54
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"hash_table"
+              , "Start Cycle":"50"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":296
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":67
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"hash_table"
+              , "Start Cycle":"35"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":297
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":67
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"hash_table"
+              , "Start Cycle":"35"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":298
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":69
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"hash_table"
+              , "Start Cycle":"43"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":299
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_512.cl"
+                , "line":70
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"hash_table"
+              , "Start Cycle":"50"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":300
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                , "line":204
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"hash_table"
+              , "Start Cycle":"1"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":304
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                , "line":160
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"hash_table"
+              , "Start Cycle":"313"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":305
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                , "line":169
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Loads from":"nz_count"
+              , "Start Cycle":"1"
+              , "Latency":"4"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":306
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                , "line":169
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Stores to":"nz_count"
+              , "Start Cycle":"6"
+              , "Latency":"1"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":307
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                , "line":167
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"hash_table"
+              , "Start Cycle":"10"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":309
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/hash_tb_1024.cl"
+                , "line":160
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"hash_table"
+              , "Start Cycle":"133"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"memtype"
+          , "id":338
+          , "name":"Local Memory"
+          , "children":
+          [
+            {
+              "type":"memsys"
+              , "id":339
+              , "name":"nz_count"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"multiplication_hash_kernels_256/hash_tb_1024.cl"
+                    , "line":133
+                  }
+                ]
+              ]
+              , "children":
+              [
+                {
+                  "type":"bank"
+                  , "id":340
+                  , "name":"Bank 0"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"multiplication_hash_kernels_256/hash_tb_1024.cl"
+                        , "line":133
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":341
+                      , "name":"R"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":342
+                      , "name":"R"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":343
+                      , "name":"R"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":344
+                      , "name":"R"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":345
+                      , "name":"W"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":346
+                      , "name":"W"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":347
+                      , "name":"W"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"7 total ports/bank\n4 read ports/bank\n3 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"7"
+                      , "Number of read ports per bank":"4"
+                      , "Number of write ports per bank":"3"
+                      , "Total replication":"8"
+                    }
+                  ]
+                }
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Requested size":"1024 bytes"
+                  , "Implemented size":"4096 bytes"
+                  , "Number of banks":"1"
+                  , "Bank width":"32 bits"
+                  , "Bank depth":"256 words"
+                  , "Number of replicates":"4"
+                  , "Number of private copies":"2"
+                  , "Additional Information":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"For each replicate, 2 private copies were created to efficiently support multiple simultaneous workgroups"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"For each bank, 4 replicates were created to efficiently support multiple accesses"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"Running memory at 2x clock to support more concurrent ports"
+                    }
+                  ]
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Local Memory"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/chn1469549457114.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+            , {
+              "type":"memsys"
+              , "id":348
+              , "name":"hash_table"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"multiplication_hash_kernels_256/hash_tb_1024.cl"
+                    , "line":132
+                  }
+                ]
+              ]
+              , "children":
+              [
+                {
+                  "type":"bank"
+                  , "id":349
+                  , "name":"Bank 0"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"multiplication_hash_kernels_256/hash_tb_1024.cl"
+                        , "line":132
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":353
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":361
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":369
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":377
+                      , "name":"RW"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"4 total ports/bank\n0 read ports/bank\n0 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"4"
+                      , "Number of read ports per bank":"0"
+                      , "Number of write ports per bank":"0"
+                      , "Number of shared ports per bank":"4"
+                      , "Total replication":"2"
+                    }
+                  ]
+                }
+                , {
+                  "type":"bank"
+                  , "id":350
+                  , "name":"Bank 1"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"multiplication_hash_kernels_256/hash_tb_1024.cl"
+                        , "line":132
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":355
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":363
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":371
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":379
+                      , "name":"RW"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"4 total ports/bank\n0 read ports/bank\n0 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"4"
+                      , "Number of read ports per bank":"0"
+                      , "Number of write ports per bank":"0"
+                      , "Number of shared ports per bank":"4"
+                      , "Total replication":"2"
+                    }
+                  ]
+                }
+                , {
+                  "type":"bank"
+                  , "id":351
+                  , "name":"Bank 2"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"multiplication_hash_kernels_256/hash_tb_1024.cl"
+                        , "line":132
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":357
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":365
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":373
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":381
+                      , "name":"RW"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"4 total ports/bank\n0 read ports/bank\n0 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"4"
+                      , "Number of read ports per bank":"0"
+                      , "Number of write ports per bank":"0"
+                      , "Number of shared ports per bank":"4"
+                      , "Total replication":"2"
+                    }
+                  ]
+                }
+                , {
+                  "type":"bank"
+                  , "id":352
+                  , "name":"Bank 3"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"multiplication_hash_kernels_256/hash_tb_1024.cl"
+                        , "line":132
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":359
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":367
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":375
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":383
+                      , "name":"RW"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"4 total ports/bank\n0 read ports/bank\n0 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"4"
+                      , "Number of read ports per bank":"0"
+                      , "Number of write ports per bank":"0"
+                      , "Number of shared ports per bank":"4"
+                      , "Total replication":"2"
+                    }
+                  ]
+                }
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Requested size":"4096 bytes"
+                  , "Implemented size":"4096 bytes"
+                  , "Number of banks":"4"
+                  , "Bank width":"32 bits"
+                  , "Bank depth":"256 words"
+                  , "Number of replicates":"1"
+                  , "Number of private copies":"2"
+                  , "Additional Information":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"For each replicate, 2 private copies were created to efficiently support multiple simultaneous workgroups"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"Running memory at 2x clock to support more concurrent ports"
+                    }
+                  ]
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Local Memory"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/chn1469549457114.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":354
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":356
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":358
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":360
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":362
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":364
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":366
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":368
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":370
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":372
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":374
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":376
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":378
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":380
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":382
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":384
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+      ]
+    }
+    , {
+      "type":"kernel"
+      , "id":385
+      , "name":"scan_blelloch"
+      , "children":
+      [
+        {
+          "type":"inst"
+          , "id":392
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/prefix_sum_256.cl"
+                , "line":20
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"tmp"
+              , "Start Cycle":"153"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":393
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/prefix_sum_256.cl"
+                , "line":21
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"tmp"
+              , "Start Cycle":"153"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":394
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/prefix_sum_256.cl"
+                , "line":30
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"tmp"
+              , "Start Cycle":"259"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":395
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/prefix_sum_256.cl"
+                , "line":30
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"tmp"
+              , "Start Cycle":"259"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":396
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/prefix_sum_256.cl"
+                , "line":30
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"tmp"
+              , "Start Cycle":"267"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":397
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/prefix_sum_256.cl"
+                , "line":65
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined never-stall"
+              , "Stall-free":"Yes"
+              , "Loads from":"tmp"
+              , "Start Cycle":"259"
+              , "Latency":"4"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":398
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/prefix_sum_256.cl"
+                , "line":69
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"tmp"
+              , "Start Cycle":"258"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":400
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/prefix_sum_256.cl"
+                , "line":56
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"tmp"
+              , "Start Cycle":"259"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":401
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/prefix_sum_256.cl"
+                , "line":57
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"tmp"
+              , "Start Cycle":"259"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":402
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/prefix_sum_256.cl"
+                , "line":57
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"tmp"
+              , "Start Cycle":"267"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":403
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/prefix_sum_256.cl"
+                , "line":58
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"tmp"
+              , "Start Cycle":"274"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":404
+          , "name":"Load"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/prefix_sum_256.cl"
+                , "line":39
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Loads from":"tmp"
+              , "Start Cycle":"0"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"inst"
+          , "id":407
+          , "name":"Store"
+          , "debug":
+          [
+            [
+              {
+                "filename":"/root/Desktop/GitReps/sparse_boolean_matrix_operations/src/cl/fpga/multiplication_hash_kernels_256/prefix_sum_256.cl"
+                , "line":41
+              }
+            ]
+          ]
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Width":"32 bits"
+              , "Type":"Pipelined"
+              , "Stall-free":"No"
+              , "Stores to":"tmp"
+              , "Start Cycle":"8"
+              , "Latency":"7"
+              , "Reference":
+              [
+                {
+                  "type":"text"
+                  , "text":"See %L for more information"
+                  , "links":
+                  [
+                    {
+                      "guide":"Best Practices Guide : Load-Store Units"
+                      , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/yeo1491314105959.html"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"memtype"
+          , "id":418
+          , "name":"Local Memory"
+          , "children":
+          [
+            {
+              "type":"memsys"
+              , "id":419
+              , "name":"tmp"
+              , "debug":
+              [
+                [
+                  {
+                    "filename":"multiplication_hash_kernels_256/prefix_sum_256.cl"
+                    , "line":19
+                  }
+                ]
+              ]
+              , "children":
+              [
+                {
+                  "type":"bank"
+                  , "id":420
+                  , "name":"Bank 0"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"multiplication_hash_kernels_256/prefix_sum_256.cl"
+                        , "line":19
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":424
+                      , "name":"R"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":434
+                      , "name":"R"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":444
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":448
+                      , "name":"W"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"4 total ports/bank\n2 read ports/bank\n1 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"4"
+                      , "Number of read ports per bank":"2"
+                      , "Number of write ports per bank":"1"
+                      , "Number of shared ports per bank":"1"
+                      , "Total replication":"6"
+                    }
+                  ]
+                }
+                , {
+                  "type":"bank"
+                  , "id":421
+                  , "name":"Bank 1"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"multiplication_hash_kernels_256/prefix_sum_256.cl"
+                        , "line":19
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":425
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":430
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":436
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":440
+                      , "name":"RW"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"4 total ports/bank\n0 read ports/bank\n0 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"4"
+                      , "Number of read ports per bank":"0"
+                      , "Number of write ports per bank":"0"
+                      , "Number of shared ports per bank":"4"
+                      , "Total replication":"6"
+                    }
+                  ]
+                }
+                , {
+                  "type":"bank"
+                  , "id":422
+                  , "name":"Bank 2"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"multiplication_hash_kernels_256/prefix_sum_256.cl"
+                        , "line":19
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":427
+                      , "name":"R"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":435
+                      , "name":"R"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":446
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":449
+                      , "name":"W"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"4 total ports/bank\n2 read ports/bank\n1 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"4"
+                      , "Number of read ports per bank":"2"
+                      , "Number of write ports per bank":"1"
+                      , "Number of shared ports per bank":"1"
+                      , "Total replication":"6"
+                    }
+                  ]
+                }
+                , {
+                  "type":"bank"
+                  , "id":423
+                  , "name":"Bank 3"
+                  , "debug":
+                  [
+                    [
+                      {
+                        "filename":"multiplication_hash_kernels_256/prefix_sum_256.cl"
+                        , "line":19
+                      }
+                    ]
+                  ]
+                  , "children":
+                  [
+                    {
+                      "type":"port"
+                      , "id":428
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":432
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":438
+                      , "name":"RW"
+                    }
+                    , {
+                      "type":"port"
+                      , "id":442
+                      , "name":"RW"
+                    }
+                  ]
+                  , "details":
+                  [
+                    {
+                      "type":"table"
+                      , "details":
+                      [
+                        {
+                          "type":"brief"
+                          , "text":"4 total ports/bank\n0 read ports/bank\n0 write ports/bank"
+                        }
+                      ]
+                      , "Total number of ports per bank":"4"
+                      , "Number of read ports per bank":"0"
+                      , "Number of write ports per bank":"0"
+                      , "Number of shared ports per bank":"4"
+                      , "Total replication":"6"
+                    }
+                  ]
+                }
+              ]
+              , "details":
+              [
+                {
+                  "type":"table"
+                  , "Requested size":"2048 bytes"
+                  , "Implemented size":"2048 bytes"
+                  , "Number of banks":"4"
+                  , "Bank width":"32 bits"
+                  , "Bank depth":"128 words"
+                  , "Number of replicates":"1"
+                  , "Number of private copies":"6"
+                  , "Additional Information":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"For each replicate, 6 private copies were created to efficiently support multiple simultaneous workgroups"
+                    }
+                    , {
+                      "type":"text"
+                      , "text":"Running memory at 2x clock to support more concurrent ports"
+                    }
+                  ]
+                  , "Reference":
+                  [
+                    {
+                      "type":"text"
+                      , "text":"See %L for more information"
+                      , "links":
+                      [
+                        {
+                          "guide":"Best Practices Guide : Local Memory"
+                          , "link":"file:////opt/intelFPGA_pro/20.4/hld/aoc_help_pages/chn1469549457114.html"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":426
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":429
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":431
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":433
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":437
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":439
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":441
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":443
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":445
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+        , {
+          "type":"arb"
+          , "id":447
+          , "name":"ARB"
+          , "details":
+          [
+            {
+              "type":"table"
+              , "Additional Information":"Competing accesses leading to stalls"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  , "links":
+  [
+    {
+      "from":114
+      , "to":67
+    }
+    , {
+      "from":115
+      , "to":68
+    }
+    , {
+      "from":116
+      , "to":78
+    }
+    , {
+      "from":117
+      , "to":83
+    }
+    , {
+      "from":59
+      , "to":118
+    }
+    , {
+      "from":69
+      , "to":119
+    }
+    , {
+      "from":84
+      , "to":120
+    }
+    , {
+      "from":207
+      , "to":154
+    }
+    , {
+      "from":208
+      , "to":155
+    }
+    , {
+      "from":209
+      , "to":157
+    }
+    , {
+      "from":210
+      , "to":173
+    }
+    , {
+      "from":146
+      , "to":211
+    }
+    , {
+      "from":156
+      , "to":212
+    }
+    , {
+      "from":174
+      , "to":213
+    }
+    , {
+      "from":220
+      , "to":153
+    }
+    , {
+      "from":163
+      , "to":220
+    }
+    , {
+      "from":220
+      , "to":165
+    }
+    , {
+      "from":220
+      , "to":219
+    }
+    , {
+      "from":219
+      , "to":220
+    }
+    , {
+      "from":222
+      , "to":153
+    }
+    , {
+      "from":163
+      , "to":222
+    }
+    , {
+      "from":222
+      , "to":165
+    }
+    , {
+      "from":222
+      , "to":221
+    }
+    , {
+      "from":221
+      , "to":222
+    }
+    , {
+      "from":224
+      , "to":153
+    }
+    , {
+      "from":163
+      , "to":224
+    }
+    , {
+      "from":224
+      , "to":165
+    }
+    , {
+      "from":224
+      , "to":223
+    }
+    , {
+      "from":223
+      , "to":224
+    }
+    , {
+      "from":226
+      , "to":153
+    }
+    , {
+      "from":163
+      , "to":226
+    }
+    , {
+      "from":226
+      , "to":165
+    }
+    , {
+      "from":226
+      , "to":225
+    }
+    , {
+      "from":225
+      , "to":226
+    }
+    , {
+      "from":152
+      , "to":228
+    }
+    , {
+      "from":228
+      , "to":152
+    }
+    , {
+      "from":228
+      , "to":160
+    }
+    , {
+      "from":166
+      , "to":228
+    }
+    , {
+      "from":228
+      , "to":168
+    }
+    , {
+      "from":228
+      , "to":227
+    }
+    , {
+      "from":227
+      , "to":228
+    }
+    , {
+      "from":152
+      , "to":230
+    }
+    , {
+      "from":230
+      , "to":152
+    }
+    , {
+      "from":230
+      , "to":160
+    }
+    , {
+      "from":166
+      , "to":230
+    }
+    , {
+      "from":230
+      , "to":168
+    }
+    , {
+      "from":230
+      , "to":229
+    }
+    , {
+      "from":229
+      , "to":230
+    }
+    , {
+      "from":152
+      , "to":232
+    }
+    , {
+      "from":232
+      , "to":152
+    }
+    , {
+      "from":232
+      , "to":160
+    }
+    , {
+      "from":166
+      , "to":232
+    }
+    , {
+      "from":232
+      , "to":168
+    }
+    , {
+      "from":232
+      , "to":231
+    }
+    , {
+      "from":231
+      , "to":232
+    }
+    , {
+      "from":152
+      , "to":234
+    }
+    , {
+      "from":234
+      , "to":152
+    }
+    , {
+      "from":234
+      , "to":160
+    }
+    , {
+      "from":166
+      , "to":234
+    }
+    , {
+      "from":234
+      , "to":168
+    }
+    , {
+      "from":234
+      , "to":233
+    }
+    , {
+      "from":233
+      , "to":234
+    }
+    , {
+      "from":149
+      , "to":236
+    }
+    , {
+      "from":236
+      , "to":161
+    }
+    , {
+      "from":167
+      , "to":236
+    }
+    , {
+      "from":236
+      , "to":172
+    }
+    , {
+      "from":236
+      , "to":235
+    }
+    , {
+      "from":235
+      , "to":236
+    }
+    , {
+      "from":149
+      , "to":238
+    }
+    , {
+      "from":238
+      , "to":161
+    }
+    , {
+      "from":167
+      , "to":238
+    }
+    , {
+      "from":238
+      , "to":172
+    }
+    , {
+      "from":238
+      , "to":237
+    }
+    , {
+      "from":237
+      , "to":238
+    }
+    , {
+      "from":149
+      , "to":240
+    }
+    , {
+      "from":240
+      , "to":161
+    }
+    , {
+      "from":167
+      , "to":240
+    }
+    , {
+      "from":240
+      , "to":172
+    }
+    , {
+      "from":240
+      , "to":239
+    }
+    , {
+      "from":239
+      , "to":240
+    }
+    , {
+      "from":149
+      , "to":242
+    }
+    , {
+      "from":242
+      , "to":161
+    }
+    , {
+      "from":167
+      , "to":242
+    }
+    , {
+      "from":242
+      , "to":172
+    }
+    , {
+      "from":242
+      , "to":241
+    }
+    , {
+      "from":241
+      , "to":242
+    }
+    , {
+      "from":162
+      , "to":244
+    }
+    , {
+      "from":244
+      , "to":164
+    }
+    , {
+      "from":175
+      , "to":244
+    }
+    , {
+      "from":244
+      , "to":177
+    }
+    , {
+      "from":244
+      , "to":243
+    }
+    , {
+      "from":243
+      , "to":244
+    }
+    , {
+      "from":162
+      , "to":246
+    }
+    , {
+      "from":246
+      , "to":164
+    }
+    , {
+      "from":175
+      , "to":246
+    }
+    , {
+      "from":246
+      , "to":177
+    }
+    , {
+      "from":246
+      , "to":245
+    }
+    , {
+      "from":245
+      , "to":246
+    }
+    , {
+      "from":162
+      , "to":248
+    }
+    , {
+      "from":248
+      , "to":164
+    }
+    , {
+      "from":175
+      , "to":248
+    }
+    , {
+      "from":248
+      , "to":177
+    }
+    , {
+      "from":248
+      , "to":247
+    }
+    , {
+      "from":247
+      , "to":248
+    }
+    , {
+      "from":162
+      , "to":250
+    }
+    , {
+      "from":250
+      , "to":164
+    }
+    , {
+      "from":175
+      , "to":250
+    }
+    , {
+      "from":250
+      , "to":177
+    }
+    , {
+      "from":250
+      , "to":249
+    }
+    , {
+      "from":249
+      , "to":250
+    }
+    , {
+      "from":341
+      , "to":286
+    }
+    , {
+      "from":342
+      , "to":287
+    }
+    , {
+      "from":343
+      , "to":289
+    }
+    , {
+      "from":344
+      , "to":305
+    }
+    , {
+      "from":278
+      , "to":345
+    }
+    , {
+      "from":288
+      , "to":346
+    }
+    , {
+      "from":306
+      , "to":347
+    }
+    , {
+      "from":354
+      , "to":285
+    }
+    , {
+      "from":295
+      , "to":354
+    }
+    , {
+      "from":354
+      , "to":297
+    }
+    , {
+      "from":354
+      , "to":353
+    }
+    , {
+      "from":353
+      , "to":354
+    }
+    , {
+      "from":356
+      , "to":285
+    }
+    , {
+      "from":295
+      , "to":356
+    }
+    , {
+      "from":356
+      , "to":297
+    }
+    , {
+      "from":356
+      , "to":355
+    }
+    , {
+      "from":355
+      , "to":356
+    }
+    , {
+      "from":358
+      , "to":285
+    }
+    , {
+      "from":295
+      , "to":358
+    }
+    , {
+      "from":358
+      , "to":297
+    }
+    , {
+      "from":358
+      , "to":357
+    }
+    , {
+      "from":357
+      , "to":358
+    }
+    , {
+      "from":360
+      , "to":285
+    }
+    , {
+      "from":295
+      , "to":360
+    }
+    , {
+      "from":360
+      , "to":297
+    }
+    , {
+      "from":360
+      , "to":359
+    }
+    , {
+      "from":359
+      , "to":360
+    }
+    , {
+      "from":284
+      , "to":362
+    }
+    , {
+      "from":362
+      , "to":284
+    }
+    , {
+      "from":362
+      , "to":292
+    }
+    , {
+      "from":298
+      , "to":362
+    }
+    , {
+      "from":362
+      , "to":300
+    }
+    , {
+      "from":362
+      , "to":361
+    }
+    , {
+      "from":361
+      , "to":362
+    }
+    , {
+      "from":284
+      , "to":364
+    }
+    , {
+      "from":364
+      , "to":284
+    }
+    , {
+      "from":364
+      , "to":292
+    }
+    , {
+      "from":298
+      , "to":364
+    }
+    , {
+      "from":364
+      , "to":300
+    }
+    , {
+      "from":364
+      , "to":363
+    }
+    , {
+      "from":363
+      , "to":364
+    }
+    , {
+      "from":284
+      , "to":366
+    }
+    , {
+      "from":366
+      , "to":284
+    }
+    , {
+      "from":366
+      , "to":292
+    }
+    , {
+      "from":298
+      , "to":366
+    }
+    , {
+      "from":366
+      , "to":300
+    }
+    , {
+      "from":366
+      , "to":365
+    }
+    , {
+      "from":365
+      , "to":366
+    }
+    , {
+      "from":284
+      , "to":368
+    }
+    , {
+      "from":368
+      , "to":284
+    }
+    , {
+      "from":368
+      , "to":292
+    }
+    , {
+      "from":298
+      , "to":368
+    }
+    , {
+      "from":368
+      , "to":300
+    }
+    , {
+      "from":368
+      , "to":367
+    }
+    , {
+      "from":367
+      , "to":368
+    }
+    , {
+      "from":281
+      , "to":370
+    }
+    , {
+      "from":370
+      , "to":293
+    }
+    , {
+      "from":299
+      , "to":370
+    }
+    , {
+      "from":370
+      , "to":304
+    }
+    , {
+      "from":370
+      , "to":369
+    }
+    , {
+      "from":369
+      , "to":370
+    }
+    , {
+      "from":281
+      , "to":372
+    }
+    , {
+      "from":372
+      , "to":293
+    }
+    , {
+      "from":299
+      , "to":372
+    }
+    , {
+      "from":372
+      , "to":304
+    }
+    , {
+      "from":372
+      , "to":371
+    }
+    , {
+      "from":371
+      , "to":372
+    }
+    , {
+      "from":281
+      , "to":374
+    }
+    , {
+      "from":374
+      , "to":293
+    }
+    , {
+      "from":299
+      , "to":374
+    }
+    , {
+      "from":374
+      , "to":304
+    }
+    , {
+      "from":374
+      , "to":373
+    }
+    , {
+      "from":373
+      , "to":374
+    }
+    , {
+      "from":281
+      , "to":376
+    }
+    , {
+      "from":376
+      , "to":293
+    }
+    , {
+      "from":299
+      , "to":376
+    }
+    , {
+      "from":376
+      , "to":304
+    }
+    , {
+      "from":376
+      , "to":375
+    }
+    , {
+      "from":375
+      , "to":376
+    }
+    , {
+      "from":294
+      , "to":378
+    }
+    , {
+      "from":378
+      , "to":296
+    }
+    , {
+      "from":307
+      , "to":378
+    }
+    , {
+      "from":378
+      , "to":309
+    }
+    , {
+      "from":378
+      , "to":377
+    }
+    , {
+      "from":377
+      , "to":378
+    }
+    , {
+      "from":294
+      , "to":380
+    }
+    , {
+      "from":380
+      , "to":296
+    }
+    , {
+      "from":307
+      , "to":380
+    }
+    , {
+      "from":380
+      , "to":309
+    }
+    , {
+      "from":380
+      , "to":379
+    }
+    , {
+      "from":379
+      , "to":380
+    }
+    , {
+      "from":294
+      , "to":382
+    }
+    , {
+      "from":382
+      , "to":296
+    }
+    , {
+      "from":307
+      , "to":382
+    }
+    , {
+      "from":382
+      , "to":309
+    }
+    , {
+      "from":382
+      , "to":381
+    }
+    , {
+      "from":381
+      , "to":382
+    }
+    , {
+      "from":294
+      , "to":384
+    }
+    , {
+      "from":384
+      , "to":296
+    }
+    , {
+      "from":307
+      , "to":384
+    }
+    , {
+      "from":384
+      , "to":309
+    }
+    , {
+      "from":384
+      , "to":383
+    }
+    , {
+      "from":383
+      , "to":384
+    }
+    , {
+      "from":424
+      , "to":394
+    }
+    , {
+      "from":393
+      , "to":426
+    }
+    , {
+      "from":426
+      , "to":394
+    }
+    , {
+      "from":426
+      , "to":401
+    }
+    , {
+      "from":426
+      , "to":425
+    }
+    , {
+      "from":425
+      , "to":426
+    }
+    , {
+      "from":427
+      , "to":394
+    }
+    , {
+      "from":429
+      , "to":394
+    }
+    , {
+      "from":396
+      , "to":429
+    }
+    , {
+      "from":429
+      , "to":401
+    }
+    , {
+      "from":429
+      , "to":428
+    }
+    , {
+      "from":428
+      , "to":429
+    }
+    , {
+      "from":431
+      , "to":395
+    }
+    , {
+      "from":396
+      , "to":431
+    }
+    , {
+      "from":431
+      , "to":430
+    }
+    , {
+      "from":430
+      , "to":431
+    }
+    , {
+      "from":433
+      , "to":395
+    }
+    , {
+      "from":402
+      , "to":433
+    }
+    , {
+      "from":433
+      , "to":404
+    }
+    , {
+      "from":433
+      , "to":432
+    }
+    , {
+      "from":432
+      , "to":433
+    }
+    , {
+      "from":434
+      , "to":397
+    }
+    , {
+      "from":435
+      , "to":397
+    }
+    , {
+      "from":437
+      , "to":398
+    }
+    , {
+      "from":402
+      , "to":437
+    }
+    , {
+      "from":437
+      , "to":436
+    }
+    , {
+      "from":436
+      , "to":437
+    }
+    , {
+      "from":439
+      , "to":398
+    }
+    , {
+      "from":403
+      , "to":439
+    }
+    , {
+      "from":439
+      , "to":438
+    }
+    , {
+      "from":438
+      , "to":439
+    }
+    , {
+      "from":441
+      , "to":400
+    }
+    , {
+      "from":403
+      , "to":441
+    }
+    , {
+      "from":441
+      , "to":440
+    }
+    , {
+      "from":440
+      , "to":441
+    }
+    , {
+      "from":393
+      , "to":443
+    }
+    , {
+      "from":443
+      , "to":400
+    }
+    , {
+      "from":407
+      , "to":443
+    }
+    , {
+      "from":443
+      , "to":442
+    }
+    , {
+      "from":442
+      , "to":443
+    }
+    , {
+      "from":392
+      , "to":445
+    }
+    , {
+      "from":445
+      , "to":401
+    }
+    , {
+      "from":445
+      , "to":444
+    }
+    , {
+      "from":444
+      , "to":445
+    }
+    , {
+      "from":392
+      , "to":447
+    }
+    , {
+      "from":447
+      , "to":401
+    }
+    , {
+      "from":447
+      , "to":446
+    }
+    , {
+      "from":446
+      , "to":447
+    }
+    , {
+      "from":403
+      , "to":448
+    }
+    , {
+      "from":403
+      , "to":449
+    }
+  ]
+}
