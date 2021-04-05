@@ -112,7 +112,7 @@ __kernel void hash_tb(__global const uint * restrict indices, // indices -- aka 
                                __global const uint * restrict b_cols,
 
                                __local const uint * restrict nz_count, // nz_count[GROUP_SIZE]
-                               __local const uint * restrict hash_table, // hash_table[TABLE_SIZE]
+                               __local uint * restrict hash_table, // hash_table[TABLE_SIZE]
 
                                const uint TABLE_SIZE,
                                const uint b_nzr,
@@ -128,7 +128,7 @@ __kernel void hash_tb(__global const uint * restrict indices, // indices -- aka 
     uint warp_id = local_id / WARP; // (0 - 255) / 32 -- warp id of thread
     uint row_pos = group_start + row_id_bin; //
 
-    __local uint *thread_nz = nz_count + local_id;
+    __local const uint *thread_nz = nz_count + local_id;
     thread_nz[0] = 0;
 
     for (uint i = local_id; i < TABLE_SIZE; i += GROUP_SIZE) {
