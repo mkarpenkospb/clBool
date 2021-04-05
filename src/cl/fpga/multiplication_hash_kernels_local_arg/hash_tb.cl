@@ -111,7 +111,7 @@ __kernel void hash_tb(__global const uint * restrict indices, // indices -- aka 
                                __global const uint * restrict b_rows_compressed,
                                __global const uint * restrict b_cols,
 
-                               __local const uint * restrict nz_count, // nz_count[GROUP_SIZE]
+                               __local uint * restrict nz_count, // nz_count[GROUP_SIZE]
                                __local uint * restrict hash_table, // hash_table[TABLE_SIZE]
 
                                const uint TABLE_SIZE,
