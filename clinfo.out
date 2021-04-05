@@ -1,0 +1,160 @@
+Number of platforms                               2
+  Platform Name                                   Intel(R) FPGA SDK for OpenCL(TM)
+  Platform Vendor                                 Intel(R) Corporation
+  Platform Version                                OpenCL 1.0 Intel(R) FPGA SDK for OpenCL(TM), Version 20.4
+  Platform Profile                                EMBEDDED_PROFILE
+  Platform Extensions                             cl_khr_byte_addressable_store cles_khr_int64 cl_khr_icd
+  Platform Extensions function suffix             IntelFPGA
+
+  Platform Name                                   Intel(R) FPGA Emulation Platform for OpenCL(TM)
+  Platform Vendor                                 Intel(R) Corporation
+  Platform Version                                OpenCL 1.2 Intel(R) FPGA SDK for OpenCL(TM), Version 20.4
+  Platform Profile                                EMBEDDED_PROFILE
+  Platform Extensions                             cl_khr_icd cl_khr_byte_addressable_store cl_intel_fpga_host_pipe cles_khr_int64 cl_khr_il_program cl_khr_global_int32_base_atomics cl_khr_global_int32_extended_atomics cl_khr_local_int32_base_atomics cl_khr_local_int32_extended_atomics 
+  Platform Extensions function suffix             IntelFPGA
+
+  Platform Name                                   Intel(R) FPGA SDK for OpenCL(TM)
+Number of devices                                 1
+  Device Name                                     line_high : Euler Line SODIMM Final (acleuler20)
+  Device Vendor                                   Euler Project
+  Device Vendor ID                                0x1172
+  Device Version                                  OpenCL 1.0 Intel(R) FPGA SDK for OpenCL(TM), Version 20.4
+  Driver Version                                  20.4
+  Device OpenCL C Version                         OpenCL C 1.0 
+  Device Type                                     Accelerator
+  Device Profile                                  EMBEDDED_PROFILE
+  Max compute units                               1
+  Max clock frequency                             1000MHz
+  Max work item dimensions                        3
+  Max work item sizes                             2147483647x2147483647x2147483647
+  Max work group size                             2147483647
+  Preferred work group size multiple              <getWGsizes:498: build program : error -3>
+  Preferred / native vector sizes                 
+    char                                                 4 / 4       
+    short                                                2 / 2       
+    int                                                  1 / 1       
+    long                                                 1 / 1       
+    half                                                 0 / 0        (n/a)
+    float                                                1 / 1       
+    double                                               0 / 0        (n/a)
+  Half-precision Floating-point support           (n/a)
+  Single-precision Floating-point support         (core)
+    Denormals                                     No
+    Infinity and NANs                             Yes
+    Round to nearest                              Yes
+    Round to zero                                 No
+    Round to infinity                             No
+    IEEE754-2008 fused multiply-add               No
+    Support is emulated in software               No
+    Correctly-rounded divide and sqrt operations  No
+  Double-precision Floating-point support         (n/a)
+  Address bits                                    64, Little-Endian
+  Global memory size                              8589933568 (8GiB)
+  Error Correction support                        No
+  Max memory allocation                           8589933568 (8GiB)
+  Unified memory for Host and Device              No
+  Minimum alignment for any data type             1024 bytes
+  Alignment of base address                       8192 bits (1024 bytes)
+  Global Memory cache type                        Read-Only
+  Global Memory cache size                        32768
+  Global Memory cache line                        0 bytes
+  Image support                                   No
+  Local memory type                               Local
+  Local memory size                               16384 (16KiB)
+  Max constant buffer size                        2147483392 (2GiB)
+  Max number of constant args                     8
+  Max size of kernel argument                     256
+  Queue properties                                
+    Out-of-order execution                        Yes
+    Profiling                                     Yes
+  Profiling timer resolution                      1ns
+  Execution capabilities                          
+    Run OpenCL kernels                            Yes
+    Run native kernels                            No
+  Device Available                                Yes
+  Compiler Available                              No
+  Device Extensions                               cl_khr_byte_addressable_store cles_khr_int64 cl_khr_icd
+
+  Platform Name                                   Intel(R) FPGA Emulation Platform for OpenCL(TM)
+Number of devices                                 1
+  Device Name                                     Intel(R) FPGA Emulation Device
+  Device Vendor                                   Intel(R) Corporation
+  Device Vendor ID                                0x1172
+  Device Version                                  OpenCL 1.2 
+  Driver Version                                  2020.10.12.0.16_234512.xmain
+  Device OpenCL C Version                         OpenCL C 1.2 
+  Device Type                                     Accelerator
+  Device Profile                                  EMBEDDED_PROFILE
+  Max compute units                               32
+  Max clock frequency                             2400MHz
+  Device Partition                                (core)
+    Max number of sub-devices                     32
+    Supported partition types                     by counts, equally, by names (Intel)
+  Max work item dimensions                        3
+  Max work item sizes                             67108864x67108864x67108864
+  Max work group size                             67108864
+  Preferred work group size multiple              128
+  Preferred / native vector sizes                 
+    char                                                 1 / 32      
+    short                                                1 / 16      
+    int                                                  1 / 8       
+    long                                                 1 / 4       
+    half                                                 0 / 0        (n/a)
+    float                                                1 / 8       
+    double                                               1 / 4        (n/a)
+  Half-precision Floating-point support           (n/a)
+  Single-precision Floating-point support         (core)
+    Denormals                                     Yes
+    Infinity and NANs                             Yes
+    Round to nearest                              Yes
+    Round to zero                                 No
+    Round to infinity                             No
+    IEEE754-2008 fused multiply-add               No
+    Support is emulated in software               No
+    Correctly-rounded divide and sqrt operations  No
+  Double-precision Floating-point support         (n/a)
+  Address bits                                    64, Little-Endian
+  Global memory size                              135073419264 (125.8GiB)
+  Error Correction support                        No
+  Max memory allocation                           33768354816 (31.45GiB)
+  Unified memory for Host and Device              Yes
+  Minimum alignment for any data type             128 bytes
+  Alignment of base address                       1024 bits (128 bytes)
+  Global Memory cache type                        Read/Write
+  Global Memory cache size                        262144
+  Global Memory cache line                        64 bytes
+  Image support                                   No
+  Local memory type                               Global
+  Local memory size                               262144 (256KiB)
+  Max constant buffer size                        131072 (128KiB)
+  Max number of constant args                     480
+  Max size of kernel argument                     3840 (3.75KiB)
+  Queue properties                                
+    Out-of-order execution                        Yes
+    Profiling                                     Yes
+  Prefer user sync for interop                    No
+  Profiling timer resolution                      1ns
+  Execution capabilities                          
+    Run OpenCL kernels                            Yes
+    Run native kernels                            Yes
+  printf() buffer size                            1048576 (1024KiB)
+  Built-in kernels                                
+  Device Available                                Yes
+  Compiler Available                              Yes
+  Linker Available                                Yes
+  Device Extensions                               cl_khr_icd cl_khr_byte_addressable_store cl_intel_fpga_host_pipe cles_khr_int64 cl_khr_il_program cl_khr_global_int32_base_atomics cl_khr_global_int32_extended_atomics cl_khr_local_int32_base_atomics cl_khr_local_int32_extended_atomics 
+
+NULL platform behavior
+  clGetPlatformInfo(NULL, CL_PLATFORM_NAME, ...)  No platform
+  clGetDeviceIDs(NULL, CL_DEVICE_TYPE_ALL, ...)   No platform
+  clCreateContext(NULL, ...) [default]            No platform
+  clCreateContext(NULL, ...) [other]              Success [IntelFPGA]
+  clCreateContextFromType(NULL, CL_DEVICE_TYPE_CPU)  No devices found in platform
+  clCreateContextFromType(NULL, CL_DEVICE_TYPE_GPU)  No devices found in platform
+  clCreateContextFromType(NULL, CL_DEVICE_TYPE_ACCELERATOR)  Success (1)
+    Platform Name                                 Intel(R) FPGA SDK for OpenCL(TM)
+    Device Name                                   line_high : Euler Line SODIMM Final (acleuler20)
+  clCreateContextFromType(NULL, CL_DEVICE_TYPE_CUSTOM)  No devices found in platform
+  clCreateContextFromType(NULL, CL_DEVICE_TYPE_ALL)  Success (1)
+    Platform Name                                 Intel(R) FPGA SDK for OpenCL(TM)
+    Device Name                                   line_high : Euler Line SODIMM Final (acleuler20)
