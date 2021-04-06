@@ -29,7 +29,7 @@ void prefix_sum(Controls &controls,
 
 
     // число потоков, которое нужно выпустить для обработки массива ядром scan в данном алгоритме
-    static auto threads_for_array = [](uint32_t size)->uint32_t {return (size + 1 / 2);};
+    static auto threads_for_array = [](uint32_t size)->uint32_t {return (size + 1) / 2;};
     // на каждом цикле wile число элементов, которые нужно обработать, сократится в times раз
     static auto reduce_array_size = [](uint32_t size, uint32_t times) -> uint32_t
             {return (size + times - 1) / times;};

@@ -4,7 +4,7 @@
 // TODO: optimise bank conflicts
 // https://developer.nvidia.com/gpugems/gpugems3/part-vi-gpu-computing/chapter-39-parallel-prefix-sum-scan-cuda
 
-__attribute__((reqd_work_group_size(256,1,1)))
+__attribute__((reqd_work_group_size(GROUP_SIZE,1,1)))
 __kernel void scan_blelloch(
         __global uint* restrict vertices,
         __global uint* restrict pref_sum,
@@ -14,7 +14,7 @@ __kernel void scan_blelloch(
     uint global_id = get_global_id(0);
     uint local_id = get_local_id(0);
     uint group_id = get_group_id(0);
-    uint block_size = get_local_size(0);
+    uint block_size = get_local_size(0) * 2;
     uint dp = 1;
     __local uint tmp[GROUP_SIZE * 2];
     tmp[2 * local_id] = (global_id * 2) < n ? pref_sum[global_id * 2] : 0;
@@ -35,10 +35,10 @@ __kernel void scan_blelloch(
 
     barrier(CLK_LOCAL_MEM_FENCE);
 
-    if(local_id == block_size - 1) {
-        vertices[group_id] = tmp[local_id];
-        if (get_local_size(0) == get_global_size(0)) *total_sum = tmp[local_id];
-        tmp[local_id] = 0;
+    if(local_id == 0) {
+        vertices[group_id] = tmp[block_size - 1];
+        *total_sum = tmp[block_size - 1];
+        tmp[block_size - 1] = 0;
     }
 
     barrier(CLK_GLOBAL_MEM_FENCE);

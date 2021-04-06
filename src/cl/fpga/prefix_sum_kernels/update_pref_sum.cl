@@ -6,11 +6,8 @@ __kernel void update_pref_sum(__global uint* restrict pref_sum,
                               uint n,
                               uint leaf_size) {
 
-    uint global_id = get_global_id(0);
+    uint global_id = get_global_id(0) + leaf_size;
     if (global_id >= n) return;
-
-    uint block_size = get_local_size(0);
     uint global_leaf_id = global_id / leaf_size;
-    if (global_id >= n) return;
-    pref_sum[global_id] += vertices[global_leaf_id + 1];
+    pref_sum[global_id] += vertices[global_leaf_id];
 }
