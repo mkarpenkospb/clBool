@@ -108,7 +108,7 @@ add_executable(sparse-boolean-matrix-operations
 
         # prefix sum fpga
 
-        src/cl/fpga/prefix_sum_kernels/prefix_sum.cl
+        src/cl/fpga/prefix_sum_kernels/prefix_sum_256.cl
         src/cl/fpga/prefix_sum_kernels/update_pref_sum.cl
 
 

@@ -8,13 +8,15 @@ using namespace coo_utils;
 using namespace utils;
 
 void test_pref_sum() {
-    Controls controls = create_controls("prefix_sum_kernels/update_pref_sum_v2.aocx");
+    Controls controls = create_controls("update_pref_sum_v2.aocx");
+    controls.FPGA_BINARIES = "src/cl/fpga/prefix_sum_kernels/";
     int iter = 0;
-    for (int size = 10'000'000; size < 10'200'000; size += 100) {
+//    for (int size = 10'000'000; size < 10'200'000; size += 100) {
+    for (int size = 100; size < 300; size += 100) {
         iter ++;
         if (DEBUG_ENABLE) Log() << "-------------- PREFIX SUM OF ARRAY OF SIZE " << size << ", ITER " << iter << " --------------";
         cpu_buffer vec(size, 0);
-        utils::fill_random_buffer(vec, 3);
+        utils::fill_random_buffer(vec, 2351512, 3);
         vec.push_back(0);
         cl::Buffer vec_gpu(controls.queue, vec.begin(), vec.end(), false);
         timer t;
