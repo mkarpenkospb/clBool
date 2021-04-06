@@ -1,0 +1,59 @@
+--------------------------------------------------------------------
+ICD System Diagnostics                                              
+--------------------------------------------------------------------
+
+Using the following location for ICD installation: 
+	/etc/OpenCL/vendors
+
+Found 2 icd entry at that location:
+	/etc/OpenCL/vendors/Altera.icd
+	/etc/OpenCL/vendors/Intel_FPGA_SSG_Emulator.icd
+
+The following OpenCL libraries are referenced in the icd files:
+	libalteracl.so
+	libintelocl_emu.so
+
+Checking LD_LIBRARY_PATH for registered libraries:
+	libintelocl_emu.so was registered on the system at /opt/intelFPGA_pro/20.4/hld/host/linux64/lib
+
+Using the following location for fcd installations:
+	/opt/Intel/OpenCL/Boards
+
+Found 1 fcd entry at that location:
+	/opt/Intel/OpenCL/Boards/euler2.fcd
+
+The following OpenCL libraries are referenced in the fcd files:
+	/opt/intelFPGA_pro/17.1/hld/board/euler2/linux64/lib/libaltera_euler2_mmd.so
+
+Checking LD_LIBRARY_PATH for registered libraries:
+	/opt/intelFPGA_pro/17.1/hld/board/euler2/linux64/lib/libaltera_euler2_mmd.so was registered on the system.
+
+Number of Platforms = 2 
+	1. Intel(R) FPGA SDK for OpenCL(TM)                             | Intel(R) Corporation           | OpenCL 1.0 Intel(R) FPGA SDK for OpenCL(TM), Version 20.4
+	2. Intel(R) FPGA Emulation Platform for OpenCL(TM)              | Intel(R) Corporation           | OpenCL 1.2 Intel(R) FPGA SDK for OpenCL(TM), Version 20.4
+--------------------------------------------------------------------
+ICD diagnostics PASSED                                              
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+BSP Diagnostics                                                     
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+Device Name:
+acl0
+
+BSP Install Location:
+/opt/intelFPGA_pro/17.1/hld/board/euler2
+
+Vendor: Euler Project
+
+Phys Dev Name  Status   Information
+
+acleuler20    Passed   Euler Line SODIMM Final (acleuler20)
+                       PCIe dev_id = 2494, bus:slot.func = 82:00.00, Gen3 x8
+                       FPGA temperature = 45.7383 degrees C.
+
+DIAGNOSTIC_PASSED
+--------------------------------------------------------------------
+
+Call "aocl diagnose <device-names>" to run diagnose for specified devices
+Call "aocl diagnose all" to run diagnose for all devices
