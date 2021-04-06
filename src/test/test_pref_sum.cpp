@@ -11,7 +11,7 @@ void test_pref_sum() {
     Controls controls = create_controls("update_pref_sum.aocx");
     controls.FPGA_BINARIES = "src/cl/fpga/prefix_sum_kernels/";
     int iter = 0;
-    for (int size = 10'000'000; size < 10'200'000; size += 100) {
+    for (int size = 10'000'000; size < 10'000'000 + (100 * 20); size += 100) {
 //    for (int size = 100; size < 300; size += 100) {
         iter ++;
         if (DEBUG_ENABLE) Log() << "-------------- PREFIX SUM OF ARRAY OF SIZE " << size << ", ITER " << iter << " --------------";
