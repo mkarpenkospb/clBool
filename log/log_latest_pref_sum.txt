@@ -1,0 +1,288 @@
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10000000, ITER 1 --------------
+[LOG] CPU pref sum finished in 0.014776
+[LOG] src/cl/fpga/prefix_sum_kernels/update_pref_sum.aocx
+[LOG] create buffer with binaries in 0.134808
+[LOG] program prefix_sum_256 created in 0.441491
+[LOG] kernel scan_blelloch created in 1e-05
+[LOG] first prescan finished in 0.66833
+[LOG] scan finished in 0.000754
+
+[LOG] src/cl/fpga/prefix_sum_kernels/update_pref_sum.aocx
+[LOG] create buffer with binaries in 0.155758
+[LOG] program update_pref_sum created in 0.496966
+[LOG] kernel update_pref_sum created in 9e-06
+[LOG] update finished in 0.537444
+
+[LOG] scan finished in 0.000187
+
+[LOG] update finished in 0.039324
+
+[LOG] DEVICE pref sum finished in 1.24636
+[LOG] read buffer in 0.007274
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10000100, ITER 2 --------------
+[LOG] CPU pref sum finished in 0.012737
+[LOG] first prescan finished in 0.226802
+[LOG] scan finished in 0.000682
+
+[LOG] update finished in 0.040439
+
+[LOG] scan finished in 0.000188
+
+[LOG] update finished in 0.039378
+
+[LOG] DEVICE pref sum finished in 0.307804
+[LOG] read buffer in 0.007295
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10000200, ITER 3 --------------
+[LOG] CPU pref sum finished in 0.008665
+[LOG] first prescan finished in 0.226761
+[LOG] scan finished in 0.000726
+
+[LOG] update finished in 0.040448
+
+[LOG] scan finished in 0.000182
+
+[LOG] update finished in 0.039357
+
+[LOG] DEVICE pref sum finished in 0.307644
+[LOG] read buffer in 0.007325
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10000300, ITER 4 --------------
+[LOG] CPU pref sum finished in 0.013529
+[LOG] first prescan finished in 0.226745
+[LOG] scan finished in 0.00075
+
+[LOG] update finished in 0.040443
+
+[LOG] scan finished in 0.000193
+
+[LOG] update finished in 0.039384
+
+[LOG] DEVICE pref sum finished in 0.307695
+[LOG] read buffer in 0.007246
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10000400, ITER 5 --------------
+[LOG] CPU pref sum finished in 0.008835
+[LOG] first prescan finished in 0.226778
+[LOG] scan finished in 0.000678
+
+[LOG] update finished in 0.040399
+
+[LOG] scan finished in 0.000138
+
+[LOG] update finished in 0.039335
+
+[LOG] DEVICE pref sum finished in 0.307466
+[LOG] read buffer in 0.007317
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10000500, ITER 6 --------------
+[LOG] CPU pref sum finished in 0.014114
+[LOG] first prescan finished in 0.226783
+[LOG] scan finished in 0.000758
+
+[LOG] update finished in 0.040434
+
+[LOG] scan finished in 0.000213
+
+[LOG] update finished in 0.039392
+
+[LOG] DEVICE pref sum finished in 0.307762
+[LOG] read buffer in 0.00726
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10000600, ITER 7 --------------
+[LOG] CPU pref sum finished in 0.012202
+[LOG] first prescan finished in 0.226775
+[LOG] scan finished in 0.000647
+
+[LOG] update finished in 0.040447
+
+[LOG] scan finished in 0.00017
+
+[LOG] update finished in 0.039374
+
+[LOG] DEVICE pref sum finished in 0.307646
+[LOG] read buffer in 0.00733
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10000700, ITER 8 --------------
+[LOG] CPU pref sum finished in 0.008811
+[LOG] first prescan finished in 0.226728
+[LOG] scan finished in 0.000633
+
+[LOG] update finished in 0.040322
+
+[LOG] scan finished in 0.000134
+
+[LOG] update finished in 0.039256
+
+[LOG] DEVICE pref sum finished in 0.307216
+[LOG] read buffer in 0.007171
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10000800, ITER 9 --------------
+[LOG] CPU pref sum finished in 0.008676
+[LOG] first prescan finished in 0.226774
+[LOG] scan finished in 0.000706
+
+[LOG] update finished in 0.040414
+
+[LOG] scan finished in 0.000215
+
+[LOG] update finished in 0.039374
+
+[LOG] DEVICE pref sum finished in 0.307671
+[LOG] read buffer in 0.007223
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10000900, ITER 10 --------------
+[LOG] CPU pref sum finished in 0.012053
+[LOG] first prescan finished in 0.225196
+[LOG] scan finished in 0.000746
+
+[LOG] update finished in 0.040401
+
+[LOG] scan finished in 0.000183
+
+[LOG] update finished in 0.039349
+
+[LOG] DEVICE pref sum finished in 0.306129
+[LOG] read buffer in 0.007266
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10001000, ITER 11 --------------
+[LOG] CPU pref sum finished in 0.01336
+[LOG] first prescan finished in 0.226812
+[LOG] scan finished in 0.000665
+
+[LOG] update finished in 0.040423
+
+[LOG] scan finished in 0.00019
+
+[LOG] update finished in 0.03936
+
+[LOG] DEVICE pref sum finished in 0.307629
+[LOG] read buffer in 0.007377
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10001100, ITER 12 --------------
+[LOG] CPU pref sum finished in 0.008679
+[LOG] first prescan finished in 0.226777
+[LOG] scan finished in 0.000677
+
+[LOG] update finished in 0.040374
+
+[LOG] scan finished in 0.000193
+
+[LOG] update finished in 0.03936
+
+[LOG] DEVICE pref sum finished in 0.307553
+[LOG] read buffer in 0.00728
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10001200, ITER 13 --------------
+[LOG] CPU pref sum finished in 0.018399
+[LOG] first prescan finished in 0.226842
+[LOG] scan finished in 0.000739
+
+[LOG] update finished in 0.040413
+
+[LOG] scan finished in 0.000159
+
+[LOG] update finished in 0.039341
+
+[LOG] DEVICE pref sum finished in 0.30771
+[LOG] read buffer in 0.007264
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10001300, ITER 14 --------------
+[LOG] CPU pref sum finished in 0.008621
+[LOG] first prescan finished in 0.225157
+[LOG] scan finished in 0.000681
+
+[LOG] update finished in 0.040375
+
+[LOG] scan finished in 0.000158
+
+[LOG] update finished in 0.039335
+
+[LOG] DEVICE pref sum finished in 0.305872
+[LOG] read buffer in 0.00729
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10001400, ITER 15 --------------
+[LOG] CPU pref sum finished in 0.008633
+[LOG] first prescan finished in 0.226784
+[LOG] scan finished in 0.000679
+
+[LOG] update finished in 0.040371
+
+[LOG] scan finished in 0.000192
+
+[LOG] update finished in 0.039371
+
+[LOG] DEVICE pref sum finished in 0.307569
+[LOG] read buffer in 0.007149
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10001500, ITER 16 --------------
+[LOG] CPU pref sum finished in 0.008634
+[LOG] first prescan finished in 0.226761
+[LOG] scan finished in 0.00063
+
+[LOG] update finished in 0.040381
+
+[LOG] scan finished in 0.000193
+
+[LOG] update finished in 0.039378
+
+[LOG] DEVICE pref sum finished in 0.307512
+[LOG] read buffer in 0.007325
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10001600, ITER 17 --------------
+[LOG] CPU pref sum finished in 0.013399
+[LOG] first prescan finished in 0.226817
+[LOG] scan finished in 0.000684
+
+[LOG] update finished in 0.040445
+
+[LOG] scan finished in 0.000182
+
+[LOG] update finished in 0.039384
+
+[LOG] DEVICE pref sum finished in 0.30769
+[LOG] read buffer in 0.007321
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10001700, ITER 18 --------------
+[LOG] CPU pref sum finished in 0.013592
+[LOG] first prescan finished in 0.226787
+[LOG] scan finished in 0.000676
+
+[LOG] update finished in 0.040436
+
+[LOG] scan finished in 0.000193
+
+[LOG] update finished in 0.039359
+
+[LOG] DEVICE pref sum finished in 0.30763
+[LOG] read buffer in 0.007213
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10001800, ITER 19 --------------
+[LOG] CPU pref sum finished in 0.012668
+[LOG] first prescan finished in 0.226795
+[LOG] scan finished in 0.000675
+
+[LOG] update finished in 0.040405
+
+[LOG] scan finished in 0.000187
+
+[LOG] update finished in 0.039362
+
+[LOG] DEVICE pref sum finished in 0.307603
+[LOG] read buffer in 0.007245
+[LOG] buffers are equal
+[LOG] -------------- PREFIX SUM OF ARRAY OF SIZE 10001900, ITER 20 --------------
+[LOG] CPU pref sum finished in 0.009277
+[LOG] first prescan finished in 0.22674
+[LOG] scan finished in 0.000687
+
+[LOG] update finished in 0.040413
+
+[LOG] scan finished in 0.000193
+
+[LOG] update finished in 0.039365
+
+[LOG] DEVICE pref sum finished in 0.307627
+[LOG] read buffer in 0.00728
+[LOG] buffers are equal
