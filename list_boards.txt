@@ -1,0 +1,4 @@
+Board list:
+  line_high (default)
+     Board Package: /opt/intelFPGA_pro/17.1/hld/board/euler2
+
