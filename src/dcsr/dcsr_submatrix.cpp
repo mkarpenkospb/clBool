@@ -85,10 +85,7 @@ namespace {
         prepare_pos_program.run(controls, positions, subrows_nnz, nzr_tmp).wait();
 
         prefix_sum(controls, positions, nzr_out, nzr_tmp + 1);
-//        if (nzr_tmp > 35) {
-//            std::cout << "nzr_tmp = " << nzr_tmp << std::endl;
-//            utils::print_gpu_buffer(controls, positions, 35);
-//        }
+
         auto set_pos_program = program<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
                 uint32_t, uint32_t, uint32_t, uint32_t, uint32_t>
                 (set_positions_kernel, set_positions_kernel_length);
@@ -108,6 +105,11 @@ namespace {
 
 void submatrix(Controls &controls, matrix_dcsr &matrix_out, const matrix_dcsr &matrix_in,
                uint32_t i, uint32_t j, uint32_t nrows, uint32_t ncols) {
+    if (matrix_in.nnz() == 0) {
+        matrix_out = matrix_dcsr();
+        return;
+    }
+
     timer t;
 
     uint32_t rows_begin;
