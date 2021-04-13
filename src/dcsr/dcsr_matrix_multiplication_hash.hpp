@@ -1,5 +1,6 @@
 #pragma once
 
+#include "dcsr.hpp"
 
 void build_groups_and_allocate_hash(Controls &controls,
                                     std::vector<cpu_buffer> &cpu_workload_groups,

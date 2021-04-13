@@ -20,8 +20,9 @@ int main() {
 //    utils::show_devices();
 //      test_pref_sum();
 //    test_multiplication();
-    test_multiplication_hash();
+//    test_multiplication_hash();
 //    testNewBitonicSort();
+    test_submatrix();
 }
 
 

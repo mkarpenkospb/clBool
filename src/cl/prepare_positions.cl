@@ -64,7 +64,7 @@ __kernel void prepare_array_for_shift(__global uint* result,
 
 
 __kernel void prepare_for_shift_empty_rows(__global unsigned int* result,
-                                           __global const unsigned int* nnz_estimation, // !!! with prefix sum on it!
+                                           __global const unsigned int* nnz_estimation, // !!! with prefix sum on it!, size+1
                                            unsigned int size
 ) {
 
@@ -73,6 +73,6 @@ __kernel void prepare_for_shift_empty_rows(__global unsigned int* result,
     if (global_id >= size) {
         return;
     }
-
+    //  если r[i] == r[i+1], то i не сделал вклад и там был 0
     result[global_id] = nnz_estimation[global_id] == nnz_estimation[global_id + 1]  ? 0 : 1;
 }

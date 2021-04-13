@@ -27,6 +27,7 @@ include_directories(${OpenCL_INCLUDE_DIR} ${LIB_CLASSES} ${COMMON} ${HEADERS} ${
 convertIntoHeader(src/cl/merge_path.cl src/cl/headers/merge_path.h merge_path_kernel)
 convertIntoHeader(src/cl/merge_path1d.cl src/cl/headers/merge_path1d.h merge_path1d_kernel)
 convertIntoHeader(src/cl/dcsr_addition_count.cl src/cl/headers/dcsr_addition_count.h dcsr_addition_count_kernel)
+convertIntoHeader(src/cl/submatrix.cl src/cl/headers/submatrix.h submatrix_kernel)
 
 convertIntoHeader(src/cl/hash/bitonic_sort.cl src/cl/headers/bitonic_sort_new.h bitonic_sort_new_kernel)
 convertIntoHeader(src/cl/hash/hash_global.cl src/cl/headers/hash_global.h hash_global_kernel)
@@ -52,19 +53,29 @@ convertIntoHeader(src/cl/for_test/new_merge.cl src/cl/headers/new_merge.h new_me
 add_executable(sparse-boolean-matrix-operations
 
         # ------------------------ cpp files -------------------------------
+
+        #lib
         src/library_classes/matrix_coo.cpp
 
+        # coo
         src/coo/main_coo.cpp
         src/coo/coo_matrix_addition.cpp
         src/coo/coo_initialization.cpp
         src/coo/coo_utils.cpp
         src/coo/coo_kronecker_product.cpp
+
+        #dcsr
         src/dcsr/dcsr_matrix_multiplication.cpp
+        src/dcsr/dcsr_matrix_addition.cpp
+        src/dcsr/dcsr_matrix_multiplication_hash.cpp
+        src/dcsr/dcsr_submatrix.cpp
+
+
+        #common
         src/common/matrices_conversions.cpp
         src/common/cl_operations.cpp
         src/common/utils.cpp
-        src/dcsr/dcsr_matrix_addition.cpp
-        src/dcsr/dcsr_matrix_multiplication_hash.cpp
+        src/common/cpu_matrix_operations.cpp
 
         #  ------------------------------ cl files -----------------------------
         src/cl/prepare_positions.cl
@@ -84,6 +95,7 @@ add_executable(sparse-boolean-matrix-operations
         src/cl/dscr_to_coo.cl
         src/cl/dcsr_addition_count.cl
         src/cl/merge_path1d.cl
+        src/cl/submatrix.cl
 
             # hash
 
@@ -124,6 +136,7 @@ add_executable(sparse-boolean-matrix-operations
         src/cl/headers/hash_global.h
         src/cl/headers/hash_pwarp.h
         src/cl/headers/hash_tb.h
+        src/cl/headers/submatrix.h
         # -------------------------------     test      ----------------------------------------
 
         src/test/coo_addition_test.cpp
@@ -142,6 +155,7 @@ add_executable(sparse-boolean-matrix-operations
         src/test/test_multiplication.cpp
         src/test/test_pref_sum.cpp
         src/test/coo_new_bitonic_sort_test.cpp
+        src/test/test_submatrix.cpp
         )
 
 target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})

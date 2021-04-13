@@ -109,7 +109,7 @@ void create_final_matrix(Controls &controls,
                 .set_kernel_name("to_result");
 
         e1 = single_value_rows.run(controls, gpu_workload_groups, groups_pointers[1], groups_length[1],
-                                       nnz_estimation, c_cols_indices, pre.rows_pointers_gpu(), pre.cols_indices_gpu());
+                                   nnz_estimation, c_cols_indices, pre.rpt_gpu(), pre.cols_gpu());
     }
 
     uint32_t second_group_length = std::accumulate(groups_length.begin() + 2, groups_length.end(), 0u);
@@ -123,8 +123,8 @@ void create_final_matrix(Controls &controls,
                 .set_kernel_name("to_result");
 
         e2 = ordinary_rows.run(controls,
-                          gpu_workload_groups, groups_length[0] + groups_length[1],
-                          nnz_estimation, c_cols_indices, pre.rows_pointers_gpu(), pre.cols_indices_gpu());
+                               gpu_workload_groups, groups_length[0] + groups_length[1],
+                               nnz_estimation, c_cols_indices, pre.rpt_gpu(), pre.cols_gpu());
     }
 
     try {
@@ -146,7 +146,7 @@ void create_final_matrix(Controls &controls,
     prefix_sum(controls, positions, c_nzr, a.nzr());
     c_rows_pointers = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (c_nzr + 1));
     c_rows_compressed = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * c_nzr);
-    set_positions(controls, c_rows_pointers, c_rows_compressed, nnz_estimation, a.rows_compressed_gpu(), positions,
+    set_positions(controls, c_rows_pointers, c_rows_compressed, nnz_estimation, a.rows_gpu(), positions,
                   c_nnz, a.nzr(), c_nzr);
 
     c = matrix_dcsr(c_rows_pointers, c_rows_compressed, c_cols_indices, pre.nRows(), pre.nCols(), c_nnz, c_nzr);
@@ -236,9 +236,9 @@ void run_kernels(Controls &controls,
             events.push_back(
                     copy_one_value.run(controls,
                                        gpu_workload_groups, groups_pointers[workload_group_id], groups_length[workload_group_id],
-                                       pre.rows_pointers_gpu(), pre.cols_indices_gpu(),
-                                       a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                                       b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+                                       pre.rpt_gpu(), pre.cols_gpu(),
+                                       a.rpt_gpu(), a.cols_gpu(),
+                                       b.rpt_gpu(), b.rows_gpu(), b.cols_gpu(),
                                        b.nzr()
                              )
             );
@@ -252,10 +252,10 @@ void run_kernels(Controls &controls,
             heap_merge.set_needed_work_size(groups_length[workload_group_id])
                         .add_option("NNZ_ESTIMATION", workload_group_id);
             events.push_back(heap_merge.run(controls, gpu_workload_groups, groups_pointers[workload_group_id], groups_length[workload_group_id],
-                                            pre.rows_pointers_gpu(), pre.cols_indices_gpu(),
+                                            pre.rpt_gpu(), pre.cols_gpu(),
                                             nnz_estimation,
-                                            a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                                            b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+                                            a.rpt_gpu(), a.cols_gpu(),
+                                            b.rpt_gpu(), b.rows_gpu(), b.cols_gpu(),
                                             b.nzr()));
 
             continue;
@@ -270,10 +270,10 @@ void run_kernels(Controls &controls,
             events.push_back(esc_kernel.run(
                     controls,
                     gpu_workload_groups, groups_pointers[workload_group_id], groups_length[workload_group_id],
-                    pre.rows_pointers_gpu(), pre.cols_indices_gpu(),
+                    pre.rpt_gpu(), pre.cols_gpu(),
                     nnz_estimation,
-                    a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                    b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+                    a.rpt_gpu(), a.cols_gpu(),
+                    b.rpt_gpu(), b.rows_gpu(), b.cols_gpu(),
                     b.nzr()
             ));
             continue;
@@ -285,10 +285,10 @@ void run_kernels(Controls &controls,
         events.push_back(merge_large_rows.run(controls,
                                               gpu_workload_groups, groups_pointers[workload_group_id],
                                               aux_mem_pointers, aux_mem,
-                                              pre.rows_pointers_gpu(), pre.cols_indices_gpu(),
+                                              pre.rpt_gpu(), pre.cols_gpu(),
                                               nnz_estimation,
-                                              a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                                              b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+                                              a.rpt_gpu(), a.cols_gpu(),
+                                              b.rpt_gpu(), b.rows_gpu(), b.cols_gpu(),
                                               b.nzr()
                             ));
     }
@@ -356,7 +356,7 @@ void build_groups_and_allocate_new_matrix(Controls& controls,
     }
 
 
-    pre = matrix_dcsr(pre_rows_pointers, a.rows_compressed_gpu(), pre_cols_indices_gpu,
+    pre = matrix_dcsr(pre_rows_pointers, a.rows_gpu(), pre_cols_indices_gpu,
                       a.nRows(), b_cols, pre_nnz, a.nzr());
 }
 
@@ -383,8 +383,8 @@ void count_workload(Controls &controls,
 
     cl::Buffer nnz_estimation(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (a.nzr() + 1));
 
-    count_workload.run(controls, nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                       b.rows_compressed_gpu(), b.rows_pointers_gpu(), a.nzr(), b.nzr());
+    count_workload.run(controls, nnz_estimation, a.rpt_gpu(), a.cols_gpu(),
+                       b.rows_gpu(), b.rpt_gpu(), a.nzr(), b.nzr());
 //                       .wait();
     nnz_estimation_out = std::move(nnz_estimation);
 }

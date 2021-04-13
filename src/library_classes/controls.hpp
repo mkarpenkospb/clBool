@@ -6,6 +6,9 @@
 #include <sstream>
 #include <fstream>
 
+// TODO: define warp size based on GPU vendor
+#define WARP_SIZE 32
+
 struct Controls {
     const cl::Device device;
     const cl::Context context;

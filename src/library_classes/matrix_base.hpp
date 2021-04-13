@@ -22,7 +22,7 @@ namespace details {
 
         index_type n_rows;
         index_type n_cols;
-        index_type _nnz;
+        index_type _nnz = 0;
 
     public:
 

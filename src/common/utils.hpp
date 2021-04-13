@@ -1,4 +1,5 @@
 #pragma once
+
 #include "../library_classes/controls.hpp"
 #include "../library_classes/matrix_coo.hpp"
 #include "../library_classes/matrix_dcsr.hpp"
@@ -6,7 +7,10 @@
 
 
 namespace utils {
-    void compare_matrices(Controls &controls, matrix_dcsr m_gpu, matrix_dcsr_cpu m_cpu);
+    void submatrix_cpu(matrix_dcsr_cpu &matrix_out, const matrix_dcsr_cpu &matrix_in,
+                       uint32_t i, uint32_t j, uint32_t nrows, uint32_t ncols);
+
+    void compare_matrices(Controls &controls, const matrix_dcsr &m_gpu, const matrix_dcsr_cpu &m_cpu);
 
     using cpu_buffer = std::vector<uint32_t>;
 
@@ -28,10 +32,11 @@ namespace utils {
 
     void print_cpu_buffer(const cpu_buffer &buffer, uint32_t size = -1);
 
-    void compare_buffers(Controls &controls, const cl::Buffer &buffer_g, const cpu_buffer& buffer_c, uint32_t size, std::string name = "");
+    void compare_buffers(Controls &controls, const cl::Buffer &buffer_g, const cpu_buffer &buffer_c, uint32_t size,
+                         std::string name = "");
 
     void program_handler(const cl::Error &e, const cl::Program &program,
-                         const cl::Device &device, const std::string& name);
+                         const cl::Device &device, const std::string &name);
 
     void show_devices();
 //    matrix_dcsr matrix_dcsr_from_cpu(Controls &controls, const coo_utils::matrix_dcsr_cpu &m, uint32_t size);

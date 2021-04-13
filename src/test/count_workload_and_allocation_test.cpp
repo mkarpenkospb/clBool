@@ -74,6 +74,6 @@ void testCountWorkloadAndAllocation() {
     utils::print_gpu_buffer(controls, gpu_workload_groups, offset);
 
     std::cout << "pre_rows_pointers: \n";
-    utils::print_gpu_buffer(controls, pre.rows_pointers_gpu(), a_gpu.nzr() + 1);
+    utils::print_gpu_buffer(controls, pre.rpt_gpu(), a_gpu.nzr() + 1);
 }
 

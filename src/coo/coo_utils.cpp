@@ -295,26 +295,26 @@ namespace coo_utils {
 
     void print_matrix(const matrix_dcsr_cpu &m_cpu, uint32_t index) {
 
-        if (m_cpu.cols_indices().empty()) {
+        if (m_cpu.cols().empty()) {
             std::cout << "empty matrix" << std::endl;
             return;
         }
 
         auto printNthRow = [&m_cpu](uint32_t i) {
-            std::cout << i << ") row " << m_cpu.rows_compressed()[i] << ": ";
-            uint32_t start = m_cpu.rows_pointers()[i];
-            uint32_t end = m_cpu.rows_pointers()[i + 1];
+            std::cout << i << ") row " << m_cpu.rows()[i] << ": ";
+            uint32_t start = m_cpu.rpt()[i];
+            uint32_t end = m_cpu.rpt()[i + 1];
 
             for (uint32_t j = start; j < end; ++j) {
-                std::cout << "( "<< j - start << ", " << m_cpu.cols_indices()[j] << "), ";
+                std::cout << "( " << j - start << ", " << m_cpu.cols()[j] << "), ";
             }
             std::cout << std::endl;
         };
 
 
         if (index != -1) {
-            if (m_cpu.rows_compressed().size() - 1 < index ) {
-                std::cout << "cannot print row at pos " << index << ", matrix has " << m_cpu.rows_compressed().size() -1
+            if (m_cpu.rows().size() - 1 < index ) {
+                std::cout << "cannot print row at pos " << index << ", matrix has " << m_cpu.rows().size() - 1
                 << " max index pos "<<  std::endl;
                 return;
             }
@@ -322,7 +322,7 @@ namespace coo_utils {
             return;
         }
 
-        uint32_t m_cpu_nzr = m_cpu.rows_compressed().size();
+        uint32_t m_cpu_nzr = m_cpu.rows().size();
 
         for (uint32_t i = 0; i < m_cpu_nzr; ++i) {
             printNthRow(i);
@@ -336,11 +336,11 @@ namespace coo_utils {
         cpu_buffer rows_compressed(m_gpu.nzr());
         cpu_buffer cols_indices(m_gpu.nnz());
 
-        controls.queue.enqueueReadBuffer(m_gpu.rows_pointers_gpu(), CL_TRUE, 0,
+        controls.queue.enqueueReadBuffer(m_gpu.rpt_gpu(), CL_TRUE, 0,
                                          sizeof(uint32_t) * rows_pointers.size(), rows_pointers.data());
-        controls.queue.enqueueReadBuffer(m_gpu.rows_compressed_gpu(), CL_TRUE, 0,
+        controls.queue.enqueueReadBuffer(m_gpu.rows_gpu(), CL_TRUE, 0,
                                          sizeof(uint32_t) * rows_compressed.size(), rows_compressed.data());
-        controls.queue.enqueueReadBuffer(m_gpu.cols_indices_gpu(), CL_TRUE, 0,
+        controls.queue.enqueueReadBuffer(m_gpu.cols_gpu(), CL_TRUE, 0,
                                          sizeof(uint32_t) * cols_indices.size(), cols_indices.data());
         print_matrix(matrix_dcsr_cpu(rows_pointers, rows_compressed, cols_indices), index);
     }
@@ -372,15 +372,15 @@ namespace coo_utils {
                       const matrix_dcsr_cpu &b
     ) {
 
-        for (uint32_t i = 0; i < a.rows_compressed().size(); ++i) {
+        for (uint32_t i = 0; i < a.rows().size(); ++i) {
             workload[i] = 0;
-            uint32_t start = a.rows_pointers()[i];
-            uint32_t end = a.rows_pointers()[i + 1];
+            uint32_t start = a.rpt()[i];
+            uint32_t end = a.rpt()[i + 1];
             for (uint32_t j = start; j < end; ++j) {
-                auto it = std::find(b.rows_compressed().begin(), b.rows_compressed().end(), a.cols_indices()[j]);
-                if (it != b.rows_compressed().end()) {
-                    uint32_t pos = it - b.rows_compressed().begin();
-                    workload[i] += b.rows_pointers()[pos + 1] - b.rows_pointers()[pos];
+                auto it = std::find(b.rows().begin(), b.rows().end(), a.cols()[j]);
+                if (it != b.rows().end()) {
+                    uint32_t pos = it - b.rows().begin();
+                    workload[i] += b.rpt()[pos + 1] - b.rpt()[pos];
                 }
             }
         }
@@ -402,7 +402,7 @@ namespace coo_utils {
                                    const matrix_dcsr_cpu &a,
                                    const matrix_dcsr_cpu &b) {
 
-        uint32_t a_nzr = a.rows_compressed().size();
+        uint32_t a_nzr = a.rows().size();
         cpu_buffer c_cols_indices;
         cpu_buffer c_rows_pointers;
         cpu_buffer c_rows_compressed;
@@ -410,23 +410,23 @@ namespace coo_utils {
         uint32_t current_pointer = 0;
         cpu_buffer current_row;
         for (uint32_t i = 0; i < a_nzr; ++i) {
-            uint32_t start = a.rows_pointers()[i];
-            uint32_t end = a.rows_pointers()[i + 1];
+            uint32_t start = a.rpt()[i];
+            uint32_t end = a.rpt()[i + 1];
             bool is_row = false;
 
             for (uint32_t j = start; j < end; ++j) {
-                auto it = std::find(b.rows_compressed().begin(), b.rows_compressed().end(), a.cols_indices()[j]);
-                if (it != b.rows_compressed().end()) {
+                auto it = std::find(b.rows().begin(), b.rows().end(), a.cols()[j]);
+                if (it != b.rows().end()) {
                     if (!is_row) {
                         c_rows_pointers.push_back(current_pointer);
-                        c_rows_compressed.push_back(a.rows_compressed()[i]);
+                        c_rows_compressed.push_back(a.rows()[i]);
                         is_row = true;
                     }
-                    uint32_t pos = it - b.rows_compressed().begin();
-                    uint32_t b_start = b.rows_pointers()[pos];
-                    uint32_t b_end = b.rows_pointers()[pos + 1];
+                    uint32_t pos = it - b.rows().begin();
+                    uint32_t b_start = b.rpt()[pos];
+                    uint32_t b_end = b.rpt()[pos + 1];
                     for (uint32_t k = b_start; k < b_end; ++k) {
-                        current_row.push_back(b.cols_indices()[k]);
+                        current_row.push_back(b.cols()[k]);
                     }
                 }
             }

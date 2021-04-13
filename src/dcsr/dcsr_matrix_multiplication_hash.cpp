@@ -65,7 +65,7 @@ void matrix_multiplication_hash(Controls &controls,
     t.restart();
     count_workload(controls, nnz_estimation, a, b);
     t.elapsed();
-    if (DEBUG_ENABLE) *logger << "count_workload in " << t.last_elapsed();
+    if (DEBUG_ENABLE) Log() << "count_workload in " << t.last_elapsed();
 
     std::vector<cpu_buffer> cpu_workload_groups(BINS_NUM, cpu_buffer());
     cpu_buffer groups_pointers(BINS_NUM + 1);
@@ -79,7 +79,7 @@ void matrix_multiplication_hash(Controls &controls,
     build_groups_and_allocate_hash(controls, cpu_workload_groups, nnz_estimation, a,
                                    global_hash_tables, global_hash_tables_offset);
     t.elapsed();
-    if (DEBUG_ENABLE) *logger << "build_groups_and_allocate_hash in " << t.last_elapsed();
+    if (DEBUG_ENABLE) Log() << "build_groups_and_allocate_hash in " << t.last_elapsed();
 
 
     cl::Buffer gpu_workload_groups(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a.nzr());
@@ -87,19 +87,19 @@ void matrix_multiplication_hash(Controls &controls,
     t.restart();
     write_bins_info(controls, gpu_workload_groups, cpu_workload_groups, groups_pointers, groups_length);
     t.elapsed();
-    if (DEBUG_ENABLE) *logger << "write_bins_info in " << t.last_elapsed();
+    if (DEBUG_ENABLE) Log() << "write_bins_info in " << t.last_elapsed();
 
     t.restart();
     count_nnz(controls, groups_length, groups_pointers, gpu_workload_groups, nnz_estimation,
               a, b, global_hash_tables, global_hash_tables_offset);
     t.elapsed();
-    if (DEBUG_ENABLE) *logger << "count_nnz in " << t.last_elapsed();
+    if (DEBUG_ENABLE) Log() << "count_nnz in " << t.last_elapsed();
 
     t.restart();
     fill_nnz(controls, groups_length, groups_pointers, gpu_workload_groups, nnz_estimation,
              matrix_out, a, b, global_hash_tables, global_hash_tables_offset);
     t.elapsed();
-    if (DEBUG_ENABLE) *logger << "fill_nnz in " << t.last_elapsed();
+    if (DEBUG_ENABLE) Log() << "fill_nnz in " << t.last_elapsed();
 }
 
 
@@ -140,14 +140,14 @@ void count_nnz(Controls &controls,
 
         uint32_t block_size = hash_details::get_block_size(bin_id);
 
-        if (DEBUG_ENABLE) *logger << "\n[count_nnz] group " << bin_id << ", size " << groups_length[bin_id];
+        if (DEBUG_ENABLE) Log() << "\n[count_nnz] group " << bin_id << ", size " << groups_length[bin_id];
 
         if (bin_id == 0) {
             hash_pwarp.set_needed_work_size(groups_length[bin_id] * PWARP);
             events.push_back(
                     hash_pwarp.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
-                                   nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                                   b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+                                   nnz_estimation, a.rpt_gpu(), a.cols_gpu(),
+                                   b.rpt_gpu(), b.rows_gpu(), b.cols_gpu(),
                                    b.nzr()
                     ));
             continue;
@@ -158,8 +158,8 @@ void count_nnz(Controls &controls,
             hash_tb.add_option("TABLE_SIZE", hash_details::get_table_size(bin_id));
             hash_tb.set_needed_work_size(block_size * groups_length[bin_id]);
             events.push_back(hash_tb.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
-                                         nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                                         b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+                                         nnz_estimation, a.rpt_gpu(), a.cols_gpu(),
+                                         b.rpt_gpu(), b.rows_gpu(), b.cols_gpu(),
                                          b.nzr()
             ));
             continue;
@@ -168,8 +168,8 @@ void count_nnz(Controls &controls,
         hash_global.set_block_size(block_size);
         hash_global.set_needed_work_size(block_size * groups_length[bin_id]);
         events.push_back(hash_global.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
-                                         nnz_estimation, a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                                         b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+                                         nnz_estimation, a.rpt_gpu(), a.cols_gpu(),
+                                         b.rpt_gpu(), b.rows_gpu(), b.cols_gpu(),
                                          b.nzr(),
                                          global_hash_tables, global_hash_tables_offset
         ));
@@ -230,8 +230,8 @@ void fill_nnz(Controls &controls,
             hash_pwarp.set_needed_work_size(groups_length[bin_id] * PWARP);
             events.push_back(
                     hash_pwarp.run(controls, gpu_workload_groups, groups_pointers[bin_id], groups_length[bin_id],
-                                   pre_matrix_rows_pointers, c_cols, a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                                   b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+                                   pre_matrix_rows_pointers, c_cols, a.rpt_gpu(), a.cols_gpu(),
+                                   b.rpt_gpu(), b.rows_gpu(), b.cols_gpu(),
                                    b.nzr()
                     ));
             continue;
@@ -242,8 +242,8 @@ void fill_nnz(Controls &controls,
             hash_tb.add_option("TABLE_SIZE", hash_details::get_table_size(bin_id));
             hash_tb.set_needed_work_size(block_size * groups_length[bin_id]);
             events.push_back(hash_tb.run(controls, gpu_workload_groups, groups_pointers[bin_id],
-                                         pre_matrix_rows_pointers, c_cols, a.rows_pointers_gpu(), a.cols_indices_gpu(),
-                                         b.rows_pointers_gpu(), b.rows_compressed_gpu(), b.cols_indices_gpu(),
+                                         pre_matrix_rows_pointers, c_cols, a.rpt_gpu(), a.cols_gpu(),
+                                         b.rpt_gpu(), b.rows_gpu(), b.cols_gpu(),
                                          b.nzr()
             ));
             continue;
@@ -274,7 +274,7 @@ void fill_nnz(Controls &controls,
     cl::Buffer c_rpt = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (c_nzr + 1));
     cl::Buffer c_rows = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * c_nzr);
 
-    set_positions(controls, c_rpt, c_rows, pre_matrix_rows_pointers, a.rows_compressed_gpu(), positions,
+    set_positions(controls, c_rpt, c_rows, pre_matrix_rows_pointers, a.rows_gpu(), positions,
                   c_nnz, a.nzr(), c_nzr);
 
     c = matrix_dcsr(c_rpt, c_rows, c_cols, a.nRows(), b.nCols(), c_nnz, c_nzr);

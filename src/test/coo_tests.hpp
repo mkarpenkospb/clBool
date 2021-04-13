@@ -22,3 +22,4 @@ void test_multiplication();
 void test_pref_sum();
 void testNewBitonicSort();
 void test_multiplication_hash();
+void test_submatrix();

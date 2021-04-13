@@ -11,11 +11,11 @@ class matrix_dcsr : public details::matrix_base<DCSR> {
 
 private:
     // buffers for uint32only;
-    cl::Buffer _rows_pointers_gpu;
-    cl::Buffer _rows_compressed_gpu;
-    cl::Buffer _cols_indices_gpu;
+    cl::Buffer _rpt_gpu;
+    cl::Buffer _rows_gpu;
+    cl::Buffer _cols_gpu;
 
-    uint32_t _nzr;
+    uint32_t _nzr = 0;
 
 public:
 
@@ -24,9 +24,9 @@ public:
     matrix_dcsr() = default;
 
 
-    matrix_dcsr(cl::Buffer rows_pointers_gpu,
-                cl::Buffer rows_compressed_gpu,
-                cl::Buffer cols_indices_gpu,
+    matrix_dcsr(cl::Buffer rpt_gpu,
+                cl::Buffer rows_gpu,
+                cl::Buffer cols_gpu,
 
                 uint32_t n_rows,
                 uint32_t n_cols,
@@ -34,39 +34,39 @@ public:
                 uint32_t nzr
                 )
     : details::matrix_base<DCSR>(n_rows, n_cols, nnz)
-    , _rows_pointers_gpu(std::move(rows_pointers_gpu))
-    ,  _rows_compressed_gpu(std::move(rows_compressed_gpu))
-    ,  _cols_indices_gpu(std::move(cols_indices_gpu))
+    , _rpt_gpu(std::move(rpt_gpu))
+    , _rows_gpu(std::move(rows_gpu))
+    , _cols_gpu(std::move(cols_gpu))
     , _nzr(nzr)
     {};
 
 
-    const auto &rows_pointers_gpu() const {
-        return _rows_pointers_gpu;
+    const auto &rpt_gpu() const {
+        return _rpt_gpu;
     }
 
-    const auto &rows_compressed_gpu() const {
-        return _rows_compressed_gpu;
+    const auto &rows_gpu() const {
+        return _rows_gpu;
     }
 
-    const auto &cols_indices_gpu() const {
-        return _cols_indices_gpu;
+    const auto &cols_gpu() const {
+        return _cols_gpu;
     }
 
     const uint32_t &nzr() const {
         return _nzr;
     }
 
-    auto &rows_pointers_gpu()  {
-        return _rows_pointers_gpu;
+    auto &rpt_gpu()  {
+        return _rpt_gpu;
     }
 
-    auto &rows_compressed_gpu()  {
-        return _rows_compressed_gpu;
+    auto &rows_gpu()  {
+        return _rows_gpu;
     }
 
-    auto &cols_indices_gpu() {
-        return _cols_indices_gpu;
+    auto &cols_gpu() {
+        return _cols_gpu;
     }
 
     uint32_t &nzr()  {

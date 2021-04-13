@@ -36,7 +36,7 @@ void checkCopying() {
 
     uint32_t value = 239;
     controls.queue.enqueueWriteBuffer(a_coo.cols_indices_gpu(), CL_TRUE, 0, sizeof(uint32_t) * 1, &value);
-    print_gpu_buffer(controls, a_dcsr.cols_indices_gpu(), 3);
+    print_gpu_buffer(controls, a_dcsr.cols_gpu(), 3);
 
 }
 

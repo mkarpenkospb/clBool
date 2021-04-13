@@ -43,7 +43,7 @@ void testHeapAndCopyKernels() {
     cl::Buffer gpu_workload_groups(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a_gpu.nzr());
     write_bins_info(controls, gpu_workload_groups, cpu_workload_groups, groups_pointers, groups_length);
 
-    std::cout << "pre_rows_pointers: \n"; utils::print_gpu_buffer(controls, pre.rows_pointers_gpu(), a_gpu.nzr() + 1);
+    std::cout << "pre_rows_pointers: \n"; utils::print_gpu_buffer(controls, pre.rpt_gpu(), a_gpu.nzr() + 1);
     std::cout << "gpu_workload_groups: \n"; utils::print_gpu_buffer(controls, gpu_workload_groups, a_gpu.nzr());
     std::cout << "groups_pointers: \n"; utils::print_cpu_buffer(groups_pointers);
     std::cout << "groups_length: \n"; utils::print_cpu_buffer(groups_length);

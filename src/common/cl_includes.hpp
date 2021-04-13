@@ -1,5 +1,7 @@
 #pragma once
-#include <libutils/logger.h>
+#include <string>
+#include <iostream>
+#include <fstream>
 #include <libutils/timer.h>
 
 #define CL_HPP_ENABLE_EXCEPTIONS
@@ -15,12 +17,39 @@
 #endif
 
 #if DEBUG_ENABLE
-    #ifdef WIN
-    inline const Logger logger;/*("../log/log_GPU_merge_path.txt")*/;
-    #else
-    inline const Logger logger;/*("../log/log_FPGA_merge_path.txt")*/;
-    #endif
+inline std::string LOG_PATH = "../log/log_GPU_merge_path.txt";
 #endif
+
+inline std::ostream & get_log_stream(const std::string& path = "") {
+    if (path.empty()) {
+        return std::cout;
+    }
+    static std::fstream fstream;
+    fstream.open(path, std::fstream::in | std::fstream::out | std::fstream::trunc);
+    if (!fstream.is_open()) {
+        std::cerr << "cannot open file\n";
+    }
+    return fstream;
+}
+
+// https://stackoverflow.com/a/51802606
+struct Log {
+    inline static std::ostream &stream = get_log_stream(/*LOG_PATH*/);
+
+    Log() {
+        stream << "[LOG] ";
+    }
+
+    ~Log() { stream << "\n"; }
+};
+
+//inline std::ostream& Log::stream = get_log_stream();
+
+template<typename T>
+Log &&operator<<(Log &&wrap, T const &whatever) {
+    ::std::cout << whatever;
+    return ::std::move(wrap);
+}
 
 
 

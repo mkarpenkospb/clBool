@@ -2,9 +2,17 @@
 #include "libutils/fast_random.h"
 
 namespace utils {
-    void compare_buffers(Controls &controls, const cl::Buffer &buffer_g, const cpu_buffer &buffer_c, uint32_t size, std::string name) {
+    void compare_buffers(Controls &controls, const cl::Buffer &buffer_g, const cpu_buffer &buffer_c, uint32_t size,
+                         std::string name) {
         cpu_buffer cpu_copy(size);
-        controls.queue.enqueueReadBuffer(buffer_g, CL_TRUE, 0, sizeof(uint32_t) * cpu_copy.size(), cpu_copy.data());
+        try {
+            if (size >= 0) {
+                controls.queue.enqueueReadBuffer(buffer_g, CL_TRUE, 0, sizeof(uint32_t) * cpu_copy.size(), cpu_copy.data());
+            }
+        } catch (const cl::Error &error) {
+            std::cerr << error_name(error.err()) << std::endl;
+            throw error;
+        }
         for (uint32_t i = 0; i < size; ++i) {
             if (cpu_copy[i] != buffer_c[i]) {
                 uint32_t start = std::max(0, (int) i - 10);
@@ -13,20 +21,24 @@ namespace utils {
                 for (uint32_t j = start; j < stop; ++j) {
                     std::cerr << j << ": (" << cpu_copy[j] << ", " << buffer_c[j] << "), ";
                 }
-                std::cerr  << std::endl;
+                std::cerr << std::endl;
                 throw std::runtime_error("buffers for " + name + " are different");
             }
         }
-        if (DEBUG_ENABLE) *logger << "buffers are equal";
+        if (DEBUG_ENABLE) Log() << "buffers for " << name << " are equal";
     }
 
-    void compare_matrices(Controls &controls, matrix_dcsr m_gpu, matrix_dcsr_cpu m_cpu) {
-        if (m_gpu.nnz() != m_cpu.cols_indices().size()) {
-            std::cerr << "diff nnz, gpu: " << m_gpu.nnz() << " vs cpu: " << m_cpu.cols_indices().size() << std::endl;
+    void compare_matrices(Controls &controls, const matrix_dcsr &m_gpu, const matrix_dcsr_cpu &m_cpu) {
+        if (m_gpu.nnz() != m_cpu.cols().size()) {
+            std::cerr << "diff nnz, gpu: " << m_gpu.nnz() << " vs cpu: " << m_cpu.cols().size() << std::endl;
         }
-        compare_buffers(controls, m_gpu.rows_pointers_gpu(), m_cpu.rows_pointers(), m_gpu.nzr() + 1, "rows_pointers");
-        compare_buffers(controls, m_gpu.rows_compressed_gpu(), m_cpu.rows_compressed(), m_gpu.nzr(), "rows_compressed");
-        compare_buffers(controls, m_gpu.cols_indices_gpu(), m_cpu.cols_indices(), m_gpu.nnz(), "cols_indices");
+        if (m_gpu.nnz() == 0) {
+            if (DEBUG_ENABLE) Log() << "Matrix is empty";
+            return;
+        }
+        compare_buffers(controls, m_gpu.rpt_gpu(), m_cpu.rpt(), m_gpu.nzr() + 1, "rpt");
+        compare_buffers(controls, m_gpu.rows_gpu(), m_cpu.rows(), m_gpu.nzr(), "rows");
+        compare_buffers(controls, m_gpu.cols_gpu(), m_cpu.cols(), m_gpu.nnz(), "cols");
     }
 
 
@@ -77,10 +89,13 @@ namespace utils {
 
     void printDeviceInfo(const cl::Device &device) {
         std::cout << "        CL_DEVICE_AVAILABLE: " << device.getInfo<CL_DEVICE_AVAILABLE>() << std::endl;
-        std::cout << "        CL_DEVICE_LOCAL_MEM_SIZE: " <<  device.getInfo<CL_DEVICE_LOCAL_MEM_SIZE>() << std::endl;
-        std::cout << "        CL_DEVICE_GLOBAL_MEM_SIZE: " <<  device.getInfo<CL_DEVICE_GLOBAL_MEM_SIZE>() / (1024 * 1024) << std::endl;
-        std::cout << "        CL_DEVICE_MAX_WORK_GROUP_SIZE: " <<  device.getInfo<CL_DEVICE_MAX_WORK_GROUP_SIZE>() << std::endl;
-        std::cout << "        CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS: " <<  device.getInfo<CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS>() << std::endl;
+        std::cout << "        CL_DEVICE_LOCAL_MEM_SIZE: " << device.getInfo<CL_DEVICE_LOCAL_MEM_SIZE>() << std::endl;
+        std::cout << "        CL_DEVICE_GLOBAL_MEM_SIZE: "
+                  << device.getInfo<CL_DEVICE_GLOBAL_MEM_SIZE>() / (1024 * 1024) << std::endl;
+        std::cout << "        CL_DEVICE_MAX_WORK_GROUP_SIZE: " << device.getInfo<CL_DEVICE_MAX_WORK_GROUP_SIZE>()
+                  << std::endl;
+        std::cout << "        CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS: "
+                  << device.getInfo<CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS>() << std::endl;
 
 
     }

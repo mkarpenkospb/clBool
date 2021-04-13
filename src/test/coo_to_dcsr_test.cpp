@@ -27,8 +27,8 @@ void testCOOtoDCSR() {
 
     matrix_dcsr m_dcsr = coo_to_dcsr_gpu(controls, matrix_gpu);
 
-    utils::compare_buffers(controls, m_dcsr.rows_pointers_gpu(), rows_pointers_cpu, rows_pointers_cpu.size());
-    utils::compare_buffers(controls, m_dcsr.rows_compressed_gpu(), rows_compressed_cpu, rows_compressed_cpu.size());
+    utils::compare_buffers(controls, m_dcsr.rpt_gpu(), rows_pointers_cpu, rows_pointers_cpu.size());
+    utils::compare_buffers(controls, m_dcsr.rows_gpu(), rows_compressed_cpu, rows_compressed_cpu.size());
 
 
     matrix_coo another_one = dcsr_to_coo(controls, m_dcsr);
