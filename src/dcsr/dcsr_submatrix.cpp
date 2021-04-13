@@ -74,7 +74,7 @@ namespace {
     ) {
         // prepare positions
 
-        cl::Buffer positions(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * nzr_tmp);
+        cl::Buffer positions(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (nzr_tmp + 1));
 
         auto prepare_pos_program = program<cl::Buffer, cl::Buffer, uint32_t>
                 (prepare_positions_kernel, prepare_positions_kernel_length);
@@ -84,7 +84,7 @@ namespace {
 
         prepare_pos_program.run(controls, positions, subrows_nnz, nzr_tmp).wait();
 
-        prefix_sum(controls, positions, nzr_out, nzr_tmp);
+        prefix_sum(controls, positions, nzr_out, nzr_tmp + 1);
 //        if (nzr_tmp > 35) {
 //            std::cout << "nzr_tmp = " << nzr_tmp << std::endl;
 //            utils::print_gpu_buffer(controls, positions, 35);

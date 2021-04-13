@@ -13,13 +13,8 @@ void test_submatrix() {
     std::mt19937 mersenne_engine{rnd_device()};
     timer t;
     for (uint32_t k = 40; k < 60; ++k) {
-        for (int size = 1000; size < 30000; size += 100) {
-            for (int iter = 0; iter < 4; ++iter) {
-//            uint32_t k = 30;
-//            int size = 120;
-                if (iter == 17) {
-                    std::cout << "go there" <<std::endl;
-                }
+        for (int size = 1000; size < 30000; size += 200) {
+            for (int iter = 0; iter < 25; ++iter) {
                 uint32_t max_size = size;
                 uint32_t nnz_max = std::max(10u, max_size * k);
 

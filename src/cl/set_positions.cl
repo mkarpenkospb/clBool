@@ -119,10 +119,6 @@ void __kernel set_positions_with_offset(__global uint *rpt_out,
     __global const uint *rows_in_shifted = rows_in + rows_begin;
 
     if (global_id == nzr_tmp - 1) {
-        if (positions[global_id] != nnz) {
-            rpt_out[positions[global_id]] = rows_tmp_positions[global_id];
-            rows_out[positions[global_id]] = rows_in_shifted[global_id] - i;
-        }
         rpt_out[nzr] = nnz;
     }
 
