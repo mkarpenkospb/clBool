@@ -51,7 +51,7 @@ void matrix_multiplication(Controls &controls,
     cl::Buffer aux_37_group_mem;
 
     matrix_dcsr pre;
-    build_groups_and_allocate_new_matrix(controls, pre, cpu_workload_groups, nnz_estimation, a, b.nCols(),
+    build_groups_and_allocate_new_matrix(controls, pre, cpu_workload_groups, nnz_estimation, a, b.ncols(),
                                          aux_37_group_mem_pointers, aux_37_group_mem);
 
     cl::Buffer gpu_workload_groups(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a.nzr());
@@ -141,7 +141,7 @@ void create_final_matrix(Controls &controls,
     prepare_positions(controls, positions, nnz_estimation, a.nzr(), "prepare_for_shift_empty_rows");
 
 
-    // ------------------------------------  get rid of empty rows -------------------------------
+    // ------------------------------------  get rid of empty rows_gpu -------------------------------
 
     prefix_sum(controls, positions, c_nzr, a.nzr());
     c_rows_pointers = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (c_nzr + 1));
@@ -149,7 +149,7 @@ void create_final_matrix(Controls &controls,
     set_positions(controls, c_rows_pointers, c_rows_compressed, nnz_estimation, a.rows_gpu(), positions,
                   c_nnz, a.nzr(), c_nzr);
 
-    c = matrix_dcsr(c_rows_pointers, c_rows_compressed, c_cols_indices, pre.nRows(), pre.nCols(), c_nnz, c_nzr);
+    c = matrix_dcsr(c_rows_pointers, c_rows_compressed, c_cols_indices, pre.nrows(), pre.ncols(), c_nnz, c_nzr);
 }
 
 void write_bins_info(Controls &controls,
@@ -357,7 +357,7 @@ void build_groups_and_allocate_new_matrix(Controls& controls,
 
 
     pre = matrix_dcsr(pre_rows_pointers, a.rows_gpu(), pre_cols_indices_gpu,
-                      a.nRows(), b_cols, pre_nnz, a.nzr());
+                      a.nrows(), b_cols, pre_nnz, a.nzr());
 }
 
 

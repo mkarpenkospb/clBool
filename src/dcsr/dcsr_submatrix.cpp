@@ -8,7 +8,7 @@
 
 namespace {
 
-    // count [begin, end) of target rows
+    // count [begin, end) of target rows_gpu
     void find_rows_range(Controls &controls, uint32_t &rows_begin, uint32_t &rows_end,
                          const matrix_dcsr &matrix_in, uint32_t i, uint32_t nrows) {
 

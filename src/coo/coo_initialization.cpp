@@ -60,7 +60,6 @@ void sort_arrays(Controls &controls, cl::Buffer &rows_gpu, cl::Buffer &cols_gpu,
             outer >>= 1;
             segment_length <<= 1;
         }
-        std::cout << "\nbitonic sort finished" << std::endl;
     } catch (const cl::Error &e) {
         std::stringstream exception;
         exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";

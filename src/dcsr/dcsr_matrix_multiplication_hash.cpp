@@ -277,7 +277,7 @@ void fill_nnz(Controls &controls,
     set_positions(controls, c_rpt, c_rows, pre_matrix_rows_pointers, a.rows_gpu(), positions,
                   c_nnz, a.nzr(), c_nzr);
 
-    c = matrix_dcsr(c_rpt, c_rows, c_cols, a.nRows(), b.nCols(), c_nnz, c_nzr);
+    c = matrix_dcsr(c_rpt, c_rows, c_cols, a.nrows(), b.ncols(), c_nnz, c_nzr);
 }
 
 void build_groups_and_allocate_hash(Controls &controls,

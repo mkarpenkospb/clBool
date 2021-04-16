@@ -49,5 +49,28 @@ namespace utils {
 
         matrix_out = matrix_dcsr_cpu(std::move(rpt_out), std::move(rows_out), std::move(cols_out));
     }
+
+
+    void transpose(matrix_dcsr_cpu &matrix_out, const matrix_dcsr_cpu &matrix_in) {
+//        matrix_coo m_coo =
+//                &matrix_out == &matrix_in ? dcsr_to_coo_shallow(controls, const_cast<matrix_dcsr &>(matrix_in))
+//                                          : dcsr_to_coo_deep(controls, matrix_in);
+//        matrix_coo m_coo_tr = matrix_coo(m_coo.ncols(), m_coo.nrows(), m_coo.nnz(), m_coo.cols_gpu(), m_coo.cols_gpu());
+//        matrix_out = coo_to_dcsr_gpu_shallow(controls, m_coo_tr);
+    }
+
+    void reduce(matrix_dcsr_cpu &matrix_out, const matrix_dcsr_cpu &matrix_in) {
+        cpu_buffer rows = matrix_in.rows();
+        cpu_buffer::size_type n = rows.size();
+
+        cpu_buffer cols(n, 0);
+        cpu_buffer rpt(n + 1);
+
+        for (cpu_buffer::size_type i = 0; i <= n; ++i) {
+            rpt[i] = i;
+        }
+
+        matrix_out = matrix_dcsr_cpu(std::move(rpt), std::move(rows), std::move(cols));
+    }
 }
 

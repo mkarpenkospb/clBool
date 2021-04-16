@@ -22,7 +22,7 @@ void matrix_addition(Controls &controls,
 
     reduce_duplicates(controls, merged_rows, merged_cols, new_size, a.nnz() + b.nnz());
 
-    matrix_out = matrix_coo(a.nRows(), a.nCols(), new_size, merged_rows, merged_cols);
+    matrix_out = matrix_coo(a.nrows(), a.ncols(), new_size, merged_rows, merged_cols);
 }
 
 
@@ -45,10 +45,10 @@ void merge(Controls &controls,
     cl::Buffer merged_cols(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * merged_size);
 
     coo_merge.run(controls,
-                 merged_rows, merged_cols,
-                 a.rows_indices_gpu(), a.cols_indices_gpu(),
-                 b.rows_indices_gpu(), b.cols_indices_gpu(),
-                 a.nnz(), b.nnz());
+                  merged_rows, merged_cols,
+                  a.rows_gpu(), a.cols_gpu(),
+                  b.rows_gpu(), b.cols_gpu(),
+                  a.nnz(), b.nnz());
 
 //        check_merge_correctness(controls, merged_rows, merged_cols, merged_size);
 
@@ -132,11 +132,11 @@ void set_positions(Controls &controls,
 
 
 //// check weak correctness
-//void check_merge_correctness(Controls &controls, cl::Buffer &rows, cl::Buffer &cols, uint32_t merged_size) {
+//void check_merge_correctness(Controls &controls, cl::Buffer &rows_gpu, cl::Buffer &cols, uint32_t merged_size) {
 //    std::vector<uint32_t> rowsC(merged_size);
 //    std::vector<uint32_t> colsC(merged_size);
 //
-//    controls.queue.enqueueReadBuffer(rows, CL_TRUE, 0, sizeof(uint32_t) * merged_size, rowsC.data());
+//    controls.queue.enqueueReadBuffer(rows_gpu, CL_TRUE, 0, sizeof(uint32_t) * merged_size, rowsC.data());
 //    controls.queue.enqueueReadBuffer(cols, CL_TRUE, 0, sizeof(uint32_t) * merged_size, colsC.data());
 //
 //    coo_utils::check_correctness(rowsC, colsC);

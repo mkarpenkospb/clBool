@@ -12,8 +12,8 @@ void testCountWorkloadAndAllocation() {
 
     uint32_t nnz_limit = 25;
     uint32_t max_size = 10;
-    matrix_dcsr_cpu a_cpu = coo_to_dcsr_cpu(generate_random_matrix_coo_cpu(nnz_limit, max_size));
-    matrix_dcsr_cpu b_cpu = coo_to_dcsr_cpu(generate_random_matrix_coo_cpu(nnz_limit + 1, max_size));
+    matrix_dcsr_cpu a_cpu = coo_pairs_to_dcsr_cpu(generate_coo_pairs_cpu(nnz_limit, max_size));
+    matrix_dcsr_cpu b_cpu = coo_pairs_to_dcsr_cpu(generate_coo_pairs_cpu(nnz_limit + 1, max_size));
 
     if (nnz_limit < 50) {
         coo_utils::print_matrix(a_cpu);
@@ -49,7 +49,7 @@ void testCountWorkloadAndAllocation() {
     matrix_dcsr pre;
     build_groups_and_allocate_new_matrix(controls,
                                          pre,
-                                         cpu_workload_groups, nnz_estimation, a_gpu, b_gpu.nCols(), a, b);
+                                         cpu_workload_groups, nnz_estimation, a_gpu, b_gpu.ncols(), a, b);
 
     cl::Buffer gpu_workload_groups(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a_gpu.nzr());
     unsigned int offset = 0;

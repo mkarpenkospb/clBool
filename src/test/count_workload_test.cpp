@@ -11,8 +11,8 @@ void testCountWorkload() {
         std::cout << "i = " << i << std::endl;
         uint32_t max_size = i;
         uint32_t nnz_limit = max_size * 10;
-        matrix_dcsr_cpu a_cpu = coo_to_dcsr_cpu(generate_random_matrix_coo_cpu(nnz_limit, max_size));
-//    matrix_dcsr_cpu b_cpu = coo_to_dcsr_cpu(generate_random_matrix_coo_cpu(nnz_limit + 1, max_size));
+        matrix_dcsr_cpu a_cpu = coo_pairs_to_dcsr_cpu(generate_coo_pairs_cpu(nnz_limit, max_size));
+//    matrix_dcsr_cpu b_cpu = coo_pairs_to_dcsr_cpu(generate_coo_pairs_cpu(nnz_limit + 1, max_size));
 
 //    if (nnz_limit < 50) {
 //        coo_utils::print_matrix(a_cpu);

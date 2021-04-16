@@ -2,24 +2,25 @@
 #include "libutils/fast_random.h"
 
 namespace utils {
-    void compare_buffers(Controls &controls, const cl::Buffer &buffer_g, const cpu_buffer &buffer_c, uint32_t size,
+    void compare_buffers(Controls &controls, const cl::Buffer &buffer_gpu, const cpu_buffer &buffer_cpu, uint32_t size,
                          std::string name) {
         cpu_buffer cpu_copy(size);
         try {
             if (size >= 0) {
-                controls.queue.enqueueReadBuffer(buffer_g, CL_TRUE, 0, sizeof(uint32_t) * cpu_copy.size(), cpu_copy.data());
+                controls.queue.enqueueReadBuffer(buffer_gpu, CL_TRUE, 0, sizeof(uint32_t) * cpu_copy.size(),
+                                                 cpu_copy.data());
             }
         } catch (const cl::Error &error) {
             std::cerr << error_name(error.err()) << std::endl;
             throw error;
         }
         for (uint32_t i = 0; i < size; ++i) {
-            if (cpu_copy[i] != buffer_c[i]) {
+            if (cpu_copy[i] != buffer_cpu[i]) {
                 uint32_t start = std::max(0, (int) i - 10);
                 uint32_t stop = std::min(size, i + 10);
                 std::cerr << "{ i: (gpu[i], cpu[i]) }" << std::endl;
                 for (uint32_t j = start; j < stop; ++j) {
-                    std::cerr << j << ": (" << cpu_copy[j] << ", " << buffer_c[j] << "), ";
+                    std::cerr << j << ": (" << cpu_copy[j] << ", " << buffer_cpu[j] << "), ";
                 }
                 std::cerr << std::endl;
                 throw std::runtime_error("buffers for " + name + " are different");
@@ -77,7 +78,6 @@ namespace utils {
         try {
             cl::Platform::get(&platforms);
             platforms[0].getDevices(CL_DEVICE_TYPE_GPU, &devices);
-            std::cout << devices[0].getInfo<CL_DEVICE_MAX_WORK_GROUP_SIZE>() << std::endl;
             return Controls(devices[0]);
 
         } catch (const cl::Error &e) {
@@ -87,7 +87,21 @@ namespace utils {
         }
     }
 
+    std::string mapDeviceType(cl_device_type type) {
+        switch (type) {
+            case (1 << 1):
+                return "CL_DEVICE_TYPE_CPU";
+            case (1 << 2):
+                return "CL_DEVICE_TYPE_GPU";
+            case (1 << 3):
+                return "CL_DEVICE_TYPE_ACCELERATOR";
+            default:
+                return "UNKNOWN";
+        }
+    }
+
     void printDeviceInfo(const cl::Device &device) {
+        std::cout << "        CL_DEVICE_TYPE: " << mapDeviceType(device.getInfo<CL_DEVICE_TYPE>()) << std::endl;
         std::cout << "        CL_DEVICE_AVAILABLE: " << device.getInfo<CL_DEVICE_AVAILABLE>() << std::endl;
         std::cout << "        CL_DEVICE_LOCAL_MEM_SIZE: " << device.getInfo<CL_DEVICE_LOCAL_MEM_SIZE>() << std::endl;
         std::cout << "        CL_DEVICE_GLOBAL_MEM_SIZE: "
@@ -107,26 +121,10 @@ namespace utils {
         std::cout << "CL_PLATFORM_NAME: " << platform.getInfo<CL_PLATFORM_NAME>() << std::endl;
         std::cout << "CL_PLATFORM_VENDOR: " << platform.getInfo<CL_PLATFORM_VENDOR>() << std::endl;
 
-        platform.getDevices(CL_DEVICE_TYPE_CPU, &devices);
-        std::cout << "    CPU: \n";
+        platform.getDevices(CL_DEVICE_TYPE_ALL, &devices);
         for (const auto &dev: devices) {
             printDeviceInfo(dev);
         }
-        devices.clear();
-
-        platform.getDevices(CL_DEVICE_TYPE_GPU, &devices);
-        std::cout << "    GPU: \n";
-        for (const auto &dev: devices) {
-            printDeviceInfo(dev);
-        }
-        devices.clear();
-
-        platform.getDevices(CL_DEVICE_TYPE_ACCELERATOR, &devices);
-        std::cout << "    ACCELERATOR: \n";
-        for (const auto &dev: devices) {
-            printDeviceInfo(dev);
-        }
-        devices.clear();
         std::cout << "-----------------------" << std::endl;
     }
 

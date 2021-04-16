@@ -39,7 +39,7 @@ void test_submatrix() {
                 if (DEBUG_ENABLE)
                     Log() << "i = " << i << ", j = " << j << ", nrows = " << nrows << ", ncols = " << ncols;
 
-                matrix_dcsr_cpu a_cpu = coo_to_dcsr_cpu(generate_random_matrix_coo_cpu(nnz_max, max_size));
+                matrix_dcsr_cpu a_cpu = coo_pairs_to_dcsr_cpu(generate_coo_pairs_cpu(nnz_max, max_size));
                 matrix_dcsr_cpu c_cpu;
 
                 t.restart();

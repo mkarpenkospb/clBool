@@ -11,6 +11,7 @@ int main() {
 //    testHeapAndCopyKernels();
 //    checkCopying();
 //    simpleTestCopy();
+//    test_transpose();
 //    testMultiplication();
 //    testScan();
 //    testESC();
@@ -22,7 +23,8 @@ int main() {
 //    test_multiplication();
 //    test_multiplication_hash();
 //    testNewBitonicSort();
-    test_submatrix();
+//    test_submatrix();
+    test_reduce();
 }
 
 

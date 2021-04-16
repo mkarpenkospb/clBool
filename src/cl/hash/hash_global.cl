@@ -8,7 +8,7 @@
 #endif
 // 4 threads for 4 roes
 #define WARP 32 // TODO add define for amd to 64
-// how many rows (tables) can wo process by one threadblock
+// how many rows_gpu (tables) can wo process by one threadblock
 #define ROWS_PER_TB (GROUP_SIZE / PWARP)
 #define HASH_SCAL 107
 
@@ -198,7 +198,7 @@ __kernel void hash_numeric_global(__global const uint *indices, // indices -- ak
                                   __global const uint *hash_table_offset
 
 ) {
-    // all data for large rows is already in a global memory,
+    // all data for large rows_gpu is already in a global memory,
     // we only need to copy values to the final matrix
     uint row_pos = group_start + get_group_id(0);
     uint row_index = indices[row_pos];

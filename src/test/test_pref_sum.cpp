@@ -9,21 +9,36 @@ using namespace utils;
 
 void test_pref_sum() {
     Controls controls = create_controls();
-    for (int size = 20; size < 300000; size += 100) {
+    timer t;
+    for (int size = 1000000; size < 1001000; size += 100) {
+        if (DEBUG_ENABLE) Log() << "------------------" << " size = " << size << " --------------------";
+
         utils::cpu_buffer vec(size, 0);
         utils::fill_random_buffer(vec, 3);
         vec.push_back(0);
+
         cl::Buffer vec_gpu(controls.queue, vec.begin(), vec.end(), false);
-        int prev = vec[0];
-        int tmp;
-        vec[0] = 0;
-        for (int i = 1; i < vec.size(); ++i) {
-            tmp = vec[i];
-            vec[i] = prev;
-            prev += tmp;
-        }
+
+        int prev;
+
+        t.restart(); {
+            prev = vec[0];
+            int tmp;
+            vec[0] = 0;
+            for (int i = 1; i < vec.size(); ++i) {
+                tmp = vec[i];
+                vec[i] = prev;
+                prev += tmp;
+            }
+        } t.elapsed();
+        if (DEBUG_ENABLE) Log() << "CPU prefix sum finished in " << t.last_elapsed();
+
         uint32_t total;
-        prefix_sum(controls, vec_gpu, total, size + 1);
+
+        t.restart(); {
+            prefix_sum(controls, vec_gpu, total, size + 1);
+        } t.elapsed();
+        if (DEBUG_ENABLE) Log() << "DEVICE prefix sum finished in " << t.last_elapsed();
 
         if (total != prev) {
             throw std::runtime_error("sums are different!");

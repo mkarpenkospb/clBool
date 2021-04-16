@@ -17,9 +17,9 @@ void test_multiplication() {
             uint32_t max_size = i;
             uint32_t nnz_max = std::max(10u, max_size * k);
 
-            matrix_dcsr_cpu a_cpu = coo_to_dcsr_cpu(generate_random_matrix_coo_cpu(nnz_max, max_size));
+            matrix_dcsr_cpu a_cpu = coo_pairs_to_dcsr_cpu(generate_coo_pairs_cpu(nnz_max, max_size));
 //        print_cpu_buffer()
-//        matrix_dcsr_cpu b_cpu = coo_to_dcsr_cpu(generate_random_matrix_coo_cpu(nnz_max, max_size - 5));
+//        matrix_dcsr_cpu b_cpu = coo_pairs_to_dcsr_cpu(generate_coo_pairs_cpu(nnz_max, max_size - 5));
             matrix_dcsr_cpu c_cpu;
 //        print_matrix(a_cpu);
             matrix_multiplication_cpu(c_cpu, a_cpu, a_cpu);
@@ -50,7 +50,7 @@ void test_multiplication_hash() {
             uint32_t max_size = i;
             uint32_t nnz_max = std::max(10u, max_size * k);
             t.restart();
-            matrix_dcsr_cpu a_cpu = coo_to_dcsr_cpu(generate_random_matrix_coo_cpu(nnz_max, max_size));
+            matrix_dcsr_cpu a_cpu = coo_pairs_to_dcsr_cpu(generate_coo_pairs_cpu(nnz_max, max_size));
             t.elapsed();
             if (DEBUG_ENABLE) Log() << "a_cpu created in " << t.last_elapsed();
 

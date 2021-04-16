@@ -14,7 +14,7 @@ void matrix_addition(
 //
 //void check_merge_correctness(
 //        Controls &controls,
-//        cl::Buffer &rows,
+//        cl::Buffer &rows_gpu,
 //        cl::Buffer &cols,
 //        uint32_t merged_size
 //);

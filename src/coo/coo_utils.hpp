@@ -19,7 +19,7 @@ namespace coo_utils {
     void get_vectors_from_cpu_matrix(cpu_buffer &rows_out, cpu_buffer &cols_out,
                                      const matrix_coo_cpu_pairs &matrix);
 
-    matrix_coo_cpu_pairs generate_random_matrix_coo_cpu(uint32_t pseudo_nnz, uint32_t max_size = 1024);
+    matrix_coo_cpu_pairs generate_coo_pairs_cpu(uint32_t pseudo_nnz, uint32_t max_size = 1024);
 
     matrix_coo matrix_coo_from_cpu(Controls &controls, const matrix_coo_cpu_pairs &m_cpu);
 
@@ -44,7 +44,7 @@ namespace coo_utils {
                                    const matrix_dcsr_cpu &a,
                                    const matrix_dcsr_cpu &b);
 
-    matrix_dcsr_cpu coo_to_dcsr_cpu(const matrix_coo_cpu_pairs &matrix_coo);
+    matrix_dcsr_cpu coo_pairs_to_dcsr_cpu(const matrix_coo_cpu_pairs &matrix_coo);
 
     void get_workload(cpu_buffer &workload,
                       const matrix_dcsr_cpu &a_cpu,
@@ -57,4 +57,7 @@ namespace coo_utils {
 
     void print_matrix(const matrix_dcsr_cpu &m_cpu, uint32_t index = -1);
     void print_matrix(Controls &controls, const matrix_dcsr& m_gpu, uint32_t index = -1);
+    void fill_random_matrix_pairs(matrix_coo_cpu_pairs &pairs, uint32_t max_size);
+    matrix_coo_cpu generate_coo_cpu(uint32_t pseudo_nnz, uint32_t max_size);
+    matrix_dcsr_cpu coo_to_dcsr_cpu(const matrix_coo_cpu &matrix_coo);
 }

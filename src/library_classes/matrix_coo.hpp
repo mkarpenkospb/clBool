@@ -10,8 +10,8 @@
 class matrix_coo : public details::matrix_base<COO> {
 private:
     // buffers for uint32only;
-    cl::Buffer _rows_indices_gpu;
-    cl::Buffer _cols_indices_gpu;
+    cl::Buffer _rows;
+    cl::Buffer _cols;
 
 public:
 
@@ -20,30 +20,30 @@ public:
     matrix_coo() = default;
 
     matrix_coo(Controls &controls,
-               index_type nRows,
-               index_type nCols,
-               index_type nEntities);
+               index_type nrows,
+               index_type ncols,
+               index_type nnz);
 
-    matrix_coo(index_type nRows,
-               index_type nCols,
-               index_type nEntities,
-               cl::Buffer &rows_indices_gpu,
-               cl::Buffer &cols_indices_gpu
+    matrix_coo(index_type nrows,
+               index_type ncols,
+               index_type nnz,
+               cl::Buffer &rows,
+               cl::Buffer &cols
                );
 
     matrix_coo(Controls &controls,
-               index_type nRows,
-               index_type nCols,
-               index_type nEntities,
+               index_type nrows,
+               index_type ncols,
+               index_type nnz,
                std::vector<index_type> &rows_indices,
                std::vector<index_type> &cols_indices,
                bool sorted = false);
 
     /* we assume, that all input data are sorted */
     matrix_coo(Controls &controls,
-               index_type nRows,
-               index_type nCols,
-               index_type nEntities,
+               index_type nrows,
+               index_type ncols,
+               index_type nnz,
                cl::Buffer &rows,
                cl::Buffer &cols,
                bool sorted = false);
@@ -54,21 +54,23 @@ public:
 
     matrix_coo &operator=(matrix_coo other);
 
-    const auto &rows_indices_gpu() const {
-        return _rows_indices_gpu;
+    const auto &rows_gpu() const {
+        return _rows;
     }
 
-    const auto &cols_indices_gpu() const {
-        return _cols_indices_gpu;
+    const auto &cols_gpu() const {
+        return _cols;
     }
 
-    const auto &rows_indices_gpu() {
-        return _rows_indices_gpu;
+    auto &rows_gpu() {
+        return _rows;
     }
 
-    const auto &cols_indices_gpu() {
-        return _cols_indices_gpu;
+    auto &cols_gpu() {
+        return _cols;
     }
+
+
 
 };
 

@@ -20,12 +20,12 @@ void kronecker_product(Controls &controls,
         cl::Buffer res_rows(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * res_size);
         cl::Buffer res_cols(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * res_size);
         p.run(controls, res_rows, res_cols,
-              matrix_a.rows_indices_gpu(), matrix_a.cols_indices_gpu(),
-              matrix_b.rows_indices_gpu(), matrix_b.cols_indices_gpu(),
-              matrix_b.nnz(), matrix_b.nRows(), matrix_b.nCols()
+              matrix_a.rows_gpu(), matrix_a.cols_gpu(),
+              matrix_b.rows_gpu(), matrix_b.cols_gpu(),
+              matrix_b.nnz(), matrix_b.nrows(), matrix_b.ncols()
               );
 
-        matrix_out = matrix_coo(controls, matrix_a.nRows() * matrix_b.nRows(), matrix_a.nCols() * matrix_b.nCols(),
+        matrix_out = matrix_coo(controls, matrix_a.nrows() * matrix_b.nrows(), matrix_a.ncols() * matrix_b.ncols(),
                                 res_size, res_rows, res_cols);
 
     } catch (const cl::Error &e) {

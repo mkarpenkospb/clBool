@@ -20,35 +20,47 @@ namespace details {
 
         Format sparse_format = format;
 
-        index_type n_rows;
-        index_type n_cols;
+        index_type _nrows;
+        index_type _ncols;
         index_type _nnz = 0;
 
     public:
 
         matrix_base()
-        : n_rows(0), n_cols(0), _nnz(0)
+        : _nrows(0), _ncols(0), _nnz(0)
         {}
 
         matrix_base(index_type n_rows, index_type n_cols, index_type n_entities)
-        : n_rows(n_rows), n_cols(n_cols), _nnz(n_entities)
+        : _nrows(n_rows), _ncols(n_cols), _nnz(n_entities)
         {}
 
         Format get_sparse_format() const {
             return sparse_format;
         };
 
-        index_type nRows() const {
-            return n_rows;
+        index_type nrows() const {
+            return _nrows;
         };
 
-        index_type nCols() const {
-            return n_cols;
+        index_type ncols() const {
+            return _ncols;
         };
 
         index_type nnz() const {
             return _nnz;
         };
 
+
+        index_type nrows() {
+            return _nrows;
+        };
+
+        index_type ncols() {
+            return _ncols;
+        };
+
+        index_type nnz() {
+            return _nnz;
+        };
     };
 }

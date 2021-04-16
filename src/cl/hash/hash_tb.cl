@@ -9,7 +9,7 @@
 
 // 4 threads for 4 roes
 #define WARP 32 // TODO add define for amd to 64
-// how many rows (tables) can wo process by one threadblock
+// how many rows_gpu (tables) can wo process by one threadblock
 #define ROWS_PER_TB (GROUP_SIZE / PWARP)
 #define HASH_SCAL 107
 
