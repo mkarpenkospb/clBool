@@ -5,19 +5,18 @@
 #include <matrices_conversions.hpp>
 #include "../coo/coo_utils.hpp"
 
-using namespace coo_utils;
-using namespace utils;
+using namespace clbool::coo_utils;
+using namespace clbool::utils;
 
-void test_transpose() {
+void clbool::test::test_transpose() {
     Controls controls = create_controls();
-    timer t;
+    SET_TIMER
     for (uint32_t k = 10; k < 30; ++k) {
         for (int size = 20; size < 400; size += 200) {
             uint32_t max_size = size;
             uint32_t nnz_max = std::max(10u, max_size * k);
 
-            if (DEBUG_ENABLE)
-                Log() << " ------------------------------- k = " << k << ", size = " << size
+            LOG << " ------------------------------- k = " << k << ", size = " << size
                       << " -------------------------------------------\n"
                       << "max_size = " << size << ", nnz_max = " << nnz_max;
 
@@ -27,19 +26,18 @@ void test_transpose() {
             matrix_dcsr_cpu a_dcsr_cpu_tr = coo_to_dcsr_cpu(a_coo_cpu);
 
             matrix_dcsr a_gpu;
-            t.restart(); {
-
+            {
+                START_TIMING
                 a_gpu = matrix_dcsr_from_cpu(controls, a_dcsr_cpu, max_size);
+                END_TIMING("matrix_dcsr_from_cpu: ")
+            }
 
-            } t.elapsed();
-            if (DEBUG_ENABLE) Log() << "matrix_dcsr_from_cpu in " << t.last_elapsed();
 
-            t.restart(); {
-
+            {
+                START_TIMING
                 transpose(controls, a_gpu, a_gpu);
-
-            } t.elapsed();
-            if (DEBUG_ENABLE) Log() << "transpose in " << t.last_elapsed();
+                END_TIMING("transpose: ")
+            }
 
             compare_matrices(controls, a_gpu, a_dcsr_cpu_tr);
         }

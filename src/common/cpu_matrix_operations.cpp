@@ -1,7 +1,8 @@
 #include "utils.hpp"
 #include <algorithm>
 
-namespace utils {
+namespace clbool::utils {
+
     void submatrix_cpu(matrix_dcsr_cpu &matrix_out, const matrix_dcsr_cpu &matrix_in,
                        uint32_t i, uint32_t j, uint32_t nrows, uint32_t ncols) {
 
@@ -19,7 +20,7 @@ namespace utils {
             return;
         }
 
-        if (DEBUG_ENABLE) Log() << "CPU rows_begin = " << rows_begin << ", rows_end = " << rows_end ;
+        LOG << "CPU rows_begin = " << rows_begin << ", rows_end = " << rows_end ;
 
         uint32_t nnz_count = 0;
 
@@ -45,7 +46,7 @@ namespace utils {
 
         rpt_out.push_back(nnz_count);
 
-        if (DEBUG_ENABLE) Log() << "CPU nnz_count = " << nnz_count;
+        LOG << "CPU nnz_count = " << nnz_count;
 
         matrix_out = matrix_dcsr_cpu(std::move(rpt_out), std::move(rows_out), std::move(cols_out));
     }

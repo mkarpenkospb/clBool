@@ -11,7 +11,7 @@ if(UNIX)
     set(OpenCL_LIBRARY "/opt/intelFPGA_pro/20.4/hld/host/linux64/lib/libOpenCL.so.1")
 endif(UNIX)
 set(OpenCL_INCLUDE_DIR "libs/clew")
-set(LIB_CLASSES "src/library_classes")
+set(LIB_CLASSES "src/core")
 set(COMMON "src/common")
 set(HEADERS "src/cl/headers")
 set(TESTS "src/test")
@@ -56,7 +56,7 @@ add_executable(sparse-boolean-matrix-operations
         # ------------------------ cpp files -------------------------------
 
         #lib
-        src/library_classes/matrix_coo.cpp
+        src/core/matrix_coo.cpp
 
         # coo
         src/coo/main_coo.cpp

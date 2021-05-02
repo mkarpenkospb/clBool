@@ -3,16 +3,16 @@
 
 #include "coo_tests.hpp"
 #include "../common/cl_includes.hpp"
-#include "../library_classes/controls.hpp"
+#include "controls.hpp"
 #include "../coo/coo_utils.hpp"
 #include "../dcsr/dcsr_matrix_multiplication.hpp"
 
-using namespace coo_utils;
-using namespace utils;
+using namespace clbool::coo_utils;
+using namespace clbool::utils;
 const uint32_t BINS_NUM = 38;
 
 
-void testESC() {
+void clbool::test::testESC() {
     Controls controls = utils::create_controls();
     uint32_t max_size = 400;
     for (int i = 234523; i  < 234523 + 20; ++i) {

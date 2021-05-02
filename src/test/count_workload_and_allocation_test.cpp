@@ -3,11 +3,11 @@
 #include "../coo/coo_utils.hpp"
 #include "../dcsr/dcsr_matrix_multiplication.hpp"
 
-using namespace coo_utils;
-using namespace utils;
+using namespace clbool::coo_utils;
+using namespace clbool::utils;
 const uint32_t BINS_NUM = 38;
 
-void testCountWorkloadAndAllocation() {
+void clbool::test::testCountWorkloadAndAllocation() {
     Controls controls = create_controls();
 
     uint32_t nnz_limit = 25;

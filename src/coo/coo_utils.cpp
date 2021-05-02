@@ -1,14 +1,14 @@
 #include <cstdint>
 #include "coo_utils.hpp"
-#include "../library_classes/matrix_coo.hpp"
+#include "matrix_coo.hpp"
 #include "libutils/fast_random.h"
-#include "../library_classes/matrix_dcsr.hpp"
+#include "matrix_dcsr.hpp"
 #include <vector>
 #include <iostream>
 #include <algorithm>
 
 
-namespace coo_utils {
+namespace clbool::coo_utils {
 
     using cpu_buffer = std::vector<uint32_t>;
 
@@ -292,7 +292,7 @@ namespace coo_utils {
         uint32_t n_cols = *std::max_element(cols.begin(), cols.end());
         uint32_t nnz = m_cpu.size();
 
-        return matrix_coo(controls, n_rows, n_cols, nnz, rows, cols, true);
+        return matrix_coo(controls, n_rows, n_cols, nnz, rows.data(), cols.data(), true);
     }
 
     void

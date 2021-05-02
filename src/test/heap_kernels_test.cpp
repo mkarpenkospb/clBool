@@ -3,11 +3,13 @@
 #include "../coo/coo_utils.hpp"
 #include "../dcsr/dcsr_matrix_multiplication.hpp"
 
-using namespace coo_utils;
-using namespace utils;
+using namespace clbool;
+using namespace clbool::coo_utils;
+using namespace clbool::utils;
+
 const uint32_t BINS_NUM = 38;
 
-void testHeapAndCopyKernels() {
+void clbool::test::testHeapAndCopyKernels() {
     Controls controls = utils::create_controls();
 
     uint32_t nnz_limit = 25;
@@ -64,7 +66,7 @@ void testHeapAndCopyKernels() {
 }
 
 
-void testMultiplication() {
+void clbool::test::testMultiplication() {
     Controls controls = utils::create_controls();
 
     uint32_t nnz_limit = 15;

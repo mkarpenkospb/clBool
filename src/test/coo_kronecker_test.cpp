@@ -1,13 +1,13 @@
 #include <algorithm>
 #include "../common/cl_includes.hpp"
 #include "coo_tests.hpp"
-#include "../library_classes/controls.hpp"
+#include "controls.hpp"
 #include "../coo/coo_utils.hpp"
 #include "../coo/coo_kronecker_product.hpp"
 
 
 
-void testKronecker() {
+void clbool::test::testKronecker() {
     Controls controls = utils::create_controls();
 
     matrix_coo_cpu_pairs matrix_res_cpu;

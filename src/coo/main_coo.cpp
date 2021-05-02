@@ -1,7 +1,8 @@
 #include "../test/coo_tests.hpp"
 
+using namespace clbool::test;
 int main() {
-//    testBitonicSort();
+    testBitonicSort();
 //    testReduceDuplicates();
 //    testMatrixAddition();
 //    testKronecker();
@@ -24,7 +25,7 @@ int main() {
 //    test_multiplication_hash();
 //    testNewBitonicSort();
 //    test_submatrix();
-    test_reduce();
+//    test_reduce();
 }
 
 

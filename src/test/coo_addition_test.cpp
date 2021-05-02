@@ -1,11 +1,11 @@
 #include "coo_tests.hpp"
 #include "../common/cl_includes.hpp"
-#include "../library_classes/matrix_coo.hpp"
+#include "matrix_coo.hpp"
 #include "../coo/coo_utils.hpp"
 #include "../coo/coo_matrix_addition.hpp"
 
 
-void testMatrixAddition() {
+void clbool::test::testMatrixAddition() {
     Controls controls = utils::create_controls();
 
     for (int i = 100; i < 10000; ++i) {

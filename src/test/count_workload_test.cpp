@@ -3,9 +3,9 @@
 #include "../coo/coo_utils.hpp"
 #include "../dcsr/dcsr_matrix_multiplication.hpp"
 
-using namespace coo_utils;
+using namespace clbool::coo_utils;
 
-void testCountWorkload() {
+void clbool::test::testCountWorkload() {
     Controls controls = utils::create_controls();
     for (uint32_t i = 120; i < 10000; i += 50) {
         std::cout << "i = " << i << std::endl;

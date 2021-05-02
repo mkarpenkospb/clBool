@@ -4,11 +4,11 @@
 #include "../coo/coo_utils.hpp"
 #include "../dcsr/dcsr_matrix_multiplication.hpp"
 #include "../cl/headers/new_merge.h"
-using namespace coo_utils;
-using namespace utils;
+using namespace clbool::coo_utils;
+using namespace clbool::utils;
 const uint32_t BINS_NUM = 38;
 
-void test_new_merge_full() {
+void clbool::test::test_new_merge_full() {
     Controls controls = create_controls();
 
     for (int test_size_a = 256; test_size_a < 30000; test_size_a += 500) {

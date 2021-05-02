@@ -4,14 +4,14 @@
 #include "../coo/coo_utils.hpp"
 #include "../dcsr/dcsr_matrix_multiplication.hpp"
 
-using namespace coo_utils;
-using namespace utils;
+using namespace clbool::coo_utils;
+using namespace clbool::utils;
 
 
 
 const uint32_t BINS_NUM = 38;
 
-void largeRowsTest() {
+void clbool::test::largeRowsTest() {
     Controls controls = utils::create_controls();
     uint32_t max_size = 1000;
     auto generated = generate_random_matrices_large(max_size, 342787282);

@@ -4,7 +4,7 @@
 #include "../dcsr/dcsr_matrix_multiplication.hpp"
 
 
-void testCOOtoDCSR() {
+void clbool::test::testCOOtoDCSR() {
     Controls controls = utils::create_controls();
     // ----------------------------------------- create matrices ----------------------------------------
 

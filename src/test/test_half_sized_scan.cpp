@@ -3,11 +3,11 @@
 #include "../dcsr/dcsr_matrix_multiplication.hpp"
 #include "../cl/headers/half_sized_scan.h"
 
-using namespace coo_utils;
-using namespace utils;
+using namespace clbool::coo_utils;
+using namespace clbool::utils;
 const uint32_t BINS_NUM = 38;
 
-void testScan() {
+void clbool::test::testScan() {
     Controls controls = create_controls();
     cpu_buffer array(50, 1);
     cl::Buffer array_gpu(controls.context, CL_MEM_READ_WRITE,  array.size() * sizeof(cpu_buffer::value_type));

@@ -4,14 +4,14 @@
 #include "../coo/coo_utils.hpp"
 #include "../dcsr/dcsr_matrix_multiplication.hpp"
 #include "../cl/headers/new_merge.h"
-using namespace coo_utils;
-using namespace utils;
+using namespace clbool::coo_utils;
+using namespace clbool::utils;
 
-void test_pref_sum() {
+void clbool::test::test_pref_sum() {
     Controls controls = create_controls();
-    timer t;
+    SET_TIMER
     for (int size = 1000000; size < 1001000; size += 100) {
-        if (DEBUG_ENABLE) Log() << "------------------" << " size = " << size << " --------------------";
+        LOG << "------------------" << " size = " << size << " --------------------";
 
         utils::cpu_buffer vec(size, 0);
         utils::fill_random_buffer(vec, 3);
@@ -21,7 +21,9 @@ void test_pref_sum() {
 
         int prev;
 
-        t.restart(); {
+        {
+            START_TIMING
+
             prev = vec[0];
             int tmp;
             vec[0] = 0;
@@ -30,15 +32,17 @@ void test_pref_sum() {
                 vec[i] = prev;
                 prev += tmp;
             }
-        } t.elapsed();
-        if (DEBUG_ENABLE) Log() << "CPU prefix sum finished in " << t.last_elapsed();
+
+            END_TIMING("CPU prefix sum: ")
+        }
 
         uint32_t total;
 
-        t.restart(); {
+        {
+            START_TIMING
             prefix_sum(controls, vec_gpu, total, size + 1);
-        } t.elapsed();
-        if (DEBUG_ENABLE) Log() << "DEVICE prefix sum finished in " << t.last_elapsed();
+            END_TIMING("DEVICE prefix sum: ")
+        }
 
         if (total != prev) {
             throw std::runtime_error("sums are different!");

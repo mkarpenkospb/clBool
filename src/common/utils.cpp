@@ -1,7 +1,7 @@
 #include "utils.hpp"
 #include "libutils/fast_random.h"
 
-namespace utils {
+namespace clbool::utils {
     void compare_buffers(Controls &controls, const cl::Buffer &buffer_gpu, const cpu_buffer &buffer_cpu, uint32_t size,
                          std::string name) {
         cpu_buffer cpu_copy(size);
@@ -26,7 +26,7 @@ namespace utils {
                 throw std::runtime_error("buffers for " + name + " are different");
             }
         }
-        if (DEBUG_ENABLE) Log() << "buffers for " << name << " are equal";
+        LOG << "buffers for " << name << " are equal";
     }
 
     void compare_matrices(Controls &controls, const matrix_dcsr &m_gpu, const matrix_dcsr_cpu &m_cpu) {
@@ -34,7 +34,7 @@ namespace utils {
             std::cerr << "diff nnz, gpu: " << m_gpu.nnz() << " vs cpu: " << m_cpu.cols().size() << std::endl;
         }
         if (m_gpu.nnz() == 0) {
-            if (DEBUG_ENABLE) Log() << "Matrix is empty";
+            LOG << "Matrix is empty";
             return;
         }
         compare_buffers(controls, m_gpu.rpt_gpu(), m_cpu.rpt(), m_gpu.nzr() + 1, "rpt");
@@ -266,8 +266,10 @@ namespace utils {
     void print_gpu_buffer(Controls &controls, const cl::Buffer &buffer, uint32_t size) {
         cpu_buffer cpu_copy(size);
         controls.queue.enqueueReadBuffer(buffer, CL_TRUE, 0, sizeof(uint32_t) * cpu_copy.size(), cpu_copy.data());
+        uint32_t counter = 0;
         for (auto const &item: cpu_copy) {
-            std::cout << item << ", ";
+            std::cout << counter << ": " << item << ", ";
+            counter++;
         }
         std::cout << std::endl;
     }

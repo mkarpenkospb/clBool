@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../library_classes/controls.hpp"
-#include "../library_classes/matrix_coo.hpp"
-#include "../library_classes/matrix_dcsr.hpp"
-#include "../library_classes/cpu_matrices.hpp"
+#include "controls.hpp"
+#include "matrix_coo.hpp"
+#include "matrix_dcsr.hpp"
+#include "cpu_matrices.hpp"
 
 
-namespace utils {
+namespace clbool::utils {
     void reduce(matrix_dcsr_cpu &matrix_out, const matrix_dcsr_cpu &matrix_in);
     void submatrix_cpu(matrix_dcsr_cpu &matrix_out, const matrix_dcsr_cpu &matrix_in,
                        uint32_t i, uint32_t j, uint32_t nrows, uint32_t ncols);
@@ -28,6 +28,10 @@ namespace utils {
     Controls create_controls();
 
     std::string error_name(cl_int error);
+
+    void printPlatformInfo(const cl::Platform &platform);
+
+    void printDeviceInfo(const cl::Device &device);
 
     void print_gpu_buffer(Controls &controls, const cl::Buffer &buffer, uint32_t size);
 

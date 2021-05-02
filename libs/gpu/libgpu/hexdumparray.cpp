@@ -22,14 +22,6 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    // #include <cstddef>
-    //
-    // static const char <arrayName>[] = {
-    //  /*... hexadecimal data from source file ...*/
-    // };
-    //
-    // size_t <arrayName>_length = sizeof(<arrayName>) / sizeof(char);
-
     fout << "#include <cstddef>" << std::endl;
     fout << "#pragma once" << std::endl;
     fout << std::endl;

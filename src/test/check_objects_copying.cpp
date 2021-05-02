@@ -3,19 +3,19 @@
 
 #include "coo_tests.hpp"
 #include "../common/cl_includes.hpp"
-#include "../library_classes/controls.hpp"
-#include "../library_classes/matrix_dcsr.hpp"
+#include "controls.hpp"
+#include "matrix_dcsr.hpp"
 #include "../coo/coo_utils.hpp"
 #include "../dcsr/dcsr_matrix_multiplication.hpp"
 
-using namespace coo_utils;
+
+
 const uint32_t BINS_NUM = 38;
+using namespace clbool::utils;
+using namespace clbool::coo_utils;
 
 
-using namespace coo_utils;
-using namespace utils;
-
-void checkCopying() {
+void clbool::test::checkCopying() {
     Controls controls = utils::create_controls();
 
     uint32_t nnz_limit = 25;
@@ -40,7 +40,7 @@ void checkCopying() {
 
 }
 
-void simpleTestCopy() {
+void clbool::test::simpleTestCopy() {
     Controls controls = create_controls();
 
     cpu_buffer a_cpu(5, 1);
