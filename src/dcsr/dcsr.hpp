@@ -26,4 +26,9 @@ namespace clbool {
                                const matrix_dcsr &a,
                                const matrix_dcsr &b);
 
+
+    void matrix_multiplication_hash(Controls &controls,
+                           matrix_dcsr &matrix_out,
+                           const matrix_dcsr &a,
+                           const matrix_dcsr &b);
 }

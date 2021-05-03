@@ -11,7 +11,7 @@ namespace clbool::utils {
     void submatrix_cpu(matrix_dcsr_cpu &matrix_out, const matrix_dcsr_cpu &matrix_in,
                        uint32_t i, uint32_t j, uint32_t nrows, uint32_t ncols);
 
-    void compare_matrices(Controls &controls, const matrix_dcsr &m_gpu, const matrix_dcsr_cpu &m_cpu);
+    bool compare_matrices(Controls &controls, const matrix_dcsr &m_gpu, const matrix_dcsr_cpu &m_cpu);
 
     using cpu_buffer = std::vector<uint32_t>;
 
@@ -37,7 +37,7 @@ namespace clbool::utils {
 
     void print_cpu_buffer(const cpu_buffer &buffer, uint32_t size = -1);
 
-    void compare_buffers(Controls &controls, const cl::Buffer &buffer_gpu, const cpu_buffer &buffer_cpu, uint32_t size,
+    bool compare_buffers(Controls &controls, const cl::Buffer &buffer_gpu, const cpu_buffer &buffer_cpu, uint32_t size,
                          std::string name = "");
 
     void program_handler(const cl::Error &e, const cl::Program &program,

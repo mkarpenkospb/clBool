@@ -1,4 +1,5 @@
 #pragma once
+#include "coo.hpp"
 
 #include "controls.hpp"
 #include "matrix_coo.hpp"

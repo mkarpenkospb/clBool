@@ -36,7 +36,7 @@ namespace clbool::coo_utils {
                 rows_compressed.push_back(i); // ох ну и пусть
                 cpu_buffer curr_row(random_to_fit);
                 for (uint32_t j = 0; j < random_to_fit; ++j) {
-                    curr_row[j] = r.next() % max_size;
+                    curr_row[j] = r.next(0, max_size);
                 }
                 std::sort(curr_row.begin(), curr_row.end());
                 curr_row.erase(std::unique(curr_row.begin(), curr_row.end()), curr_row.end());
@@ -96,7 +96,7 @@ namespace clbool::coo_utils {
                 rows_compressed.push_back(i); // ох ну и пусть
                 cpu_buffer curr_row(random_to_fit);
                 for (uint32_t j = 0; j < random_to_fit; ++j) {
-                    curr_row[j] = r.next() % max_size;
+                    curr_row[j] = r.next(0, max_size);
                 }
                 std::sort(curr_row.begin(), curr_row.end());
                 curr_row.erase(std::unique(curr_row.begin(), curr_row.end()), curr_row.end());
@@ -138,8 +138,8 @@ namespace clbool::coo_utils {
         uint32_t n = rows.size();
         FastRandom r(n);
         for (uint32_t i = 0; i < n; ++i) {
-            rows[i] = r.next() % max_size;
-            cols[i] = r.next() % max_size;
+            rows[i] = r.next(0, max_size);
+            cols[i] = r.next(0, max_size);
         }
     }
 
@@ -147,8 +147,8 @@ namespace clbool::coo_utils {
         uint32_t n = pairs.size();
         FastRandom r(n);
         for (uint32_t i = 0; i < n; ++i) {
-            pairs[i].first = r.next() % max_size;
-            pairs[i].second = r.next() % max_size;
+            pairs[i].first = r.next(0, max_size);
+            pairs[i].second = r.next(0, max_size);
         }
     }
 

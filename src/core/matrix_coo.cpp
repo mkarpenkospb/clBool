@@ -31,10 +31,12 @@ namespace clbool {
                            bool noDuplicates
                            )
         : matrix_base(nrows, ncols, nnz)
-        , _rows(cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(index_type) * nnz, (void *) rows_indices))
-        , _cols(cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(index_type) * nnz, (void *) cols_indices))
+        , _rows(cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(index_type) * nnz))
+        , _cols(cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(index_type) * nnz))
      {
         try {
+            controls.queue.enqueueWriteBuffer(_rows, CL_TRUE, 0, sizeof(index_type) * nnz, rows_indices);
+            controls.queue.enqueueWriteBuffer(_cols, CL_TRUE, 0, sizeof(index_type) * nnz, cols_indices);
 
             if (!sorted) {
                 sort_arrays(controls, _rows, _cols, _nnz);

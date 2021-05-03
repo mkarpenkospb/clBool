@@ -1,4 +1,5 @@
 #pragma once
+#include "coo.hpp"
 
 #include "matrix_coo.hpp"
 
@@ -8,4 +9,6 @@ namespace clbool {
                            const matrix_coo &matrix_a,
                            const matrix_coo &matrix_b
     );
+
+
 }

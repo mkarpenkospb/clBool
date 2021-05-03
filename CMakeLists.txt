@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.1)
-project(sparse-boolean-matrix-operations)
+project(clBool)
 
 add_subdirectory(libs)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17")
@@ -10,6 +10,8 @@ endif(WIN32)
 if(UNIX)
     set(OpenCL_LIBRARY "/opt/intelFPGA_pro/20.4/hld/host/linux64/lib/libOpenCL.so.1")
 endif(UNIX)
+
+add_subdirectory(test)
 set(OpenCL_INCLUDE_DIR "libs/clew")
 set(LIB_CLASSES "src/core")
 set(COMMON "src/common")
@@ -20,7 +22,7 @@ set(UTILS "libs/utils")
 
 # Handle OpenCL
 find_package(OpenCL REQUIRED)
-include_directories(${OpenCL_INCLUDE_DIR} ${LIB_CLASSES} ${COMMON} ${HEADERS} ${TESTS} ${COO} ${UTILS})
+
 #link_directories(${OpenCL_LIBRARY} ${BOARD_LIB})
 
 # !!!!!!!!!!!! To male it work, headers should be in executables too
@@ -51,7 +53,7 @@ convertIntoHeader(src/cl/bitonic_esc.cl src/cl/headers/bitonic_esc.h bitonic_esc
 convertIntoHeader(src/cl/count_workload.cl src/cl/headers/count_workload.h count_workload_kernel)
 convertIntoHeader(src/cl/for_test/new_merge.cl src/cl/headers/new_merge.h new_merge_kernel)
 
-add_executable(sparse-boolean-matrix-operations
+set(    CLBOOL_SOURCES
 
         # ------------------------ cpp files -------------------------------
 
@@ -142,28 +144,22 @@ add_executable(sparse-boolean-matrix-operations
         src/cl/headers/hash_tb.h
         src/cl/headers/submatrix.h
         src/cl/headers/reduce.h
-        # -------------------------------     test      ----------------------------------------
-
-        src/test/coo_addition_test.cpp
-        src/test/coo_bitonic_test.cpp
-        src/test/coo_reduce_duplicates_test.cpp
-        src/test/coo_kronecker_test.cpp
-        src/test/coo_to_dcsr_test.cpp
-        src/test/count_workload_test.cpp
-        src/test/count_workload_and_allocation_test.cpp
-        src/test/heap_kernels_test.cpp
-        src/test/large_rows_test.cpp
-        src/test/check_objects_copying.cpp
-        src/test/test_half_sized_scan.cpp
-        src/test/esc_kernels_test.cpp
-        src/test/test_new_merge.cpp
-        src/test/test_multiplication.cpp
-        src/test/test_pref_sum.cpp
-        src/test/coo_new_bitonic_sort_test.cpp
-        src/test/test_submatrix.cpp
-        src/test/test_transpose.cpp
-        src/test/test_reduce.cpp
         )
 
-target_link_libraries (sparse-boolean-matrix-operations ${OpenCL_LIBRARY})
+add_library(clBool SHARED ${CLBOOL_SOURCES})
+target_link_libraries (clBool ${OpenCL_LIBRARY})
+target_include_directories(clBool PUBLIC ${OpenCL_INCLUDE_DIR} ${LIB_CLASSES} ${COMMON} ${HEADERS} ${TESTS} ${COO} ${UTILS})
 
+if(WIN32)
+    set(CLBOOL_LIBRARY_FILE_NAME "libclBool.dll")
+    add_custom_command(
+            TARGET clBool POST_BUILD
+            COMMAND "${CMAKE_COMMAND}" -E
+            copy
+            "${CMAKE_BINARY_DIR}/${CLBOOL_LIBRARY_FILE_NAME}"
+            "${CMAKE_BINARY_DIR}/test"
+            "${CMAKE_BINARY_DIR}/${CLBOOL_LIBRARY_FILE_NAME}.a"
+            "${CMAKE_BINARY_DIR}/test"
+            COMMENT "Copy spbla and clbool compiled libs into test folder"
+    )
+endif()

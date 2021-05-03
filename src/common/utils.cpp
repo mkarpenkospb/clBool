@@ -2,7 +2,9 @@
 #include "libutils/fast_random.h"
 
 namespace clbool::utils {
-    void compare_buffers(Controls &controls, const cl::Buffer &buffer_gpu, const cpu_buffer &buffer_cpu, uint32_t size,
+#define RET_FALSE(flag) do {if (!flag) {return false;}} while(0);
+
+    bool compare_buffers(Controls &controls, const cl::Buffer &buffer_gpu, const cpu_buffer &buffer_cpu, uint32_t size,
                          std::string name) {
         cpu_buffer cpu_copy(size);
         try {
@@ -23,23 +25,29 @@ namespace clbool::utils {
                     std::cerr << j << ": (" << cpu_copy[j] << ", " << buffer_cpu[j] << "), ";
                 }
                 std::cerr << std::endl;
-                throw std::runtime_error("buffers for " + name + " are different");
+                std::cerr << "buffers for " <<  name << " are different";
+                return false;
             }
         }
         LOG << "buffers for " << name << " are equal";
+        return true;
     }
 
-    void compare_matrices(Controls &controls, const matrix_dcsr &m_gpu, const matrix_dcsr_cpu &m_cpu) {
+    bool compare_matrices(Controls &controls, const matrix_dcsr &m_gpu, const matrix_dcsr_cpu &m_cpu) {
         if (m_gpu.nnz() != m_cpu.cols().size()) {
             std::cerr << "diff nnz, gpu: " << m_gpu.nnz() << " vs cpu: " << m_cpu.cols().size() << std::endl;
+            return false;
         }
         if (m_gpu.nnz() == 0) {
             LOG << "Matrix is empty";
-            return;
+            return true;
         }
-        compare_buffers(controls, m_gpu.rpt_gpu(), m_cpu.rpt(), m_gpu.nzr() + 1, "rpt");
-        compare_buffers(controls, m_gpu.rows_gpu(), m_cpu.rows(), m_gpu.nzr(), "rows");
+
+        compare_buffers(controls, m_gpu.rpt_gpu(), m_cpu.rpt(), m_gpu.nzr() + 1, "rpt") &&
+        compare_buffers(controls, m_gpu.rows_gpu(), m_cpu.rows(), m_gpu.nzr(), "rows") &&
         compare_buffers(controls, m_gpu.cols_gpu(), m_cpu.cols(), m_gpu.nnz(), "cols");
+
+        return true;
     }
 
 
