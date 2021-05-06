@@ -16,7 +16,7 @@
 #include <program.hpp>
 #include "../cl/headers/coo_bitonic_sort.h"
 
-namespace clbool {
+namespace clbool::coo {
 
     void sort_arrays(Controls &controls, cl::Buffer &rows_gpu, cl::Buffer &cols_gpu, uint32_t n) {
 

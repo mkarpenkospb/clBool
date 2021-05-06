@@ -13,7 +13,7 @@
 const uint32_t BINS_NUM = 8;
 const uint32_t MAX_GROUP_ID = BINS_NUM - 1;
 #define PWARP 4
-namespace clbool {
+namespace clbool::dcsr {
     
     namespace hash_details {
 

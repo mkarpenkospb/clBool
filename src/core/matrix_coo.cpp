@@ -39,7 +39,7 @@ namespace clbool {
             controls.queue.enqueueWriteBuffer(_cols, CL_TRUE, 0, sizeof(index_type) * nnz, cols_indices);
 
             if (!sorted) {
-                sort_arrays(controls, _rows, _cols, _nnz);
+                coo::sort_arrays(controls, _rows, _cols, _nnz);
             }
             if (!noDuplicates) {
 
@@ -67,7 +67,7 @@ namespace clbool {
      {
         try {
             if (!sorted) {
-                sort_arrays(controls, _rows, _cols, _nnz);
+                coo::sort_arrays(controls, _rows, _cols, _nnz);
             }
 
         } catch (const cl::Error &e) {

@@ -308,16 +308,19 @@ namespace clbool::coo_utils {
 
     void
     kronecker_product_cpu(matrix_coo_cpu_pairs &matrix_out, const matrix_coo_cpu_pairs &matrix_a,
-                          const matrix_coo_cpu_pairs &matrix_b) {
+                          const matrix_coo_cpu_pairs &matrix_b, uint32_t b_nrows, uint32_t b_ncols) {
         auto less_for_rows = [](const coordinates &a, const coordinates &b) -> bool {
             return a.first < b.first;
         };
+
         auto less_for_cols = [](const coordinates &a, const coordinates &b) -> bool {
             return a.second < b.second;
         };
 
-        uint32_t matrix_b_nRows = std::max_element(matrix_b.begin(), matrix_b.end(), less_for_rows)->first;
-        uint32_t matrix_b_nCols = std::max_element(matrix_b.begin(), matrix_b.end(), less_for_cols)->second;
+        uint32_t matrix_b_nRows = b_nrows == -1 ?
+                                  std::max_element(matrix_b.begin(), matrix_b.end(), less_for_rows)->first : b_nrows;
+        uint32_t matrix_b_nCols = b_ncols == -1 ?
+                                  std::max_element(matrix_b.begin(), matrix_b.end(), less_for_cols)->second : b_ncols;
 
         matrix_out.resize(matrix_a.size() * matrix_b.size());
 

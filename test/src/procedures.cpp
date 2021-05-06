@@ -4,7 +4,7 @@ using namespace clbool;
 using namespace clbool::coo_utils;
 using namespace clbool::utils;
 
-bool test_pref_sum(Controls controls, uint32_t size) {
+bool test_pref_sum(Controls &controls, uint32_t size) {
     SET_TIMER
 
     LOG << "------------------" << " size = " << size << " --------------------";
@@ -47,7 +47,7 @@ bool test_pref_sum(Controls controls, uint32_t size) {
     return compare_buffers(controls, vec_gpu, vec, size + 1);
 }
 
-bool test_bitonic_sort(Controls controls, uint32_t size) {
+bool test_bitonic_sort(Controls &controls, uint32_t size) {
     SET_TIMER
 
     // TODO: not true of course
@@ -79,7 +79,7 @@ bool test_bitonic_sort(Controls controls, uint32_t size) {
 
     {
         START_TIMING
-        sort_arrays(controls, rows_gpu, cols_gpu, size);
+        coo::sort_arrays(controls, rows_gpu, cols_gpu, size);
         END_TIMING("sort on DEVICE: ")
     }
 

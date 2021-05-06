@@ -8,7 +8,7 @@
 
 // TODO
 // ---------------------------- TO HEADER --------------------------- //
-namespace clbool {
+namespace clbool::dcsr {
 
     void merge(Controls& controls,
                cl::Buffer& rpt_c,

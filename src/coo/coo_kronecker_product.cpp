@@ -5,7 +5,7 @@
 #include "program.hpp"
 #include "../cl/headers/coo_kronecker.h"
 
-namespace clbool {
+namespace clbool::coo {
 
     void kronecker_product(Controls &controls,
                            matrix_coo& matrix_out,

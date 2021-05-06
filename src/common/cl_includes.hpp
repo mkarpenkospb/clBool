@@ -61,3 +61,10 @@ Logg &&operator<<(Logg &&wrap, T const &whatever) {
 #define END_TIMING(msg) do { t.elapsed(); if constexpr (DEBUG_ENABLE) Logg() << (msg) << t.last_elapsed(); } while(0);
 #define LOG if constexpr (DEBUG_ENABLE) Logg()
 
+
+// переменные
+
+#define AMD 0x0010
+#define NVIDIA 0x0020
+
+

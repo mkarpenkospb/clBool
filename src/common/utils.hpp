@@ -8,6 +8,7 @@
 
 namespace clbool::utils {
     void reduce(matrix_dcsr_cpu &matrix_out, const matrix_dcsr_cpu &matrix_in);
+
     void submatrix_cpu(matrix_dcsr_cpu &matrix_out, const matrix_dcsr_cpu &matrix_in,
                        uint32_t i, uint32_t j, uint32_t nrows, uint32_t ncols);
 
@@ -15,7 +16,7 @@ namespace clbool::utils {
 
     using cpu_buffer = std::vector<uint32_t>;
 
-    void fill_random_buffer(cpu_buffer &buf, uint32_t mod = -1);
+    void fill_random_buffer(cpu_buffer &buf, uint32_t max = -1);
 
 // https://stackoverflow.com/a/466242
     unsigned int ceil_to_power2(uint32_t v);
@@ -24,8 +25,6 @@ namespace clbool::utils {
     uint32_t round_to_power2(uint32_t x);
 
     uint32_t calculate_global_size(uint32_t work_group_size, uint32_t n);
-
-    Controls create_controls();
 
     std::string error_name(cl_int error);
 
@@ -43,6 +42,5 @@ namespace clbool::utils {
     void program_handler(const cl::Error &e, const cl::Program &program,
                          const cl::Device &device, const std::string &name);
 
-    void show_devices();
 //    matrix_dcsr matrix_dcsr_from_cpu(Controls &controls, const coo_utils::matrix_dcsr_cpu &m, uint32_t size);
 }

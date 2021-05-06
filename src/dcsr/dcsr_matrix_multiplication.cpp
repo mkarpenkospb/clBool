@@ -12,7 +12,7 @@
 #include "../cl/headers/prepare_positions.h"
 #include "../cl/headers/set_positions.h"
 
-namespace clbool {
+namespace clbool::dcsr {
     const uint32_t BINS_NUM = 38;
     const uint32_t HEAP_MERGE_BLOCK_SIZE = 32;
     typedef std::vector<uint32_t> cpu_buffer;
@@ -428,4 +428,5 @@ namespace clbool {
                       c_nnz, old_nzr, c_nzr);//.wait();
     //    event.wait();
     }
+
 }

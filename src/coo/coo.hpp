@@ -3,7 +3,7 @@
 #include <controls.hpp>
 #include <matrix_coo.hpp>
 
-namespace clbool {
+namespace clbool::coo {
 
     void matrix_addition(
             Controls &controls,

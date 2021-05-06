@@ -7,7 +7,7 @@ using namespace clbool::coo_utils;
 using namespace clbool::utils;
 
 
-bool test_multiplication_merge(Controls controls, uint32_t size, uint32_t k) {
+bool test_multiplication_merge(Controls &controls, uint32_t size, uint32_t k) {
     SET_TIMER
 
     uint32_t max_size = size;
@@ -30,7 +30,7 @@ bool test_multiplication_merge(Controls controls, uint32_t size, uint32_t k) {
 
     {
         START_TIMING
-        matrix_multiplication(controls, c_gpu, a_gpu, a_gpu);
+        dcsr::matrix_multiplication(controls, c_gpu, a_gpu, a_gpu);
         END_TIMING("matrix multiplication on DEVICE: ")
     }
 
@@ -38,7 +38,7 @@ bool test_multiplication_merge(Controls controls, uint32_t size, uint32_t k) {
 }
 
 
-bool test_multiplication_hash(Controls controls, uint32_t size, uint32_t k) {
+bool test_multiplication_hash(Controls &controls, uint32_t size, uint32_t k) {
 
 
     SET_TIMER
@@ -73,7 +73,7 @@ bool test_multiplication_hash(Controls controls, uint32_t size, uint32_t k) {
     matrix_dcsr c_gpu;
     {
         START_TIMING
-        matrix_multiplication_hash(controls, c_gpu, a_gpu, a_gpu);
+        dcsr::matrix_multiplication_hash(controls, c_gpu, a_gpu, a_gpu);
         END_TIMING("matrix multiplication on DEVICE: ")
     }
 
@@ -81,15 +81,15 @@ bool test_multiplication_hash(Controls controls, uint32_t size, uint32_t k) {
 }
 
 
-bool test_reduce(Controls controls, uint32_t size, uint32_t k) {
+bool test_reduce(Controls &controls, uint32_t size, uint32_t k) {
     SET_TIMER
 
     uint32_t max_size = size;
     uint32_t nnz_max = std::max(10u, max_size * k);
 
     LOG << " ------------------------------- k = " << k << ", size = " << size
-              << " -------------------------------------------\n"
-              << "max_size = " << size << ", nnz_max = " << nnz_max;
+        << " -------------------------------------------\n"
+        << "max_size = " << size << ", nnz_max = " << nnz_max;
 
     matrix_dcsr_cpu a_cpu = coo_to_dcsr_cpu(generate_coo_cpu(nnz_max, max_size));
 
@@ -110,7 +110,7 @@ bool test_reduce(Controls controls, uint32_t size, uint32_t k) {
 
     {
         START_TIMING
-        reduce(controls, a_gpu, a_gpu);
+        dcsr::reduce(controls, a_gpu, a_gpu);
         END_TIMING("reduce on DEVICE: ")
     }
 
@@ -118,7 +118,7 @@ bool test_reduce(Controls controls, uint32_t size, uint32_t k) {
 }
 
 
-bool test_submatrix(Controls controls, uint32_t size, uint32_t k, uint32_t iter) {
+bool test_submatrix(Controls &controls, uint32_t size, uint32_t k, uint32_t iter) {
     SET_TIMER
 
     std::random_device rnd_device;
@@ -128,8 +128,8 @@ bool test_submatrix(Controls controls, uint32_t size, uint32_t k, uint32_t iter)
     uint32_t nnz_max = std::max(10u, max_size * k);
 
     LOG << " ------------------------------- k = " << k << ", size = " << size
-              << ", iter = " << iter << "-------------------------------------------\n"
-              << "max_size = " << size << ", nnz_max = " << nnz_max;
+        << ", iter = " << iter << "-------------------------------------------\n"
+        << "max_size = " << size << ", nnz_max = " << nnz_max;
 
     std::uniform_int_distribution<uint32_t> rnd_idx{0, max_size};
     uint32_t i1 = rnd_idx(mersenne_engine);
@@ -161,7 +161,7 @@ bool test_submatrix(Controls controls, uint32_t size, uint32_t k, uint32_t iter)
 
     {
         START_TIMING
-        submatrix(controls, c_gpu, a_gpu, i, j, nrows, ncols);
+        dcsr::submatrix(controls, c_gpu, a_gpu, i, j, nrows, ncols);
         END_TIMING("submatrix on DEVICE: ")
     }
 
@@ -169,15 +169,15 @@ bool test_submatrix(Controls controls, uint32_t size, uint32_t k, uint32_t iter)
 }
 
 
-bool test_transpose(Controls controls, uint32_t size, uint32_t k) {
+bool test_transpose(Controls &controls, uint32_t size, uint32_t k) {
     SET_TIMER
 
     uint32_t max_size = size;
     uint32_t nnz_max = std::max(10u, max_size * k);
 
     LOG << " ------------------------------- k = " << k << ", size = " << size
-    << " -------------------------------------------\n"
-    << "max_size = " << size << ", nnz_max = " << nnz_max;
+        << " -------------------------------------------\n"
+        << "max_size = " << size << ", nnz_max = " << nnz_max;
 
     matrix_coo_cpu a_coo_cpu = generate_coo_cpu(nnz_max, max_size);
     matrix_dcsr_cpu a_dcsr_cpu = coo_to_dcsr_cpu(a_coo_cpu);
@@ -193,7 +193,7 @@ bool test_transpose(Controls controls, uint32_t size, uint32_t k) {
 
     {
         START_TIMING
-        transpose(controls, a_gpu, a_gpu);
+        dcsr::transpose(controls, a_gpu, a_gpu);
         END_TIMING("transpose: ")
     }
 
@@ -201,7 +201,7 @@ bool test_transpose(Controls controls, uint32_t size, uint32_t k) {
 }
 
 
-bool test_addition_coo(Controls controls, uint32_t size_a, uint32_t size_b, uint32_t k_a, uint32_t k_b) {
+bool test_addition_coo(Controls &controls, uint32_t size_a, uint32_t size_b, uint32_t k_a, uint32_t k_b) {
     SET_TIMER
 
     matrix_coo_cpu_pairs matrix_res_cpu;
@@ -212,9 +212,17 @@ bool test_addition_coo(Controls controls, uint32_t size_a, uint32_t size_b, uint
     matrix_coo matrix_a_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_a_cpu);
     matrix_coo matrix_b_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_b_cpu);
 
-    coo_utils::matrix_addition_cpu(matrix_res_cpu, matrix_a_cpu, matrix_b_cpu);
+    {
+        START_TIMING
+        coo_utils::matrix_addition_cpu(matrix_res_cpu, matrix_a_cpu, matrix_b_cpu);
+        END_TIMING("matrix_addition on CPU: ")
+    }
 
-    matrix_addition(controls, matrix_res_gpu, matrix_a_gpu, matrix_b_gpu);
+    {
+        START_TIMING
+        coo::matrix_addition(controls, matrix_res_gpu, matrix_a_gpu, matrix_b_gpu);
+        END_TIMING("matrix_addition on DEVICE: ")
+    }
 
     std::vector<uint32_t> rows_cpu;
     std::vector<uint32_t> cols_cpu;
@@ -223,4 +231,127 @@ bool test_addition_coo(Controls controls, uint32_t size_a, uint32_t size_b, uint
 
     return compare_buffers(controls, matrix_res_gpu.rows_gpu(), rows_cpu, rows_cpu.size()) &&
            compare_buffers(controls, matrix_res_gpu.cols_gpu(), cols_cpu, cols_cpu.size());
+}
+
+bool test_kronecker_coo(clbool::Controls &controls) {
+    SET_TIMER
+
+    matrix_coo_cpu_pairs matrix_res_cpu;
+    matrix_coo_cpu_pairs matrix_a_cpu = coo_utils::generate_coo_pairs_cpu(1000, 3342);
+    matrix_coo_cpu_pairs matrix_b_cpu = coo_utils::generate_coo_pairs_cpu(1000, 2234);
+
+    matrix_coo matrix_res_gpu;
+    matrix_coo matrix_a_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_a_cpu);
+    matrix_coo matrix_b_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_b_cpu);
+
+    {
+        START_TIMING
+        kronecker_product_cpu(matrix_res_cpu, matrix_a_cpu, matrix_b_cpu);
+        END_TIMING("kronecker product on CPU: ")
+    }
+
+    {
+        START_TIMING
+        coo::kronecker_product(controls, matrix_res_gpu, matrix_a_gpu, matrix_b_gpu);
+        END_TIMING("kronecker product on DEVICE: ")
+    }
+
+    std::vector<uint32_t> rows_cpu;
+    std::vector<uint32_t> cols_cpu;
+
+    coo_utils::get_vectors_from_cpu_matrix(rows_cpu, cols_cpu, matrix_res_cpu);
+
+    return compare_buffers(controls, matrix_res_gpu.rows_gpu(), rows_cpu, rows_cpu.size()) &&
+           compare_buffers(controls, matrix_res_gpu.cols_gpu(), cols_cpu, cols_cpu.size());
+
+}
+
+bool test_kronecker_dcsr(clbool::Controls &controls) {
+    SET_TIMER
+
+    uint32_t size_a = 342;
+    uint32_t size_b = 231;
+    matrix_dcsr_cpu matrix_res_cpu;
+    matrix_dcsr matrix_res_gpu;
+    matrix_dcsr matrix_a_gpu;
+    matrix_dcsr matrix_b_gpu;
+
+    {
+        matrix_coo_cpu_pairs matrix_coo_res_cpu;
+        matrix_coo_cpu_pairs matrix_coo_a_cpu = coo_utils::generate_coo_pairs_cpu(523, size_a);
+        matrix_coo_cpu_pairs matrix_coo_b_cpu = coo_utils::generate_coo_pairs_cpu(132, size_b);
+
+        matrix_a_gpu = matrix_dcsr_from_cpu(controls,
+                                            coo_utils::coo_pairs_to_dcsr_cpu(matrix_coo_a_cpu), size_a);
+        matrix_b_gpu = matrix_dcsr_from_cpu(controls,
+                                            coo_utils::coo_pairs_to_dcsr_cpu(matrix_coo_b_cpu), size_b);
+
+        {
+            START_TIMING
+            kronecker_product_cpu(matrix_coo_res_cpu, matrix_coo_a_cpu, matrix_coo_b_cpu, size_b, size_b);
+            END_TIMING("kronecker product on CPU: ")
+        }
+
+        matrix_res_cpu = coo_utils::coo_pairs_to_dcsr_cpu(matrix_coo_res_cpu);
+    }
+
+    {
+        START_TIMING
+        dcsr::kronecker_product(controls, matrix_res_gpu, matrix_a_gpu, matrix_b_gpu);
+        END_TIMING("kronecker product on DEVICE: ")
+    }
+
+    return compare_matrices(controls, matrix_res_gpu, matrix_res_cpu);
+}
+
+bool test_reduce_duplicates(Controls &controls) {
+    uint32_t size = 10374663;
+
+    // -------------------- create indices ----------------------------
+
+    cpu_buffer rows_cpu(size);
+    cpu_buffer cols_cpu(size);
+
+    std::vector<uint32_t> rows_from_gpu(size);
+    std::vector<uint32_t> cols_from_gpu(size);
+
+    coo_utils::fill_random_matrix(rows_cpu, cols_cpu, 1043);
+
+    // -------------------- create and sort cpu matrix ----------------------------
+    matrix_coo_cpu_pairs m_cpu;
+    coo_utils::form_cpu_matrix(m_cpu, rows_cpu, cols_cpu);
+    std::sort(m_cpu.begin(), m_cpu.end());
+
+    // -------------------- create and sort gpu buffers ----------------------------
+
+    cl::Buffer rows_gpu(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * size);
+    cl::Buffer cols_gpu(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * size);
+
+    controls.queue.enqueueWriteBuffer(rows_gpu, CL_TRUE, 0, sizeof(uint32_t) * size, rows_cpu.data());
+    controls.queue.enqueueWriteBuffer(cols_gpu, CL_TRUE, 0, sizeof(uint32_t) * size, cols_cpu.data());
+
+    coo::sort_arrays(controls, rows_gpu, cols_gpu, size);
+
+    // ------------------ now reduce cpu matrix and read result in vectors ------------------------
+
+    std::cout << "\nmatrix cpu before size: " << m_cpu.size() << std::endl;
+    m_cpu.erase(std::unique(m_cpu.begin(), m_cpu.end()), m_cpu.end());
+    coo_utils::get_vectors_from_cpu_matrix(rows_cpu, cols_cpu, m_cpu);
+    std::cout << "\nmatrix cpu after size: " << m_cpu.size() << std::endl;
+
+    // ------------------ now reduce gpu buffers and read in vectors ------------------------
+    uint32_t new_size;
+//    coo::reduce_duplicates(controls, rows_gpu, cols_gpu, reinterpret_cast<uint32_t &>(new_size), size);
+
+    rows_from_gpu.resize(new_size);
+    cols_from_gpu.resize(new_size);
+
+    controls.queue.enqueueReadBuffer(rows_gpu, CL_TRUE, 0, sizeof(uint32_t) * new_size, rows_from_gpu.data());
+    controls.queue.enqueueReadBuffer(cols_gpu, CL_TRUE, 0, sizeof(uint32_t) * new_size, cols_from_gpu.data());
+
+    if (rows_from_gpu == rows_cpu && cols_from_gpu == cols_cpu) {
+        std::cout << "correct reduce" << std::endl;
+    } else {
+        std::cerr << "incorrect reduce" << std::endl;
+    }
 }

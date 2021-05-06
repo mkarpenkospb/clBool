@@ -3,6 +3,7 @@
 #include "../cl/headers/dscr_to_coo.h"
 #include "../cl/headers/prepare_positions.h"
 #include "../cl/headers/set_positions.h"
+#include <type_traits>
 
 namespace clbool {
     namespace {
@@ -84,11 +85,14 @@ namespace clbool {
         );
     }
 
-    matrix_dcsr matrix_dcsr_from_cpu(Controls &controls, matrix_dcsr_cpu &m, uint32_t size) {
+    matrix_dcsr matrix_dcsr_from_cpu(Controls &controls, const matrix_dcsr_cpu &m, uint32_t size) {
 
-        cl::Buffer rows_pointers(controls.context, m.rpt().begin(), m.rpt().end(), false);
-        cl::Buffer rows_compressed(controls.context, m.rows().begin(), m.rows().end(), false);
-        cl::Buffer cols_indices(controls.context, m.cols().begin(), m.cols().end(), false);
+        cl::Buffer rows_pointers(controls.context,
+                                 (const_cast<matrix_dcsr_cpu&>(m)).rpt().begin(), (const_cast<matrix_dcsr_cpu&>(m)).rpt().end(), false);
+        cl::Buffer rows_compressed(controls.context,
+                                   (const_cast<matrix_dcsr_cpu&>(m)).rows().begin(), (const_cast<matrix_dcsr_cpu&>(m)).rows().end(), false);
+        cl::Buffer cols_indices(controls.context,
+                                (const_cast<matrix_dcsr_cpu&>(m)).cols().begin(), (const_cast<matrix_dcsr_cpu&>(m)).cols().end(), false);
 
         return matrix_dcsr(rows_pointers, rows_compressed, cols_indices,
                            size, size, m.cols().size(), m.rows().size());
@@ -119,6 +123,7 @@ namespace clbool {
         return matrix_dcsr_cpu(rows_pointers, rows_compressed, cols_indices);
 
     }
+
 
     matrix_coo_cpu matrix_coo_from_gpu(Controls &controls, matrix_coo &m) {
 

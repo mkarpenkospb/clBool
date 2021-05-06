@@ -2,13 +2,14 @@
 #include "controls.hpp"
 #include "program.hpp"
 #include "../common/utils.hpp"
+#include "../common/cl_operations.hpp"
 #include "coo_utils.hpp"
 #include "coo_matrix_addition.hpp"
 #include "../cl/headers/merge_path.h"
 #include "../cl/headers/prepare_positions.h"
 #include "../cl/headers/set_positions.h"
 
-namespace clbool {
+namespace clbool::coo {
 
     void matrix_addition(Controls &controls,
                          matrix_coo &matrix_out,

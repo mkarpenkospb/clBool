@@ -2,7 +2,7 @@
 #include "utils.hpp"
 #include "reduce.h"
 
-namespace clbool {
+namespace clbool::dcsr {
     void reduce(Controls &controls, matrix_dcsr &matrix_out, const matrix_dcsr &matrix_in) {
 
         if (matrix_in.nnz() == 0) {

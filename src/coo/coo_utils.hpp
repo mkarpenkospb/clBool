@@ -27,7 +27,8 @@ namespace clbool::coo_utils {
     matrix_addition_cpu(matrix_coo_cpu_pairs &matrix_out, const matrix_coo_cpu_pairs &matrix_a, const matrix_coo_cpu_pairs &matrix_b);
 
     void
-    kronecker_product_cpu(matrix_coo_cpu_pairs &matrix_out, const matrix_coo_cpu_pairs &matrix_a, const matrix_coo_cpu_pairs &matrix_b);
+    kronecker_product_cpu(matrix_coo_cpu_pairs &matrix_out, const matrix_coo_cpu_pairs &matrix_a, const matrix_coo_cpu_pairs &matrix_b,
+                          uint32_t b_nrows = -1, uint32_t b_ncols = -1);
 
     void print_matrix(const matrix_coo_cpu_pairs &m_cpu);
 

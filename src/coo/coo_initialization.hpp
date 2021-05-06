@@ -2,7 +2,7 @@
 
 #include "../common/cl_includes.hpp"
 #include "controls.hpp"
-namespace clbool {
+namespace clbool::coo{
     void check_pref_correctness(const std::vector<uint32_t>& result,
                                 const std::vector<uint32_t>& before);
 

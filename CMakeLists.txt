@@ -52,6 +52,7 @@ convertIntoHeader(src/cl/merge_large_rows.cl src/cl/headers/merge_large_rows.h m
 convertIntoHeader(src/cl/bitonic_esc.cl src/cl/headers/bitonic_esc.h bitonic_esc_kernel)
 convertIntoHeader(src/cl/count_workload.cl src/cl/headers/count_workload.h count_workload_kernel)
 convertIntoHeader(src/cl/for_test/new_merge.cl src/cl/headers/new_merge.h new_merge_kernel)
+convertIntoHeader(src/cl/dcsr_kronecker.cl src/cl/headers/dcsr_kronecker.h dcsr_kronecker_kernel)
 
 set(    CLBOOL_SOURCES
 
@@ -74,6 +75,7 @@ set(    CLBOOL_SOURCES
         src/dcsr/dcsr_submatrix.cpp
         src/dcsr/dcsr_transpose.cpp
         src/dcsr/dcsr_reduce.cpp
+        src/dcsr/dcsr_kronecker_product.cpp
 
 
         #common
@@ -81,6 +83,7 @@ set(    CLBOOL_SOURCES
         src/common/cl_operations.cpp
         src/common/utils.cpp
         src/common/cpu_matrix_operations.cpp
+        src/common/env.cpp
 
         #  ------------------------------ cl files -----------------------------
         src/cl/prepare_positions.cl
@@ -102,6 +105,7 @@ set(    CLBOOL_SOURCES
         src/cl/merge_path1d.cl
         src/cl/submatrix.cl
         src/cl/reduce.cl
+        src/cl/dcsr_kronecker.cl
 
             # hash
 
@@ -144,6 +148,7 @@ set(    CLBOOL_SOURCES
         src/cl/headers/hash_tb.h
         src/cl/headers/submatrix.h
         src/cl/headers/reduce.h
+        src/cl/headers/dcsr_kronecker.h
         )
 
 add_library(clBool SHARED ${CLBOOL_SOURCES})
@@ -158,8 +163,8 @@ if(WIN32)
             copy
             "${CMAKE_BINARY_DIR}/${CLBOOL_LIBRARY_FILE_NAME}"
             "${CMAKE_BINARY_DIR}/test"
-            "${CMAKE_BINARY_DIR}/${CLBOOL_LIBRARY_FILE_NAME}.a"
-            "${CMAKE_BINARY_DIR}/test"
+            #"${CMAKE_BINARY_DIR}/${CLBOOL_LIBRARY_FILE_NAME}.a"
+            #"${CMAKE_BINARY_DIR}/test"
             COMMENT "Copy spbla and clbool compiled libs into test folder"
     )
 endif()

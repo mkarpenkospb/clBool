@@ -6,7 +6,7 @@
 
 #define FILL_WG_SIZE 128 // work group size for each row in fill_rows
 
-namespace clbool {
+namespace clbool::dcsr {
 
     namespace sbm_delails {
 
@@ -162,4 +162,5 @@ namespace clbool {
 
         matrix_out = matrix_dcsr(rpt_out, rows_out, cols_out, nrows, ncols, nnz_out, nzr_out);
     }
+
 }

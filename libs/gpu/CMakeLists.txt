@@ -5,8 +5,6 @@ project(libgpu)
 
 set(CMAKE_CXX_STANDARD 11)
 
-
-
 add_executable(hexdumparray libgpu/hexdumparray.cpp)
 
 function(convertIntoHeader sourceFile headerFile arrayName)

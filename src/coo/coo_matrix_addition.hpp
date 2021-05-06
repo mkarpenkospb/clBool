@@ -6,7 +6,7 @@
 #include "../common/cl_includes.hpp"
 #include "../common/utils.hpp"
 
-namespace clbool {
+namespace clbool::coo {
 
     void matrix_addition(
             Controls &controls,
@@ -38,12 +38,6 @@ namespace clbool {
             uint32_t merged_size
     );
 
-    void prefix_sum(
-            Controls &controls,
-            cl::Buffer &array,
-            uint32_t &total_sum,
-            uint32_t array_size
-    );
 
 
     void set_positions(

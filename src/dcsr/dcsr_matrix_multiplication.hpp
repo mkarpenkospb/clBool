@@ -12,7 +12,7 @@
 
 
 
-namespace clbool {
+namespace clbool::dcsr {
     void prepare_positions(Controls &controls,
                            cl::Buffer &positions,
                            const cl::Buffer &array,
@@ -89,4 +89,5 @@ namespace clbool {
                        uint32_t old_nzr,
                        uint32_t c_nzr
     );
+
 }
