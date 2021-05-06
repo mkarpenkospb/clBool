@@ -6,7 +6,6 @@
 
 namespace clbool::dcsr {
 
-
     void kronecker_product(Controls &controls,
                            matrix_dcsr& matrix_c,
                            const matrix_dcsr& matrix_a,

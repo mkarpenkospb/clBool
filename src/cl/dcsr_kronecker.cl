@@ -47,7 +47,6 @@ __kernel void count_nnz_per_row(
 
         uint c_nzr,
         uint b_nzr,
-
         uint b_nrows
         ) {
     uint global_id = get_global_id(0);
@@ -94,8 +93,6 @@ __kernel void calculate_kronecker_product(
 
     uint a_cidx = col_idx / b_rlen;
     uint b_cidx = col_idx % b_rlen;
-    if (global_id == 20929 || global_id == 20928) {
-        printf("global_id: %d\n, row_idx: %d\n, ", global_id, row_idx);
-    }
+
     c_cols[global_id] = a_cols[a_rpt[a_ridx] + a_cidx] * b_ncols + b_cols[b_rpt[b_ridx] + b_cidx];
 }
