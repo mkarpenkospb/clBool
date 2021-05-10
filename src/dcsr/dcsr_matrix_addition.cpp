@@ -6,8 +6,6 @@
 #include "../common/cl_operations.hpp"
 
 
-// TODO
-// ---------------------------- TO HEADER --------------------------- //
 namespace clbool::dcsr {
 
     void merge(Controls& controls,
@@ -25,13 +23,9 @@ namespace clbool::dcsr {
 
     // --------------------------------------------------------------------
 
-    // TODO: нужен ли const?
     // TODO: добавить assert на размеры матрицы
     void matrix_addition(Controls& controls, matrix_dcsr& matrix_out,
-                               matrix_dcsr& a, matrix_dcsr& c) {
-
-
-
+                               const matrix_dcsr& a, const matrix_dcsr& c) {
 
     }
 

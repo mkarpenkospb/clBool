@@ -4,12 +4,12 @@
 #include "../cl/headers/prepare_positions.h"
 #include "../cl/headers/set_positions.h"
 
-#define FILL_WG_SIZE 128 // work group size for each row in fill_rows
-
 namespace clbool::dcsr {
 
-    namespace sbm_delails {
+#define FILL_WG_SIZE 128 // work group size for each row in fill_rows
 
+
+    namespace {
         // count [begin, end) of target rows_gpu
         void find_rows_range(Controls &controls, uint32_t &rows_begin, uint32_t &rows_end,
                              const matrix_dcsr &matrix_in, uint32_t i, uint32_t nrows) {
@@ -109,7 +109,6 @@ namespace clbool::dcsr {
                    uint32_t i, uint32_t j, uint32_t nrows, uint32_t ncols) {
         SET_TIMER
 
-
         if (matrix_in.nnz() == 0) {
             matrix_out = matrix_dcsr();
             return;
@@ -118,7 +117,7 @@ namespace clbool::dcsr {
 
         uint32_t rows_begin;
         uint32_t rows_end;
-        sbm_delails::find_rows_range(controls, rows_begin, rows_end, matrix_in, i, nrows);
+        find_rows_range(controls, rows_begin, rows_end, matrix_in, i, nrows);
 
         if (rows_begin == rows_end) {
             matrix_out = matrix_dcsr();
@@ -128,7 +127,7 @@ namespace clbool::dcsr {
         cl::Buffer subrows_nnz;
         {
             START_TIMING
-            sbm_delails::count_subrows_nnz(controls, subrows_nnz, matrix_in, j, ncols, rows_begin, rows_end);
+            count_subrows_nnz(controls, subrows_nnz, matrix_in, j, ncols, rows_begin, rows_end);
             END_TIMING("count_subrows_nnz: ")
         }
 
@@ -145,7 +144,7 @@ namespace clbool::dcsr {
         cl::Buffer cols_out;
         {
             START_TIMING
-            sbm_delails::fill_rows(controls, cols_out, matrix_in, subrows_nnz, nnz_out, nzr_tmp, rows_begin, j);
+            fill_rows(controls, cols_out, matrix_in, subrows_nnz, nnz_out, nzr_tmp, rows_begin, j);
             END_TIMING("fill_rows: ")
         }
 
@@ -155,7 +154,7 @@ namespace clbool::dcsr {
 
         {
             START_TIMING
-            sbm_delails::rpt_and_rows(controls, rpt_out, rows_out, nzr_out,
+            rpt_and_rows(controls, rpt_out, rows_out, nzr_out,
                      matrix_in, subrows_nnz, nzr_tmp, nnz_out, rows_begin, i);
             END_TIMING("rpt_and_rows: ")
         }
@@ -164,3 +163,5 @@ namespace clbool::dcsr {
     }
 
 }
+
+
