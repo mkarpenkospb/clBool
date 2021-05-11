@@ -147,7 +147,7 @@ set(    CLBOOL_SOURCES
         )
 
 add_library(clBool SHARED ${CLBOOL_SOURCES})
-#target_link_libraries (clBool ${OpenCL_LIBRARY})
+target_link_libraries (clBool ${OpenCL_LIBRARY})
 target_include_directories(clBool PUBLIC ${OpenCL_INCLUDE_DIR} ${LIB_CLASSES} ${COMMON} ${HEADERS} ${TESTS} ${COO} ${UTILS})
 
 if(WIN32)
