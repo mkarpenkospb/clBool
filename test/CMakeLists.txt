@@ -15,7 +15,7 @@ add_executable(test
         test_operations.cpp
         test_pieces.cpp
         )
-target_link_libraries(test gtest gtest_main clBool)
+target_link_libraries(test gtest gtest_main clbool)
 
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
@@ -26,5 +26,4 @@ include_directories(
         "../src/cl/headers"
         "../libs/utils"
 )
-
 

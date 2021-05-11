@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.1)
-project(clBool)
+project(clbool)
 
 add_subdirectory(libs)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17")
@@ -147,14 +147,14 @@ set(    CLBOOL_SOURCES
         src/cl/headers/dcsr_kronecker.h
         )
 
-add_library(clBool SHARED ${CLBOOL_SOURCES})
-target_link_libraries (clBool ${OpenCL_LIBRARY})
-target_include_directories(clBool PUBLIC ${LIB_CLASSES} ${COMMON} ${HEADERS} ${TESTS} ${COO} ${UTILS})
+add_library(clbool SHARED ${CLBOOL_SOURCES})
+target_link_libraries (clbool ${OpenCL_LIBRARY})
+target_include_directories(clbool PUBLIC "libs/clew" ${LIB_CLASSES} ${COMMON} ${HEADERS} ${TESTS} ${COO} ${UTILS})
 
 if(WIN32)
-    set(CLBOOL_LIBRARY_FILE_NAME "libclBool.dll")
+    set(CLBOOL_LIBRARY_FILE_NAME "libclbool.dll")
     add_custom_command(
-            TARGET clBool POST_BUILD
+            TARGET clbool POST_BUILD
             COMMAND "${CMAKE_COMMAND}" -E
             copy
             "${CMAKE_BINARY_DIR}/${CLBOOL_LIBRARY_FILE_NAME}"
