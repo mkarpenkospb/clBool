@@ -1,6 +1,6 @@
 project(test)
 
-add_subdirectory(lib)
+add_subdirectory(googletest)
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 message(${gtest_SOURCE_DIR})
 
