@@ -6,8 +6,10 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17")
 
 find_package(OpenCL 1.1 REQUIRED)
 
-add_subdirectory(test)
-set(OpenCL_INCLUDE_DIR "libs/clew")
+if (EXISTS "test")
+    add_subdirectory(test)
+endif()
+
 set(LIB_CLASSES "src/core")
 set(COMMON "src/common")
 set(HEADERS "src/cl/headers")
@@ -18,7 +20,6 @@ set(UTILS "libs/utils")
 # Handle OpenCL
 find_package(OpenCL REQUIRED)
 
-#link_directories(${OpenCL_LIBRARY} ${BOARD_LIB})
 
 # !!!!!!!!!!!! To male it work, headers should be in executables too
 convertIntoHeader(src/cl/merge_path.cl src/cl/headers/merge_path.h merge_path_kernel)
@@ -148,7 +149,7 @@ set(    CLBOOL_SOURCES
 
 add_library(clBool SHARED ${CLBOOL_SOURCES})
 target_link_libraries (clBool ${OpenCL_LIBRARY})
-target_include_directories(clBool PUBLIC ${OpenCL_INCLUDE_DIR} ${LIB_CLASSES} ${COMMON} ${HEADERS} ${TESTS} ${COO} ${UTILS})
+target_include_directories(clBool PUBLIC ${LIB_CLASSES} ${COMMON} ${HEADERS} ${TESTS} ${COO} ${UTILS})
 
 if(WIN32)
     set(CLBOOL_LIBRARY_FILE_NAME "libclBool.dll")
