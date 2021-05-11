@@ -4,12 +4,7 @@ project(clBool)
 add_subdirectory(libs)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17")
 
-if (WIN32)
-    set(OpenCL_LIBRARY "C:/Windows/System32/OpenCL.dll")
-endif(WIN32)
-if(UNIX)
-    set(OpenCL_LIBRARY "/opt/intelFPGA_pro/20.4/hld/host/linux64/lib/libOpenCL.so.1")
-endif(UNIX)
+find_package(OpenCL 1.1 REQUIRED)
 
 add_subdirectory(test)
 set(OpenCL_INCLUDE_DIR "libs/clew")
@@ -152,7 +147,7 @@ set(    CLBOOL_SOURCES
         )
 
 add_library(clBool SHARED ${CLBOOL_SOURCES})
-target_link_libraries (clBool ${OpenCL_LIBRARY})
+#target_link_libraries (clBool ${OpenCL_LIBRARY})
 target_include_directories(clBool PUBLIC ${OpenCL_INCLUDE_DIR} ${LIB_CLASSES} ${COMMON} ${HEADERS} ${TESTS} ${COO} ${UTILS})
 
 if(WIN32)
