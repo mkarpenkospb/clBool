@@ -16,9 +16,7 @@ set(HEADERS "src/cl/headers")
 set(TESTS "src/test")
 set(COO "src/coo")
 set(UTILS "libs/utils")
-
-# Handle OpenCL
-find_package(OpenCL REQUIRED)
+set(OpenCL_LIBRARY "libs/clew")
 
 
 # !!!!!!!!!!!! To male it work, headers should be in executables too
@@ -148,8 +146,8 @@ set(    CLBOOL_SOURCES
         )
 
 add_library(clbool SHARED ${CLBOOL_SOURCES})
-target_link_libraries (clbool ${OpenCL_LIBRARY})
-target_include_directories(clbool PUBLIC "libs/clew" ${LIB_CLASSES} ${COMMON} ${HEADERS} ${TESTS} ${COO} ${UTILS})
+target_link_libraries (clbool PUBLIC ${OpenCL_LIBRARY})
+target_include_directories(clbool PUBLIC ${OpenCL_LIBRARY} ${LIB_CLASSES} ${COMMON} ${HEADERS} ${TESTS} ${COO} ${UTILS})
 
 if(WIN32)
     set(CLBOOL_LIBRARY_FILE_NAME "libclbool.dll")
