@@ -19,10 +19,9 @@ namespace clbool::details {
         static inline std::unordered_map<kernel_id, cl::Kernel, pair_hash> kernels{};
 
         static const cl::Program &get_program(const Controls &controls, const std::string &_program_name,
-                                              std::string options = "") {
+                                              const std::string &options = "") {
             cl::Program cl_program;
             try {
-                options += " -D RUN ";
                 std::string program_key = _program_name + "|" + options;
                 if (KernelCache::programs.find(program_key) != KernelCache::programs.end()) {
                     return programs[_program_name];
