@@ -82,7 +82,7 @@ namespace clbool {
             try {
 
                 cl::Kernel kernel = details::KernelCache::get_kernel(controls,
-                            {_program_name, _kernel_name},
+                            _program_name, _kernel_name,
                             options_str + " -D RUN  -D GROUP_SIZE=" + std::to_string(_block_size));
 
                 kernel_type functor(kernel);

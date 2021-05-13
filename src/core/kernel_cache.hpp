@@ -3,7 +3,7 @@
 
 namespace clbool::details {
     using program_id = std::string; // program name|options
-    using kernel_id = std::pair<program_id, std::string>; // program name,  kernel name
+    using kernel_id = std::pair<program_id, std::string>; // program_id,  kernel name
 
     struct KernelCache {
         struct pair_hash {
@@ -18,18 +18,18 @@ namespace clbool::details {
         static inline std::unordered_map<program_id, cl::Program> programs{};
         static inline std::unordered_map<kernel_id, cl::Kernel, pair_hash> kernels{};
 
-        static const cl::Program &get_program(const Controls &controls, const std::string &_program_name,
+        static const cl::Program &get_program(const Controls &controls, const std::string &program_name,
                                               const std::string &options = "") {
             cl::Program cl_program;
             try {
-                std::string program_key = _program_name + "|" + options;
+                std::string program_key = program_name + "|" + options;
                 if (KernelCache::programs.find(program_key) != KernelCache::programs.end()) {
-                    return programs[_program_name];
+                    return programs[program_key];
                 }
 
-                auto source_ptr = HeadersMap.find(_program_name);
+                auto source_ptr = HeadersMap.find(program_name);
                 if (source_ptr == HeadersMap.end()) {
-                    throw std::runtime_error("Cannot fine program " + _program_name + "! 326784368165");
+                    throw std::runtime_error("Cannot fine program " + program_name + "! 326784368165");
                 }
 
                 SET_TIMER
@@ -38,23 +38,25 @@ namespace clbool::details {
                     KernelSource source = source_ptr->second;
                     cl_program = controls.create_program_from_source(source.kernel, source.length);
                     cl_program.build(options.c_str());
-                    KernelCache::programs[_program_name] = cl_program;
-                    END_TIMING(" program " + _program_name + " build in: ");
+                    KernelCache::programs[program_key] = cl_program;
+                    END_TIMING(" program " + program_name + " build in: ");
                 }
 
-                return KernelCache::programs[_program_name];
+                return KernelCache::programs[program_key];
             } catch (const cl::Error &e) {
-                utils::program_handler(e, cl_program, controls.device, _program_name);
+                utils::program_handler(e, cl_program, controls.device, program_name);
             }
         }
 
-        static const cl::Kernel &get_kernel(const Controls &controls, const kernel_id &id, const std::string& options) {
-            cl::Program cl_program = get_program(controls, id.first, options);
-            if (kernels.find(id) != kernels.end()) {
-                return kernels[id];
+        static const cl::Kernel &get_kernel(const Controls &controls, const std::string &program_name,
+                                            const std::string &kernel_name, const std::string& options) {
+            cl::Program cl_program = get_program(controls, program_name, options);
+            kernel_id kernelId = {program_name + "|" + options, kernel_name};
+            if (kernels.find(kernelId) != kernels.end()) {
+                return kernels[kernelId];
             }
-            kernels[id] = cl::Kernel(cl_program, id.second.c_str());
-            return kernels[id];
+            kernels[kernelId] = cl::Kernel(cl_program, kernel_name.c_str());
+            return kernels[kernelId];
         }
 
     };
