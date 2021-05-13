@@ -1,7 +1,7 @@
 #pragma once
 
 #include "dcsr.hpp"
-
+#include "kernel.hpp"
 #include "controls.hpp"
 #include "matrix_coo.hpp"
 #include "matrix_dcsr.hpp"

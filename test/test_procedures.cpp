@@ -11,7 +11,7 @@ TEST(clBool_procedures, bitonic_sort) {
 
 TEST(clBool_procedures, pref_sum) {
     clbool::Controls controls = clbool::create_controls();
-    for (int size = 10; size < 400000; size += 100) {
+    for (int size = 800000; size < 1200000; size += 10000) {
         ASSERT_TRUE(test_pref_sum(controls, size));
     }
 }

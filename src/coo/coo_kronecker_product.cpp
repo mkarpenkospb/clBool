@@ -2,7 +2,7 @@
 
 #include "controls.hpp"
 #include "matrix_coo.hpp"
-#include "program.hpp"
+#include "kernel.hpp"
 #include "../cl/headers/coo_kronecker.h"
 
 namespace clbool::coo {
@@ -14,10 +14,10 @@ namespace clbool::coo {
         try {
             uint32_t res_size = matrix_a.nnz() * matrix_b.nnz();
 
-            auto p = program<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-                            uint32_t, uint32_t, uint32_t>(coo_kronecker_kernel, coo_kronecker_kernel_length)
-                            .set_kernel_name("kronecker")
-                            .set_needed_work_size(res_size);
+            auto p = kernel<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+                            uint32_t, uint32_t, uint32_t>
+                            ("coo_kronecker", "kronecker");
+            p.set_needed_work_size(res_size);
 
             cl::Buffer res_rows(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * res_size);
             cl::Buffer res_cols(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * res_size);

@@ -4,6 +4,7 @@
 #include <matrix_coo.hpp>
 #include <matrix_dcsr.hpp>
 #include <matrices_conversions.hpp>
+#include <kernel.hpp>
 
 namespace clbool::dcsr {
 

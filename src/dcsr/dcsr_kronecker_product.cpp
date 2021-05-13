@@ -1,7 +1,6 @@
 #include "dcsr.hpp"
 #include "utils.hpp"
 #include "cl_operations.hpp"
-#include "../cl/headers/dcsr_kronecker.h"
 #include <cassert>
 
 namespace clbool::dcsr {
@@ -27,10 +26,10 @@ namespace clbool::dcsr {
 
         //  -------------------- form rpt and rows -------------------------------
 
-        auto cnt_nnz = program<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-        cl::Buffer, cl::Buffer, uint32_t, uint32_t, uint32_t>(dcsr_kronecker_kernel, dcsr_kronecker_kernel_length);
+        auto cnt_nnz = kernel<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+        cl::Buffer, cl::Buffer, uint32_t, uint32_t, uint32_t>
+        ("dcsr_kronecker", "count_nnz_per_row");
         cnt_nnz.set_needed_work_size(c_nzr);
-        cnt_nnz.set_kernel_name("count_nnz_per_row");
 
         cnt_nnz.run(controls, c_rpt, c_rows,
                     matrix_a.rpt_gpu(), matrix_b.rpt_gpu(),
@@ -45,10 +44,10 @@ namespace clbool::dcsr {
 
         // -------------------- form cols -------------------------------
 
-        auto kronecker = program<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-        cl::Buffer, cl::Buffer, uint32_t, uint32_t, uint32_t , uint32_t>(dcsr_kronecker_kernel, dcsr_kronecker_kernel_length);
-        kronecker.set_needed_work_size(c_nnz)
-        .set_kernel_name("calculate_kronecker_product");
+        auto kronecker = kernel<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+        cl::Buffer, cl::Buffer, uint32_t, uint32_t, uint32_t , uint32_t>
+        ("dcsr_kronecker", "calculate_kronecker_product");
+        kronecker.set_needed_work_size(c_nnz);
 
         kronecker.run(controls, c_rpt, c_cols, matrix_a.rpt_gpu(), matrix_b.rpt_gpu(),
                       matrix_a.cols_gpu(), matrix_b.cols_gpu(),

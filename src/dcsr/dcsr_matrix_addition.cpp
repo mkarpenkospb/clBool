@@ -1,10 +1,6 @@
 #include "dcsr_matrix_addition.hpp"
-#include "program.hpp"
-#include "../cl/headers/merge_path1d.h"
-#include "../cl/headers/prepare_positions.h"
-#include "../cl/headers/set_positions.h"
+#include "kernel.hpp"
 #include "../common/cl_operations.hpp"
-
 
 namespace clbool::dcsr {
 
@@ -55,10 +51,8 @@ namespace clbool::dcsr {
                const cl::Buffer& rpt_b,
                uint32_t nzr_a,
                uint32_t nzr_b) {
-        auto merge_program = program<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t, uint32_t>
-                (merge_path1d_kernel, merge_path1d_kernel_length)
-                .set_kernel_name("merge")
-                .set_needed_work_size(nzr_a + nzr_b);
+        auto merge_program = kernel<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t, uint32_t>("merge_path1d", "merge");
+        merge_program.set_needed_work_size(nzr_a + nzr_b);
         merge_program.run(controls, rpt_c, rpt_a, rpt_b, nzr_a, nzr_b);
     }
 
@@ -75,10 +69,9 @@ namespace clbool::dcsr {
 
         cl::Buffer positions(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * merged_size);
 
-        auto prepare_positions = program<cl::Buffer, cl::Buffer, uint32_t>
-                (prepare_positions_kernel, prepare_positions_kernel_length)
-                .set_needed_work_size(merged_size)
-                .set_kernel_name("prepare_array_for_rows_positions");
+        auto prepare_positions = kernel<cl::Buffer, cl::Buffer, uint32_t>
+                ("prepare_positions", "prepare_array_for_rows_positions");
+        prepare_positions.set_needed_work_size(merged_size);
 
         // ------------------------------------ calculate positions, get new_size -----------------------------------
 
@@ -87,11 +80,9 @@ namespace clbool::dcsr {
         //  ---------------------------------- sat values to calculated positions --------------------
         cl::Buffer new_data(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * new_size);
 
-        auto set_positions = program<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t>
-                (set_positions_kernel, set_positions_kernel_length)
-                .set_kernel_name("set_positions1d")
-                .set_needed_work_size(merged_size);
-
+        auto set_positions = kernel<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t>
+                ("set_positions", "set_positions1d");
+        set_positions.set_needed_work_size(merged_size);
         set_positions.run(controls, new_data, data, positions, merged_size);
         data = std::move(new_data);
     }

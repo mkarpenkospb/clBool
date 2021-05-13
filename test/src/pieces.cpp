@@ -1,7 +1,5 @@
 #include "clBool_tests.hpp"
 #include "coo.hpp"
-#include "../../src/cl/headers/new_merge.h"
-
 
 using namespace clbool;
 using namespace clbool::coo_utils;
@@ -27,11 +25,10 @@ bool test_new_merge(Controls& controls, uint32_t size_a, uint32_t size_b) {
     cl::Buffer c_gpu(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * c_cpu.size());
 //            print_cpu_buffer(c_cpu);
 
-    auto new_merge = program<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t, uint32_t>
-            (new_merge_kernel, new_merge_kernel_length)
-            .set_kernel_name("new_merge_full")
-            .set_needed_work_size(a_cpu.size() + b_cpu.size());
-    new_merge.run(controls,
+    auto new_merge = kernel<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t, uint32_t>
+            ("for_test/new_merge", "new_merge_full");
+   new_merge.set_needed_work_size(a_cpu.size() + b_cpu.size());
+   new_merge.run(controls,
                 a_gpu, b_gpu, c_gpu, a_cpu.size(), b_cpu.size());
 
 //            std::cout << "~~~~~~~~~~~~~~\n~~~~~~~~~~~~~~\n";

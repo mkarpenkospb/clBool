@@ -2,7 +2,7 @@
 #include "headers_map.hpp"
 
 namespace clbool::details {
-    using program_id = std::string; // program name|options
+    using program_id = std::string; // kernel name|options
     using kernel_id = std::pair<program_id, std::string>; // program_id,  kernel name
 
     struct KernelCache {
@@ -29,7 +29,7 @@ namespace clbool::details {
 
                 auto source_ptr = HeadersMap.find(program_name);
                 if (source_ptr == HeadersMap.end()) {
-                    throw std::runtime_error("Cannot fine program " + program_name + "! 326784368165");
+                    throw std::runtime_error("Cannot fine kernel " + program_name + "! 326784368165");
                 }
 
                 SET_TIMER
@@ -39,7 +39,7 @@ namespace clbool::details {
                     cl_program = controls.create_program_from_source(source.kernel, source.length);
                     cl_program.build(options.c_str());
                     KernelCache::programs[program_key] = cl_program;
-                    END_TIMING(" program " + program_name + " build in: ");
+                    END_TIMING(" kernel " + program_name + " build in: ");
                 }
 
                 return KernelCache::programs[program_key];

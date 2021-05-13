@@ -3,7 +3,7 @@
 #include "controls.hpp"
 #include "matrix_coo.hpp"
 #include "matrix_dcsr.hpp"
-#include "program.hpp"
+#include "kernel.hpp"
 
 namespace clbool {
     void prefix_sum(Controls &controls,

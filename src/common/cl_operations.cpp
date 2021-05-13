@@ -1,5 +1,5 @@
 #include "cl_operations.hpp"
-
+#include "kernel.hpp"
 #include "../cl/headers/prefix_sum.h"
 
 namespace clbool {
@@ -7,14 +7,11 @@ namespace clbool {
                     cl::Buffer &array,
                     uint32_t &total_sum,
                     uint32_t array_size) {
-        auto scan = program<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t>
-                ("prefix_sum");
-        scan.set_kernel_name("scan_blelloch");
+        auto scan = kernel<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t>
+                ("prefix_sum", "scan_blelloch");
 
-        auto update = program<cl::Buffer, cl::Buffer, uint32_t, uint32_t>
-                ("prefix_sum");
-        update.set_kernel_name("update_pref_sum");
-
+        auto update = kernel<cl::Buffer, cl::Buffer, uint32_t, uint32_t>
+                ("prefix_sum", "update_pref_sum");
 
         // число потоков, которое нужно выпустить для обработки массива ядром scan в данном алгоритме
         static auto threads_for_array = [](uint32_t size) -> uint32_t { return (size + 1) / 2; };

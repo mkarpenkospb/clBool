@@ -6,10 +6,6 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17")
 
 find_package(OpenCL 1.1 REQUIRED)
 
-if (EXISTS "test")
-    add_subdirectory(test)
-endif()
-
 set(LIB_CLASSES "src/core")
 set(COMMON "src/common")
 set(HEADERS "src/cl/headers")
@@ -17,40 +13,51 @@ set(TESTS "src/test")
 set(COO "src/coo")
 set(UTILS "libs/utils")
 
+set(KERNELS)
+set(CLBOOL_SOURCES)
 
-# !!!!!!!!!!!! To male it work, headers should be in executables too
-convertIntoHeader(src/cl/merge_path.cl src/cl/headers/merge_path.h merge_path_kernel)
-convertIntoHeader(src/cl/merge_path1d.cl src/cl/headers/merge_path1d.h merge_path1d_kernel)
-convertIntoHeader(src/cl/dcsr_addition_count.cl src/cl/headers/dcsr_addition_count.h dcsr_addition_count_kernel)
-convertIntoHeader(src/cl/submatrix.cl src/cl/headers/submatrix.h submatrix_kernel)
-convertIntoHeader(src/cl/reduce.cl src/cl/headers/reduce.h reduce_kernel)
+list(APPEND KERNELS
+        merge_path
+        merge_path1d
+        dcsr_addition_count
+        hash/hash_global
+        submatrix
+        reduce
+        hash/bitonic_sort
+        hash/hash_global
+        hash/hash_pwarp
+        hash/hash_tb
+        prepare_positions
+        coo_bitonic_sort
+        set_positions
+        prefix_sum
+        coo_kronecker
+        dscr_to_coo
+        for_test/half_sized_scan
+        to_result_matrix_single_thread
+        to_result_matrix_work_group
+        heap_merge
+        copy_one_value
+        merge_large_rows
+        bitonic_esc
+        count_workload
+        for_test/new_merge
+        dcsr_kronecker
+        )
 
-convertIntoHeader(src/cl/hash/bitonic_sort.cl src/cl/headers/bitonic_sort_new.h bitonic_sort_new_kernel)
-convertIntoHeader(src/cl/hash/hash_global.cl src/cl/headers/hash_global.h hash_global_kernel)
-convertIntoHeader(src/cl/hash/hash_pwarp.cl src/cl/headers/hash_pwarp.h hash_pwarp_kernel)
-convertIntoHeader(src/cl/hash/hash_tb.cl src/cl/headers/hash_tb.h hash_tb_kernel)
+foreach(KERNEL ${KERNELS})
+    STRING(REPLACE "/" "___" HNAME ${KERNEL})
+    convertIntoHeader(src/cl/${KERNEL}.cl src/cl/headers/${HNAME}.h ${HNAME}_kernel)
+    list(APPEND CLBOOL_SOURCES src/cl/headers/${HNAME}.h)
+    list(APPEND CLBOOL_SOURCES src/cl/${KERNEL}.cl)
+endforeach ()
 
-convertIntoHeader(src/cl/prepare_positions.cl src/cl/headers/prepare_positions.h prepare_positions_kernel)
-convertIntoHeader(src/cl/coo_bitonic_sort.cl src/cl/headers/coo_bitonic_sort.h coo_bitonic_sort_kernel)
-convertIntoHeader(src/cl/set_positions.cl src/cl/headers/set_positions.h set_positions_kernel)
-convertIntoHeader(src/cl/prefix_sum.cl src/cl/headers/prefix_sum.h prefix_sum_kernel)
-convertIntoHeader(src/cl/coo_kronecker.cl src/cl/headers/coo_kronecker.h coo_kronecker_kernel)
-convertIntoHeader(src/cl/dscr_to_coo.cl src/cl/headers/dscr_to_coo.h dscr_to_coo_kernel)
-convertIntoHeader(src/cl/for_test/half_sized_scan.cl src/cl/headers/half_sized_scan.h half_sized_scan_kernel)
-convertIntoHeader(src/cl/to_result_matrix_single_thread.cl src/cl/headers/to_result_matrix_single_thread.h to_result_matrix_single_thread_kernel)
-convertIntoHeader(src/cl/to_result_matrix_work_group.cl src/cl/headers/to_result_matrix_work_group.h to_result_matrix_work_group_kernel)
-convertIntoHeader(src/cl/heap_merge.cl src/cl/headers/heap_merge.h heap_merge_kernel)
-convertIntoHeader(src/cl/copy_one_value.cl src/cl/headers/copy_one_value.h copy_one_value_kernel)
-convertIntoHeader(src/cl/merge_large_rows.cl src/cl/headers/merge_large_rows.h merge_large_rows_kernel)
-convertIntoHeader(src/cl/bitonic_esc.cl src/cl/headers/bitonic_esc.h bitonic_esc_kernel)
-convertIntoHeader(src/cl/count_workload.cl src/cl/headers/count_workload.h count_workload_kernel)
-convertIntoHeader(src/cl/for_test/new_merge.cl src/cl/headers/new_merge.h new_merge_kernel)
-convertIntoHeader(src/cl/dcsr_kronecker.cl src/cl/headers/dcsr_kronecker.h dcsr_kronecker_kernel)
+list(APPEND CLBOOL_SOURCES src/cl/headers/headers_map.hpp)
 
-set(    CLBOOL_SOURCES
+makeSourceMap("${KERNELS}")
 
+list(APPEND CLBOOL_SOURCES
         # ------------------------ cpp files -------------------------------
-
         #lib
         src/core/matrix_coo.cpp
 
@@ -77,71 +84,6 @@ set(    CLBOOL_SOURCES
         src/common/utils.cpp
         src/common/cpu_matrix_operations.cpp
         src/common/env.cpp
-
-        #  ------------------------------ cl files -----------------------------
-        src/cl/prepare_positions.cl
-        src/cl/merge_path.cl
-        src/cl/coo_kronecker.cl
-        src/cl/prefix_sum.cl
-        src/cl/clion_defines.cl
-        src/cl/set_positions.cl
-        src/cl/coo_bitonic_sort.cl
-        src/cl/count_workload.cl
-        src/cl/heap_merge.cl
-        src/cl/bitonic_esc.cl
-        src/cl/copy_one_value.cl
-        src/cl/to_result_matrix_work_group.cl
-        src/cl/to_result_matrix_single_thread.cl
-        src/cl/merge_large_rows.cl
-        src/cl/dscr_to_coo.cl
-        src/cl/dcsr_addition_count.cl
-        src/cl/merge_path1d.cl
-        src/cl/submatrix.cl
-        src/cl/reduce.cl
-        src/cl/dcsr_kronecker.cl
-
-            # hash
-
-        src/cl/hash/hash_pwarp.cl
-        src/cl/hash/hash_tb.cl
-        src/cl/hash/hash_large.cl
-        src/cl/hash/hash_global.cl
-        src/cl/hash/bitonic_sort.cl
-
-        # -----------------------------------------------------------------------
-
-        # ----------------------------- test cl ---------------------------------
-        src/cl/for_test/half_sized_scan.cl
-        src/cl/for_test/new_merge.cl
-        # -----------------------------------------------------------------------
-
-
-        # ----------------------------- headers ---------------------------------
-        src/cl/headers/merge_path.h
-        src/cl/headers/prepare_positions.h
-        src/cl/headers/coo_bitonic_sort.h
-        src/cl/headers/set_positions.h
-        src/cl/headers/prefix_sum.h
-        src/cl/headers/coo_kronecker.h
-        src/cl/headers/dscr_to_coo.h
-        src/cl/headers/half_sized_scan.h
-        src/cl/headers/to_result_matrix_work_group.h
-        src/cl/headers/to_result_matrix_single_thread.h
-        src/cl/headers/heap_merge.h
-        src/cl/headers/copy_one_value.h
-        src/cl/headers/merge_large_rows.h
-        src/cl/headers/bitonic_esc.h
-        src/cl/headers/count_workload.h
-        src/cl/headers/new_merge.h
-        src/cl/headers/merge_path1d.h
-        src/cl/headers/dcsr_addition_count.h
-        src/cl/headers/bitonic_sort_new.h
-        src/cl/headers/hash_global.h
-        src/cl/headers/hash_pwarp.h
-        src/cl/headers/hash_tb.h
-        src/cl/headers/submatrix.h
-        src/cl/headers/reduce.h
-        src/cl/headers/dcsr_kronecker.h
         )
 
 add_library(clbool SHARED ${CLBOOL_SOURCES})
@@ -160,4 +102,8 @@ if(WIN32)
             #"${CMAKE_BINARY_DIR}/test"
             COMMENT "Copy spbla and clbool compiled libs into test folder"
     )
+endif()
+
+if (EXISTS "test")
+    add_subdirectory(test)
 endif()

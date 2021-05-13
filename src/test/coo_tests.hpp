@@ -1,6 +1,6 @@
 #pragma once
 #include "../common/utils.hpp"
-#include "program.hpp"
+#include "kernel.hpp"
 //
 namespace clbool::test {
 //    void testMatrixAddition();

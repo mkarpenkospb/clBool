@@ -3,7 +3,7 @@
 #include "controls.hpp"
 #include "matrix_coo.hpp"
 #include "matrix_dcsr.hpp"
-#include "program.hpp"
+#include "kernel.hpp"
 #include "cl_operations.hpp"
 #include "utils.hpp"
 

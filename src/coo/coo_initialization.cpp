@@ -13,28 +13,24 @@
 #include <fstream>
 #include <cmath>
 
-#include <program.hpp>
+#include <kernel.hpp>
 #include "../cl/headers/coo_bitonic_sort.h"
 
 namespace clbool::coo {
 
     void sort_arrays(Controls &controls, cl::Buffer &rows_gpu, cl::Buffer &cols_gpu, uint32_t n) {
 
-        auto bitonic_begin = program<cl::Buffer, cl::Buffer, uint32_t>
-        (coo_bitonic_sort_kernel, coo_bitonic_sort_kernel_length);
-        bitonic_begin.set_kernel_name("local_bitonic_begin")
-        .set_needed_work_size(utils::round_to_power2(n));
+        auto bitonic_begin = kernel<cl::Buffer, cl::Buffer, uint32_t>
+        ("coo_bitonic_sort", "local_bitonic_begin");
+        bitonic_begin.set_needed_work_size(utils::round_to_power2(n));
 
-        auto bitonic_global_step = program<cl::Buffer, cl::Buffer, uint32_t, uint32_t, uint32_t>
-        (coo_bitonic_sort_kernel, coo_bitonic_sort_kernel_length);
-        bitonic_global_step.set_kernel_name("bitonic_global_step")
-        .set_needed_work_size(utils::round_to_power2(n));
+        auto bitonic_global_step = kernel<cl::Buffer, cl::Buffer, uint32_t, uint32_t, uint32_t>
+        ("coo_bitonic_sort", "bitonic_global_step");
+        bitonic_global_step.set_needed_work_size(utils::round_to_power2(n));
 
-        auto bitonic_end = program<cl::Buffer, cl::Buffer, uint32_t>
-        (coo_bitonic_sort_kernel, coo_bitonic_sort_kernel_length);
-        bitonic_end.set_kernel_name("bitonic_local_endings")
-        .set_needed_work_size(utils::round_to_power2(n));
-
+        auto bitonic_end = kernel<cl::Buffer, cl::Buffer, uint32_t>
+        ("coo_bitonic_sort", "bitonic_local_endings");
+        bitonic_end.set_needed_work_size(utils::round_to_power2(n));
 
         bitonic_begin.run(controls, rows_gpu, cols_gpu, n);
 

@@ -16,10 +16,9 @@ namespace clbool::dcsr {
 
             cl::Buffer rows_begin_end_gpu(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * 2);
 
-            auto find_range_program = program<cl::Buffer, cl::Buffer,
-                    uint32_t, uint32_t, uint32_t>(submatrix_kernel, submatrix_kernel_length);
-            find_range_program.set_kernel_name("rows_range")
-                    .set_needed_work_size(2)
+            auto find_range_program = kernel<cl::Buffer, cl::Buffer,
+                    uint32_t, uint32_t, uint32_t>("submatrix", "rows_range");
+            find_range_program.set_needed_work_size(2)
                     .set_block_size(WARP_SIZE);
 
             find_range_program.run(controls, rows_begin_end_gpu, matrix_in.rows_gpu(), matrix_in.nzr(), i, nrows).wait();
@@ -40,12 +39,11 @@ namespace clbool::dcsr {
 
             uint32_t nzr_tmp = rows_end - rows_begin;
             subrows_nnz = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (nzr_tmp + 1));
-            auto count_program = program<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+            auto count_program = kernel<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
                     uint32_t, uint32_t, uint32_t, uint32_t, uint32_t>
-                    (submatrix_kernel, submatrix_kernel_length);
+                    ("submatrix", "submatrix_count_nnz");
 
             count_program.set_block_size(controls.block_size)
-                    .set_kernel_name("submatrix_count_nnz")
                     .set_needed_work_size(nzr_tmp);
 
             count_program.run(controls, subrows_nnz,
@@ -60,12 +58,11 @@ namespace clbool::dcsr {
         ) {
             cols_out = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * nnz_out);
 
-            auto fill_rows_nnz = program<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-                    uint32_t, uint32_t>(submatrix_kernel, submatrix_kernel_length);
+            auto fill_rows_nnz = kernel<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+                    uint32_t, uint32_t>("submatrix", "submatrix_fill_nnz");
 
             fill_rows_nnz.set_needed_work_size(nzr_tmp * FILL_WG_SIZE)
-                    .set_block_size(FILL_WG_SIZE)
-                    .set_kernel_name("submatrix_fill_nnz");
+                    .set_block_size(FILL_WG_SIZE);
             fill_rows_nnz.run(controls, subrows_nnz, cols_out, matrix_in.rpt_gpu(), matrix_in.cols_gpu(),
                               rows_begin, j).wait();
         }
@@ -78,25 +75,23 @@ namespace clbool::dcsr {
 
             cl::Buffer positions(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (nzr_tmp + 1));
 
-            auto prepare_pos_program = program<cl::Buffer, cl::Buffer, uint32_t>
-                    (prepare_positions_kernel, prepare_positions_kernel_length);
-            prepare_pos_program.set_kernel_name("prepare_for_shift_empty_rows")
-                    .set_block_size(controls.block_size)
+            auto prepare_pos_program = kernel<cl::Buffer, cl::Buffer, uint32_t>
+                    ("prepare_positions", "prepare_for_shift_empty_rows");
+            prepare_pos_program.set_block_size(controls.block_size)
                     .set_needed_work_size(nzr_tmp);
 
             prepare_pos_program.run(controls, positions, subrows_nnz, nzr_tmp).wait();
 
             prefix_sum(controls, positions, nzr_out, nzr_tmp + 1);
 
-            auto set_pos_program = program<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
+            auto set_pos_program = kernel<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
                     uint32_t, uint32_t, uint32_t, uint32_t, uint32_t>
-                    (set_positions_kernel, set_positions_kernel_length);
+                    ("set_positions", "set_positions_with_offset");
 
             rpt_out = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (nzr_out + 1));
             rows_out = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * nzr_out);
 
-            set_pos_program.set_kernel_name("set_positions_with_offset")
-                    .set_block_size(controls.block_size)
+            set_pos_program.set_block_size(controls.block_size)
                     .set_needed_work_size(nzr_tmp);
             set_pos_program.run(controls, rpt_out, rows_out,
                                 matrix_in.rows_gpu(), subrows_nnz, positions,
