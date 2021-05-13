@@ -80,6 +80,7 @@ namespace clbool::utils {
     }
 
     uint32_t calculate_global_size(uint32_t work_group_size, uint32_t n) {
+        if (work_group_size == 0) throw std::runtime_error("ooooops");
         return (n + work_group_size - 1) / work_group_size * work_group_size;
     }
 

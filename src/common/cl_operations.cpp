@@ -8,11 +8,11 @@ namespace clbool {
                     uint32_t &total_sum,
                     uint32_t array_size) {
         auto scan = program<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t>
-                (prefix_sum_kernel, prefix_sum_kernel_length);
+                ("prefix_sum");
         scan.set_kernel_name("scan_blelloch");
 
         auto update = program<cl::Buffer, cl::Buffer, uint32_t, uint32_t>
-                (prefix_sum_kernel, prefix_sum_kernel_length);
+                ("prefix_sum");
         update.set_kernel_name("update_pref_sum");
 
 
@@ -62,7 +62,6 @@ namespace clbool {
 
             scan.set_needed_work_size(threads_for_array(outer));
 
-
             {
                 START_TIMING
                 scan.run(controls, *b_gpu_ptr, *a_gpu_ptr, total_sum_gpu, outer).wait();
@@ -71,7 +70,6 @@ namespace clbool {
 
 
             update.set_needed_work_size(array_size - leaf_size);
-
 
             {
                 START_TIMING
