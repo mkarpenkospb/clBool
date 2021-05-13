@@ -51,9 +51,7 @@ namespace clbool {
 
         {
             START_TIMING
-            scan.run(controls, a_gpu, array, total_sum_gpu, array_size)
-            //.wait()
-            ;
+            scan.run(controls, a_gpu, array, total_sum_gpu, array_size).wait();
             END_TIMING("first scan: ")
         }
 
@@ -67,9 +65,7 @@ namespace clbool {
 
             {
                 START_TIMING
-                scan.run(controls, *b_gpu_ptr, *a_gpu_ptr, total_sum_gpu, outer)
-                //.wait()
-                ;
+                scan.run(controls, *b_gpu_ptr, *a_gpu_ptr, total_sum_gpu, outer).wait();
                 END_TIMING("scan: ")
             };
 
@@ -79,9 +75,7 @@ namespace clbool {
 
             {
                 START_TIMING
-                update.run(controls, array, *a_gpu_ptr, array_size, leaf_size)
-               // .wait()
-                ;
+                update.run(controls, array, *a_gpu_ptr, array_size, leaf_size).wait();
                 END_TIMING("update: ")
             }
 

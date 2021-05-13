@@ -95,11 +95,14 @@ namespace clbool {
 
 
         cl::Event run(Controls &controls, Args ... args) {
+            SET_TIMER
             check_completeness();
             try {
                 if (!_built) {
+                    START_TIMING
                     build_cl_program(controls);
                     _built = true;
+                    END_TIMING("program " + _kernel_name + " built in: ")
                 }
                 cl::Kernel kernel(cl_program, _kernel_name.c_str());
 
