@@ -66,26 +66,31 @@ TEST(clBool_operations, addition_coo) {
 
 TEST(clBool_operations, kronecker_coo) {
     clbool::Controls controls = clbool::create_controls();
-    ASSERT_TRUE(test_kronecker_coo(controls));
+    for (uint32_t k = 1; k < 10; ++k) {
+        uint32_t base_nnz = 1000 * k;
+        ASSERT_TRUE(test_kronecker_coo(controls, 10000, 10000, base_nnz, base_nnz + 5, k));
+    }
 }
 
 TEST(clBool_operations, kronecker_dcsr) {
     clbool::Controls controls = clbool::create_controls();
-    ASSERT_TRUE(test_kronecker_dcsr(controls));
+    for (uint32_t k = 1; k < 10; ++k) {
+        uint32_t base_nnz = 1000 * k;
+        ASSERT_TRUE(test_kronecker_dcsr(controls, 10000, 10000, base_nnz, base_nnz + 5, k));
+    }
 }
 
 TEST(clBool_operations, example) {
 
     clbool::Controls controls = clbool::create_controls();
-
     uint32_t a_nrows = 5, a_ncols = 5, a_nnz = 6;
-    std::vector<uint32_t> a_rows = {0, 0, 0,  2, 2,  4};
-    std::vector<uint32_t> a_cols = {0, 1, 4,  2, 3,  2};
+    std::vector<uint32_t> a_rows = {0, 0, 0, 2, 2, 4};
+    std::vector<uint32_t> a_cols = {0, 1, 4, 2, 3, 2};
 
 
     uint32_t b_nrows = 5, b_ncols = 5, b_nnz = 7;
-    std::vector<uint32_t> b_rows = {1, 1,  2,  3, 3, 3,  5};
-    std::vector<uint32_t> b_cols =  {0, 4,  2,  2, 3, 4,  2};
+    std::vector<uint32_t> b_rows = {1, 1, 2, 3, 3, 3, 5};
+    std::vector<uint32_t> b_cols = {0, 4, 2, 2, 3, 4, 2};
 
     clbool::matrix_coo a_coo(controls, a_nrows, a_ncols, a_nnz, a_rows.data(), a_cols.data());
     clbool::matrix_coo b_coo(controls, b_nrows, b_ncols, b_nnz, b_rows.data(), b_cols.data());

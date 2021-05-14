@@ -21,14 +21,15 @@ namespace clbool::coo_utils {
 
     matrix_coo_cpu_pairs generate_coo_pairs_cpu(uint32_t pseudo_nnz, uint32_t max_size = 1024);
 
-    matrix_coo matrix_coo_from_cpu(Controls &controls, const matrix_coo_cpu_pairs &m_cpu);
+    matrix_coo matrix_coo_from_cpu(Controls &controls, const matrix_coo_cpu_pairs &m_cpu,
+                                   uint32_t nrows = -1, uint32_t ncols = -1);
 
     void
     matrix_addition_cpu(matrix_coo_cpu_pairs &matrix_out, const matrix_coo_cpu_pairs &matrix_a, const matrix_coo_cpu_pairs &matrix_b);
 
     void
     kronecker_product_cpu(matrix_coo_cpu_pairs &matrix_out, const matrix_coo_cpu_pairs &matrix_a, const matrix_coo_cpu_pairs &matrix_b,
-                          uint32_t b_nrows = -1, uint32_t b_ncols = -1);
+                          uint32_t b_nrows, uint32_t b_ncols);
 
     void print_matrix(const matrix_coo_cpu_pairs &m_cpu);
 

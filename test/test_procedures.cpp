@@ -4,7 +4,7 @@
 
 TEST(clBool_procedures, bitonic_sort) {
     clbool::Controls controls = clbool::create_controls();
-    for (uint32_t size = 0; size < 1020000; size += 2000) {
+    for (uint32_t size = 10; size < 500; size += 17) {
         ASSERT_TRUE(test_bitonic_sort(controls, size));
     }
 }

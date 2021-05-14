@@ -282,14 +282,15 @@ namespace clbool::coo_utils {
     }
 
 
-    matrix_coo matrix_coo_from_cpu(Controls &controls, const matrix_coo_cpu_pairs &m_cpu) {
+    matrix_coo matrix_coo_from_cpu(Controls &controls, const matrix_coo_cpu_pairs &m_cpu,
+                                   uint32_t nrows, uint32_t ncols) {
         cpu_buffer rows;
         cpu_buffer cols;
 
         get_vectors_from_cpu_matrix(rows, cols, m_cpu);
 
-        uint32_t n_rows = *std::max_element(rows.begin(), rows.end());
-        uint32_t n_cols = *std::max_element(cols.begin(), cols.end());
+        uint32_t n_rows = nrows == -1 ? *std::max_element(rows.begin(), rows.end()) : nrows;
+        uint32_t n_cols = ncols ==  -1 ? *std::max_element(cols.begin(), cols.end()) : ncols;
         uint32_t nnz = m_cpu.size();
 
         return matrix_coo(controls, n_rows, n_cols, nnz, rows.data(), cols.data(), true);
@@ -309,29 +310,24 @@ namespace clbool::coo_utils {
     void
     kronecker_product_cpu(matrix_coo_cpu_pairs &matrix_out, const matrix_coo_cpu_pairs &matrix_a,
                           const matrix_coo_cpu_pairs &matrix_b, uint32_t b_nrows, uint32_t b_ncols) {
-        auto less_for_rows = [](const coordinates &a, const coordinates &b) -> bool {
-            return a.first < b.first;
-        };
-
-        auto less_for_cols = [](const coordinates &a, const coordinates &b) -> bool {
-            return a.second < b.second;
-        };
-
-        uint32_t matrix_b_nRows = b_nrows == -1 ?
-                                  std::max_element(matrix_b.begin(), matrix_b.end(), less_for_rows)->first : b_nrows;
-        uint32_t matrix_b_nCols = b_ncols == -1 ?
-                                  std::max_element(matrix_b.begin(), matrix_b.end(), less_for_cols)->second : b_ncols;
 
         matrix_out.resize(matrix_a.size() * matrix_b.size());
 
         uint32_t i = 0;
+        auto min_cols = coordinates(std::numeric_limits<uint32_t>::max(), std::numeric_limits<uint32_t>::max());
         for (const auto &coord_a: matrix_a) {
             for (const auto &coord_b: matrix_b) {
-                matrix_out[i] = coordinates(coord_a.first * matrix_b_nRows + coord_b.first,
-                                            coord_a.second * matrix_b_nCols + coord_b.second);
+                matrix_out[i] = coordinates(coord_a.first * b_nrows + coord_b.first,
+                                            coord_a.second * b_ncols + coord_b.second);
+                uint32_t rw = coord_a.first * b_nrows + coord_b.first;
+                uint32_t cls = coord_a.second * b_ncols + coord_b.second;
+                if (rw < min_cols.first && cls < min_cols.second) {
+                    min_cols = {rw, cls};
+                }
                 ++i;
             }
         }
+        std::cout << "MIN COL: " << min_cols.first << ", " << min_cols.second << std::endl;
         std::sort(matrix_out.begin(), matrix_out.end());
     }
 

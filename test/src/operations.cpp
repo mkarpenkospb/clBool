@@ -209,8 +209,8 @@ bool test_addition_coo(Controls &controls, uint32_t size_a, uint32_t size_b, uin
     matrix_coo_cpu_pairs matrix_b_cpu = coo_utils::generate_coo_pairs_cpu(size_b * k_b, size_b);
 
     matrix_coo matrix_res_gpu;
-    matrix_coo matrix_a_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_a_cpu);
-    matrix_coo matrix_b_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_b_cpu);
+    matrix_coo matrix_a_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_a_cpu, size_a, size_a);
+    matrix_coo matrix_b_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_b_cpu, size_b, size_b);
 
     {
         START_TIMING
@@ -233,20 +233,26 @@ bool test_addition_coo(Controls &controls, uint32_t size_a, uint32_t size_b, uin
            compare_buffers(controls, matrix_res_gpu.cols_gpu(), cols_cpu, cols_cpu.size());
 }
 
-bool test_kronecker_coo(clbool::Controls &controls) {
+bool test_kronecker_coo(clbool::Controls &controls,
+                        uint32_t size_a, uint32_t size_b, uint32_t nnz_a, uint32_t nnz_b, uint32_t k) {
     SET_TIMER
 
+    LOG << " ------------------------------- k = " <<
+    k << ", size_a = " << size_a << ", size_b = " << size_b
+    << " -------------------------------------------\n"
+    << "nnz_a = " << nnz_a << ", nnz_b = " << nnz_b;
+
     matrix_coo_cpu_pairs matrix_res_cpu;
-    matrix_coo_cpu_pairs matrix_a_cpu = coo_utils::generate_coo_pairs_cpu(1000, 3342);
-    matrix_coo_cpu_pairs matrix_b_cpu = coo_utils::generate_coo_pairs_cpu(1000, 2234);
+    matrix_coo_cpu_pairs matrix_a_cpu = coo_utils::generate_coo_pairs_cpu(nnz_a, size_a);
+    matrix_coo_cpu_pairs matrix_b_cpu = coo_utils::generate_coo_pairs_cpu(nnz_b, size_b);
 
     matrix_coo matrix_res_gpu;
-    matrix_coo matrix_a_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_a_cpu);
-    matrix_coo matrix_b_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_b_cpu);
+    matrix_coo matrix_a_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_a_cpu, size_a, size_a);
+    matrix_coo matrix_b_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_b_cpu, size_b, size_b);
 
     {
         START_TIMING
-        kronecker_product_cpu(matrix_res_cpu, matrix_a_cpu, matrix_b_cpu);
+        kronecker_product_cpu(matrix_res_cpu, matrix_a_cpu, matrix_b_cpu, size_b, size_b);
         END_TIMING("kronecker product on CPU: ")
     }
 
@@ -256,21 +262,58 @@ bool test_kronecker_coo(clbool::Controls &controls) {
         END_TIMING("kronecker product on DEVICE: ")
     }
 
+    // COMPARE CONTENT
+    {
+        std::vector<uint32_t> rows_cpu(matrix_res_gpu.nnz());
+        std::vector<uint32_t> cols_cpu(matrix_res_gpu.nnz());
+        controls.queue.enqueueReadBuffer(
+                matrix_res_gpu.rows_gpu(), true, 0, sizeof(uint32_t) * rows_cpu.size(), rows_cpu.data());
+        controls.queue.enqueueReadBuffer(
+                matrix_res_gpu.cols_gpu(), true, 0, sizeof(uint32_t) * cols_cpu.size(), cols_cpu.data());
+
+        matrix_coo_cpu_pairs to_cmp(matrix_res_gpu.nnz());
+        for (uint32_t i = 0; i < to_cmp.size(); ++i) {
+            to_cmp[i].first = rows_cpu[i];
+            to_cmp[i].second = cols_cpu[i];
+        }
+
+        std::sort(to_cmp.begin(), to_cmp.end());
+
+        for (uint32_t i = 0; i < to_cmp.size(); ++i) {
+            if (to_cmp[i] != matrix_res_cpu[i]) {
+                uint32_t start = std::max(0, (int) i - 10);
+                uint32_t stop = std::min((int)to_cmp.size(), (int)i + 10);
+                std::cerr << "Content of buffers are different "<< std::endl
+                << "{ i: (gpu[i], cpu[i]) }" << std::endl;
+                for (uint32_t j = start; j < stop; ++j) {
+                    std::cerr << j << ": ({" << to_cmp[j].first << ", " <<  to_cmp[j].second << "}, "
+                    << "{"<< matrix_res_cpu[j].first << ", " << matrix_res_cpu[j].second << "})";
+                }
+                std::cerr << std::endl;
+                return false;
+            }
+        }
+    }
+
+
     std::vector<uint32_t> rows_cpu;
     std::vector<uint32_t> cols_cpu;
 
     coo_utils::get_vectors_from_cpu_matrix(rows_cpu, cols_cpu, matrix_res_cpu);
 
-    return compare_buffers(controls, matrix_res_gpu.rows_gpu(), rows_cpu, rows_cpu.size()) &&
-           compare_buffers(controls, matrix_res_gpu.cols_gpu(), cols_cpu, cols_cpu.size());
+    return compare_buffers(controls, matrix_res_gpu.rows_gpu(), rows_cpu, rows_cpu.size(), "rows") &&
+           compare_buffers(controls, matrix_res_gpu.cols_gpu(), cols_cpu, cols_cpu.size(), "cols");
 
 }
 
-bool test_kronecker_dcsr(clbool::Controls &controls) {
+bool test_kronecker_dcsr(clbool::Controls &controls,
+                         uint32_t size_a, uint32_t size_b, uint32_t nnz_a, uint32_t nnz_b, uint32_t k) {
     SET_TIMER
 
-    uint32_t size_a = 342;
-    uint32_t size_b = 231;
+    LOG << " ------------------------------- k = " << k << ", size_a = " << size_a << ", size_b = " << size_b
+    << " -------------------------------------------\n"
+    << "nnz_a = " << nnz_a << ", nnz_b = " << nnz_b;
+
     matrix_dcsr_cpu matrix_res_cpu;
     matrix_dcsr matrix_res_gpu;
     matrix_dcsr matrix_a_gpu;
@@ -278,8 +321,8 @@ bool test_kronecker_dcsr(clbool::Controls &controls) {
 
     {
         matrix_coo_cpu_pairs matrix_coo_res_cpu;
-        matrix_coo_cpu_pairs matrix_coo_a_cpu = coo_utils::generate_coo_pairs_cpu(523, size_a);
-        matrix_coo_cpu_pairs matrix_coo_b_cpu = coo_utils::generate_coo_pairs_cpu(132, size_b);
+        matrix_coo_cpu_pairs matrix_coo_a_cpu = coo_utils::generate_coo_pairs_cpu(nnz_a, size_a);
+        matrix_coo_cpu_pairs matrix_coo_b_cpu = coo_utils::generate_coo_pairs_cpu(nnz_b, size_b);
 
         matrix_a_gpu = matrix_dcsr_from_cpu(controls,
                                             coo_utils::coo_pairs_to_dcsr_cpu(matrix_coo_a_cpu), size_a);

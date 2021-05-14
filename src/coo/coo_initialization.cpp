@@ -43,8 +43,6 @@ namespace clbool::coo {
                 bitonic_global_step.run(controls, rows_gpu, cols_gpu, i, 0, n);
             }
             bitonic_end.run(controls, rows_gpu, cols_gpu, n);
-
         }
-
     }
 }

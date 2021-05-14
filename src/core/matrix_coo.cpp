@@ -69,7 +69,6 @@ namespace clbool {
             if (!sorted) {
                 coo::sort_arrays(controls, _rows, _cols, _nnz);
             }
-
         } catch (const cl::Error &e) {
             std::stringstream exception;
             exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";
