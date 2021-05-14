@@ -27,7 +27,7 @@ namespace clbool::coo {
                           matrix_b.rows_gpu(), matrix_b.cols_gpu(),
                           res_size,
                           matrix_b.nnz(), matrix_b.nrows(), matrix_b.ncols()
-                  );
+                  ).wait();
 
             matrix_out = matrix_coo(controls, matrix_a.nrows() * matrix_b.nrows(), matrix_a.ncols() * matrix_b.ncols(),
                                     res_size, res_rows, res_cols, false);

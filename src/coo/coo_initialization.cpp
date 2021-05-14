@@ -35,14 +35,15 @@ namespace clbool::coo {
         bitonic_begin.run(controls, rows_gpu, cols_gpu, n);
 
         uint32_t segment_length = controls.block_size * 2;
-
+        cl::Event last;
         while (segment_length < n) {
             segment_length <<= 1;
             bitonic_global_step.run(controls, rows_gpu, cols_gpu, segment_length, 1, n);
             for (unsigned int i = segment_length / 2; i > controls.block_size * 2; i >>= 1) {
                 bitonic_global_step.run(controls, rows_gpu, cols_gpu, i, 0, n);
             }
-            bitonic_end.run(controls, rows_gpu, cols_gpu, n);
+            last = bitonic_end.run(controls, rows_gpu, cols_gpu, n);
         }
+        last.wait();
     }
 }
