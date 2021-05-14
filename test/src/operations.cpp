@@ -237,10 +237,12 @@ bool test_kronecker_coo(clbool::Controls &controls,
                         uint32_t size_a, uint32_t size_b, uint32_t nnz_a, uint32_t nnz_b, uint32_t k) {
     SET_TIMER
 
-    LOG << " ------------------------------- k = " <<
+    LOG << " ---------------------------------- k = " <<
     k << ", size_a = " << size_a << ", size_b = " << size_b
-    << " -------------------------------------------\n"
-    << "nnz_a = " << nnz_a << ", nnz_b = " << nnz_b;
+    << " ----------------------------------\n"
+    << " ---------------------------------- " <<
+    "nnz_a = " << nnz_a << ", nnz_b = " << nnz_b << ", result size: " << nnz_a * nnz_b <<
+    " ----------------------------------\n";
 
     matrix_coo_cpu_pairs matrix_res_cpu;
     matrix_coo_cpu_pairs matrix_a_cpu = coo_utils::generate_coo_pairs_cpu(nnz_a, size_a);
@@ -312,9 +314,12 @@ bool test_kronecker_dcsr(clbool::Controls &controls,
                          uint32_t size_a, uint32_t size_b, uint32_t nnz_a, uint32_t nnz_b, uint32_t k) {
     SET_TIMER
 
-    LOG << " ------------------------------- k = " << k << ", size_a = " << size_a << ", size_b = " << size_b
-    << " -------------------------------------------\n"
-    << "nnz_a = " << nnz_a << ", nnz_b = " << nnz_b;
+    LOG << " ---------------------------------- k = " <<
+    k << ", size_a = " << size_a << ", size_b = " << size_b
+    << " ----------------------------------\n"
+    << " ---------------------------------- " <<
+    "nnz_a = " << nnz_a << ", nnz_b = " << nnz_b << ", result size: " << nnz_a * nnz_b <<
+    " ----------------------------------\n";
 
     matrix_dcsr_cpu matrix_res_cpu;
     matrix_dcsr matrix_res_gpu;

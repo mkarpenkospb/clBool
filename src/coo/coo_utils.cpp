@@ -135,11 +135,14 @@ namespace clbool::coo_utils {
 
 
     void fill_random_matrix(cpu_buffer &rows, cpu_buffer &cols, uint32_t max_size) {
+        if (max_size < 1) {
+            throw std::runtime_error("Incorrect generation");
+        }
         uint32_t nnz = rows.size();
         FastRandom r(nnz);
         for (uint32_t i = 0; i < nnz; ++i) {
-            rows[i] = r.next(0, max_size);
-            cols[i] = r.next(0, max_size);
+            rows[i] = r.next(0, max_size - 1);
+            cols[i] = r.next(0, max_size - 1);
         }
     }
 
@@ -249,7 +252,6 @@ namespace clbool::coo_utils {
             position++;
         }
         rows_pointers.push_back(position);
-
         return matrix_dcsr_cpu(rows_pointers, rows_compressed, cols_indices);
     }
 
@@ -261,16 +263,16 @@ namespace clbool::coo_utils {
 
         cpu_buffer rows_pointers;
         cpu_buffer rows_compressed;
-        cpu_buffer cols_indices(matrix_coo.cols());
+        const cpu_buffer& cols_indices(matrix_coo.cols());
 
         size_t position = 0;
         uint32_t curr_row = matrix_coo.rows()[0];
         rows_compressed.push_back(curr_row);
         rows_pointers.push_back(position);
 
-        for (cpu_buffer::size_type i = 0; i < matrix_coo.rows().size(); ++i) {
-            if (matrix_coo.rows()[i] != curr_row) {
-                curr_row = matrix_coo.rows()[i];
+        for (unsigned int i : matrix_coo.rows()) {
+            if (i != curr_row) {
+                curr_row = i;
                 rows_compressed.push_back(curr_row);
                 rows_pointers.push_back(position);
             }
@@ -314,20 +316,14 @@ namespace clbool::coo_utils {
         matrix_out.resize(matrix_a.size() * matrix_b.size());
 
         uint32_t i = 0;
-        auto min_cols = coordinates(std::numeric_limits<uint32_t>::max(), std::numeric_limits<uint32_t>::max());
         for (const auto &coord_a: matrix_a) {
             for (const auto &coord_b: matrix_b) {
                 matrix_out[i] = coordinates(coord_a.first * b_nrows + coord_b.first,
                                             coord_a.second * b_ncols + coord_b.second);
-                uint32_t rw = coord_a.first * b_nrows + coord_b.first;
-                uint32_t cls = coord_a.second * b_ncols + coord_b.second;
-                if (rw < min_cols.first && cls < min_cols.second) {
-                    min_cols = {rw, cls};
-                }
                 ++i;
             }
         }
-        std::cout << "MIN COL: " << min_cols.first << ", " << min_cols.second << std::endl;
+
         std::sort(matrix_out.begin(), matrix_out.end());
     }
 
