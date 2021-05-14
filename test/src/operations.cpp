@@ -246,59 +246,21 @@ bool test_kronecker_coo(clbool::Controls &controls,
 
     matrix_coo_cpu_pairs matrix_res_cpu;
     matrix_coo_cpu_pairs matrix_a_cpu = coo_utils::generate_coo_pairs_cpu(nnz_a, size_a);
-    matrix_coo_cpu_pairs matrix_b_cpu = coo_utils::generate_coo_pairs_cpu(nnz_b, size_b);
 
     matrix_coo matrix_res_gpu;
     matrix_coo matrix_a_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_a_cpu, size_a, size_a);
-    matrix_coo matrix_b_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_b_cpu, size_b, size_b);
 
     {
         START_TIMING
-        kronecker_product_cpu(matrix_res_cpu, matrix_a_cpu, matrix_b_cpu, size_b, size_b);
+        kronecker_product_cpu(matrix_res_cpu, matrix_a_cpu, matrix_a_cpu, size_b, size_b);
         END_TIMING("kronecker product on CPU: ")
     }
 
     {
         START_TIMING
-        coo::kronecker_product(controls, matrix_res_gpu, matrix_a_gpu, matrix_b_gpu);
+        coo::kronecker_product(controls, matrix_res_gpu, matrix_a_gpu, matrix_a_gpu);
         END_TIMING("kronecker product on DEVICE: ")
     }
-
-    // COMPARE CONTENT
-    {
-        std::vector<uint32_t> rows_cpu(matrix_res_gpu.nnz());
-        std::vector<uint32_t> cols_cpu(matrix_res_gpu.nnz());
-        controls.queue.enqueueReadBuffer(
-                matrix_res_gpu.rows_gpu(), true, 0, sizeof(uint32_t) * rows_cpu.size(), rows_cpu.data());
-        controls.queue.enqueueReadBuffer(
-                matrix_res_gpu.cols_gpu(), true, 0, sizeof(uint32_t) * cols_cpu.size(), cols_cpu.data());
-
-        matrix_coo_cpu_pairs to_cmp(matrix_res_gpu.nnz());
-        for (uint32_t i = 0; i < to_cmp.size(); ++i) {
-            to_cmp[i].first = rows_cpu[i];
-            to_cmp[i].second = cols_cpu[i];
-        }
-
-        std::sort(to_cmp.begin(), to_cmp.end());
-
-        for (uint32_t i = 0; i < to_cmp.size(); ++i) {
-            if (to_cmp[i] != matrix_res_cpu[i]) {
-                uint32_t start = std::max(0, (int) i - 10);
-                uint32_t stop = std::min((int)to_cmp.size(), (int)i + 10);
-                std::cerr << "Content of buffers are different "<< std::endl
-                << "{ i: (gpu[i], cpu[i]) }" << std::endl;
-                for (uint32_t j = start; j < stop; ++j) {
-                    std::cerr << j << ": ({" << to_cmp[j].first << ", " <<  to_cmp[j].second << "}, "
-                    << "{"<< matrix_res_cpu[j].first << ", " << matrix_res_cpu[j].second << "})";
-                }
-                std::cerr << std::endl;
-                return false;
-            }
-        }
-
-        std::cout << "CONTENT ARE THE SAME " << std::endl;
-    }
-
 
     std::vector<uint32_t> rows_cpu;
     std::vector<uint32_t> cols_cpu;
@@ -324,21 +286,17 @@ bool test_kronecker_dcsr(clbool::Controls &controls,
     matrix_dcsr_cpu matrix_res_cpu;
     matrix_dcsr matrix_res_gpu;
     matrix_dcsr matrix_a_gpu;
-    matrix_dcsr matrix_b_gpu;
 
     {
         matrix_coo_cpu_pairs matrix_coo_res_cpu;
         matrix_coo_cpu_pairs matrix_coo_a_cpu = coo_utils::generate_coo_pairs_cpu(nnz_a, size_a);
-        matrix_coo_cpu_pairs matrix_coo_b_cpu = coo_utils::generate_coo_pairs_cpu(nnz_b, size_b);
 
         matrix_a_gpu = matrix_dcsr_from_cpu(controls,
                                             coo_utils::coo_pairs_to_dcsr_cpu(matrix_coo_a_cpu), size_a);
-        matrix_b_gpu = matrix_dcsr_from_cpu(controls,
-                                            coo_utils::coo_pairs_to_dcsr_cpu(matrix_coo_b_cpu), size_b);
 
         {
             START_TIMING
-            kronecker_product_cpu(matrix_coo_res_cpu, matrix_coo_a_cpu, matrix_coo_b_cpu, size_b, size_b);
+            kronecker_product_cpu(matrix_coo_res_cpu, matrix_coo_a_cpu, matrix_coo_a_cpu, size_b, size_b);
             END_TIMING("kronecker product on CPU: ")
         }
 
@@ -347,7 +305,7 @@ bool test_kronecker_dcsr(clbool::Controls &controls,
 
     {
         START_TIMING
-        dcsr::kronecker_product(controls, matrix_res_gpu, matrix_a_gpu, matrix_b_gpu);
+        dcsr::kronecker_product(controls, matrix_res_gpu, matrix_a_gpu, matrix_a_gpu);
         END_TIMING("kronecker product on DEVICE: ")
     }
 

@@ -21,7 +21,7 @@
 #endif
 
 #if DEBUG_ENABLE
-inline std::string LOG_PATH = "../log/log_GPU_merge_path.txt";
+inline std::string LOG_PATH = "C:/Users/mkarp/GitReps/clean_matrix/sparse_boolean_matrix_operations/log/log.txt";
 #endif
 
 inline std::ostream & get_log_stream(const std::string& path = "") {
@@ -38,7 +38,7 @@ inline std::ostream & get_log_stream(const std::string& path = "") {
 
 // https://stackoverflow.com/a/51802606
 struct Logg {
-    inline static std::ostream &stream = get_log_stream(/*LOG_PATH*/);
+    inline static std::ostream &stream = get_log_stream(LOG_PATH);
 
     Logg() {
         stream << "[LOG] ";
@@ -51,7 +51,7 @@ struct Logg {
 
 template<typename T>
 Logg &&operator<<(Logg &&wrap, T const &whatever) {
-    ::std::cout << whatever;
+    Logg::stream << whatever;
     return ::std::move(wrap);
 }
 

@@ -68,7 +68,7 @@ TEST(clBool_operations, kronecker_coo) {
     clbool::Controls controls = clbool::create_controls();
     for (uint32_t k = 1; k < 10; ++k) {
         uint32_t base_nnz = 1000 * k;
-        ASSERT_TRUE(test_kronecker_coo(controls, 10000, 10000, base_nnz, base_nnz + 5, k));
+        ASSERT_TRUE(test_kronecker_coo(controls, 10000, 10000, base_nnz, base_nnz, k));
     }
 }
 
@@ -76,7 +76,7 @@ TEST(clBool_operations, kronecker_dcsr) {
     clbool::Controls controls = clbool::create_controls();
     for (uint32_t k = 1; k < 10; ++k) {
         uint32_t base_nnz = 1000 * k;
-        ASSERT_TRUE(test_kronecker_dcsr(controls, 10000, 10000, base_nnz, base_nnz + 5, k));
+        ASSERT_TRUE(test_kronecker_dcsr(controls, 10000, 10000, base_nnz, base_nnz, k));
     }
 }
 
