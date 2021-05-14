@@ -408,6 +408,6 @@ namespace clbool::dcsr {
         set_positions.set_needed_work_size(old_nzr);
         set_positions.run(controls, c_rows_pointers, c_rows_compressed,
                       nnz_estimation, a_rows_compressed, positions,
-                      c_nnz, old_nzr, c_nzr);
+                      c_nnz, old_nzr, c_nzr).wait();
     }
 }

@@ -107,7 +107,7 @@ namespace clbool::coo {
                 ("set_positions", "set_positions");
         set_positions.set_needed_work_size(merged_size);
 
-        set_positions.run(controls, new_rows, new_cols, merged_rows, merged_cols, positions, merged_size);
+        set_positions.run(controls, new_rows, new_cols, merged_rows, merged_cols, positions, merged_size).wait();
     }
 
 
