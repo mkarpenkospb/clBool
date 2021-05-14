@@ -7,8 +7,8 @@ namespace clbool::utils {
     bool compare_buffers(Controls &controls, const cl::Buffer &buffer_gpu, const cpu_buffer &buffer_cpu, uint32_t size,
                          std::string name) {
         if (size != buffer_cpu.size()) {
-            std::cerr << "size of buffers for "<<  name << " are different "<< std::endl
-            << size << " on GPU vs "<< buffer_cpu.size() << " on CPU " << std::endl;
+            std::cerr << "size of buffers for " << name << " are different " << std::endl
+                      << size << " on GPU vs " << buffer_cpu.size() << " on CPU " << std::endl;
             return false;
         }
 
@@ -26,13 +26,17 @@ namespace clbool::utils {
             if (cpu_copy[i] != buffer_cpu[i]) {
                 uint32_t start = std::max(0, (int) i - 10);
                 uint32_t stop = std::min(size, i + 10);
-                std::cerr << "buffers for "<<  name << " are different "<< std::endl
-                << "{ i: (gpu[i], cpu[i]) }" << std::endl;
+                std::cerr << "buffers for " << name << " are different " << std::endl
+                          << "{ i: (gpu[i], cpu[i]) }" << std::endl;
                 for (uint32_t j = start; j < stop; ++j) {
-                    std::cerr << j << ": (" << cpu_copy[j] << ", " << buffer_cpu[j] << "), ";
+                    if (j == i) {
+                    std::cerr << " !!! " << j << ": (" << cpu_copy[j] << ", " << buffer_cpu[j] << "), ";
+                    } else {
+                        std::cerr << j << ": (" << cpu_copy[j] << ", " << buffer_cpu[j] << "), ";
+                    }
                 }
                 std::cerr << std::endl;
-                std::cerr << "buffers for " <<  name << " are different";
+                std::cerr << "buffers for " << name << " are different";
                 return false;
             }
         }
@@ -52,8 +56,8 @@ namespace clbool::utils {
 
         return
                 compare_buffers(controls, m_gpu.rpt_gpu(), m_cpu.rpt(), m_gpu.nzr() + 1, "rpt") &&
-               compare_buffers(controls, m_gpu.rows_gpu(), m_cpu.rows(), m_gpu.nzr(), "rows") &&
-               compare_buffers(controls, m_gpu.cols_gpu(), m_cpu.cols(), m_gpu.nnz(), "cols");
+                compare_buffers(controls, m_gpu.rows_gpu(), m_cpu.rows(), m_gpu.nzr(), "rows") &&
+                compare_buffers(controls, m_gpu.cols_gpu(), m_cpu.cols(), m_gpu.nnz(), "cols");
     }
 
 

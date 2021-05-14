@@ -15,7 +15,7 @@ namespace clbool::coo {
             uint32_t res_size = matrix_a.nnz() * matrix_b.nnz();
 
             auto kronecker = kernel<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
-                            uint32_t, uint32_t, uint32_t>
+                            uint32_t, uint32_t, uint32_t, uint32_t>
                             ("coo_kronecker", "kronecker");
             kronecker.set_needed_work_size(res_size);
 
@@ -25,11 +25,12 @@ namespace clbool::coo {
             kronecker.run(controls, res_rows, res_cols,
                           matrix_a.rows_gpu(), matrix_a.cols_gpu(),
                           matrix_b.rows_gpu(), matrix_b.cols_gpu(),
+                          res_size,
                           matrix_b.nnz(), matrix_b.nrows(), matrix_b.ncols()
                   );
 
             matrix_out = matrix_coo(controls, matrix_a.nrows() * matrix_b.nrows(), matrix_a.ncols() * matrix_b.ncols(),
-                                    res_size, res_rows, res_cols, true);
+                                    res_size, res_rows, res_cols, false);
         } catch (const cl::Error &e) {
             std::stringstream exception;
             exception << "\n" << e.what() << " : " << utils::error_name(e.err()) << "\n";

@@ -135,9 +135,9 @@ namespace clbool::coo_utils {
 
 
     void fill_random_matrix(cpu_buffer &rows, cpu_buffer &cols, uint32_t max_size) {
-        uint32_t n = rows.size();
-        FastRandom r(n);
-        for (uint32_t i = 0; i < n; ++i) {
+        uint32_t nnz = rows.size();
+        FastRandom r(nnz);
+        for (uint32_t i = 0; i < nnz; ++i) {
             rows[i] = r.next(0, max_size);
             cols[i] = r.next(0, max_size);
         }
@@ -155,9 +155,9 @@ namespace clbool::coo_utils {
     void
     form_cpu_matrix(matrix_coo_cpu_pairs &matrix_out, const cpu_buffer &rows, const cpu_buffer &cols) {
         matrix_out.resize(rows.size());
-        std::transform(rows.begin(), rows.end(), cols.begin(), matrix_out.begin(),
-                       [](uint32_t i, uint32_t j) -> coordinates { return {i, j}; });
-
+        for (uint32_t i = 0; i < rows.size(); ++i) {
+            matrix_out[i] = {rows[i], cols[i]};
+        }
     }
 
     void get_vectors_from_cpu_matrix(cpu_buffer &rows_out, cpu_buffer &cols_out,

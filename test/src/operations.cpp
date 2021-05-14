@@ -293,6 +293,8 @@ bool test_kronecker_coo(clbool::Controls &controls,
                 return false;
             }
         }
+
+        std::cout << "CONTENT ARE THE SAME " << std::endl;
     }
 
 

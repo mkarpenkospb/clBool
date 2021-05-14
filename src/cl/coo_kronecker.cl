@@ -15,11 +15,14 @@ __kernel void kronecker(__global uint* rowsRes,
                         __global const uint* rowsB,
                         __global const uint* colsB,
 
+                        uint rezSize,
                         uint nnzB,
                         uint nRowsB,
                         uint nColsB
                         ) {
     uint global_id = get_global_id(0);
+
+    if (global_id >= rezSize) return;
 
     uint block_id = global_id / nnzB;
     uint elem_id = global_id % nnzB;
