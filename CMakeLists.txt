@@ -107,3 +107,5 @@ endif()
 if (EXISTS "test")
     add_subdirectory(test)
 endif()
+
+target_include_directories(clbool PUBLIC ${CMAKE_CURRENT_LIST_DIR}/src/)
