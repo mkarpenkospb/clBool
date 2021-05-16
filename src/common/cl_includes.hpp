@@ -11,7 +11,7 @@
 
 #define FPGA
 #define DEBUG_ENABLE 1
-#define DETAIL_DEBUG_ENABLE 1
+#define DETAIL_DEBUG_ENABLE 0
 
 
 
@@ -38,7 +38,7 @@ inline std::ostream & get_log_stream(const std::string& path = "") {
 
 // https://stackoverflow.com/a/51802606
 struct Logg {
-    inline static std::ostream &stream = get_log_stream(LOG_PATH);
+    inline static std::ostream &stream = get_log_stream("");
 
     Logg() {
         stream << "[LOG] ";

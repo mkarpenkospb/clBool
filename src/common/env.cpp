@@ -11,7 +11,8 @@ namespace clbool {
         try {
             cl::Platform::get(&platforms);
             platforms[platform_id].getDevices(CL_DEVICE_TYPE_GPU, &devices);
-            return Controls(devices[device_id]);
+            uint32_t max_wg_size = devices[device_id].getInfo<CL_DEVICE_MAX_WORK_GROUP_SIZE>();
+            return Controls(devices[device_id], max_wg_size);
 
         } catch (const cl::Error &e) {
             std::stringstream exception;

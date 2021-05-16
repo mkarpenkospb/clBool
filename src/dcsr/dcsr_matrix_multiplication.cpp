@@ -130,7 +130,6 @@ namespace clbool::dcsr {
 
         prepare_positions(controls, positions, nnz_estimation, a.nzr(), "prepare_for_shift_empty_rows");
 
-
         // ------------------------------------  get rid of empty rows_gpu -------------------------------
 
         prefix_sum(controls, positions, c_nzr, a.nzr());
@@ -216,7 +215,7 @@ namespace clbool::dcsr {
             if (groups_length[workload_group_id] == 0) continue;
 
             if (workload_group_id == 1) {
-                std::cout << "first group!\n";
+                LOG << "first group!";
                 copy_one_value.set_needed_work_size(groups_length[workload_group_id])
                 .set_block_size(std::min(controls.block_size,
                                          std::max(32u, utils::ceil_to_power2(groups_length[workload_group_id]))));
@@ -235,7 +234,7 @@ namespace clbool::dcsr {
 
 
             if (workload_group_id < 33 ) {
-                std::cout << "2 - 32!: " << workload_group_id << "\n";
+                LOG << "2 - 32!: " << workload_group_id;
                 heap_merge.set_needed_work_size(groups_length[workload_group_id])
                             .add_option("NNZ_ESTIMATION", workload_group_id);
                 events.push_back(heap_merge.run(controls, gpu_workload_groups, groups_pointers[workload_group_id], groups_length[workload_group_id],
@@ -249,7 +248,7 @@ namespace clbool::dcsr {
             }
 
             if (workload_group_id < 37 ) {
-                std::cout << "33 - 36!\n";
+                LOG << "33 - 36!";
                 uint32_t block_size = std::max(32u, esc_estimation(workload_group_id) / 2);
                 esc_kernel.add_option("NNZ_ESTIMATION", esc_estimation(workload_group_id))
                 .set_block_size(block_size)
@@ -267,7 +266,7 @@ namespace clbool::dcsr {
             }
 
 
-            std::cout << "37!\n";
+            LOG << "37!";
             merge_large_rows.set_needed_work_size(groups_length[workload_group_id] * controls.block_size);
             events.push_back(merge_large_rows.run(controls,
                                                   gpu_workload_groups, groups_pointers[workload_group_id],

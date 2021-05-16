@@ -9,6 +9,7 @@ const uint32_t MAX_GROUP_ID = BINS_NUM - 1;
 namespace clbool::dcsr {
     
     namespace hash_details {
+        uint32_t MAX_WG_SIZE = 256;
 
         uint32_t get_block_size(uint32_t bin_id) {
             // NOTE: NVIDIA can operate more than 256 threads per group, but AMD cannot
@@ -17,9 +18,9 @@ namespace clbool::dcsr {
             if (bin_id == 2) return 128;
             if (bin_id == 3) return 256;
             if (bin_id == 4) return 256;
-            if (bin_id == 5) return 256;
-            if (bin_id == 6) return 256;
-            if (bin_id == 7) return 256;
+            if (bin_id == 5) return std::min(256u, MAX_WG_SIZE);
+            if (bin_id == 6) return std::min(512u, MAX_WG_SIZE);
+            if (bin_id == 7) return std::min(1024u, MAX_WG_SIZE);
             throw std::runtime_error("Unknown bin id. error 24642342152");
         }
 
@@ -56,6 +57,8 @@ namespace clbool::dcsr {
             std::cout << "empty result\n";
             return;
         }
+
+        hash_details::MAX_WG_SIZE = controls.max_wg_size;
         // TODO добавтиь rassert на размеры
         cl::Buffer nnz_estimation;
 
