@@ -26,9 +26,6 @@ namespace clbool {
         , max_wg_size(max_wg_size)
         {}
 
-        cl::Program create_program_from_source(const char * kernel, uint32_t length) const {
-            return cl::Program(context, {{kernel, length}});
-        }
     };
 }
 

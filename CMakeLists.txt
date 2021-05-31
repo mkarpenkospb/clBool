@@ -6,12 +6,7 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17")
 
 find_package(OpenCL 1.1 REQUIRED)
 
-set(LIB_CLASSES "src/core")
-set(COMMON "src/common")
-set(HEADERS "src/cl/headers")
-set(TESTS "src/test")
-set(COO "src/coo")
-set(UTILS "libs/utils")
+set(CLBOOL_DIRS "src/core" "src/common" "src/cl/headers" "src/coo" "libs/utils")
 
 set(KERNELS)
 set(CLBOOL_SOURCES)
@@ -43,6 +38,7 @@ list(APPEND KERNELS
         count_workload
         for_test/new_merge
         dcsr_kronecker
+        coo_reduce_duplicates
         )
 
 foreach(KERNEL ${KERNELS})
@@ -62,7 +58,6 @@ list(APPEND CLBOOL_SOURCES
         src/core/matrix_coo.cpp
 
         # coo
-        src/coo/main_coo.cpp
         src/coo/coo_matrix_addition.cpp
         src/coo/coo_initialization.cpp
         src/coo/coo_utils.cpp
@@ -77,7 +72,6 @@ list(APPEND CLBOOL_SOURCES
         src/dcsr/dcsr_reduce.cpp
         src/dcsr/dcsr_kronecker_product.cpp
 
-
         #common
         src/common/matrices_conversions.cpp
         src/common/cl_operations.cpp
@@ -88,24 +82,24 @@ list(APPEND CLBOOL_SOURCES
 
 add_library(clbool SHARED ${CLBOOL_SOURCES})
 target_link_libraries (clbool PUBLIC ${OpenCL_LIBRARY})
-target_include_directories(clbool PUBLIC "libs/clew" ${LIB_CLASSES} ${COMMON} ${HEADERS} ${TESTS} ${COO} ${UTILS})
+target_include_directories(clbool PUBLIC "libs/clew" ${LIB_CLASSES} ${CLBOOL_DIRS})
 
-if(WIN32)
-    set(CLBOOL_LIBRARY_FILE_NAME "libclbool.dll")
-    add_custom_command(
-            TARGET clbool POST_BUILD
-            COMMAND "${CMAKE_COMMAND}" -E
-            copy
-            "${CMAKE_BINARY_DIR}/${CLBOOL_LIBRARY_FILE_NAME}"
-            "${CMAKE_BINARY_DIR}/test"
-            #"${CMAKE_BINARY_DIR}/${CLBOOL_LIBRARY_FILE_NAME}.a"
-            #"${CMAKE_BINARY_DIR}/test"
-            COMMENT "Copy spbla and clbool compiled libs into test folder"
-    )
-endif()
+add_subdirectory(test)
+set(CLBOOL_LIBRARY_FILE_NAME "libclbool.dll")
+add_custom_command(
+        TARGET clbool POST_BUILD
+        COMMAND "${CMAKE_COMMAND}" -E
+        copy
+        "${CMAKE_BINARY_DIR}/${CLBOOL_LIBRARY_FILE_NAME}"
+        "${CMAKE_BINARY_DIR}/test"
+        #"${CMAKE_BINARY_DIR}/${CLBOOL_LIBRARY_FILE_NAME}.a"
+        #"${CMAKE_BINARY_DIR}/test"
+        COMMENT "Copy clbool compiled libs into test directory"
+)
+#endif()
 
-if (EXISTS "test")
-    add_subdirectory(test)
-endif()
-
+# to use as submodule
 target_include_directories(clbool PUBLIC ${CMAKE_CURRENT_LIST_DIR}/src/)
+target_compile_definitions(clbool PUBLIC CL_HPP_ENABLE_EXCEPTIONS)
+target_compile_definitions(clbool PUBLIC CL_HPP_MINIMUM_OPENCL_VERSION=110)
+target_compile_definitions(clbool PUBLIC CL_HPP_TARGET_OPENCL_VERSION=110)

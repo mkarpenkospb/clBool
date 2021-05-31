@@ -1,6 +1,5 @@
 #include "cl_operations.hpp"
 #include "kernel.hpp"
-#include "../cl/headers/prefix_sum.h"
 
 namespace clbool {
     void prefix_sum(Controls &controls,
@@ -28,9 +27,18 @@ namespace clbool {
         uint32_t b_size = reduce_array_size(a_size, d_block_size); // to save second roots
 
 
-        cl::Buffer a_gpu(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a_size);
-        cl::Buffer b_gpu(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * b_size);
-        cl::Buffer total_sum_gpu(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t));
+        cl::Buffer a_gpu;
+        CHECK_CL(
+        a_gpu = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a_size),
+        CLBOOL_CREATE_BUFFER_ERROR, 9726291);
+        cl::Buffer b_gpu;
+        CHECK_CL(
+        b_gpu = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * b_size),
+        CLBOOL_CREATE_BUFFER_ERROR, 920282);
+        cl::Buffer total_sum_gpu;
+        CHECK_CL(
+        total_sum_gpu = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t)),
+        CLBOOL_CREATE_BUFFER_ERROR, 7539743);
         // массив будет уменьшаться в 2 * block_size раз.
         uint32_t outer = reduce_array_size(array_size, d_block_size);
         cl::Buffer *a_gpu_ptr = &a_gpu;
@@ -42,13 +50,15 @@ namespace clbool {
 
         uint32_t leaf_size = 1;
 
-        scan.set_needed_work_size(threads_for_array(array_size));
+        scan.set_work_size(threads_for_array(array_size));
 
         SET_TIMER
 
         {
             START_TIMING
-            scan.run(controls, a_gpu, array, total_sum_gpu, array_size).wait();
+            CHECK_RUN(
+            scan.run(controls, a_gpu, array, total_sum_gpu, array_size).wait(),
+            58374722);
             END_TIMING("first scan: ")
         }
 
@@ -57,7 +67,7 @@ namespace clbool {
             // subarray with pref sum
             leaf_size *= d_block_size;
 
-            scan.set_needed_work_size(threads_for_array(outer));
+            scan.set_work_size(threads_for_array(outer));
 
             {
                 START_TIMING
@@ -66,7 +76,7 @@ namespace clbool {
             };
 
 
-            update.set_needed_work_size(array_size - leaf_size);
+            update.set_work_size(array_size - leaf_size);
 
             {
                 START_TIMING

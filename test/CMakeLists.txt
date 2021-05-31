@@ -14,6 +14,7 @@ add_executable(test
         test_procedures.cpp
         test_operations.cpp
         test_pieces.cpp
+        test_errors.cpp
         )
 target_link_libraries(test gtest gtest_main clbool)
 

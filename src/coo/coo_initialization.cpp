@@ -1,20 +1,6 @@
-#include <vector>
-#include <cstddef>
-#include <cstdint>
-
-
-#include "../common/utils.hpp"
-#include "libutils/fast_random.h"
-#include "coo_initialization.hpp"
-
-#include <string>
-#include <sstream>
-#include <iostream>
-#include <fstream>
-#include <cmath>
-
+#include <utils.hpp>
 #include <kernel.hpp>
-#include "../cl/headers/coo_bitonic_sort.h"
+#include <cstdint>
 
 namespace clbool::coo {
 
@@ -22,28 +8,27 @@ namespace clbool::coo {
 
         auto bitonic_begin = kernel<cl::Buffer, cl::Buffer, uint32_t>
         ("coo_bitonic_sort", "local_bitonic_begin");
-        bitonic_begin.set_needed_work_size(utils::round_to_power2(n));
+        bitonic_begin.set_work_size(utils::round_to_power2(n));
 
         auto bitonic_global_step = kernel<cl::Buffer, cl::Buffer, uint32_t, uint32_t, uint32_t>
         ("coo_bitonic_sort", "bitonic_global_step");
-        bitonic_global_step.set_needed_work_size(utils::round_to_power2(n));
+        bitonic_global_step.set_work_size(utils::round_to_power2(n));
 
         auto bitonic_end = kernel<cl::Buffer, cl::Buffer, uint32_t>
         ("coo_bitonic_sort", "bitonic_local_endings");
-        bitonic_end.set_needed_work_size(utils::round_to_power2(n));
+        bitonic_end.set_work_size(utils::round_to_power2(n));
 
-        bitonic_begin.run(controls, rows_gpu, cols_gpu, n);
+        CHECK_RUN(bitonic_begin.run(controls, rows_gpu, cols_gpu, n), 937981);
 
         uint32_t segment_length = controls.block_size * 2;
         cl::Event last;
         while (segment_length < n) {
             segment_length <<= 1;
-            bitonic_global_step.run(controls, rows_gpu, cols_gpu, segment_length, 1, n);
+            CHECK_RUN(bitonic_global_step.run(controls, rows_gpu, cols_gpu, segment_length, 1, n), 3457618);
             for (unsigned int i = segment_length / 2; i > controls.block_size * 2; i >>= 1) {
-                bitonic_global_step.run(controls, rows_gpu, cols_gpu, i, 0, n);
+                CHECK_RUN(bitonic_global_step.run(controls, rows_gpu, cols_gpu, i, 0, n), 82346262);
             }
-            last = bitonic_end.run(controls, rows_gpu, cols_gpu, n);
+            CHECK_RUN(bitonic_end.run(controls, rows_gpu, cols_gpu, n), 36662611);
         }
-        last.wait();
     }
 }

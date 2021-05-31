@@ -1,19 +1,19 @@
 #pragma once
+#include <libutils/timer.h>
+
+
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <libutils/timer.h>
 
-#define CL_HPP_ENABLE_EXCEPTIONS
-#define CL_HPP_MINIMUM_OPENCL_VERSION 110
-#define CL_HPP_TARGET_OPENCL_VERSION 110
+//#define CL_HPP_ENABLE_EXCEPTIONS
+//#define CL_HPP_MINIMUM_OPENCL_VERSION 110
+//#define CL_HPP_TARGET_OPENCL_VERSION 110
 #include "CL/opencl.hpp"
-
-#define FPGA
-#define DEBUG_ENABLE 1
-#define DETAIL_DEBUG_ENABLE 0
-
-
+#include <core/error.hpp>
+#define DEBUG_ENABLE 0
+#define LEVEL1 0
+#define LEVEL2 0
 
 
 #if (defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__))
@@ -55,13 +55,22 @@ Logg &&operator<<(Logg &&wrap, T const &whatever) {
     return ::std::move(wrap);
 }
 
+inline void handle_run(cl_int) {}
+inline void handle_run(const cl::Event& e) {
+    e.wait();
+}
 
 #define SET_TIMER timer t;
 #define START_TIMING do { t.restart(); } while(0);
 #define END_TIMING(msg) do { t.elapsed(); if constexpr (DEBUG_ENABLE) Logg() << (msg) << t.last_elapsed(); } while(0);
 #define LOG if constexpr (DEBUG_ENABLE) Logg()
-
-
+#define LOG1 if constexpr (DEBUG_ENABLE && LEVEL1) Logg()
+#define LOG2 if constexpr (DEBUG_ENABLE && LEVEL2) Logg()
+#define TIMEIT(msg, event) {                             \
+        SET_TIMER                                        \
+        START_TIMING                                     \
+        handle_run(event);                               \
+        END_TIMING(msg)}
 // переменные
 
 #define AMD 0x0010
