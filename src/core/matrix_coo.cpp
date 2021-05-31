@@ -140,7 +140,7 @@ namespace clbool {
 
         uint32_t total_duplicates;
         uint32_t new_nnz;
-        prefix_sum(controls, duplicates_per_tb, total_duplicates, groups_num + 1);
+        TIMEIT("prefix_sum run in: ", prefix_sum(controls, duplicates_per_tb, total_duplicates, groups_num + 1));
 
         if (total_duplicates == 0) return;
 
