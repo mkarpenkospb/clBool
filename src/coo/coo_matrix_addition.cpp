@@ -24,11 +24,9 @@ namespace clbool::coo {
         cl::Buffer merged_rows(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * merged_size);
         cl::Buffer merged_cols(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * merged_size);
 
-        coo_merge.run(controls,
-                      merged_rows, merged_cols,
-                      a.rows_gpu(), a.cols_gpu(),
-                      b.rows_gpu(), b.cols_gpu(),
-                      a.nnz(), b.nnz()).wait();
+        TIMEIT("coo_merge run in: ",
+        CHECK_RUN(coo_merge.run(controls, merged_rows, merged_cols, a.rows_gpu(), a.cols_gpu(),
+                      b.rows_gpu(), b.cols_gpu(), a.nnz(), b.nnz()).wait(), 123392990));
 
         merged_rows_out = std::move(merged_rows);
         merged_cols_out = std::move(merged_cols);

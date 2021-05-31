@@ -11,7 +11,7 @@
 //#define CL_HPP_TARGET_OPENCL_VERSION 110
 #include "CL/opencl.hpp"
 #include <core/error.hpp>
-#define DEBUG_ENABLE 0
+#define DEBUG_ENABLE 1
 #define LEVEL1 0
 #define LEVEL2 0
 
@@ -66,10 +66,10 @@ inline void handle_run(const cl::Event& e) {
 #define LOG if constexpr (DEBUG_ENABLE) Logg()
 #define LOG1 if constexpr (DEBUG_ENABLE && LEVEL1) Logg()
 #define LOG2 if constexpr (DEBUG_ENABLE && LEVEL2) Logg()
-#define TIMEIT(msg, event) {                             \
+#define TIMEIT(msg, run) {                              \
         SET_TIMER                                        \
         START_TIMING                                     \
-        handle_run(event);                               \
+        run;                                               \
         END_TIMING(msg)}
 // переменные
 

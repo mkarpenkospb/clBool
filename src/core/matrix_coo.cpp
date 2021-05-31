@@ -125,14 +125,18 @@ namespace clbool {
         init_duplicates.set_block_size(controls.max_wg_size);
         init_duplicates.set_work_size(groups_num);
 
-        CHECK_RUN(init_duplicates.run(controls, _rows, _cols, duplicates_per_tb, _nnz, groups_num), 56575111);
+        TIMEIT("init_duplicates run in: ",
+        CHECK_RUN(init_duplicates.run(controls, _rows, _cols, duplicates_per_tb, _nnz, groups_num), 56575111)
+        );
 
         auto reduce_tb = kernel<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t>
                 ("coo_reduce_duplicates", "reduce_duplicates_tb");
         reduce_tb.set_block_size(controls.max_wg_size);
         reduce_tb.set_work_size(_nnz);
 
-        CHECK_RUN(reduce_tb.run(controls, _rows, _cols, duplicates_per_tb, _nnz), 98666151);
+        TIMEIT("reduce_tb run in: ",
+        CHECK_RUN(reduce_tb.run(controls, _rows, _cols, duplicates_per_tb, _nnz), 98666151)
+        );
 
         uint32_t total_duplicates;
         uint32_t new_nnz;
@@ -153,7 +157,9 @@ namespace clbool {
         shift_tb.set_block_size(controls.max_wg_size);
         shift_tb.set_work_size(_nnz);
 
-        CHECK_RUN(shift_tb.run(controls, _rows, _cols, new_rows, new_cols, duplicates_per_tb, _nnz), 102552366);
+        TIMEIT("shift_tb tun in ",
+        CHECK_RUN(shift_tb.run(controls, _rows, _cols, new_rows, new_cols, duplicates_per_tb, _nnz), 102552366)
+        );
 
         _nnz = new_nnz;
         _rows = std::move(new_rows);
