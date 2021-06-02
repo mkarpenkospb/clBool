@@ -20,9 +20,12 @@ __kernel void addition_symbolic(__global const uint *a_rpt,
 
 ) {
     const uint local_id = get_local_id(0);
-
+    const uint global_id = get_global_id(0);
     if (get_global_id(0) == 0) {
         c_rpt[nrows] = 0;
+    }
+    if (global_id < nrows) {
+        c_rpt[global_id] = 0;
     }
 
     const uint row = get_group_id(0);

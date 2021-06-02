@@ -62,7 +62,7 @@ namespace clbool::csr {
 
 
         cl::Buffer c_cols;
-        CLB_READ_BUF(c_cols = utils::create_buffer(controls, c_nnz));
+        CLB_CREATE_BUF(c_cols = utils::create_buffer(controls, c_nnz));
 
         {
             auto add_numeric = kernel<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer>

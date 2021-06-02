@@ -391,6 +391,9 @@ bool test_addition_csr(Controls &controls, uint32_t size, uint32_t k_a, uint32_t
     matrix_coo_cpu_pairs matrix_a_cpu = coo_utils::generate_coo_pairs_cpu(size * k_a, size);
     matrix_coo_cpu_pairs matrix_b_cpu = coo_utils::generate_coo_pairs_cpu(size * k_b, size);
 
+    std::cout << " ------------------------------- nnz_a = " << matrix_a_cpu.size() << ", nnz_b = " << matrix_b_cpu.size()
+        << " -------------------------------------------\n";
+
     matrix_csr matrix_res_gpu;
     matrix_csr matrix_a_gpu = csr_from_cpu(controls, csr_cpu_from_pairs(matrix_a_cpu, size, size));
     matrix_csr matrix_b_gpu = csr_from_cpu(controls, csr_cpu_from_pairs(matrix_b_cpu, size, size));
