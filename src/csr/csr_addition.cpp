@@ -99,10 +99,18 @@ namespace clbool::csr {
 
         // ---------------------------------- estimate load -----------------------------------
         cl::Buffer estimation;
-        estimate_load(controls, estimation, a, b);
+        {
+            START_TIMING
+            estimate_load(controls, estimation, a, b);
+            END_TIMING("estimate_load run in: ")
+        }
 
         cpu_buffer bins_offset;
-        make_bins(controls, estimation, bins_offset, a.nrows());
+        {
+            START_TIMING
+            make_bins(controls, estimation, bins_offset, a.nrows());
+            END_TIMING("make_bins run in: ")
+        }
 
         cl::Buffer c_rpt;
         CLB_CREATE_BUF(c_rpt = utils::create_buffer(controls, a.nrows() + 1));
@@ -114,6 +122,7 @@ namespace clbool::csr {
         CLB_RUN(init_with_zeroes.run(controls, c_rpt, a.nrows() + 1));
 
         {
+            START_TIMING
             std::vector<cl::Event> events;
             auto add_symbolic = kernel<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
                                 uint32_t, cl::Buffer, uint32_t>
@@ -134,6 +143,7 @@ namespace clbool::csr {
             }
 
             CLB_WAIT(cl::WaitForEvents(events));
+            END_TIMING("symbolic part run in: ")
         }
 
         uint32_t c_nnz;
@@ -148,6 +158,7 @@ namespace clbool::csr {
         CLB_CREATE_BUF(c_cols = utils::create_buffer(controls, c_nnz));
 
         {
+            START_TIMING
             std::vector<cl::Event> events;
             auto add_numeric = kernel<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer,
                                                             cl::Buffer, uint32_t>
@@ -167,6 +178,7 @@ namespace clbool::csr {
             }
 
             CLB_WAIT(cl::WaitForEvents(events));
+            END_TIMING("numeric part run in: ")
         }
 
         c = matrix_csr(c_rpt, c_cols, a.nrows(), a.ncols(), c_nnz);
