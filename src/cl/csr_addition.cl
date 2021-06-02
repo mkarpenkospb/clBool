@@ -47,13 +47,10 @@ __kernel void addition_symbolic(__global const uint *a_rpt,
 
     bool dir = true;
     uint item_from_prev_chank = MAX_VAL;
-    __local uint max_x_index;
-    __local uint max_y_index;
-    __local uint counters[GROUP_SIZE];
-    counters[local_id] = 0;
-    barrier(CLK_LOCAL_MEM_FENCE);
 
     for (uint i = 0; i < block_count; i++) {
+        __local uint max_x_index;
+        __local uint max_y_index;
 
         uint max_x_index_per_thread = 0;
         uint max_y_index_per_thread = 0;
@@ -124,50 +121,38 @@ __kernel void addition_symbolic(__global const uint *a_rpt,
 
         barrier(CLK_LOCAL_MEM_FENCE);
 
-//        uint counter = 0;
+        uint counter = 0;
 
         if (dir) {
             for (uint m = local_id; m < to_process; m += block_size) {
                 if (m > 0)
-                    counters[local_id] += (res[m] - res[m - 1]) != 0;
+                    counter += (res[m] - res[m - 1]) != 0;
                 else
-                    counters[local_id] += (res[0] - item_from_prev_chank) != 0;
+                    counter += (res[0] - item_from_prev_chank) != 0;
                 item_from_prev_chank = res[m];
             }
         } else {
             for (uint m = block_size - 1 - local_id; m < to_process; m += block_size) {
                 if (m > 0)
-                    counters[local_id] += (res[m] - res[m - 1]) != 0;
+                    counter += (res[m] - res[m - 1]) != 0;
                 else
-                    counters[local_id] += (res[0] - item_from_prev_chank) != 0;
+                    counter += (res[0] - item_from_prev_chank) != 0;
                 item_from_prev_chank = res[m];
             }
         }
 
         dir = !dir;
         // TODO: заменить на дерево
-//        atomic_add(c_rpt + row, counter);
+        atomic_add(c_rpt + row, counter);
 
         begin_a += max_x_index;
         begin_b += max_y_index;
 
         barrier(CLK_LOCAL_MEM_FENCE | CLK_GLOBAL_MEM_FENCE);
     }
-
-    uint step = GROUP_SIZE / 2;
-
-    while (step) {
-        if (local_id < step) {
-            counters[local_id] += counters[local_id + step];
-        }
-        barrier(CLK_LOCAL_MEM_FENCE);
-        step >>= 1;
-    }
-
-    if (local_id == 0) {
-        c_rpt[row] = counters[0];
-    }
 }
+
+
 
 
 void scan_blelloch(__local uint *positions) {
