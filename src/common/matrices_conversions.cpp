@@ -174,6 +174,25 @@ namespace clbool {
         return matrix_csr_cpu(std::move(rpt), std::move(cols), m, n);
     }
 
+    matrix_csr_cpu csr_cpu_from_coo_cpu(const matrix_coo_cpu &mat, uint32_t m, uint32_t n) {
+        uint32_t nnz = mat.cols().size();
+        cpu_buffer rpt(m + 1);
+        cpu_buffer cols(nnz);
+        rpt[m] = nnz;
+        int ptr = 0;
+        int j = 0;
+        for (uint32_t i = 0; i < m; ++i) {
+            rpt[i] = ptr;
+            while (j < nnz && mat.rows()[j] == i) {
+                cols[j] = mat.cols()[j];
+                ptr ++;
+                j ++;
+            }
+        }
+
+        return matrix_csr_cpu(std::move(rpt), std::move(cols), m, n);
+    }
+
 
     matrix_csr csr_from_cpu(Controls &controls, const matrix_csr_cpu &m) {
         if (m.cols().empty()) {

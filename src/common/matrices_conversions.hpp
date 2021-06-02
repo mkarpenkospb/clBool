@@ -17,4 +17,5 @@ namespace clbool {
     matrix_coo_cpu matrix_coo_from_gpu(Controls &controls, matrix_coo &m);
     matrix_csr_cpu csr_cpu_from_pairs(const matrix_coo_cpu_pairs &mat, uint32_t m, uint32_t n);
     matrix_csr csr_from_cpu(Controls &controls, const matrix_csr_cpu &m);
+    matrix_csr_cpu csr_cpu_from_coo_cpu(const matrix_coo_cpu &mat, uint32_t m, uint32_t n);
 }
