@@ -1,4 +1,5 @@
 #include "matrices_conversions.hpp"
+#include "matrix_csr.hpp"
 
 namespace clbool {
     namespace {
@@ -77,7 +78,7 @@ namespace clbool {
 
     matrix_dcsr coo_to_dcsr_shallow(Controls &controls, const matrix_coo &a) {
         if (a.empty()) {
-            return matrix_dcsr(a.ncols(), a.nrows());
+            return matrix_dcsr(a.nrows(), a.ncols());
         }
         cl::Buffer rpt;
         cl::Buffer rows;
@@ -154,4 +155,35 @@ namespace clbool {
 
         return matrix_coo_cpu(rows_indices, cols_indices);
     }
+
+    matrix_csr_cpu csr_cpu_from_pairs(const matrix_coo_cpu_pairs &mat, uint32_t m, uint32_t n) {
+        cpu_buffer rpt(m + 1);
+        cpu_buffer cols(mat.size());
+        rpt[m] = cols.size();
+        int ptr = 0;
+        int j = 0;
+        for (uint32_t i = 0; i < m; ++i) {
+            rpt[i] = ptr;
+            while (j < mat.size() && mat[j].first == i) {
+                cols[j] = mat[j].second;
+                ptr ++;
+                j ++;
+            }
+        }
+
+        return matrix_csr_cpu(std::move(rpt), std::move(cols), m, n);
+    }
+
+
+    matrix_csr csr_from_cpu(Controls &controls, const matrix_csr_cpu &m) {
+        if (m.cols().empty()) {
+            return matrix_csr(m.nrows(), m.ncols());
+        }
+        cl::Buffer rpt;
+        cl::Buffer cols;
+        CLB_CREATE_BUF(rpt = utils::create_buffer(controls, const_cast<cpu_buffer&>(m.rpt())))
+        CLB_CREATE_BUF(cols = utils::create_buffer(controls, const_cast<cpu_buffer&>(m.cols())))
+        return matrix_csr(rpt, cols, m.nrows(), m.ncols(), m.cols().size());
+    }
+
 }

@@ -28,17 +28,14 @@ namespace clbool {
 
 
         cl::Buffer a_gpu;
-        CHECK_CL(
-        a_gpu = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a_size),
-        CLBOOL_CREATE_BUFFER_ERROR, 9726291);
+        CLB_CREATE_BUF(
+        a_gpu = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * a_size));
         cl::Buffer b_gpu;
-        CHECK_CL(
-        b_gpu = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * b_size),
-        CLBOOL_CREATE_BUFFER_ERROR, 920282);
+        CLB_CREATE_BUF(
+        b_gpu = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * b_size));
         cl::Buffer total_sum_gpu;
-        CHECK_CL(
-        total_sum_gpu = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t)),
-        CLBOOL_CREATE_BUFFER_ERROR, 7539743);
+        CLB_CREATE_BUF(
+        total_sum_gpu = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t)));
         // массив будет уменьшаться в 2 * block_size раз.
         uint32_t outer = reduce_array_size(array_size, d_block_size);
         cl::Buffer *a_gpu_ptr = &a_gpu;
@@ -52,13 +49,10 @@ namespace clbool {
 
         scan.set_work_size(threads_for_array(array_size));
 
-        SET_TIMER
 
         {
             START_TIMING
-            CHECK_RUN(
-            scan.run(controls, a_gpu, array, total_sum_gpu, array_size).wait(),
-            58374722);
+            CLB_RUN(scan.run(controls, a_gpu, array, total_sum_gpu, array_size).wait());
             END_TIMING("first scan: ")
         }
 
@@ -90,7 +84,7 @@ namespace clbool {
             std::swap(a_size_ptr, b_size_ptr);
         }
 
-        controls.queue.enqueueReadBuffer(total_sum_gpu, CL_TRUE, 0, sizeof(uint32_t), &total_sum);
+        CLB_READ_BUF(controls.queue.enqueueReadBuffer(total_sum_gpu, CL_TRUE, 0, sizeof(uint32_t), &total_sum));
 
     }
 }

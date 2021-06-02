@@ -21,6 +21,8 @@ bool test_multiplication_merge(clbool::Controls &controls, uint32_t size, uint32
 bool test_addition_coo(clbool::Controls &controls, uint32_t size_a,
                        uint32_t k_a, uint32_t k_b);
 
+bool test_addition_csr(clbool::Controls &controls, uint32_t size, uint32_t k_a, uint32_t k_b);
+
 bool test_kronecker_coo(clbool::Controls &controls,
                         uint32_t size_a, uint32_t size_b, uint32_t nnz_a, uint32_t nnz_b, uint32_t k);
 bool test_kronecker_dcsr(clbool::Controls &controls,

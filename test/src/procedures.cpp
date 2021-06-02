@@ -5,7 +5,6 @@ using namespace clbool::coo_utils;
 using namespace clbool::utils;
 
 bool test_pref_sum(Controls &controls, uint32_t size) {
-    SET_TIMER
 
     LOG << "------------------" << " size = " << size << " --------------------";
 
@@ -48,7 +47,6 @@ bool test_pref_sum(Controls &controls, uint32_t size) {
 }
 
 bool test_bitonic_sort(Controls &controls, uint32_t size) {
-    SET_TIMER
 
     // TODO: not true of course
     if (size == 0) return true;

@@ -1,6 +1,7 @@
 #include "clBool_tests.hpp"
 
 #include "coo.hpp"
+#include "csr/csr.hpp"
 
 using namespace clbool;
 using namespace clbool::coo_utils;
@@ -8,7 +9,6 @@ using namespace clbool::utils;
 
 
 bool test_multiplication_merge(Controls &controls, uint32_t size, uint32_t k) {
-    SET_TIMER
     std::cout << "----------------------- size = " << size << ", k = " << k << "----------------------\n";
 
     uint32_t max_size = size;
@@ -41,8 +41,7 @@ bool test_multiplication_merge(Controls &controls, uint32_t size, uint32_t k) {
 
 
 bool test_multiplication_hash(Controls &controls, uint32_t size, uint32_t k) {
-
-    SET_TIMER
+    
 
     LOG << "\n\nITER ------------------------ size = " << size << ", k = " << k << "-----------------------------\n";
 
@@ -83,7 +82,6 @@ bool test_multiplication_hash(Controls &controls, uint32_t size, uint32_t k) {
 
 
 bool test_reduce(Controls &controls, uint32_t size, uint32_t k) {
-    SET_TIMER
 
     uint32_t max_size = size;
     uint32_t nnz_max = max_size * k;
@@ -120,7 +118,7 @@ bool test_reduce(Controls &controls, uint32_t size, uint32_t k) {
 
 
 bool test_submatrix(Controls &controls, uint32_t size, uint32_t k) {
-    SET_TIMER
+    
 
     std::random_device rnd_device;
     std::mt19937 mersenne_engine{rnd_device()};
@@ -171,7 +169,7 @@ bool test_submatrix(Controls &controls, uint32_t size, uint32_t k) {
 
 
 bool test_transpose(Controls &controls, uint32_t size, uint32_t k) {
-    SET_TIMER
+    
 
     uint32_t max_size = size;
     uint32_t nnz_max = max_size * k;
@@ -205,7 +203,7 @@ bool test_transpose(Controls &controls, uint32_t size, uint32_t k) {
 
 
 bool test_addition_coo(Controls &controls, uint32_t size, uint32_t k_a, uint32_t k_b) {
-    SET_TIMER
+    
 
     std::cout << " ------------------------------- k_a = " << k_a << ", k_b = " << k_b << ", "  << "size = " << size
     << " -------------------------------------------\n";
@@ -247,7 +245,7 @@ bool test_addition_coo(Controls &controls, uint32_t size, uint32_t k_a, uint32_t
 
 bool test_kronecker_coo(clbool::Controls &controls,
                         uint32_t size_a, uint32_t size_b, uint32_t nnz_a, uint32_t nnz_b, uint32_t k) {
-    SET_TIMER
+    
 
     LOG << " ---------------------------------- k = " <<
     k << ", size_a = " << size_a << ", size_b = " << size_b
@@ -287,7 +285,7 @@ bool test_kronecker_coo(clbool::Controls &controls,
 
 bool test_kronecker_dcsr(clbool::Controls &controls,
                          uint32_t size_a, uint32_t size_b, uint32_t nnz_a, uint32_t nnz_b, uint32_t k) {
-    SET_TIMER
+    
 
     LOG << " ---------------------------------- k = " <<
     k << ", size_a = " << size_a << ", size_b = " << size_b
@@ -377,4 +375,40 @@ bool test_reduce_duplicates(Controls &controls) {
     }
 
     return true;
+}
+
+///////////////////////////// CSR ////////////////////////////////////////
+
+
+
+bool test_addition_csr(Controls &controls, uint32_t size, uint32_t k_a, uint32_t k_b) {
+
+    std::cout << " ------------------------------- k_a = " << k_a << ", k_b = " << k_b << ", "  << "size = " << size
+    << " -------------------------------------------\n";
+
+
+    matrix_coo_cpu_pairs matrix_res_cpu;
+    matrix_coo_cpu_pairs matrix_a_cpu = coo_utils::generate_coo_pairs_cpu(size * k_a, size);
+    matrix_coo_cpu_pairs matrix_b_cpu = coo_utils::generate_coo_pairs_cpu(size * k_b, size);
+
+    matrix_csr matrix_res_gpu;
+    matrix_csr matrix_a_gpu = csr_from_cpu(controls, csr_cpu_from_pairs(matrix_a_cpu, size, size));
+    matrix_csr matrix_b_gpu = csr_from_cpu(controls, csr_cpu_from_pairs(matrix_b_cpu, size, size));
+
+    {
+        START_TIMING
+        coo_utils::matrix_addition_cpu(matrix_res_cpu, matrix_a_cpu, matrix_b_cpu);
+        END_TIMING("matrix_addition on CPU: ")
+    }
+
+    {
+        START_TIMING
+        csr::matrix_addition(controls, matrix_res_gpu, matrix_a_gpu, matrix_b_gpu);
+        END_TIMING("matrix_addition on DEVICE: ")
+    }
+
+    matrix_csr_cpu res_cpu = csr_cpu_from_pairs(matrix_res_cpu, size, size);
+
+
+    return compare_matrices(controls, matrix_res_gpu, res_cpu);
 }

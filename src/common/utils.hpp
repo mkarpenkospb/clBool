@@ -1,5 +1,6 @@
 #pragma once
 
+#include <matrix_csr.hpp>
 #include "controls.hpp"
 #include "matrix_coo.hpp"
 #include "matrix_dcsr.hpp"
@@ -35,5 +36,8 @@ namespace clbool::utils {
     bool compare_buffers(Controls &controls, const cl::Buffer &buffer_gpu, const cpu_buffer &buffer_cpu, uint32_t size,
                          std::string name = "");
 
+    bool compare_matrices(Controls &controls, const matrix_csr &m_gpu, const matrix_csr_cpu &m_cpu);
+
     cl::Buffer create_buffer(Controls &controls, uint32_t size);
+    cl::Buffer create_buffer(Controls &controls, cpu_buffer &cpuBuffer, bool readonly = false);
 }

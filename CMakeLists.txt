@@ -14,7 +14,7 @@ set(CLBOOL_SOURCES)
 list(APPEND KERNELS
         merge_path
         merge_path1d
-        dcsr_addition_count
+        csr_addition
         hash/hash_global
         submatrix
         reduce
@@ -54,7 +54,7 @@ makeSourceMap("${KERNELS}")
 
 list(APPEND CLBOOL_SOURCES
         # ------------------------ cpp files -------------------------------
-        #lib
+        #core
         src/core/matrix_coo.cpp
 
         # coo
@@ -65,12 +65,14 @@ list(APPEND CLBOOL_SOURCES
 
         #dcsr
         src/dcsr/dcsr_matrix_multiplication.cpp
-        src/dcsr/dcsr_matrix_addition.cpp
         src/dcsr/dcsr_matrix_multiplication_hash.cpp
         src/dcsr/dcsr_submatrix.cpp
         src/dcsr/dcsr_transpose.cpp
         src/dcsr/dcsr_reduce.cpp
         src/dcsr/dcsr_kronecker_product.cpp
+
+        #csr
+        src/csr/csr_addition.cpp
 
         #common
         src/common/matrices_conversions.cpp

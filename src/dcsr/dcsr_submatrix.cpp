@@ -1,9 +1,5 @@
 #include "dcsr.hpp"
 
-#include "../cl/headers/submatrix.h"
-#include "../cl/headers/prepare_positions.h"
-#include "../cl/headers/set_positions.h"
-
 namespace clbool::dcsr {
 
 #define FILL_WG_SIZE 128 // work group size for each row in fill_rows
@@ -106,7 +102,6 @@ namespace clbool::dcsr {
             matrix_out = matrix_dcsr(nrows, ncols);
         }
 
-        SET_TIMER
 
         if (matrix_in.nnz() == 0) {
             matrix_out = matrix_dcsr();

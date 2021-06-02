@@ -28,19 +28,14 @@ namespace clbool {
 
         if (_nnz == 0) return;
 
-        CHECK_CL(
-                _rows = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(index_type) * nnz),
-                CLBOOL_CREATE_BUFFER_ERROR, 279791);
-        CHECK_CL(
-                _cols = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(index_type) * nnz),
-                CLBOOL_CREATE_BUFFER_ERROR, 93270712);
-
-        CHECK_CL(
-                controls.queue.enqueueWriteBuffer(_rows, CL_TRUE, 0, sizeof(index_type) * nnz, rows_indices),
-                CLBOOL_WRITE_BUFFER_ERROR, 9879701);
-        CHECK_CL(
-                controls.queue.enqueueWriteBuffer(_cols, CL_TRUE, 0, sizeof(index_type) * nnz, cols_indices),
-                CLBOOL_WRITE_BUFFER_ERROR, 973271);
+        CLB_CREATE_BUF(_rows = utils::create_buffer(controls, nnz));
+        CLB_CREATE_BUF(_cols = utils::create_buffer(controls, nnz));
+        cl::Event e1, e2;
+        CLB_WRITE_BUF(controls.queue.enqueueWriteBuffer(_rows, CL_FALSE, 0, sizeof(index_type) * nnz, rows_indices,
+                                                        nullptr, &e1));
+        CLB_WRITE_BUF(controls.queue.enqueueWriteBuffer(_cols, CL_FALSE, 0, sizeof(index_type) * nnz, cols_indices,
+                                                        nullptr, &e2));
+        CLB_WAIT({e1.wait(); e2.wait();});
 
         if (!sorted) {
             coo::sort_arrays(controls, _rows, _cols, _nnz);
@@ -49,7 +44,6 @@ namespace clbool {
         if (!noDuplicates) {
             reduce_duplicates2(controls);
         }
-
     }
 
 
@@ -83,31 +77,38 @@ namespace clbool {
     }
 
     void matrix_coo::reduce_duplicates(Controls &controls) {
-        // ------------------------------------ prepare array to count positions ----------------------
+
+        // ------------------------------------ prepare array to count positions -----------------------------------
+
         cl::Buffer positions;
-        CHECK_CL(positions = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * (_nnz + 1)),
-                CLBOOL_CREATE_BUFFER_ERROR, 97987319);
+        CLB_CREATE_BUF(positions = utils::create_buffer(controls, _nnz + 1));
 
         auto prepare_positions = kernel<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t>
                 ("prepare_positions", "prepare_array_for_positions");
         prepare_positions.set_work_size(_nnz);
-        CHECK_RUN(prepare_positions.run(controls, positions, _rows, _cols, _nnz).wait(), 367279701);
+
+        CLB_RUN(TIME_RUN("prepare_positions run in: ",
+        prepare_positions.run(controls, positions, _rows, _cols, _nnz)));
 
         // ------------------------------------ calculate positions, get new_size -----------------------------------
+
         uint32_t new_nnz;
-        prefix_sum(controls, positions, new_nnz, _nnz + 1);
+        {
+            START_TIMING
+            prefix_sum(controls, positions, new_nnz, _nnz + 1);
+            END_TIMING("prefix_sum run in: ")
+        }
 
         cl::Buffer new_rows;
-        CHECK_CL(new_rows = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * new_nnz),
-        CLBOOL_CREATE_BUFFER_ERROR, 9739721);
+        CLB_CREATE_BUF(new_rows = utils::create_buffer(controls, new_nnz));
         cl::Buffer new_cols;
-        CHECK_CL(new_cols = cl::Buffer(controls.context, CL_MEM_READ_WRITE, sizeof(uint32_t) * new_nnz),
-        CLBOOL_CREATE_BUFFER_ERROR, 8002871);
+        CLB_CREATE_BUF(new_cols =  utils::create_buffer(controls, new_nnz));
 
         auto set_positions = kernel<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, unsigned int>
                 ("set_positions", "set_positions");
         set_positions.set_work_size(_nnz);
-        CHECK_RUN(set_positions.run(controls, new_rows, new_cols, _rows, _cols, positions, _nnz).wait(), 848276172);
+        CLB_RUN(TIME_RUN("set_positions run in: ",
+        set_positions.run(controls, new_rows, new_cols, _rows, _cols, positions, _nnz)));
         _rows = std::move(new_rows);
         _cols = std::move(new_cols);
         _nnz = new_nnz;
@@ -118,48 +119,49 @@ namespace clbool {
 
         uint32_t groups_num = (_nnz + controls.max_wg_size - 1) / controls.max_wg_size;
         cl::Buffer duplicates_per_tb;
-        CHECK_CREATE_BUF(duplicates_per_tb = utils::create_buffer(controls, groups_num + 1), 87660101);
+        CLB_CREATE_BUF(duplicates_per_tb = utils::create_buffer(controls, groups_num + 1));
 
         auto init_duplicates = kernel<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t, uint32_t>
                 ("coo_reduce_duplicates", "init_duplicates");
         init_duplicates.set_block_size(controls.max_wg_size);
         init_duplicates.set_work_size(groups_num);
 
-        TIMEIT("init_duplicates run in: ",
-        CHECK_RUN(init_duplicates.run(controls, _rows, _cols, duplicates_per_tb, _nnz, groups_num).wait(), 56575111)
-        );
+        CLB_RUN(TIME_RUN("init_duplicates run in: ",
+        init_duplicates.run(controls, _rows, _cols, duplicates_per_tb, _nnz, groups_num)));
 
         auto reduce_tb = kernel<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t>
                 ("coo_reduce_duplicates", "reduce_duplicates_tb");
         reduce_tb.set_block_size(controls.max_wg_size);
         reduce_tb.set_work_size(_nnz);
 
-        TIMEIT("reduce_tb run in: ",
-        CHECK_RUN(reduce_tb.run(controls, _rows, _cols, duplicates_per_tb, _nnz).wait(), 98666151)
-        );
+        CLB_RUN(TIME_RUN("reduce_tb run in: ",
+        reduce_tb.run(controls, _rows, _cols, duplicates_per_tb, _nnz)));
 
         uint32_t total_duplicates;
         uint32_t new_nnz;
-        TIMEIT("prefix_sum run in: ", prefix_sum(controls, duplicates_per_tb, total_duplicates, groups_num + 1));
+        {
+            START_TIMING
+            prefix_sum(controls, duplicates_per_tb, total_duplicates, groups_num + 1);
+            END_TIMING("prefix_sum run in: ")
+        }
 
         if (total_duplicates == 0) return;
 
         new_nnz = _nnz - total_duplicates;
 
         cl::Buffer new_rows;
-        CHECK_CREATE_BUF(new_rows = utils::create_buffer(controls, new_nnz), 8777621);
+        CLB_CREATE_BUF(new_rows = utils::create_buffer(controls, new_nnz));
 
         cl::Buffer new_cols;
-        CHECK_CREATE_BUF(new_cols = utils::create_buffer(controls, new_nnz), 815134914);
+        CLB_CREATE_BUF(new_cols = utils::create_buffer(controls, new_nnz));
 
         auto shift_tb = kernel<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, uint32_t>
                 ("coo_reduce_duplicates", "shift_tb");
         shift_tb.set_block_size(controls.max_wg_size);
         shift_tb.set_work_size(_nnz);
 
-        TIMEIT("shift_tb tun in ",
-        CHECK_RUN(shift_tb.run(controls, _rows, _cols, new_rows, new_cols, duplicates_per_tb, _nnz).wait(), 102552366)
-        );
+        CLB_RUN(TIME_RUN("shift_tb run in ",
+        shift_tb.run(controls, _rows, _cols, new_rows, new_cols, duplicates_per_tb, _nnz)));
 
         _nnz = new_nnz;
         _rows = std::move(new_rows);

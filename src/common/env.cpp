@@ -17,14 +17,14 @@ namespace clbool {
                 std::stringstream s;
                 s << "No such platform: " << platform_id
                 << ". Run show_devices() to enumerate available platforms and devices.";
-                RAISE_ERROR(s.str(), CLBOOL_INITIALIZATION_ERROR, 52367581);
+                CLB_RAISE(s.str(), CLBOOL_INITIALIZATION_ERROR);
             }
             platforms[platform_id].getDevices(CL_DEVICE_TYPE_GPU, &devices);
             if (device_id >= devices.size()) {
                 std::stringstream s;
                 s << "No such device: " << platform_id
                 << ". Run show_devices() to enumerate available platforms and devices.";
-                RAISE_ERROR(s.str(), CLBOOL_INITIALIZATION_ERROR, 46361224);
+                CLB_RAISE(s.str(), CLBOOL_INITIALIZATION_ERROR);
             }
             uint32_t max_wg_size = devices[device_id].getInfo<CL_DEVICE_MAX_WORK_GROUP_SIZE>();
             return Controls(devices[device_id], max_wg_size);

@@ -11,6 +11,8 @@ add_executable(test
         src/procedures.cpp
         src/pieces.cpp
 
+        check_test_utils.cpp
+
         test_procedures.cpp
         test_operations.cpp
         test_pieces.cpp

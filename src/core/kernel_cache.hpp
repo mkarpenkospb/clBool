@@ -1,4 +1,5 @@
 #pragma once
+
 #include "headers_map.hpp"
 #include <error.hpp>
 
@@ -28,30 +29,29 @@ namespace clbool::details {
             }
 
             auto source_ptr = HeadersMap.find(program_name);
-            CHECK_RAISE(source_ptr != HeadersMap.end(), "Cannot find " + program_name , CLBOOL_NO_SUCH_PROGRAM, 1435322);
+            CLB_CHECK(source_ptr != HeadersMap.end(), "Cannot find " + program_name, CLBOOL_NO_SUCH_PROGRAM);
 
-            SET_TIMER
             {
                 START_TIMING
                 KernelSource source = source_ptr->second;
                 cl_program = cl::Program(controls.context, {{source.kernel, source.length}});
-                CHECK_BUILD(cl_program.build(options.c_str()), 43684673);
+                CLB_BUILD(cl_program.build(options.c_str()));
                 KernelCache::programs[program_key] = cl_program;
-                END_TIMING(" kernel " + program_name + " build in: ");
+                END_TIMING(" kernel " + program_name + " build in: ")
             }
 
             return KernelCache::programs[program_key];
         }
 
         static const cl::Kernel &get_kernel(const Controls &controls, const std::string &program_name,
-                                            const std::string &kernel_name, const std::string& options) {
+                                            const std::string &kernel_name, const std::string &options) {
             cl::Program cl_program = get_program(controls, program_name, options);
             kernel_id kernelId = {program_name + "|" + options, kernel_name};
             if (kernels.find(kernelId) != kernels.end()) {
                 return kernels[kernelId];
             }
-            CHECK_CL(kernels[kernelId] = cl::Kernel(cl_program, kernel_name.c_str()),
-                     CLBOOL_CREATE_KERNEL_ERROR, 876123);
+            CLB_CL(kernels[kernelId] = cl::Kernel(cl_program, kernel_name.c_str()),
+                     CLBOOL_CREATE_KERNEL_ERROR);
             return kernels[kernelId];
         }
 
