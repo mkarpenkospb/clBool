@@ -70,9 +70,10 @@ TEST(clBool_operations, addition_coo) {
 
 TEST(clBool_operations, addition_csr) {
     clbool::Controls controls = clbool::create_controls();
-    for (int size = 0; size < 10000; size += 200) {
+    for (int size = 0; size < 10000; size += 10) {
         for (uint32_t k_a = 20; k_a < 40; k_a += 5) {
             for (uint32_t k_b = 20; k_b < 40; k_b += 5) {
+//                uint32_t size = 1030, k_a = 20, k_b = 20;
                 ASSERT_TRUE(test_addition_csr(controls, size, k_a, k_b));
             }
         }

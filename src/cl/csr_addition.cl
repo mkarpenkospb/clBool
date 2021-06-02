@@ -8,27 +8,46 @@
 
 #define MAX_VAL 4294967295;
 
-// see merge_path_count by Artem Khoroshev
 
+__kernel void init_rpt( __global uint *c_rpt,// size == nrows + 1
+                        uint size
+        ) {
+    const uint global_id = get_global_id(0);
+    if (global_id >= size) return;
+    c_rpt[global_id] = 0;
+}
+
+__kernel void estimate_load(__global const uint *a_rpt,
+                            __global const uint *b_rpt,
+                            __global uint *estimation,
+                            uint nrows
+                            ) {
+    const uint global_id = get_global_id(0);
+    if (global_id >= nrows) return;
+
+    estimation[global_id] = a_rpt[global_id + 1] - a_rpt[global_id] + b_rpt[global_id + 1] - b_rpt[global_id];
+
+}
+
+
+
+// see merge_path_count in cubool
 __kernel void addition_symbolic(__global const uint *a_rpt,
                                 __global const uint *a_cols,
                                 __global const uint *b_rpt,
                                 __global const uint *b_cols,
                                 __global uint *c_rpt,
-                                uint nrows
+                                uint nrows,
+
+                                __global const uint *permutation,
+                                uint bin_offset
 //                                ,thrust::device_ptr<const T> rows_in_bins
 
 ) {
     const uint local_id = get_local_id(0);
     const uint global_id = get_global_id(0);
-    if (get_global_id(0) == 0) {
-        c_rpt[nrows] = 0;
-    }
-    if (global_id < nrows) {
-        c_rpt[global_id] = 0;
-    }
 
-    const uint row = get_group_id(0);
+    const uint row = permutation[bin_offset + get_group_id(0)];
     const uint block_size = GROUP_SIZE;
 
     const uint global_offset_a = a_rpt[row];
@@ -142,7 +161,7 @@ __kernel void addition_symbolic(__global const uint *a_rpt,
         }
 
         dir = !dir;
-        // TODO: заменить на дерево
+
         atomic_add(c_rpt + row, counter);
 
         begin_a += max_x_index;
@@ -203,12 +222,14 @@ __kernel void addition_numeric(__global const uint *a_rpt,
                                __global const uint *b_rpt,
                                __global const uint *b_cols,
                                __global const uint *c_rpt,
-                               __global uint *c_cols
-//                                 thrust::device_ptr<const T> rows_in_bins
+                               __global uint *c_cols,
+
+                                __global const uint *premutation,
+                                uint bin_offset
 ) {
 
     const uint local_id = get_local_id(0);
-    const uint row = get_group_id(0);
+    const uint row = premutation[bin_offset + get_group_id(0)];
 
     const uint global_offset_a = a_rpt[row];
     const uint global_offset_b = b_rpt[row];
