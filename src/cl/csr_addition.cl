@@ -90,9 +90,11 @@ __kernel void addition_symbolic(__global const uint *a_rpt,
     bool dir = true;
     uint item_from_prev_chank = MAX_VAL;
 
+    __local uint max_x_index;
+    __local uint max_y_index;
+
     for (uint i = 0; i < block_count; i++) {
-        __local uint max_x_index;
-        __local uint max_y_index;
+
 
         uint max_x_index_per_thread = 0;
         uint max_y_index_per_thread = 0;
@@ -277,9 +279,11 @@ __kernel void addition_numeric(__global const uint *a_rpt,
     bool dir = true;
     uint item_from_prev_chank = MAX_VAL;
 
+    __local uint max_x_index;
+    __local uint max_y_index;
+
     for (uint i = 0; i < block_count; i++) {
-        __local uint max_x_index;
-        __local uint max_y_index;
+
 
         uint max_x_index_per_thread = 0;
         uint max_y_index_per_thread = 0;
