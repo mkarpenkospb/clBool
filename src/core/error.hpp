@@ -206,6 +206,10 @@ namespace clbool {
             message = s.str();
             return message.c_str();
         }
+
+        std::string get_message() const {
+            return message;
+        }
     };
 
 //
@@ -250,7 +254,15 @@ namespace clbool {
         __FILE__, __FUNCTION__, __LINE__);                                                                          \
     }
 
-#define CLB_RUN(run) CLB_CL(run, CLBOOL_RUN_KERNEL_FAILURE)
+#define CLB_RUN(run) try {                                                                           \
+        run;                                                                                         \
+    } catch (const Exception& e) {                                                                   \
+      throw Exception(e.get_message(), CLBOOL_RUN_KERNEL_FAILURE, __FILE__, __FUNCTION__, __LINE__); \
+} catch (const cl::Error &e) {                                                                       \
+         throw clbool::Exception(clError_handler(e), CLBOOL_RUN_KERNEL_FAILURE,                                         \
+         __FILE__, __FUNCTION__, __LINE__);                                                          \
+                                                                                                     \
+}
 #define CLB_WAIT(wait) CLB_CL(wait, CLBOOL_EVENT_WAITING_ERROR)
 #define CLB_WRITE_BUF(write) CLB_CL(write, CLBOOL_WRITE_BUFFER_ERROR)
 #define CLB_READ_BUF(read) CLB_CL(read, CLBOOL_READ_BUFFER_ERROR)
