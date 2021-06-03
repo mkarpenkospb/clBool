@@ -7,26 +7,49 @@
 #endif
 
 #define MAX_VAL 4294967295;
+#define NUM_BINS 4
 
+inline
+uint get_bin_id(uint row_size) {
+    if (row_size == 0) return 0;
+    if (row_size <= 64) return 1;
+    if (row_size <= 128) return 2;
+    return 3;
+}
 
-__kernel void init_rpt( __global uint *c_rpt,// size == nrows + 1
+__kernel void init_with_zeroes( __global uint *data,// size == nrows + 1
                         uint size
         ) {
     const uint global_id = get_global_id(0);
     if (global_id >= size) return;
-    c_rpt[global_id] = 0;
+    data[global_id] = 0;
 }
 
-__kernel void estimate_load(__global const uint *a_rpt,
+__kernel void fill_bins_size(__global const uint *a_rpt,
                             __global const uint *b_rpt,
-                            __global uint *estimation,
+                            __global uint *bins,
                             uint nrows
-                            ) {
+                        ) {
+    const uint global_id = get_global_id(0);
+    if (global_id == 0) bins[NUM_BINS] = 0;
+    if (global_id >= nrows) return;
+    uint estimation = a_rpt[global_id + 1] - a_rpt[global_id] + b_rpt[global_id + 1] - b_rpt[global_id];
+    atomic_add(bins + get_bin_id(estimation), 1);
+}
+
+__kernel void build_permutation(__global const uint *a_rpt,
+                                __global const uint *b_rpt,
+                                __global const uint *bins_offset, // bins pref sum from fill_bins_size
+                                __global uint *bin_size,
+                                __global uint *permutation,
+                                uint nrows
+                                ) {
     const uint global_id = get_global_id(0);
     if (global_id >= nrows) return;
-
-    estimation[global_id] = a_rpt[global_id + 1] - a_rpt[global_id] + b_rpt[global_id + 1] - b_rpt[global_id];
-
+    uint estimation = a_rpt[global_id + 1] - a_rpt[global_id] + b_rpt[global_id + 1] - b_rpt[global_id];
+    const uint bin_id = get_bin_id(estimation);
+    uint curr_bin_size = atomic_add(bin_size + bin_id, 1);
+    permutation[bins_offset[bin_id] + curr_bin_size] = global_id;
 }
 
 
@@ -364,6 +387,8 @@ __kernel void addition_numeric(__global const uint *a_rpt,
         barrier(CLK_LOCAL_MEM_FENCE);
     }
 }
+
+
 
 
 

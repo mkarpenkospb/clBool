@@ -7,7 +7,7 @@
 #include <sstream>
 
 namespace clbool::csr {
-    uint32_t BIN_NUM = 4;
+    uint32_t NUM_BINS = 4;
 
     uint32_t get_bin_id(uint32_t row_size) {
         if (row_size == 0) return 0;
@@ -26,45 +26,6 @@ namespace clbool::csr {
         CLB_RAISE(s.str(), CLBOOL_INVALID_ARGUMENT);
     }
 
-
-    void estimate_load(Controls &controls, cl::Buffer &estimation,
-                       const matrix_csr &a, const matrix_csr &b) {
-        CLB_CREATE_BUF(estimation = utils::create_buffer(controls, a.nrows()));
-        auto estimate = kernel<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t>
-                ("csr_addition", "estimate_load");
-        estimate.set_block_size(controls.max_wg_size);
-        estimate.set_work_size(a.nrows());
-
-        CLB_RUN(estimate.run(controls, a.rpt_gpu(), b.rpt_gpu(), estimation, a.nrows()))
-    }
-
-    void make_bins(Controls &controls, cl::Buffer &estimation, cpu_buffer &bins_offset, uint32_t nrows) {
-        cpu_buffer estimation_cpu(nrows);
-        CLB_READ_BUF(controls.queue.enqueueReadBuffer(estimation, true, 0, sizeof (uint32_t) * nrows,
-                                                      estimation_cpu.data()));
-        std::vector<cpu_buffer> permutation_cpu(BIN_NUM);
-        bins_offset.resize(BIN_NUM + 1, 0);
-        for (uint32_t i = 0; i < nrows; ++i) {
-            uint32_t bin_id = get_bin_id(estimation_cpu[i]);
-            permutation_cpu[bin_id].push_back(i);
-            bins_offset[bin_id] ++;
-        }
-        uint32_t accum = 0;
-        uint32_t tmp = 0;
-        uint32_t offset = 0;
-        for (uint32_t i = 0; i < BIN_NUM; ++i) {
-            if (bins_offset[i] != 0) {
-                CLB_WRITE_BUF(controls.queue.enqueueWriteBuffer(estimation, true,
-                                                                offset * sizeof(uint32_t), sizeof (uint32_t) * bins_offset[i],
-                                                      permutation_cpu[i].data()));
-                offset += bins_offset[i];
-            }
-            tmp = bins_offset[i];
-            bins_offset[i] = accum;
-            accum += tmp;
-        }
-        bins_offset[BIN_NUM] = accum;
-    }
 
     void matrix_addition(Controls &controls, matrix_csr &c, const matrix_csr &a, const matrix_csr &b) {
 
@@ -98,28 +59,53 @@ namespace clbool::csr {
         }
 
         // ---------------------------------- estimate load -----------------------------------
-        cl::Buffer estimation;
+        cl::Buffer permutation;
+        cl::Buffer bins_offset;
+        cpu_buffer bins_offset_cpu(NUM_BINS + 1, 0);
+        cl::Buffer bins_size;
+        CLB_CREATE_BUF(permutation = utils::create_buffer(controls, a.nrows()));
+        CLB_CREATE_BUF(bins_offset = utils::create_buffer(controls, NUM_BINS + 1));
+        CLB_CREATE_BUF(bins_size = utils::create_buffer(controls, NUM_BINS));
+
         {
             START_TIMING
-            estimate_load(controls, estimation, a, b);
-            END_TIMING("estimate_load run in: ")
+            auto fill_bins_size = kernel<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t>
+                    ("csr_addition", "fill_bins_size");
+            fill_bins_size.set_block_size(controls.max_wg_size);
+            fill_bins_size.set_work_size(a.nrows());
+            CLB_RUN(fill_bins_size.run(controls, a.rpt_gpu(), b.rpt_gpu(), bins_offset, a.nrows()));
+            END_TIMING("bills filled in: ")
         }
 
-        cpu_buffer bins_offset;
+        {
+            auto init = kernel<cl::Buffer, uint32_t> ("csr_addition", "init_with_zeroes");
+            init.set_work_size(NUM_BINS);
+            CLB_RUN(init.run(controls, bins_size, NUM_BINS));
+            uint32_t total;
+            prefix_sum(controls, bins_offset, total, NUM_BINS + 1);
+        }
+
         {
             START_TIMING
-            make_bins(controls, estimation, bins_offset, a.nrows());
-            END_TIMING("make_bins run in: ")
+            auto build_permutation = kernel<cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, cl::Buffer, uint32_t>
+                    ("csr_addition", "build_permutation");
+            build_permutation.set_block_size(controls.max_wg_size);
+            build_permutation.set_work_size(a.nrows());
+            CLB_RUN(build_permutation.run(controls, a.rpt_gpu(), b.rpt_gpu(), bins_offset, bins_size, permutation, a.nrows()));
         }
+
+        CLB_READ_BUF(controls.queue.enqueueReadBuffer(bins_offset, true, 0, sizeof(uint32_t) * (NUM_BINS + 1),
+                                                      bins_offset_cpu.data()))
 
         cl::Buffer c_rpt;
-        CLB_CREATE_BUF(c_rpt = utils::create_buffer(controls, a.nrows() + 1));
-
-        auto init_with_zeroes = kernel<cl::Buffer, uint32_t>
-                ("csr_addition", "init_rpt");
-        init_with_zeroes.set_work_size(a.nrows() + 1);
-        init_with_zeroes.set_block_size(controls.max_wg_size);
-        CLB_RUN(init_with_zeroes.run(controls, c_rpt, a.nrows() + 1));
+        {
+            CLB_CREATE_BUF(c_rpt = utils::create_buffer(controls, a.nrows() + 1));
+            auto init = kernel<cl::Buffer, uint32_t>
+                    ("csr_addition", "init_with_zeroes");
+            init.set_work_size(a.nrows() + 1);
+            init.set_block_size(controls.max_wg_size);
+            CLB_RUN(init.run(controls, c_rpt, a.nrows() + 1));
+        }
 
         {
             START_TIMING
@@ -130,15 +116,15 @@ namespace clbool::csr {
             add_symbolic.set_async(true);
 
             // 0 cat be ignored
-            for (uint32_t i = 1; i < BIN_NUM; ++i) {
-                uint32_t bin_size = bins_offset[i + 1] - bins_offset[i];
+            for (uint32_t i = 1; i < NUM_BINS; ++i) {
+                uint32_t bin_size = bins_offset_cpu[i + 1] - bins_offset_cpu[i];
                 if (bin_size == 0) continue;
                 uint32_t bs = get_block_size(i);
                 add_symbolic.set_block_size(bs);
                 add_symbolic.set_work_size(bs * bin_size);
                 cl::Event ev;
                 CLB_RUN(ev = add_symbolic.run(controls, a.rpt_gpu(), a.cols_gpu(), b.rpt_gpu(), b.cols_gpu(),c_rpt, a.nrows(),
-                                         estimation, bins_offset[i]));
+                                         permutation, bins_offset_cpu[i]));
                 events.push_back(ev);
             }
 
@@ -165,15 +151,15 @@ namespace clbool::csr {
                         ("csr_addition", "addition_numeric");
             add_numeric.set_async(true);
 
-            for (uint32_t i = 1; i < BIN_NUM; ++i) {
-                uint32_t bin_size = bins_offset[i + 1] - bins_offset[i];
+            for (uint32_t i = 1; i < NUM_BINS; ++i) {
+                uint32_t bin_size = bins_offset_cpu[i + 1] - bins_offset_cpu[i];
                 if (bin_size == 0) continue;
                 uint32_t bs = get_block_size(i);
                 add_numeric.set_block_size(bs);
                 add_numeric.set_work_size(bs * bin_size);
                 cl::Event ev;
                 CLB_RUN(ev = add_numeric.run(controls, a.rpt_gpu(), a.cols_gpu(), b.rpt_gpu(), b.cols_gpu(), c_rpt, c_cols,
-                                        estimation, bins_offset[i]));
+                                        permutation, bins_offset_cpu[i]));
                 events.push_back(ev);
             }
 
