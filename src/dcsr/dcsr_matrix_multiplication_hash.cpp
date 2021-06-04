@@ -2,7 +2,6 @@
 #include <sstream>
 #include "dcsr_matrix_multiplication.hpp"
 #include "dcsr_matrix_multiplication_hash.hpp"
-#include "../coo/coo_utils.hpp"
 
 const uint32_t BINS_NUM = 8;
 const uint32_t MAX_GROUP_ID = BINS_NUM - 1;

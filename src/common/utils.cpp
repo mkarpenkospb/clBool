@@ -1,6 +1,4 @@
-#include <matrix_csr.hpp>
 #include "utils.hpp"
-#include "libutils/fast_random.h"
 
 namespace clbool::utils {
 
@@ -145,6 +143,7 @@ namespace clbool::utils {
         for (auto const &item: cpu_copy) {
             std::cout << counter << ": " << item << ", ";
             counter++;
+            if (counter % 200 == 0) std::cout << std::endl;
         }
         std::cout << std::endl;
     }
@@ -176,6 +175,13 @@ namespace clbool::utils {
 
     cl::Buffer create_buffer(Controls &controls, cpu_buffer &cpuBuffer, bool readonly) {
         return cl::Buffer(controls.queue, cpuBuffer.begin(), cpuBuffer.end(), readonly);
+    }
+
+    cl::Event read_buffer(Controls &controls, cpu_buffer &result, const cl::Buffer &source) {
+        cl::Event ev;
+        controls.queue.enqueueReadBuffer(source, false, 0, sizeof(uint32_t) * result.size(), result.data(),
+                                         nullptr, &ev);
+        return ev;
     }
 
 }

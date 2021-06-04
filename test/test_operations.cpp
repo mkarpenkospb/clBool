@@ -1,5 +1,6 @@
 #include "src/clBool_tests.hpp"
 #include "../../src/coo/coo.hpp"
+#include "../../src/csr/csr.hpp"
 #include <gtest/gtest.h>
 
 
@@ -56,16 +57,21 @@ TEST(clBool_operations, multiplication_merge) {
 
 TEST(clBool_operations, addition_coo) {
     clbool::Controls controls = clbool::create_controls();
+
+    // SMALL
+
     for (int size = 0; size < 5000; size += 200) {
         for (uint32_t k_a = 0; k_a < 20; k_a += 5) {
             for (uint32_t k_b = 0; k_b < 20; k_b += 5) {
-//for(int i = 0; i < 10; ++i) {
-//                uint32_t size = 200, k_a = 10, k_b = 5;
                 ASSERT_TRUE(test_addition_coo(controls, size, k_a, k_b));
-//    }
             }
         }
     }
+
+    // AVG
+
+
+    // LARGE
 }
 
 TEST(clBool_operations, addition_csr) {
@@ -99,7 +105,9 @@ TEST(clBool_operations, kronecker_dcsr) {
 
 TEST(clBool_operations, example) {
 
-    clbool::Controls controls = clbool::create_controls();
+   clbool::Controls controls = clbool::create_controls();
+
+    // ----------------------------- COO ------------------------------------
     uint32_t a_nrows = 5, a_ncols = 5, a_nnz = 6;
     std::vector<uint32_t> a_rows = {0, 0, 0, 2, 2, 4};
     std::vector<uint32_t> a_cols = {0, 1, 4, 2, 3, 2};
@@ -114,4 +122,25 @@ TEST(clBool_operations, example) {
 
     clbool::matrix_coo c_coo;
     clbool::coo::matrix_addition(controls, c_coo, a_coo, b_coo);
+    clbool::coo::kronecker_product(controls, c_coo, a_coo, b_coo);
+
+
+    // ----------------------------- DCSR --------------------------------
+
+    clbool::matrix_dcsr a_dcsr = clbool::coo_to_dcsr_shallow(controls, a_coo);
+    clbool::matrix_dcsr b_dcsr = clbool::coo_to_dcsr_shallow(controls, b_coo);
+
+    clbool::matrix_dcsr c_dcsr;
+    clbool::dcsr::matrix_multiplication_hash(controls, c_dcsr, a_dcsr, b_dcsr);
+    clbool::dcsr::kronecker_product(controls, c_dcsr, a_dcsr, b_dcsr);
+    clbool::dcsr::reduce(controls, c_dcsr, a_dcsr);
+    clbool::dcsr::submatrix(controls, c_dcsr, a_dcsr, 0, 2, 3, 2);
+
+    // ----------------------------- CSR --------------------------------
+
+    clbool::matrix_csr a_csr = clbool::dcsr_to_csr(controls, a_dcsr);
+    clbool::matrix_csr b_csr = clbool::dcsr_to_csr(controls, b_dcsr);
+
+    clbool::matrix_csr c_csr;
+    clbool::csr::matrix_addition(controls, c_csr, a_csr, b_csr);
 }

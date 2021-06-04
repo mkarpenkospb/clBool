@@ -1,7 +1,7 @@
 #pragma once
 
-#include "headers_map.hpp"
-#include <error.hpp>
+#include "../cl/headers/headers_map.hpp"
+#include "error.hpp"
 
 namespace clbool::details {
     using program_id = std::string; // kernel name|options

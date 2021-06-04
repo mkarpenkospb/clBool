@@ -7,7 +7,7 @@
 #include <fstream>
 
 #include "CL/opencl.hpp"
-#include <core/error.hpp>
+#include "../core/error.hpp"
 #define DEBUG_ENABLE 0
 
 
@@ -18,6 +18,7 @@
 #if DEBUG_ENABLE
 inline std::string LOG_PATH = "C:/Users/mkarp/GitReps/clean_matrix/sparse_boolean_matrix_operations/log/log.txt";
 #endif
+
 
 inline std::ostream & get_log_stream(const std::string& path = "") {
     if (path.empty()) {

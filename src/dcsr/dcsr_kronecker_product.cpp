@@ -1,6 +1,4 @@
 #include "dcsr.hpp"
-#include "utils.hpp"
-#include "cl_operations.hpp"
 #include <cassert>
 
 namespace clbool::dcsr {

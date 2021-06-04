@@ -1,5 +1,5 @@
 #pragma once
-
+#include <gtest/gtest.h>
 #include <random>
 #include "../dcsr/dcsr.hpp"
 #include <matrices_conversions.hpp>
@@ -36,4 +36,6 @@ bool test_pref_sum(clbool::Controls &controls, uint32_t size);
 // pieces
 bool test_new_merge(clbool::Controls &controls, uint32_t size_a, uint32_t size_b);
 
+void test_dcsr_csr(clbool::Controls &controls, uint32_t size, uint32_t k);
 
+void test_csr_dcsr(clbool::Controls &controls, uint32_t size, uint32_t k);

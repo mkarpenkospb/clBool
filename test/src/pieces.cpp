@@ -1,5 +1,4 @@
 #include "clBool_tests.hpp"
-#include "coo.hpp"
 
 using namespace clbool;
 using namespace clbool::coo_utils;

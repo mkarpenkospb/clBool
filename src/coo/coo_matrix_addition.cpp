@@ -1,6 +1,5 @@
 
-#include "controls.hpp"
-#include "kernel.hpp"
+
 #include "coo_utils.hpp"
 
 
@@ -59,7 +58,7 @@ namespace clbool::coo {
 
             CLB_CREATE_BUF(controls.queue.enqueueCopyBuffer(filled.rows_gpu(), rows, 0, 0, sizeof(uint32_t) * filled.nnz()));
             CLB_CREATE_BUF(controls.queue.enqueueCopyBuffer(filled.cols_gpu(), cols, 0, 0, sizeof(uint32_t) * filled.nnz()));
-            matrix_out = matrix_coo(filled.nrows(), filled.ncols(), filled.nnz(), rows, cols);
+            matrix_out = matrix_coo(rows, cols, filled.nrows(), filled.ncols(), filled.nnz());
 
             return;
         }

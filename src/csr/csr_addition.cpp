@@ -1,9 +1,5 @@
 #include "csr.hpp"
 
-#include "matrix_csr.hpp"
-#include "utils.hpp"
-#include "kernel.hpp"
-#include <cl_operations.hpp>
 #include <sstream>
 
 namespace clbool::csr {

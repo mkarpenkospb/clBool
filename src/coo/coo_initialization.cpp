@@ -1,5 +1,4 @@
-#include <utils.hpp>
-#include <kernel.hpp>
+#include "coo_initialization.hpp"
 #include <cstdint>
 
 namespace clbool::coo {

@@ -1,6 +1,6 @@
 #include "clBool_tests.hpp"
 
-#include "coo.hpp"
+#include "coo/coo.hpp"
 #include "csr/csr.hpp"
 
 using namespace clbool;

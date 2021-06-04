@@ -6,7 +6,7 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17")
 
 find_package(OpenCL 1.1 REQUIRED)
 
-set(CLBOOL_DIRS "src/core" "src/common" "src/cl/headers" "src/coo" "libs/utils")
+set(CLBOOL_DIRS "libs/utils" )
 
 set(KERNELS)
 set(CLBOOL_SOURCES)
@@ -39,6 +39,8 @@ list(APPEND KERNELS
         for_test/new_merge
         dcsr_kronecker
         coo_reduce_duplicates
+        initialization
+        conversions
         )
 
 foreach(KERNEL ${KERNELS})
@@ -105,3 +107,10 @@ target_include_directories(clbool PUBLIC ${CMAKE_CURRENT_LIST_DIR}/src/)
 target_compile_definitions(clbool PUBLIC CL_HPP_ENABLE_EXCEPTIONS)
 target_compile_definitions(clbool PUBLIC CL_HPP_MINIMUM_OPENCL_VERSION=110)
 target_compile_definitions(clbool PUBLIC CL_HPP_TARGET_OPENCL_VERSION=110)
+
+
+INSTALL (
+    DIRECTORY src
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h*"
+)

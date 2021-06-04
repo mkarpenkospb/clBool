@@ -1,5 +1,4 @@
 #include "cl_operations.hpp"
-#include "kernel.hpp"
 
 namespace clbool {
     void prefix_sum(Controls &controls,
@@ -87,4 +86,17 @@ namespace clbool {
         CLB_READ_BUF(controls.queue.enqueueReadBuffer(total_sum_gpu, CL_TRUE, 0, sizeof(uint32_t), &total_sum));
 
     }
+
+    void fill_with_zeroes(Controls &controls, cl::Buffer &array, uint32_t size) {
+        fill_with(controls, array, size, 0);
+    }
+
+    void fill_with(Controls &controls, cl::Buffer &array, uint32_t size, uint32_t value) {
+        auto fill = kernel<cl::Buffer, uint32_t, uint32_t>
+                ("initialization", "fill_with");
+        fill.set_block_size(controls.max_wg_size);
+        fill.set_work_size(size);
+        CLB_RUN(fill.run(controls, array, size, value).wait());
+    }
+
 }

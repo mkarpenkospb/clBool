@@ -10,6 +10,7 @@ add_executable(test
         src/operations.cpp
         src/procedures.cpp
         src/pieces.cpp
+        src/conversions.cpp
 
         check_test_utils.cpp
 
@@ -17,6 +18,7 @@ add_executable(test
         test_operations.cpp
         test_pieces.cpp
         test_errors.cpp
+        test_conversions.cpp
         )
 target_link_libraries(test gtest gtest_main clbool)
 

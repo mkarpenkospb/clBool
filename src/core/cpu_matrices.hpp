@@ -120,6 +120,11 @@ namespace clbool {
                 ,_ncols(ncols)
                 {}
 
+        matrix_csr_cpu(uint32_t nrows, uint32_t ncols)
+        : _nrows(nrows)
+        , _ncols(ncols)
+        {}
+
         matrix_csr_cpu() = default;
 
         matrix_csr_cpu &operator=(matrix_csr_cpu other) {

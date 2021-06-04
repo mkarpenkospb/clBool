@@ -1,10 +1,11 @@
 #pragma once
 
-#include <matrix_csr.hpp>
-#include "controls.hpp"
-#include "matrix_coo.hpp"
-#include "matrix_dcsr.hpp"
-#include "cpu_matrices.hpp"
+#include "libutils/fast_random.h"
+#include "../core/matrix_csr.hpp"
+#include "../core/controls.hpp"
+#include "../core/matrix_coo.hpp"
+#include "../core/matrix_dcsr.hpp"
+#include "../core/cpu_matrices.hpp"
 
 
 namespace clbool::utils {
@@ -40,4 +41,5 @@ namespace clbool::utils {
 
     cl::Buffer create_buffer(Controls &controls, uint32_t size);
     cl::Buffer create_buffer(Controls &controls, cpu_buffer &cpuBuffer, bool readonly = false);
+    cl::Event read_buffer(Controls &controls, cpu_buffer &result, const cl::Buffer &source);
 }

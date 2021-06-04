@@ -1,5 +1,5 @@
 #include "dcsr.hpp"
-#include "utils.hpp"
+
 
 namespace clbool::dcsr {
     void reduce(Controls &controls, matrix_dcsr &matrix_out, const matrix_dcsr &matrix_in) {
