@@ -107,10 +107,3 @@ target_include_directories(clbool PUBLIC ${CMAKE_CURRENT_LIST_DIR}/src/)
 target_compile_definitions(clbool PUBLIC CL_HPP_ENABLE_EXCEPTIONS)
 target_compile_definitions(clbool PUBLIC CL_HPP_MINIMUM_OPENCL_VERSION=110)
 target_compile_definitions(clbool PUBLIC CL_HPP_TARGET_OPENCL_VERSION=110)
-
-
-INSTALL (
-    DIRECTORY src
-    DESTINATION include
-    FILES_MATCHING PATTERN "*.h*"
-)

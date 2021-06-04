@@ -35,7 +35,7 @@ We choose COO and DCSR formats because they need O(nnz) memory space, which can 
 matrices appearing in CFPQ and RPQ, where nnz is a number of nonzero values in a matrix.
 
 **Addition** in COO format is faster on large matrices with almost equally distributed nonzero values per row,
-but it demands nearly twice as much memory as CSR version. CSR-based implementation are faster for matrices with 
+but it demands nearly twice as much memory as CSR version. CSR-based implementation is faster for matrices with 
 dense rows.
 
 **For matrix multiplication** there are two algorithms, `matrix_multoplication` and 
@@ -66,14 +66,12 @@ dense rows.
     std::vector<uint32_t> b_rows = {1, 1, 2, 3, 3, 3, 5};
     std::vector<uint32_t> b_cols = {0, 4, 2, 2, 3, 4, 2};
 
-    clbool::matrix_coo a_coo(controls, a_nrows, a_ncols, a_nnz, a_rows.data(), a_cols.data());
-    clbool::matrix_coo b_coo(controls, b_nrows, b_ncols, b_nnz, b_rows.data(), b_cols.data());
+    clbool::matrix_coo a_coo(controls, a_rows.data(), a_cols.data(), a_nrows, a_ncols, a_nnz);
+    clbool::matrix_coo b_coo(controls, b_rows.data(), b_cols.data(), b_nrows, b_ncols, b_nnz);
 
     clbool::matrix_coo c_coo;
     clbool::coo::matrix_addition(controls, c_coo, a_coo, b_coo);
-    clbool::coo::kronecker_product(controls, c_coo, a_coo, b_coo);
-
-
+    
     // ----------------------------- DCSR --------------------------------
     clbool::matrix_dcsr a_dcsr = clbool::coo_to_dcsr_shallow(controls, a_coo);
     clbool::matrix_dcsr b_dcsr = clbool::coo_to_dcsr_shallow(controls, b_coo);
@@ -100,9 +98,27 @@ dense rows.
 
 ### How to build
 
+Install OpenCL library for your device. 
+
+Get the code and init gtest module 
+```shell
+git clone https://github.com/mkarpenkospb/clBool
+cd clBool
+git submodule update --init --recursive
+```
+
 For Windows you should define cmake options:  
- -DOpenCL_LIBRARY=<path-to-opencl>/OpenCL.dll   
+```shell
+ -DOpenCL_LIBRARY=<path-to-opencl>/OpenCL.dll     
  -DOpenCL_INCLUDE_DIR=libs/clew
+```
+
+Build library
+
+
+cmake .. -DCMAKE_BUILD_TYPE=Release -DOpenCL_LIBRARY=C:/Windows/System32/OpenCL.dll -DOpenCL_INCLUDE_DIR=libs/clew -G "MinGW Makefiles"
+
+
 
 ### How to use
 

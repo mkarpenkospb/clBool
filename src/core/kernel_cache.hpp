@@ -34,7 +34,7 @@ namespace clbool::details {
             {
                 START_TIMING
                 KernelSource source = source_ptr->second;
-                cl_program = cl::Program(controls.context, {{source.kernel, source.length}});
+                cl_program = cl::Program(controls.context, std::vector<std::basic_string<char>>{{source.kernel, source.length}});
                 CLB_BUILD(cl_program.build(options.c_str()));
                 KernelCache::programs[program_key] = cl_program;
                 END_TIMING(" kernel " + program_name + " build in: ")
