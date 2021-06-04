@@ -102,26 +102,19 @@ Install OpenCL library for your device.
 
 Get the code and init gtest module 
 ```shell
-git clone https://github.com/mkarpenkospb/clBool
-cd clBool
-git submodule update --init --recursive
-```
-
-For Windows you should define cmake options:  
-```shell
- -DOpenCL_LIBRARY=<path-to-opencl>/OpenCL.dll     
- -DOpenCL_INCLUDE_DIR=libs/clew
+ git clone https://github.com/mkarpenkospb/clBool
+ cd clBool
+ git submodule update --force --recursive --init --remote
 ```
 
 Build library
 
-
-cmake .. -DCMAKE_BUILD_TYPE=Release -DOpenCL_LIBRARY=C:/Windows/System32/OpenCL.dll -DOpenCL_INCLUDE_DIR=libs/clew -G "MinGW Makefiles"
-
-
-
-### How to use
-
+```shell
+ mkdir build
+ cd build/
+ cmake .. -DCMAKE_BUILD_TYPE=Release -DOpenCL_LIBRARY=<path to OpenCL> -DOpenCL_INCLUDE_DIR=libs/clew [-G "MinGW Makefiles"]
+ cmake --build . --target clbool
+```
 
 
 
