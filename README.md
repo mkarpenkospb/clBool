@@ -38,7 +38,7 @@ matrices appearing in CFPQ and RPQ, where nnz is a number of nonzero values in a
 but it demands nearly twice as much memory as CSR version. CSR-based implementation is faster for matrices with 
 dense rows.
 
-**For matrix multiplication** there are two algorithms, `matrix_multoplication` and 
+**For matrix multiplication** there are two algorithms, `matrix_multiplication` and 
 `matrix_multiplication_hash`, and the second is preferable to use.
 
 **Kronecker product** is implemented for DCSR and COO formats, and DCSR implementation is mush more faster.
@@ -115,6 +115,4 @@ Build library
  cmake .. -DCMAKE_BUILD_TYPE=Release -DOpenCL_LIBRARY=<path to OpenCL> -DOpenCL_INCLUDE_DIR=libs/clew [-G "MinGW Makefiles"]
  cmake --build . --target clbool
 ```
-
-
 

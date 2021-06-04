@@ -29,7 +29,7 @@ TEST(clBool_procedures, coo_constructor) {
     uint32_t ncols = 7;
     uint32_t nnz = rows.size();
 
-    clbool::matrix_coo mCoo(controls, nrows, ncols, nnz, rows.data(), cols.data(), true, false);
+    clbool::matrix_coo mCoo(controls, rows.data(), cols.data(),  nrows, ncols, nnz, true, false);
     ASSERT_TRUE(mCoo.nnz() == nnz - 2);
 }
 
@@ -42,13 +42,13 @@ TEST(clBool_procedures, double_initialisation) {
     uint32_t ncols = 7;
     uint32_t nnz = rows.size();
 
-    clbool::matrix_coo mCoo(*controls, nrows, ncols, nnz, rows.data(), cols.data(), true, false);
+    clbool::matrix_coo mCoo(*controls, rows.data(), cols.data(), nrows, ncols, nnz, true, false);
     ASSERT_TRUE(mCoo.nnz() == nnz - 2);
 
     controls.reset();
     controls = std::make_shared<clbool::Controls>(clbool::create_controls());
 
-    clbool::matrix_coo mCoo_2(*controls, nrows, ncols, nnz, rows.data(), cols.data(), true, false);
+    clbool::matrix_coo mCoo_2(*controls, rows.data(), cols.data(), nrows, ncols, nnz, true, false);
     ASSERT_TRUE(mCoo.nnz() == nnz - 2);
 
 }

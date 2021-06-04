@@ -3,20 +3,41 @@
 #include "../../src/csr/csr.hpp"
 #include <gtest/gtest.h>
 
+// ------------------------ transpose -------------------------------
 
-TEST(clBool_operations, transpose) {
+TEST(clBool_operations, transpose_small) {
     clbool::Controls controls = clbool::create_controls();
-    for (uint32_t k = 0; k < 30; ++k) {
-        for (int size = 0; size < 400; size += 200) {
+    for (int size = 0; size < 100; size+=5) {
+        for (uint32_t k = 0; k < 20; k++) {
             ASSERT_TRUE(test_transpose(controls, size, k));
         }
     }
 }
 
+TEST(clBool_operations, transpose_medium) {
+    clbool::Controls controls = clbool::create_controls();
+    for (int size = 100; size < 1000; size+=50) {
+        for (uint32_t k = 10; k < 30; k+=5) {
+            ASSERT_TRUE(test_transpose(controls, size, k));
+        }
+    }
+}
+
+TEST(clBool_operations, transpose_large) {
+    clbool::Controls controls = clbool::create_controls();
+    for (uint32_t size = 1000; size < 10000; size += 600) {
+        for (uint32_t k = 30; k < 70; k += 10) {
+            ASSERT_TRUE(test_transpose(controls, size, k));
+        }
+    }
+}
+
+// ------------------------ submatrix -------------------------------
+
 TEST(clBool_operations, submatrix) {
     clbool::Controls controls = clbool::create_controls();
-    for (uint32_t k = 0; k < 60; ++k) {
-        for (int size = 0; size < 30000; size += 200) {
+    for (int size = 0; size < 30000; size += 200) {
+        for (uint32_t k = 0; k < 60; ++k) {
             ASSERT_TRUE(test_submatrix(controls, size, k));
         }
     }
@@ -42,14 +63,9 @@ TEST(clBool_operations, multiplication_hash) {
 
 TEST(clBool_operations, multiplication_merge) {
     clbool::Controls controls = clbool::create_controls();
-//    for (uint32_t t = 0; t < 50; ++t) {
     for (uint32_t k = 0; k < 20; ++k) {
         for (int size = 0; size < 1000; size += 200) {
-//        std::cout << "||| ITER = " << t << std::endl;
-//            uint32_t size = 3200, k = 40;
             ASSERT_TRUE(test_multiplication_merge(controls, size, k));
-//        }
-//        if (i >= test_iters) break;
         }
     }
 }
@@ -117,8 +133,8 @@ TEST(clBool_operations, example) {
     std::vector<uint32_t> b_rows = {1, 1, 2, 3, 3, 3, 5};
     std::vector<uint32_t> b_cols = {0, 4, 2, 2, 3, 4, 2};
 
-    clbool::matrix_coo a_coo(controls, a_nrows, a_ncols, a_nnz, a_rows.data(), a_cols.data());
-    clbool::matrix_coo b_coo(controls, b_nrows, b_ncols, b_nnz, b_rows.data(), b_cols.data());
+    clbool::matrix_coo a_coo(controls, a_rows.data(), a_cols.data(),  a_nrows, a_ncols, a_nnz);
+    clbool::matrix_coo b_coo(controls, b_rows.data(), b_cols.data(), b_nrows, b_ncols, b_nnz);
 
     clbool::matrix_coo c_coo;
     clbool::coo::matrix_addition(controls, c_coo, a_coo, b_coo);
