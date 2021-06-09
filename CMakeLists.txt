@@ -36,7 +36,6 @@ list(APPEND KERNELS
         merge_large_rows
         bitonic_esc
         count_workload
-        for_test/new_merge
         dcsr_kronecker
         coo_reduce_duplicates
         initialization

@@ -1,6 +1,4 @@
 #include "../common/cl_operations.hpp"
-#include "matrix_coo.hpp"
-#include "kernel.hpp"
 
 namespace clbool {
     matrix_coo::matrix_coo(index_type nrows,
@@ -123,6 +121,7 @@ namespace clbool {
         cl::Buffer duplicates_per_tb;
         CLB_CREATE_BUF(duplicates_per_tb = utils::create_buffer(controls, groups_num + 1));
 
+        // compare equal values on the edge of group
         auto init_duplicates = kernel<cl::Buffer, cl::Buffer, cl::Buffer, uint32_t, uint32_t>
                 ("coo_reduce_duplicates", "init_duplicates");
         init_duplicates.set_block_size(controls.max_wg_size);

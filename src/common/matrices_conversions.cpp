@@ -256,7 +256,7 @@ namespace clbool {
         {
             auto set_rsize = kernel<cl::Buffer, cl::Buffer, uint32_t, cl::Buffer>
                     ("conversions", "dcsr_to_csr_set_size");
-            set_rsize.set_block_size(controls.max_wg_size);
+            set_rsize.set_block_size(controls.block_size);
             set_rsize.set_work_size(m.nzr());
 
             CLB_RUN(set_rsize.run(controls, m.rpt_gpu(), m.rows_gpu(), m.nzr(), c_rpt));

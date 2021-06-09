@@ -5,8 +5,21 @@
  * Platform and device ids which throws depends on available number of platforms and devices!
  */
 TEST(clBool_errors, invalid_ids) {
-    EXPECT_THROW(clbool::Controls controls = clbool::create_controls(0, 1), clbool::Exception);
-    EXPECT_THROW(clbool::Controls controls = clbool::create_controls(10, 0), clbool::Exception);
+
+    size_t platformsNum = 0, devicesMaxNum = 0;
+
+    {
+        std::vector<cl::Platform> platforms;
+        std::vector<cl::Device> devices;
+        cl::Platform::get(&platforms);
+        platformsNum = platforms.size();
+        for (auto const& platform: platforms) {
+            platform.getDevices(CL_DEVICE_TYPE_ALL, &devices);
+            devicesMaxNum = std::max(devicesMaxNum, devices.size());
+        }
+    }
+
+    EXPECT_THROW(clbool::Controls controls = clbool::create_controls(platformsNum, devicesMaxNum), clbool::Exception);
 }
 
 TEST(clBool_errors, invalid_kernel) {

@@ -219,6 +219,7 @@ void scan_blelloch(__local uint *positions) {
     barrier(CLK_LOCAL_MEM_FENCE);
 
     if (local_id == 0) {
+        positions[block_size] = positions[block_size - 1];
         positions[block_size - 1] = 0;
     }
 
@@ -375,10 +376,16 @@ __kernel void addition_numeric(__global const uint *a_rpt,
         barrier(CLK_LOCAL_MEM_FENCE);
 
         scan_blelloch(res);
+//        res = res + 1;
 
         barrier(CLK_LOCAL_MEM_FENCE);
         if (take) {
             c_cols[global_offset_c + res[j]] = answer;
+//            if (global_offset_c + res[j] == 302) {
+//                printf("answer: %d\n"
+//                       "local_id: %d\n"
+//                       "j: %d\n", answer, local_id, j);
+//            }
         }
 
         global_offset_c += res[block_size];

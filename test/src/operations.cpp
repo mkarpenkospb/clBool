@@ -86,12 +86,10 @@ bool test_reduce(Controls &controls, uint32_t size, uint32_t k) {
     uint32_t max_size = size;
     uint32_t nnz_max = max_size * k;
 
-    LOG << " ------------------------------- k = " << k << ", size = " << size
-        << " -------------------------------------------\n"
-        << "max_size = " << size << ", nnz_max = " << nnz_max;
-
     matrix_dcsr_cpu a_cpu = coo_to_dcsr_cpu(generate_coo_cpu(nnz_max, max_size));
-
+    std::cout << " ------------------------------- k = " << k << ", size = " << size
+        << " -------------------------------------------\n"
+        << "size = " << size << ", nnz = " << a_cpu.cols().size() << std::endl;
     matrix_dcsr a_gpu;
     {
         START_TIMING
@@ -117,6 +115,47 @@ bool test_reduce(Controls &controls, uint32_t size, uint32_t k) {
 }
 
 
+
+bool test_submatrix_zeroe(Controls &controls, uint32_t size, uint32_t k) {
+
+    uint32_t max_size = size;
+    uint32_t nnz_max = max_size * k;
+
+    uint32_t i = 0;
+    uint32_t nrows = 0;
+
+    uint32_t j = 0;
+    uint32_t ncols = 0;
+
+    std::cout << "i = " << i << ", j = " << j << ", nrows = " << nrows << ", ncols = " << ncols << "\n\n";
+
+    matrix_dcsr_cpu a_cpu = coo_pairs_to_dcsr_cpu(generate_coo_pairs_cpu(nnz_max, max_size));
+    matrix_dcsr_cpu c_cpu;
+
+    std::cout << " ------------------------------- k = " << k << ", size = " << size
+    << "-------------------------------------------\n"
+    << "size = " << size << ", nnz = " << a_cpu.cols().size() << std::endl;
+
+    {
+        START_TIMING
+        submatrix_cpu(c_cpu, a_cpu, i, j, nrows, ncols);
+        END_TIMING("submatrix on CPU: ")
+    }
+
+    matrix_dcsr a_gpu = matrix_dcsr_from_cpu(controls, a_cpu, max_size);
+    matrix_dcsr c_gpu;
+
+    {
+        START_TIMING
+        dcsr::submatrix(controls, c_gpu, a_gpu, i, j, nrows, ncols);
+        END_TIMING("submatrix on DEVICE: ")
+    }
+
+    return compare_matrices(controls, c_gpu, c_cpu);
+}
+
+
+
 bool test_submatrix(Controls &controls, uint32_t size, uint32_t k) {
     
 
@@ -126,9 +165,6 @@ bool test_submatrix(Controls &controls, uint32_t size, uint32_t k) {
     uint32_t max_size = size;
     uint32_t nnz_max = max_size * k;
 
-    LOG << " ------------------------------- k = " << k << ", size = " << size
-        << "-------------------------------------------\n"
-        << "max_size = " << size << ", nnz_max = " << nnz_max;
 
     std::uniform_int_distribution<uint32_t> rnd_idx{0, max_size};
     uint32_t i1 = rnd_idx(mersenne_engine);
@@ -142,12 +178,14 @@ bool test_submatrix(Controls &controls, uint32_t size, uint32_t k) {
     uint32_t j = std::min(i3, i4);
     uint32_t ncols = std::max(i3, i4) - j;
 
-
-    LOG << "i = " << i << ", j = " << j << ", nrows = " << nrows << ", ncols = " << ncols;
-
     matrix_dcsr_cpu a_cpu = coo_pairs_to_dcsr_cpu(generate_coo_pairs_cpu(nnz_max, max_size));
     matrix_dcsr_cpu c_cpu;
 
+    std::cout << " ------------------------------- k = " << k << ", size = " << size << ", nnz = " << a_cpu.cols().size()
+    << "-------------------------------------------\n";
+
+
+    std::cout << "i = " << i << ", j = " << j << ", nrows = " << nrows << ", ncols = " << ncols << "\n\n";
 
     {
         START_TIMING
@@ -205,17 +243,17 @@ bool test_transpose(Controls &controls, uint32_t size, uint32_t k) {
 bool test_addition_coo(Controls &controls, uint32_t size, uint32_t k_a, uint32_t k_b) {
     
 
-    std::cout << " ------------------------------- k_a = " << k_a << ", k_b = " << k_b << ", "  << "size = " << size
-    << " -------------------------------------------\n";
-
-
     matrix_coo_cpu_pairs matrix_res_cpu;
     matrix_coo_cpu_pairs matrix_a_cpu = coo_utils::generate_coo_pairs_cpu(size * k_a, size);
     matrix_coo_cpu_pairs matrix_b_cpu = coo_utils::generate_coo_pairs_cpu(size * k_b, size);
 
+    std::cout << " ------------------------------- k_a = " << k_a << ", k_b = " << k_b << ", "  << "size = " << size
+    << " -------------------------------------------\n";
+
     matrix_coo matrix_res_gpu;
     matrix_coo matrix_a_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_a_cpu, size, size);
     matrix_coo matrix_b_gpu = coo_utils::matrix_coo_from_cpu(controls, matrix_b_cpu, size, size);
+    std::cout  << "nnz_a = " << matrix_a_gpu.nnz() << ", nnz_b = " <<  matrix_b_gpu.nnz() << std::endl;
 
     {
         START_TIMING
@@ -239,20 +277,18 @@ bool test_addition_coo(Controls &controls, uint32_t size, uint32_t k_a, uint32_t
         return false;
     }
 
-    return compare_buffers(controls, matrix_res_gpu.rows_gpu(), rows_cpu, rows_cpu.size(), "rows") &&
+    return
+    compare_buffers(controls, matrix_res_gpu.rows_gpu(), rows_cpu, rows_cpu.size(), "rows") &&
            compare_buffers(controls, matrix_res_gpu.cols_gpu(), cols_cpu, cols_cpu.size(), "cols");
 }
 
 bool test_kronecker_coo(clbool::Controls &controls,
                         uint32_t size_a, uint32_t size_b, uint32_t nnz_a, uint32_t nnz_b, uint32_t k) {
-    
 
-    LOG << " ---------------------------------- k = " <<
+    std::cout << " ---------------------------------- k = " <<
     k << ", size_a = " << size_a << ", size_b = " << size_b
     << " ----------------------------------\n"
-    << " ---------------------------------- " <<
-    "nnz_a = " << nnz_a << ", nnz_b = " << nnz_b << ", result size: " << nnz_a * nnz_b <<
-    " ----------------------------------\n";
+    "nnz_a = " << nnz_a << ", nnz_b = " << nnz_b << ", result size: " << nnz_a * nnz_b << std::endl;
 
     matrix_coo_cpu_pairs matrix_res_cpu;
     matrix_coo_cpu_pairs matrix_a_cpu = coo_utils::generate_coo_pairs_cpu(nnz_a, size_a);
@@ -287,7 +323,7 @@ bool test_kronecker_dcsr(clbool::Controls &controls,
                          uint32_t size_a, uint32_t size_b, uint32_t nnz_a, uint32_t nnz_b, uint32_t k) {
     
 
-    LOG << " ---------------------------------- k = " <<
+    std::cout << " ---------------------------------- k = " <<
     k << ", size_a = " << size_a << ", size_b = " << size_b
     << " ----------------------------------\n"
     << " ---------------------------------- " <<
@@ -391,8 +427,7 @@ bool test_addition_csr(Controls &controls, uint32_t size, uint32_t k_a, uint32_t
     matrix_coo_cpu_pairs matrix_a_cpu = coo_utils::generate_coo_pairs_cpu(size * k_a, size);
     matrix_coo_cpu_pairs matrix_b_cpu = coo_utils::generate_coo_pairs_cpu(size * k_b, size);
 
-    std::cout << " ------------------------------- nnz_a = " << matrix_a_cpu.size() << ", nnz_b = " << matrix_b_cpu.size()
-        << " -------------------------------------------\n";
+    std::cout << "nnz_a = " << matrix_a_cpu.size() << ", nnz_b = " << matrix_b_cpu.size() << std::endl;
 
     matrix_csr matrix_res_gpu;
     matrix_csr matrix_a_gpu = csr_from_cpu(controls, csr_cpu_from_pairs(matrix_a_cpu, size, size));

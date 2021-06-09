@@ -6,7 +6,9 @@ using namespace clbool::utils;
 
 bool test_pref_sum(Controls &controls, uint32_t size) {
 
-    LOG << "------------------" << " size = " << size << " --------------------";
+    if (size == 0) return true;
+
+    std::cout << "------------------" << " size = " << size << " --------------------\n";
 
     utils::cpu_buffer vec(size, 0);
     utils::fill_random_buffer(vec, 3);
@@ -48,10 +50,9 @@ bool test_pref_sum(Controls &controls, uint32_t size) {
 
 bool test_bitonic_sort(Controls &controls, uint32_t size) {
 
-    // TODO: not true of course
     if (size == 0) return true;
 
-    LOG << "----------------------- size = " << size << " ------------------------";
+    std::cout << "----------------------- size = " << size << " ------------------------\n";
 
     cpu_buffer rows_cpu(size);
     cpu_buffer cols_cpu(size);

@@ -6,6 +6,13 @@
 #include "../coo/coo_utils.hpp"
 #include "cl_includes.hpp"
 #include "env.hpp"
+#include "memory"
+
+
+struct Wrapper {
+    static std::shared_ptr<clbool::Controls> controls;
+    static void initControls();
+};
 
 // operations
 bool test_transpose(clbool::Controls &controls, uint32_t size, uint32_t k);
@@ -32,9 +39,6 @@ bool test_kronecker_dcsr(clbool::Controls &controls,
 bool test_bitonic_sort(clbool::Controls &controls, uint32_t size);
 
 bool test_pref_sum(clbool::Controls &controls, uint32_t size);
-
-// pieces
-bool test_new_merge(clbool::Controls &controls, uint32_t size_a, uint32_t size_b);
 
 void test_dcsr_csr(clbool::Controls &controls, uint32_t size, uint32_t k);
 
